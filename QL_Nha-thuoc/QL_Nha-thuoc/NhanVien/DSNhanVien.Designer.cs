@@ -30,9 +30,9 @@
         {
             panel1 = new Panel();
             groupBox3 = new GroupBox();
-            comboBox2 = new ComboBox();
+            comboBoxNhiemVu = new ComboBox();
             groupBox2 = new GroupBox();
-            comboBox1 = new ComboBox();
+            comboBoxChucDanh = new ComboBox();
             groupBox1 = new GroupBox();
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
@@ -69,7 +69,7 @@
             // groupBox3
             // 
             groupBox3.BackColor = SystemColors.ButtonHighlight;
-            groupBox3.Controls.Add(comboBox2);
+            groupBox3.Controls.Add(comboBoxNhiemVu);
             groupBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             groupBox3.Location = new Point(0, 289);
             groupBox3.Name = "groupBox3";
@@ -78,18 +78,18 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Nhiệu vụ";
             // 
-            // comboBox2
+            // comboBoxNhiemVu
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(19, 48);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(151, 28);
-            comboBox2.TabIndex = 1;
+            comboBoxNhiemVu.FormattingEnabled = true;
+            comboBoxNhiemVu.Location = new Point(19, 48);
+            comboBoxNhiemVu.Name = "comboBoxNhiemVu";
+            comboBoxNhiemVu.Size = new Size(151, 28);
+            comboBoxNhiemVu.TabIndex = 1;
             // 
             // groupBox2
             // 
             groupBox2.BackColor = SystemColors.ButtonHighlight;
-            groupBox2.Controls.Add(comboBox1);
+            groupBox2.Controls.Add(comboBoxChucDanh);
             groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             groupBox2.Location = new Point(0, 160);
             groupBox2.Name = "groupBox2";
@@ -98,13 +98,13 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Chức danh";
             // 
-            // comboBox1
+            // comboBoxChucDanh
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(19, 42);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 28);
-            comboBox1.TabIndex = 0;
+            comboBoxChucDanh.FormattingEnabled = true;
+            comboBoxChucDanh.Location = new Point(19, 42);
+            comboBoxChucDanh.Name = "comboBoxChucDanh";
+            comboBoxChucDanh.Size = new Size(151, 28);
+            comboBoxChucDanh.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -149,7 +149,7 @@
             panel2.Controls.Add(buttonThemNV);
             panel2.Location = new Point(208, 1);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1025, 60);
+            panel2.Size = new Size(1025, 77);
             panel2.TabIndex = 1;
             // 
             // panel4
@@ -188,7 +188,7 @@
             // buttonThemNV
             // 
             buttonThemNV.BackColor = Color.LimeGreen;
-            buttonThemNV.Location = new Point(639, 10);
+            buttonThemNV.Location = new Point(801, 17);
             buttonThemNV.Name = "buttonThemNV";
             buttonThemNV.Size = new Size(130, 40);
             buttonThemNV.TabIndex = 0;
@@ -236,6 +236,7 @@
             Controls.Add(panel1);
             Name = "DSNhanVien";
             Text = "DSNhanVien";
+            Load += DSNhanVien_Load;
             panel1.ResumeLayout(false);
             groupBox3.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
@@ -264,9 +265,9 @@
         private RadioButton radioButton2;
         private TextBox textBoxTimNV;
         private GroupBox groupBox3;
-        private ComboBox comboBox2;
+        private ComboBox comboBoxNhiemVu;
         private GroupBox groupBox2;
-        private ComboBox comboBox1;
+        private ComboBox comboBoxChucDanh;
         private Panel panel4;
         private PictureBox pictureBox1;
     }

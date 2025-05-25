@@ -24,4 +24,15 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DoiTac\" />
+    <Folder Include="HangHoa\" />
+    <Folder Include="GiaoDich\" />
+    <Folder Include="BaoCao\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2" />
+  </ItemGroup>
+
 </Project>
