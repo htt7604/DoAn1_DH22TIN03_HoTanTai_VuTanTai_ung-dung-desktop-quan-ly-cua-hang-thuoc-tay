@@ -25,25 +25,25 @@
           "SelectedChildIndex": 3,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "QL_Nha-thuoc",
-              "DocumentMoniker": "D:\\DoAn\\QL_Nha-thuoc\\QL_Nha-thuoc\\QL_Nha-thuoc.csproj",
-              "RelativeDocumentMoniker": "QL_Nha-thuoc\\QL_Nha-thuoc.csproj",
-              "ToolTip": "D:\\DoAn\\QL_Nha-thuoc\\QL_Nha-thuoc\\QL_Nha-thuoc.csproj*",
-              "RelativeToolTip": "QL_Nha-thuoc\\QL_Nha-thuoc.csproj*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-05-24T15:24:38.473Z",
-              "EditorCaption": ""
-            },
-            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
             },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "QL_Nha-thuoc",
+              "DocumentMoniker": "D:\\DoAn\\QL_Nha-thuoc\\QL_Nha-thuoc\\QL_Nha-thuoc.csproj",
+              "RelativeDocumentMoniker": "QL_Nha-thuoc\\QL_Nha-thuoc.csproj",
+              "ToolTip": "D:\\DoAn\\QL_Nha-thuoc\\QL_Nha-thuoc\\QL_Nha-thuoc.csproj",
+              "RelativeToolTip": "QL_Nha-thuoc\\QL_Nha-thuoc.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-24T15:24:38.473Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
