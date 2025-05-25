@@ -1,0 +1,87 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\DoAn\\QL_Nha-thuoc\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F91C4B8F-204B-4E61-A4FA-77EDECC4F86B}|QL_Nha-thuoc\\QL_Nha-thuoc.csproj|d:\\doan\\ql_nha-thuoc\\ql_nha-thuoc\\formmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{F91C4B8F-204B-4E61-A4FA-77EDECC4F86B}|QL_Nha-thuoc\\QL_Nha-thuoc.csproj|solutionrelative:ql_nha-thuoc\\formmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F91C4B8F-204B-4E61-A4FA-77EDECC4F86B}|QL_Nha-thuoc\\QL_Nha-thuoc.csproj|d:\\doan\\ql_nha-thuoc\\ql_nha-thuoc\\trangdangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{F91C4B8F-204B-4E61-A4FA-77EDECC4F86B}|QL_Nha-thuoc\\QL_Nha-thuoc.csproj|solutionrelative:ql_nha-thuoc\\trangdangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F91C4B8F-204B-4E61-A4FA-77EDECC4F86B}|QL_Nha-thuoc\\QL_Nha-thuoc.csproj|d:\\doan\\ql_nha-thuoc\\ql_nha-thuoc\\ql_nha-thuoc.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{F91C4B8F-204B-4E61-A4FA-77EDECC4F86B}|QL_Nha-thuoc\\QL_Nha-thuoc.csproj|solutionrelative:ql_nha-thuoc\\ql_nha-thuoc.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 505,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "QL_Nha-thuoc",
+              "DocumentMoniker": "D:\\DoAn\\QL_Nha-thuoc\\QL_Nha-thuoc\\QL_Nha-thuoc.csproj",
+              "RelativeDocumentMoniker": "QL_Nha-thuoc\\QL_Nha-thuoc.csproj",
+              "ToolTip": "D:\\DoAn\\QL_Nha-thuoc\\QL_Nha-thuoc\\QL_Nha-thuoc.csproj*",
+              "RelativeToolTip": "QL_Nha-thuoc\\QL_Nha-thuoc.csproj*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-24T15:24:38.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FormMain.cs [Design]",
+              "DocumentMoniker": "D:\\DoAn\\QL_Nha-thuoc\\QL_Nha-thuoc\\FormMain.cs",
+              "RelativeDocumentMoniker": "QL_Nha-thuoc\\FormMain.cs",
+              "ToolTip": "D:\\DoAn\\QL_Nha-thuoc\\QL_Nha-thuoc\\FormMain.cs [Design]",
+              "RelativeToolTip": "QL_Nha-thuoc\\FormMain.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T15:25:37.03Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TrangDangNhap.cs [Design]",
+              "DocumentMoniker": "D:\\DoAn\\QL_Nha-thuoc\\QL_Nha-thuoc\\TrangDangNhap.cs",
+              "RelativeDocumentMoniker": "QL_Nha-thuoc\\TrangDangNhap.cs",
+              "ToolTip": "D:\\DoAn\\QL_Nha-thuoc\\QL_Nha-thuoc\\TrangDangNhap.cs [Design]",
+              "RelativeToolTip": "QL_Nha-thuoc\\TrangDangNhap.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T15:25:14.437Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 66,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
