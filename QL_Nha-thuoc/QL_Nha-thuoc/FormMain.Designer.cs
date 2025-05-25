@@ -321,10 +321,10 @@
             // panelMain
             // 
             panelMain.BackColor = Color.Gainsboro;
-            panelMain.Location = new Point(59, 74);
+            panelMain.Location = new Point(36, 74);
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(1256, 663);
-            panelMain.TabIndex = 0;
+            panelMain.Size = new Size(1320, 663);
+            panelMain.TabIndex = 1;
             // 
             // FormMain
             // 
@@ -332,8 +332,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
             ClientSize = new Size(1400, 749);
-            Controls.Add(panelNoiDung);
             Controls.Add(panelMain);
+            Controls.Add(panelNoiDung);
             Name = "FormMain";
             Text = "FormMain";
             panelNoiDung.ResumeLayout(false);
