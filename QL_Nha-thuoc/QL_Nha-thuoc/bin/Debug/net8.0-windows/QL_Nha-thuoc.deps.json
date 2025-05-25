@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "QL_Nha-thuoc/1.0.0": {
+        "runtime": {
+          "QL_Nha-thuoc.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "QL_Nha-thuoc/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
