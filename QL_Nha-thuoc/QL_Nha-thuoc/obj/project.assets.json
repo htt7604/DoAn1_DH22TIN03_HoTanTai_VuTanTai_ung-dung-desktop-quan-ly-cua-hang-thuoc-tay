@@ -1666,23 +1666,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hotan\\.nuget\\packages\\": {},
+    "C:\\Users\\vutan\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hotan\\OneDrive\\Tài liệu\\GitHub\\DoAn1_DH22TIN03_HoTanTai_VuTanTai_ung-dung-desktop-quan-ly-nha-thuoc-Long-Chau\\QL_Nha-thuoc\\QL_Nha-thuoc\\QL_Nha-thuoc.csproj",
+      "projectUniqueName": "C:\\Users\\vutan\\OneDrive\\Documents\\GitHub\\DoAn1_DH22TIN03_HoTanTai_VuTanTai_ung-dung-desktop-quan-ly-nha-thuoc-Long-Chau\\QL_Nha-thuoc\\QL_Nha-thuoc\\QL_Nha-thuoc.csproj",
       "projectName": "QL_Nha-thuoc",
-      "projectPath": "C:\\Users\\hotan\\OneDrive\\Tài liệu\\GitHub\\DoAn1_DH22TIN03_HoTanTai_VuTanTai_ung-dung-desktop-quan-ly-nha-thuoc-Long-Chau\\QL_Nha-thuoc\\QL_Nha-thuoc\\QL_Nha-thuoc.csproj",
-      "packagesPath": "C:\\Users\\hotan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hotan\\OneDrive\\Tài liệu\\GitHub\\DoAn1_DH22TIN03_HoTanTai_VuTanTai_ung-dung-desktop-quan-ly-nha-thuoc-Long-Chau\\QL_Nha-thuoc\\QL_Nha-thuoc\\obj\\",
+      "projectPath": "C:\\Users\\vutan\\OneDrive\\Documents\\GitHub\\DoAn1_DH22TIN03_HoTanTai_VuTanTai_ung-dung-desktop-quan-ly-nha-thuoc-Long-Chau\\QL_Nha-thuoc\\QL_Nha-thuoc\\QL_Nha-thuoc.csproj",
+      "packagesPath": "C:\\Users\\vutan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\vutan\\OneDrive\\Documents\\GitHub\\DoAn1_DH22TIN03_HoTanTai_VuTanTai_ung-dung-desktop-quan-ly-nha-thuoc-Long-Chau\\QL_Nha-thuoc\\QL_Nha-thuoc\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\hotan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\vutan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1690,6 +1690,8 @@
         "net8.0-windows"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1708,7 +1710,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0-windows7.0": {
@@ -1738,7 +1740,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
