@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
             groupBox3 = new GroupBox();
             comboBoxNhiemVu = new ComboBox();
             groupBox2 = new GroupBox();
@@ -36,44 +35,44 @@
             groupBox1 = new GroupBox();
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
-            panel2 = new Panel();
             panel4 = new Panel();
             pictureBox1 = new PictureBox();
             textBoxTimNV = new TextBox();
-            buttonThemNV = new Button();
             label1 = new Label();
-            panel3 = new Panel();
+            BottomToolStripPanel = new ToolStripPanel();
+            TopToolStripPanel = new ToolStripPanel();
+            RightToolStripPanel = new ToolStripPanel();
+            LeftToolStripPanel = new ToolStripPanel();
+            ContentPanel = new ToolStripContentPanel();
+            panel5 = new Panel();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            tableLayoutPanel2 = new TableLayoutPanel();
             dataGridViewdsNV = new DataGridView();
-            panel1.SuspendLayout();
+            buttonThemNV = new Button();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            tableLayoutPanel4 = new TableLayoutPanel();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
-            panel2.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel3.SuspendLayout();
+            panel5.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsNV).BeginInit();
+            tableLayoutPanel3.SuspendLayout();
+            tableLayoutPanel4.SuspendLayout();
             SuspendLayout();
-            // 
-            // panel1
-            // 
-            panel1.AutoScroll = true;
-            panel1.Controls.Add(groupBox3);
-            panel1.Controls.Add(groupBox2);
-            panel1.Controls.Add(groupBox1);
-            panel1.Location = new Point(2, 76);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(200, 539);
-            panel1.TabIndex = 0;
             // 
             // groupBox3
             // 
             groupBox3.BackColor = SystemColors.ButtonHighlight;
             groupBox3.Controls.Add(comboBoxNhiemVu);
+            groupBox3.Dock = DockStyle.Fill;
             groupBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox3.Location = new Point(0, 289);
+            groupBox3.Location = new Point(3, 275);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(200, 101);
+            groupBox3.Size = new Size(178, 146);
             groupBox3.TabIndex = 2;
             groupBox3.TabStop = false;
             groupBox3.Text = "Nhiệu vụ";
@@ -81,7 +80,7 @@
             // comboBoxNhiemVu
             // 
             comboBoxNhiemVu.FormattingEnabled = true;
-            comboBoxNhiemVu.Location = new Point(19, 48);
+            comboBoxNhiemVu.Location = new Point(6, 54);
             comboBoxNhiemVu.Name = "comboBoxNhiemVu";
             comboBoxNhiemVu.Size = new Size(151, 28);
             comboBoxNhiemVu.TabIndex = 1;
@@ -90,10 +89,11 @@
             // 
             groupBox2.BackColor = SystemColors.ButtonHighlight;
             groupBox2.Controls.Add(comboBoxChucDanh);
+            groupBox2.Dock = DockStyle.Fill;
             groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox2.Location = new Point(0, 160);
+            groupBox2.Location = new Point(3, 144);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(200, 102);
+            groupBox2.Size = new Size(178, 125);
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "Chức danh";
@@ -103,7 +103,7 @@
             comboBoxChucDanh.FormattingEnabled = true;
             comboBoxChucDanh.Location = new Point(19, 42);
             comboBoxChucDanh.Name = "comboBoxChucDanh";
-            comboBoxChucDanh.Size = new Size(151, 28);
+            comboBoxChucDanh.Size = new Size(120, 28);
             comboBoxChucDanh.TabIndex = 0;
             // 
             // groupBox1
@@ -111,10 +111,11 @@
             groupBox1.BackColor = SystemColors.ButtonHighlight;
             groupBox1.Controls.Add(radioButton2);
             groupBox1.Controls.Add(radioButton1);
+            groupBox1.Dock = DockStyle.Fill;
             groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox1.Location = new Point(0, 13);
+            groupBox1.Location = new Point(3, 3);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(200, 123);
+            groupBox1.Size = new Size(178, 135);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Trạng thái nhân viên ";
@@ -143,21 +144,12 @@
             radioButton1.Text = "Đang làm việc";
             radioButton1.UseVisualStyleBackColor = true;
             // 
-            // panel2
-            // 
-            panel2.Controls.Add(panel4);
-            panel2.Controls.Add(buttonThemNV);
-            panel2.Location = new Point(208, 1);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1025, 77);
-            panel2.TabIndex = 1;
-            // 
             // panel4
             // 
             panel4.BackColor = SystemColors.ButtonHighlight;
             panel4.Controls.Add(pictureBox1);
             panel4.Controls.Add(textBoxTimNV);
-            panel4.Location = new Point(45, 11);
+            panel4.Location = new Point(3, 3);
             panel4.Name = "panel4";
             panel4.Padding = new Padding(5, 2, 5, 2);
             panel4.Size = new Size(449, 46);
@@ -185,16 +177,6 @@
             textBoxTimNV.TabIndex = 1;
             textBoxTimNV.Tag = "";
             // 
-            // buttonThemNV
-            // 
-            buttonThemNV.BackColor = Color.LimeGreen;
-            buttonThemNV.Location = new Point(801, 17);
-            buttonThemNV.Name = "buttonThemNV";
-            buttonThemNV.Size = new Size(130, 40);
-            buttonThemNV.TabIndex = 0;
-            buttonThemNV.Text = "+ Nhân viên ";
-            buttonThemNV.UseVisualStyleBackColor = false;
-            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -205,61 +187,165 @@
             label1.TabIndex = 2;
             label1.Text = "Danh sách nhân viên";
             // 
-            // panel3
+            // BottomToolStripPanel
             // 
-            panel3.Controls.Add(dataGridViewdsNV);
-            panel3.Location = new Point(208, 76);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(1025, 539);
-            panel3.TabIndex = 1;
+            BottomToolStripPanel.Location = new Point(0, 0);
+            BottomToolStripPanel.Name = "BottomToolStripPanel";
+            BottomToolStripPanel.Orientation = Orientation.Horizontal;
+            BottomToolStripPanel.RowMargin = new Padding(4, 0, 0, 0);
+            BottomToolStripPanel.Size = new Size(0, 0);
+            // 
+            // TopToolStripPanel
+            // 
+            TopToolStripPanel.Location = new Point(0, 0);
+            TopToolStripPanel.Name = "TopToolStripPanel";
+            TopToolStripPanel.Orientation = Orientation.Horizontal;
+            TopToolStripPanel.RowMargin = new Padding(4, 0, 0, 0);
+            TopToolStripPanel.Size = new Size(0, 0);
+            // 
+            // RightToolStripPanel
+            // 
+            RightToolStripPanel.Location = new Point(0, 0);
+            RightToolStripPanel.Name = "RightToolStripPanel";
+            RightToolStripPanel.Orientation = Orientation.Horizontal;
+            RightToolStripPanel.RowMargin = new Padding(4, 0, 0, 0);
+            RightToolStripPanel.Size = new Size(0, 0);
+            // 
+            // LeftToolStripPanel
+            // 
+            LeftToolStripPanel.Location = new Point(0, 0);
+            LeftToolStripPanel.Name = "LeftToolStripPanel";
+            LeftToolStripPanel.Orientation = Orientation.Horizontal;
+            LeftToolStripPanel.RowMargin = new Padding(4, 0, 0, 0);
+            LeftToolStripPanel.Size = new Size(0, 0);
+            // 
+            // ContentPanel
+            // 
+            ContentPanel.Size = new Size(138, 169);
+            // 
+            // panel5
+            // 
+            panel5.Controls.Add(tableLayoutPanel1);
+            panel5.Location = new Point(11, 62);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(184, 550);
+            panel5.TabIndex = 3;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(groupBox3, 0, 2);
+            tableLayoutPanel1.Controls.Add(groupBox1, 0, 0);
+            tableLayoutPanel1.Controls.Add(groupBox2, 0, 1);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 4;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 131F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 152F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 126F));
+            tableLayoutPanel1.Size = new Size(184, 550);
+            tableLayoutPanel1.TabIndex = 0;
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 1;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(dataGridViewdsNV, 0, 0);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(3, 70);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10.3040543F));
+            tableLayoutPanel2.Size = new Size(1004, 548);
+            tableLayoutPanel2.TabIndex = 4;
             // 
             // dataGridViewdsNV
             // 
             dataGridViewdsNV.BackgroundColor = SystemColors.ButtonFace;
             dataGridViewdsNV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewdsNV.Dock = DockStyle.Fill;
-            dataGridViewdsNV.Location = new Point(0, 0);
+            dataGridViewdsNV.Location = new Point(3, 3);
             dataGridViewdsNV.Name = "dataGridViewdsNV";
             dataGridViewdsNV.RowHeadersWidth = 51;
-            dataGridViewdsNV.Size = new Size(1025, 539);
+            dataGridViewdsNV.Size = new Size(998, 542);
             dataGridViewdsNV.TabIndex = 0;
+            // 
+            // buttonThemNV
+            // 
+            buttonThemNV.BackColor = Color.LimeGreen;
+            buttonThemNV.Location = new Point(505, 3);
+            buttonThemNV.Name = "buttonThemNV";
+            buttonThemNV.Size = new Size(130, 40);
+            buttonThemNV.TabIndex = 0;
+            buttonThemNV.Text = "+ Nhân viên ";
+            buttonThemNV.UseVisualStyleBackColor = false;
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.ColumnCount = 2;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel3.Controls.Add(buttonThemNV, 1, 0);
+            tableLayoutPanel3.Controls.Add(panel4, 0, 0);
+            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Location = new Point(3, 3);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 1;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel3.Size = new Size(1004, 61);
+            tableLayoutPanel3.TabIndex = 5;
+            // 
+            // tableLayoutPanel4
+            // 
+            tableLayoutPanel4.ColumnCount = 1;
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel4.Controls.Add(tableLayoutPanel3, 0, 0);
+            tableLayoutPanel4.Controls.Add(tableLayoutPanel2, 0, 1);
+            tableLayoutPanel4.Dock = DockStyle.Right;
+            tableLayoutPanel4.Location = new Point(228, 0);
+            tableLayoutPanel4.Name = "tableLayoutPanel4";
+            tableLayoutPanel4.RowCount = 2;
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 10.8374386F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 89.16256F));
+            tableLayoutPanel4.Size = new Size(1010, 621);
+            tableLayoutPanel4.TabIndex = 6;
             // 
             // DSNhanVien
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(1238, 616);
-            Controls.Add(panel3);
+            ClientSize = new Size(1238, 621);
+            Controls.Add(tableLayoutPanel4);
+            Controls.Add(panel5);
             Controls.Add(label1);
-            Controls.Add(panel2);
-            Controls.Add(panel1);
             Name = "DSNhanVien";
             Text = "DSNhanVien";
             Load += DSNhanVien_Load;
-            panel1.ResumeLayout(false);
             groupBox3.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            panel2.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel3.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsNV).EndInit();
+            tableLayoutPanel3.ResumeLayout(false);
+            tableLayoutPanel4.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Panel panel1;
-        private Panel panel2;
-        private Button buttonThemNV;
         private Label label1;
-        private Panel panel3;
-        private DataGridView dataGridViewdsNV;
         private GroupBox groupBox1;
         private RadioButton radioButton1;
         private RadioButton radioButton2;
@@ -270,5 +356,17 @@
         private ComboBox comboBoxChucDanh;
         private Panel panel4;
         private PictureBox pictureBox1;
+        private ToolStripPanel BottomToolStripPanel;
+        private ToolStripPanel TopToolStripPanel;
+        private ToolStripPanel RightToolStripPanel;
+        private ToolStripPanel LeftToolStripPanel;
+        private ToolStripContentPanel ContentPanel;
+        private Panel panel5;
+        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tableLayoutPanel2;
+        private DataGridView dataGridViewdsNV;
+        private Button buttonThemNV;
+        private TableLayoutPanel tableLayoutPanel3;
+        private TableLayoutPanel tableLayoutPanel4;
     }
 }
