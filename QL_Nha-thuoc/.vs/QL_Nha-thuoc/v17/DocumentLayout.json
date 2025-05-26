@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\vutan\\OneDrive\\Documents\\GitHub\\DoAn1_DH22TIN03_HoTanTai_VuTanTai_ung-dung-desktop-quan-ly-nha-thuoc-Long-Chau\\QL_Nha-thuoc\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F91C4B8F-204B-4E61-A4FA-77EDECC4F86B}|QL_Nha-thuoc\\QL_Nha-thuoc.csproj|c:\\users\\vutan\\onedrive\\documents\\github\\doan1_dh22tin03_hotantai_vutantai_ung-dung-desktop-quan-ly-nha-thuoc-long-chau\\ql_nha-thuoc\\ql_nha-thuoc\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{F91C4B8F-204B-4E61-A4FA-77EDECC4F86B}|QL_Nha-thuoc\\QL_Nha-thuoc.csproj|solutionrelative:ql_nha-thuoc\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{F91C4B8F-204B-4E61-A4FA-77EDECC4F86B}|QL_Nha-thuoc\\QL_Nha-thuoc.csproj|C:\\Users\\vutan\\OneDrive\\Documents\\GitHub\\DoAn1_DH22TIN03_HoTanTai_VuTanTai_ung-dung-desktop-quan-ly-nha-thuoc-Long-Chau\\QL_Nha-thuoc\\ql_nha-thuoc\\formmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{F91C4B8F-204B-4E61-A4FA-77EDECC4F86B}|QL_Nha-thuoc\\QL_Nha-thuoc.csproj|solutionrelative:ql_nha-thuoc\\formmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F91C4B8F-204B-4E61-A4FA-77EDECC4F86B}|QL_Nha-thuoc\\QL_Nha-thuoc.csproj|c:\\users\\vutan\\onedrive\\documents\\github\\doan1_dh22tin03_hotantai_vutantai_ung-dung-desktop-quan-ly-nha-thuoc-long-chau\\ql_nha-thuoc\\ql_nha-thuoc\\formmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{F91C4B8F-204B-4E61-A4FA-77EDECC4F86B}|QL_Nha-thuoc\\QL_Nha-thuoc.csproj|solutionrelative:ql_nha-thuoc\\formmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{F91C4B8F-204B-4E61-A4FA-77EDECC4F86B}|QL_Nha-thuoc\\QL_Nha-thuoc.csproj|c:\\users\\vutan\\onedrive\\documents\\github\\doan1_dh22tin03_hotantai_vutantai_ung-dung-desktop-quan-ly-nha-thuoc-long-chau\\ql_nha-thuoc\\ql_nha-thuoc\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{F91C4B8F-204B-4E61-A4FA-77EDECC4F86B}|QL_Nha-thuoc\\QL_Nha-thuoc.csproj|solutionrelative:ql_nha-thuoc\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F91C4B8F-204B-4E61-A4FA-77EDECC4F86B}|QL_Nha-thuoc\\QL_Nha-thuoc.csproj|C:\\Users\\vutan\\OneDrive\\Documents\\GitHub\\DoAn1_DH22TIN03_HoTanTai_VuTanTai_ung-dung-desktop-quan-ly-nha-thuoc-Long-Chau\\QL_Nha-thuoc\\ql_nha-thuoc\\trangdangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -26,11 +26,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 505,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Form2.cs [Design]",
               "DocumentMoniker": "C:\\Users\\vutan\\OneDrive\\Documents\\GitHub\\DoAn1_DH22TIN03_HoTanTai_VuTanTai_ung-dung-desktop-quan-ly-nha-thuoc-Long-Chau\\QL_Nha-thuoc\\QL_Nha-thuoc\\Form2.cs",
               "RelativeDocumentMoniker": "QL_Nha-thuoc\\Form2.cs",
@@ -54,7 +54,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "FormMain.cs [Design]",
               "DocumentMoniker": "C:\\Users\\vutan\\OneDrive\\Documents\\GitHub\\DoAn1_DH22TIN03_HoTanTai_VuTanTai_ung-dung-desktop-quan-ly-nha-thuoc-Long-Chau\\QL_Nha-thuoc\\QL_Nha-thuoc\\FormMain.cs",
               "RelativeDocumentMoniker": "QL_Nha-thuoc\\FormMain.cs",

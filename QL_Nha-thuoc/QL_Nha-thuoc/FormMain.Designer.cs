@@ -28,29 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
+            panel2 = new Panel();
+            panelloc = new Panel();
             SuspendLayout();
             // 
-            // panel1
+            // panel2
             // 
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(200, 720);
-            panel1.TabIndex = 0;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1263, 57);
+            panel2.TabIndex = 1;
+            // 
+            // panelloc
+            // 
+            panelloc.Location = new Point(0, 63);
+            panelloc.Name = "panelloc";
+            panelloc.Size = new Size(1263, 655);
+            panelloc.TabIndex = 2;
             // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1262, 721);
-            Controls.Add(panel1);
+            Controls.Add(panelloc);
+            Controls.Add(panel2);
             Name = "FormMain";
             Text = "FormMain";
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Panel panel1;
+        private Panel panel2;
+        private Panel panelloc;
     }
 }
