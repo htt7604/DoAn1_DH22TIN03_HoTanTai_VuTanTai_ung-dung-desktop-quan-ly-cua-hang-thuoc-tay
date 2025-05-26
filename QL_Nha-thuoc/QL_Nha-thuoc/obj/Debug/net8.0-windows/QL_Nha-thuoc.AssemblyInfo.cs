@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QL_Nha-thuoc")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c8664d6b4cf529ec4b26c7b446cc5764f58becb9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8d74ec30d92eb26a4cfbe6384e0768095da417a0")]
 [assembly: System.Reflection.AssemblyProductAttribute("QL_Nha-thuoc")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QL_Nha-thuoc")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
