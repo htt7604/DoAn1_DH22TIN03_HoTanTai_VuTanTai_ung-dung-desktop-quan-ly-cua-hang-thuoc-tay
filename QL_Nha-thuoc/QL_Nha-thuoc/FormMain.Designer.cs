@@ -112,6 +112,7 @@
             danhMụcToolStripMenuItem.Name = "danhMụcToolStripMenuItem";
             danhMụcToolStripMenuItem.Size = new Size(254, 32);
             danhMụcToolStripMenuItem.Text = "Danh mục ";
+            danhMụcToolStripMenuItem.Click += danhMụcToolStripMenuItem_Click;
             // 
             // danhMụcThuốcToolStripMenuItem
             // 
@@ -120,6 +121,7 @@
             danhMụcThuốcToolStripMenuItem.Name = "danhMụcThuốcToolStripMenuItem";
             danhMụcThuốcToolStripMenuItem.Size = new Size(254, 32);
             danhMụcThuốcToolStripMenuItem.Text = "Danh mục thuốc";
+            danhMụcThuốcToolStripMenuItem.Click += danhMụcThuốcToolStripMenuItem_Click;
             // 
             // thiếtLậpGiáToolStripMenuItem
             // 
@@ -240,6 +242,7 @@
             thiếtLậpNhânViênToolStripMenuItem.Name = "thiếtLậpNhânViênToolStripMenuItem";
             thiếtLậpNhânViênToolStripMenuItem.Size = new Size(295, 32);
             thiếtLậpNhânViênToolStripMenuItem.Text = "Thiết Lập nhân viên";
+            thiếtLậpNhânViênToolStripMenuItem.Click += thiếtLậpNhânViênToolStripMenuItem_Click;
             // 
             // toolStripMenuItem6
             // 
@@ -321,9 +324,10 @@
             // panelMain
             // 
             panelMain.BackColor = Color.Gainsboro;
-            panelMain.Location = new Point(36, 74);
+            panelMain.Dock = DockStyle.Fill;
+            panelMain.Location = new Point(0, 50);
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(1320, 663);
+            panelMain.Size = new Size(1400, 699);
             panelMain.TabIndex = 1;
             // 
             // FormMain

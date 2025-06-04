@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace QL_Nha_thuoc
 {
-    public partial class DanhMucThuoc : Form
+    public partial class test : Form
     {
-        public DanhMucThuoc()
+        public test()
         {
             InitializeComponent();
         }

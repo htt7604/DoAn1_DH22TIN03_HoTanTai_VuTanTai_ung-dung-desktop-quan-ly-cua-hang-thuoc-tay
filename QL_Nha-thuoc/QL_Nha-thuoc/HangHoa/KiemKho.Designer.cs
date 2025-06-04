@@ -28,10 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridViewdsKK = new DataGridView();
-            panel1 = new Panel();
-            groupBox3 = new GroupBox();
-            textBox1 = new TextBox();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             groupBox2 = new GroupBox();
             checkBox3 = new CheckBox();
             checkBox2 = new CheckBox();
@@ -39,62 +37,25 @@
             groupBox1 = new GroupBox();
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
-            panel2 = new Panel();
             panel4 = new Panel();
             pictureBox1 = new PictureBox();
             textBoxTimNV = new TextBox();
             buttonThemNV = new Button();
             label1 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewdsKK).BeginInit();
-            panel1.SuspendLayout();
-            groupBox3.SuspendLayout();
+            panel3 = new Panel();
+            groupBox3 = new GroupBox();
+            textBox1 = new TextBox();
+            panel1 = new Panel();
+            dataGridViewds = new DataGridView();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
-            panel2.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel3.SuspendLayout();
+            groupBox3.SuspendLayout();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewds).BeginInit();
             SuspendLayout();
-            // 
-            // dataGridViewdsKK
-            // 
-            dataGridViewdsKK.BackgroundColor = SystemColors.ButtonFace;
-            dataGridViewdsKK.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewdsKK.Dock = DockStyle.Fill;
-            dataGridViewdsKK.Location = new Point(0, 0);
-            dataGridViewdsKK.Name = "dataGridViewdsKK";
-            dataGridViewdsKK.RowHeadersWidth = 51;
-            dataGridViewdsKK.Size = new Size(1085, 732);
-            dataGridViewdsKK.TabIndex = 1;
-            // 
-            // panel1
-            // 
-            panel1.AutoScroll = true;
-            panel1.Controls.Add(groupBox3);
-            panel1.Controls.Add(groupBox2);
-            panel1.Controls.Add(groupBox1);
-            panel1.Location = new Point(12, 79);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(228, 539);
-            panel1.TabIndex = 2;
-            // 
-            // groupBox3
-            // 
-            groupBox3.BackColor = SystemColors.ButtonHighlight;
-            groupBox3.Controls.Add(textBox1);
-            groupBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox3.Location = new Point(0, 330);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(228, 102);
-            groupBox3.TabIndex = 6;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Người tạo";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(11, 49);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(196, 27);
-            textBox1.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -103,7 +64,7 @@
             groupBox2.Controls.Add(checkBox2);
             groupBox2.Controls.Add(checkBox1);
             groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox2.Location = new Point(0, 170);
+            groupBox2.Location = new Point(3, 271);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(228, 120);
             groupBox2.TabIndex = 5;
@@ -149,7 +110,7 @@
             groupBox1.Controls.Add(radioButton2);
             groupBox1.Controls.Add(radioButton1);
             groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox1.Location = new Point(0, 13);
+            groupBox1.Location = new Point(3, 94);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(228, 123);
             groupBox1.TabIndex = 1;
@@ -180,31 +141,22 @@
             radioButton1.Text = "Tháng này";
             radioButton1.UseVisualStyleBackColor = true;
             // 
-            // panel2
-            // 
-            panel2.Controls.Add(panel4);
-            panel2.Controls.Add(buttonThemNV);
-            panel2.Location = new Point(167, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(918, 60);
-            panel2.TabIndex = 3;
-            // 
             // panel4
             // 
             panel4.BackColor = SystemColors.ButtonHighlight;
             panel4.Controls.Add(pictureBox1);
             panel4.Controls.Add(textBoxTimNV);
-            panel4.Location = new Point(45, 11);
+            panel4.Location = new Point(6, 6);
             panel4.Name = "panel4";
             panel4.Padding = new Padding(5, 2, 5, 2);
-            panel4.Size = new Size(449, 46);
+            panel4.Size = new Size(425, 37);
             panel4.TabIndex = 1;
             // 
             // pictureBox1
             // 
             pictureBox1.BackColor = SystemColors.ButtonHighlight;
             pictureBox1.Image = Properties.Resources.search;
-            pictureBox1.Location = new Point(22, 14);
+            pictureBox1.Location = new Point(8, 5);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(40, 25);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -214,7 +166,7 @@
             // textBoxTimNV
             // 
             textBoxTimNV.BorderStyle = BorderStyle.None;
-            textBoxTimNV.Location = new Point(68, 14);
+            textBoxTimNV.Location = new Point(54, 5);
             textBoxTimNV.Multiline = true;
             textBoxTimNV.Name = "textBoxTimNV";
             textBoxTimNV.PlaceholderText = "Tìm theo mã phiếu kiểm";
@@ -225,7 +177,7 @@
             // buttonThemNV
             // 
             buttonThemNV.BackColor = Color.LimeGreen;
-            buttonThemNV.Location = new Point(639, 10);
+            buttonThemNV.Location = new Point(631, 6);
             buttonThemNV.Name = "buttonThemNV";
             buttonThemNV.Size = new Size(130, 40);
             buttonThemNV.TabIndex = 0;
@@ -236,47 +188,113 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label1.Location = new Point(12, 25);
+            label1.Location = new Point(26, 32);
             label1.Name = "label1";
             label1.Size = new Size(149, 25);
             label1.TabIndex = 4;
             label1.Text = "Phiếu kiểm kho";
             // 
+            // panel3
+            // 
+            panel3.Controls.Add(groupBox3);
+            panel3.Controls.Add(groupBox2);
+            panel3.Controls.Add(label1);
+            panel3.Controls.Add(groupBox1);
+            panel3.Dock = DockStyle.Left;
+            panel3.Location = new Point(0, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(251, 652);
+            panel3.TabIndex = 5;
+            // 
+            // groupBox3
+            // 
+            groupBox3.BackColor = SystemColors.ButtonHighlight;
+            groupBox3.Controls.Add(textBox1);
+            groupBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            groupBox3.Location = new Point(14, 438);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(228, 102);
+            groupBox3.TabIndex = 7;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Người tạo";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(11, 49);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(196, 27);
+            textBox1.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(panel4);
+            panel1.Controls.Add(buttonThemNV);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(251, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1131, 57);
+            panel1.TabIndex = 6;
+            // 
+            // dataGridViewds
+            // 
+            dataGridViewds.BackgroundColor = SystemColors.Window;
+            dataGridViewds.BorderStyle = BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewds.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewds.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewds.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewds.Dock = DockStyle.Fill;
+            dataGridViewds.Location = new Point(251, 57);
+            dataGridViewds.MultiSelect = false;
+            dataGridViewds.Name = "dataGridViewds";
+            dataGridViewds.RowHeadersWidth = 51;
+            dataGridViewds.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewds.Size = new Size(1131, 595);
+            dataGridViewds.TabIndex = 38;
+            // 
             // KiemKho
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1085, 732);
-            Controls.Add(label1);
-            Controls.Add(panel2);
+            ClientSize = new Size(1382, 652);
+            Controls.Add(dataGridViewds);
             Controls.Add(panel1);
-            Controls.Add(dataGridViewdsKK);
+            Controls.Add(panel3);
             Name = "KiemKho";
             Text = "KiemKho";
-            ((System.ComponentModel.ISupportInitialize)dataGridViewdsKK).EndInit();
-            panel1.ResumeLayout(false);
-            groupBox3.ResumeLayout(false);
-            groupBox3.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            panel2.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewds).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private DataGridView dataGridViewdsKK;
-        private Panel panel1;
         private GroupBox groupBox1;
         private RadioButton radioButton2;
         private RadioButton radioButton1;
-        private Panel panel2;
         private Panel panel4;
         private PictureBox pictureBox1;
         private TextBox textBoxTimNV;
@@ -286,7 +304,10 @@
         private CheckBox checkBox3;
         private CheckBox checkBox2;
         private CheckBox checkBox1;
+        private Panel panel3;
         private GroupBox groupBox3;
         private TextBox textBox1;
+        private Panel panel1;
+        private DataGridView dataGridViewds;
     }
 }

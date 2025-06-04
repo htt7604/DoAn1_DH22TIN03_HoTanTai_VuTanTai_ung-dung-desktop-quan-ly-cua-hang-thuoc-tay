@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QL_Nha_thuoc
+namespace QL_Nha_thuoc.HangHoa
 {
-    public partial class DanhMuc : Form
+    public partial class FormThemThuoc : Form
     {
-        public DanhMuc()
+        public FormThemThuoc(string loai)
         {
             InitializeComponent();
         }
