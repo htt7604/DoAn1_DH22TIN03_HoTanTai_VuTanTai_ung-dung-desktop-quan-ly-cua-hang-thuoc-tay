@@ -1,7 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Compile Update="HangHoa\ChitietHangHoa.cs">
+    <Compile Update="BanHang\FormBanHangMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="BanHang\UserControlFormHoaDon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="BanHang\UserControlHangHoa.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="GiaoDich\HoaDon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="HangHoa\CapNhat\FormCapNhatThuoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="HangHoa\ChiTiet\ChitietHangHoa.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="HangHoa\DanhMuc.cs">
@@ -10,16 +25,22 @@
     <Compile Update="HangHoa\DanhMucThuoc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="GiaoDich\HoaDon.cs">
+    <Compile Update="HangHoa\CapNhat\FormCapNhatHangHoa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="HangHoa\FormThemHanghoa.cs">
+    <Compile Update="HangHoa\ChiTiet\FormChiTietThuoc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="HangHoa\FormThemHangSX.cs">
+    <Compile Update="HangHoa\Them\FormThemHanghoa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="HangHoa\FormThemThuoc.cs">
+    <Compile Update="HangHoa\Them\FormThemHangSX.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="HangHoa\Them\FormThemNhomHangHoa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="HangHoa\Them\FormThemThuoc.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="HangHoa\KiemKho.cs">
@@ -32,9 +53,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="FormHoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FormMain.cs">

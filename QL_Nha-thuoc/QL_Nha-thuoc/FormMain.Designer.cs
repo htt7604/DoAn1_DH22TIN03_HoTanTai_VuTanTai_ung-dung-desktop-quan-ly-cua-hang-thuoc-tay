@@ -320,6 +320,7 @@
             bánHàngToolStripMenuItem.RightToLeft = RightToLeft.No;
             bánHàngToolStripMenuItem.Size = new Size(135, 50);
             bánHàngToolStripMenuItem.Text = "Bán hàng";
+            bánHàngToolStripMenuItem.Click += bánHàngToolStripMenuItem_Click;
             // 
             // panelMain
             // 

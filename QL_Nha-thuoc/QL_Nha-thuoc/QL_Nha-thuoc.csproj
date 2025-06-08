@@ -27,7 +27,6 @@
   <ItemGroup>
     <Folder Include="DoiTac\" />
     <Folder Include="BaoCao\" />
-    <Folder Include="Hinh_anh_hang_hoa\" />
   </ItemGroup>
 
   <ItemGroup>

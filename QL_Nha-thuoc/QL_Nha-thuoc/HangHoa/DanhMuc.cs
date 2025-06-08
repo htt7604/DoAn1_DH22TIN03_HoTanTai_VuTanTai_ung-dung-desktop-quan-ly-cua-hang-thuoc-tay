@@ -143,9 +143,17 @@ namespace QL_Nha_thuoc
                 adapter.Fill(dt);
 
                 comboBoxNhomHH.DataSource = dt;
-                comboBoxNhomHH.DisplayMember = "TEN_NHOM";
-                comboBoxNhomHH.ValueMember = "MA_NHOM_HH";
-                comboBoxNhomHH.SelectedIndex = -1;
+                if (dt.Rows.Count > 0)
+                {
+                    comboBoxNhomHH.DisplayMember = "TEN_NHOM";
+                    comboBoxNhomHH.ValueMember = "MA_NHOM_HH";
+                    comboBoxNhomHH.SelectedIndex = -1;
+                }
+                else
+                {
+                    comboBoxNhomHH.DataSource = null;
+                }
+
             }
 
         }
@@ -319,17 +327,41 @@ namespace QL_Nha_thuoc
             // Kiểm tra chỉ click vào dòng hợp lệ (không phải tiêu đề)
             if (e.RowIndex >= 0)
             {
-                // Lấy dữ liệu từ hàng được click
+                // Lấy dòng vừa click
                 DataGridViewRow selectedRow = dataGridViewdsDMHH.Rows[e.RowIndex];
 
-                // Ví dụ lấy mã hàng hóa từ cột đầu tiên
-                string maHH = selectedRow.Cells["MA_HANG_HOA"].Value.ToString();
+                // Lấy giá trị MA_LOAI_HH từ dòng
+                string maLoaiHH = selectedRow.Cells["MA_LOAI_HH"].Value?.ToString();
 
-                // Mở form chi tiết (modal)
-                ChitietHangHoa formChiTiet = new ChitietHangHoa(maHH);
-                formChiTiet.ShowDialog();  // Show dạng modal (chặn Form chính)
+                if (maLoaiHH == "HH") // Nếu là hàng hóa
+                {
+                    string maHH = selectedRow.Cells["MA_HANG_HOA"].Value?.ToString();
+
+                    if (!string.IsNullOrEmpty(maHH))
+                    {
+                        //// Mở form chi tiết hàng hóa                      
+                        // Truyền tham chiếu this vào form chi tiết
+                        var formChiTiet = new ChitietHangHoa(maHH, this);
+                        formChiTiet.FormClosed += (s, args) => Getthongtinhanghoa(); // Load lại danh sách khi form chi tiết đóng
+                        formChiTiet.ShowDialog();
+                    }
+                }
+                else
+                {
+                    string maHH = selectedRow.Cells["MA_HANG_HOA"].Value?.ToString();
+
+                    if (!string.IsNullOrEmpty(maHH))
+                    {
+                        // Mở form chi tiết hàng hóa
+                        FormChiTietThuoc formChiTietthuoc = new FormChiTietThuoc(maHH);
+                        formChiTietthuoc.FormClosed += (s, args) => Getthongtinhanghoa(); // Load lại danh sách khi form chi tiết đóng
+                        formChiTietthuoc.ShowDialog(); // Mở modal                  
+                    }
+                }
             }
         }
+
+
 
 
 
@@ -465,7 +497,7 @@ namespace QL_Nha_thuoc
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string query = "SELECT MA_HANG_HOA, TEN_HANG_HOA, GIA_BAN_HH, HINH_ANH_HH FROM HANG_HOA HH  WHERE TEN_HANG_HOA LIKE @keyword";
+                string query = "SELECT HH.MA_HANG_HOA, HH.TEN_HANG_HOA, GBHH.GIA_BAN_HH, HH.HINH_ANH_HH FROM HANG_HOA HH JOIN GIA_HANG_HOA GBHH ON HH.MA_HANG_HOA = GBHH.MA_HANG_HOA  WHERE TEN_HANG_HOA LIKE @keyword";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@keyword", "%" + keyword + "%");

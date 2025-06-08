@@ -344,7 +344,7 @@
             dataGridViewdsDMHH.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewdsDMHH.Size = new Size(1159, 582);
             dataGridViewdsDMHH.TabIndex = 37;
-            dataGridViewdsDMHH.CellClick += dataGridViewdsDMHH_CellClick;
+            dataGridViewdsDMHH.CellDoubleClick += dataGridViewdsDMHH_CellClick;
             // 
             // DanhMuc
             // 

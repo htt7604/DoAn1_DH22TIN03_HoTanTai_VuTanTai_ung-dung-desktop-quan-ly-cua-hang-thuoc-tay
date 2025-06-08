@@ -43,13 +43,11 @@
             labelMaHH = new Label();
             textBoxMaHH = new TextBox();
             textBoxTenHH = new TextBox();
-            labelDonViTinh = new Label();
-            textBoxDonViTinh = new TextBox();
             labelGia = new Label();
             textBoxGiaVon = new TextBox();
             buttonBoQua = new Button();
             label10 = new Label();
-            textBox1 = new TextBox();
+            textBoxTrongLuong = new TextBox();
             comboBoxHangSX = new ComboBox();
             comboBoxLoaiHang = new ComboBox();
             comboBoxNhomHang = new ComboBox();
@@ -90,7 +88,6 @@
             // 
             textBoxQuyCachDongGoi.Location = new Point(1029, 208);
             textBoxQuyCachDongGoi.Name = "textBoxQuyCachDongGoi";
-            textBoxQuyCachDongGoi.ReadOnly = true;
             textBoxQuyCachDongGoi.Size = new Size(200, 27);
             textBoxQuyCachDongGoi.TabIndex = 54;
             // 
@@ -116,7 +113,6 @@
             // 
             textBoxMaVach.Location = new Point(499, 160);
             textBoxMaVach.Name = "textBoxMaVach";
-            textBoxMaVach.ReadOnly = true;
             textBoxMaVach.Size = new Size(200, 27);
             textBoxMaVach.TabIndex = 50;
             // 
@@ -124,7 +120,6 @@
             // 
             textBoxGiaBan.Location = new Point(499, 376);
             textBoxGiaBan.Name = "textBoxGiaBan";
-            textBoxGiaBan.ReadOnly = true;
             textBoxGiaBan.Size = new Size(200, 27);
             textBoxGiaBan.TabIndex = 48;
             // 
@@ -178,7 +173,6 @@
             // 
             textBoxMaHH.Location = new Point(499, 105);
             textBoxMaHH.Name = "textBoxMaHH";
-            textBoxMaHH.ReadOnly = true;
             textBoxMaHH.Size = new Size(200, 27);
             textBoxMaHH.TabIndex = 35;
             // 
@@ -194,23 +188,6 @@
             textBoxTenHH.TabIndex = 36;
             textBoxTenHH.Text = "Them hang hoa";
             // 
-            // labelDonViTinh
-            // 
-            labelDonViTinh.AutoSize = true;
-            labelDonViTinh.Location = new Point(393, 430);
-            labelDonViTinh.Name = "labelDonViTinh";
-            labelDonViTinh.Size = new Size(84, 20);
-            labelDonViTinh.TabIndex = 37;
-            labelDonViTinh.Text = "Đơn vị tính:";
-            // 
-            // textBoxDonViTinh
-            // 
-            textBoxDonViTinh.Location = new Point(499, 427);
-            textBoxDonViTinh.Name = "textBoxDonViTinh";
-            textBoxDonViTinh.ReadOnly = true;
-            textBoxDonViTinh.Size = new Size(200, 27);
-            textBoxDonViTinh.TabIndex = 38;
-            // 
             // labelGia
             // 
             labelGia.AutoSize = true;
@@ -224,7 +201,6 @@
             // 
             textBoxGiaVon.Location = new Point(499, 323);
             textBoxGiaVon.Name = "textBoxGiaVon";
-            textBoxGiaVon.ReadOnly = true;
             textBoxGiaVon.Size = new Size(200, 27);
             textBoxGiaVon.TabIndex = 40;
             // 
@@ -246,13 +222,12 @@
             label10.TabIndex = 66;
             label10.Text = "Trong luong:";
             // 
-            // textBox1
+            // textBoxTrongLuong
             // 
-            textBox1.Location = new Point(1029, 160);
-            textBox1.Name = "textBox1";
-            textBox1.ReadOnly = true;
-            textBox1.Size = new Size(200, 27);
-            textBox1.TabIndex = 67;
+            textBoxTrongLuong.Location = new Point(1029, 160);
+            textBoxTrongLuong.Name = "textBoxTrongLuong";
+            textBoxTrongLuong.Size = new Size(200, 27);
+            textBoxTrongLuong.TabIndex = 67;
             // 
             // comboBoxHangSX
             // 
@@ -336,7 +311,7 @@
             Controls.Add(comboBoxNhomHang);
             Controls.Add(comboBoxLoaiHang);
             Controls.Add(comboBoxHangSX);
-            Controls.Add(textBox1);
+            Controls.Add(textBoxTrongLuong);
             Controls.Add(label10);
             Controls.Add(textBoxGhiChu);
             Controls.Add(label9);
@@ -353,8 +328,6 @@
             Controls.Add(labelMaHH);
             Controls.Add(textBoxMaHH);
             Controls.Add(textBoxTenHH);
-            Controls.Add(labelDonViTinh);
-            Controls.Add(textBoxDonViTinh);
             Controls.Add(labelGia);
             Controls.Add(textBoxGiaVon);
             Controls.Add(buttonBoQua);
@@ -386,13 +359,11 @@
         private Label labelMaHH;
         private TextBox textBoxMaHH;
         private TextBox textBoxTenHH;
-        private Label labelDonViTinh;
-        private TextBox textBoxDonViTinh;
         private Label labelGia;
         private TextBox textBoxGiaVon;
         private Button buttonBoQua;
         private Label label10;
-        private TextBox textBox1;
+        private TextBox textBoxTrongLuong;
         private ComboBox comboBoxHangSX;
         private ComboBox comboBoxLoaiHang;
         private ComboBox comboBoxNhomHang;

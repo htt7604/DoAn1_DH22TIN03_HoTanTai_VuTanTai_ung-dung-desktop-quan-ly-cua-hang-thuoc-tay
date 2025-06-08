@@ -67,9 +67,7 @@
             label9 = new Label();
             textBoxGhiChu = new TextBox();
             dateTimePickerNgayHetHan = new DateTimePicker();
-            label10 = new Label();
-            textBoxDuongDung = new TextBox();
-            button1 = new Button();
+            buttonNgungKinhDoanh = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHangHoa).BeginInit();
             SuspendLayout();
             // 
@@ -151,6 +149,7 @@
             buttonCapNhat.Size = new Size(116, 32);
             buttonCapNhat.TabIndex = 9;
             buttonCapNhat.Text = "Cap Nhat";
+            buttonCapNhat.Click += buttonCapNhat_Click;
             // 
             // buttonXoa
             // 
@@ -159,10 +158,10 @@
             buttonXoa.Size = new Size(75, 32);
             buttonXoa.TabIndex = 10;
             buttonXoa.Text = "Xoa";
+            buttonXoa.Click += buttonXoa_Click;
             // 
             // pictureBoxHangHoa
             // 
-            pictureBoxHangHoa.BorderStyle = BorderStyle.FixedSingle;
             pictureBoxHangHoa.Location = new Point(30, 120);
             pictureBoxHangHoa.Name = "pictureBoxHangHoa";
             pictureBoxHangHoa.Size = new Size(321, 338);
@@ -241,7 +240,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(868, 219);
+            label5.Location = new Point(868, 195);
             label5.Name = "label5";
             label5.Size = new Size(137, 20);
             label5.TabIndex = 20;
@@ -249,7 +248,7 @@
             // 
             // textBoxQuyCachDongGoi
             // 
-            textBoxQuyCachDongGoi.Location = new Point(1045, 216);
+            textBoxQuyCachDongGoi.Location = new Point(1045, 188);
             textBoxQuyCachDongGoi.Name = "textBoxQuyCachDongGoi";
             textBoxQuyCachDongGoi.ReadOnly = true;
             textBoxQuyCachDongGoi.Size = new Size(200, 27);
@@ -301,7 +300,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(868, 281);
+            label9.Location = new Point(868, 274);
             label9.Name = "label9";
             label9.Size = new Size(61, 20);
             label9.TabIndex = 28;
@@ -309,9 +308,10 @@
             // 
             // textBoxGhiChu
             // 
-            textBoxGhiChu.Location = new Point(1045, 274);
+            textBoxGhiChu.Location = new Point(1045, 250);
             textBoxGhiChu.Multiline = true;
             textBoxGhiChu.Name = "textBoxGhiChu";
+            textBoxGhiChu.ScrollBars = ScrollBars.Vertical;
             textBoxGhiChu.Size = new Size(200, 108);
             textBoxGhiChu.TabIndex = 29;
             // 
@@ -322,39 +322,23 @@
             dateTimePickerNgayHetHan.Size = new Size(265, 27);
             dateTimePickerNgayHetHan.TabIndex = 30;
             // 
-            // label10
+            // buttonNgungKinhDoanh
             // 
-            label10.AutoSize = true;
-            label10.Location = new Point(868, 168);
-            label10.Name = "label10";
-            label10.Size = new Size(99, 20);
-            label10.TabIndex = 31;
-            label10.Text = "Duong dung :";
-            // 
-            // textBoxDuongDung
-            // 
-            textBoxDuongDung.Location = new Point(1045, 168);
-            textBoxDuongDung.Name = "textBoxDuongDung";
-            textBoxDuongDung.ReadOnly = true;
-            textBoxDuongDung.Size = new Size(200, 27);
-            textBoxDuongDung.TabIndex = 32;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(958, 511);
-            button1.Name = "button1";
-            button1.Size = new Size(167, 32);
-            button1.TabIndex = 33;
-            button1.Text = "Ngung kinh doanh";
+            buttonNgungKinhDoanh.Location = new Point(958, 511);
+            buttonNgungKinhDoanh.Name = "buttonNgungKinhDoanh";
+            buttonNgungKinhDoanh.Size = new Size(167, 32);
+            buttonNgungKinhDoanh.TabIndex = 33;
+            buttonNgungKinhDoanh.Text = "Ngung kinh doanh";
+            buttonNgungKinhDoanh.Click += buttonNgungKinhDoanh_Click;
             // 
             // ChitietHangHoa
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1373, 555);
-            Controls.Add(button1);
-            Controls.Add(textBoxDuongDung);
-            Controls.Add(label10);
+            AutoScroll = true;
+            AutoSize = true;
+            ClientSize = new Size(1373, 556);
+            Controls.Add(buttonNgungKinhDoanh);
             Controls.Add(dateTimePickerNgayHetHan);
             Controls.Add(textBoxGhiChu);
             Controls.Add(label9);
@@ -417,8 +401,6 @@
         private Label label9;
         private TextBox textBoxGhiChu;
         private DateTimePicker dateTimePickerNgayHetHan;
-        private Label label10;
-        private TextBox textBoxDuongDung;
-        private Button button1;
+        private Button buttonNgungKinhDoanh;
     }
 }
