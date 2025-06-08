@@ -1,13 +1,13 @@
-﻿namespace QL_Nha_thuoc
+﻿namespace QL_Nha_thuoc.BanHang
 {
-    partial class test
+    partial class UserControlFormHoaDon
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,85 +20,97 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            panel2 = new Panel();
-            panel3 = new Panel();
-            panelKetQuaTimKiem = new Panel();
             panel1 = new Panel();
-            buttonThemHoaDon = new Button();
+            button1 = new Button();
+            flowLayoutPanelTTHH = new FlowLayoutPanel();
+            label1 = new Label();
+            label2 = new Label();
+            comboBox1 = new ComboBox();
             panel = new Panel();
             tableLayoutPanel5 = new TableLayoutPanel();
             pictureBox1 = new PictureBox();
             textBoxTimHH = new TextBox();
-            panel2.SuspendLayout();
-            panel3.SuspendLayout();
+            buttonThemKhachHang = new Button();
             panel1.SuspendLayout();
             panel.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // panel2
-            // 
-            panel2.Controls.Add(panel3);
-            panel2.Controls.Add(panel1);
-            panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1394, 688);
-            panel2.TabIndex = 4;
-            // 
-            // panel3
-            // 
-            panel3.Controls.Add(panelKetQuaTimKiem);
-            panel3.Dock = DockStyle.Fill;
-            panel3.Location = new Point(0, 63);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(1394, 625);
-            panel3.TabIndex = 4;
-            // 
-            // panelKetQuaTimKiem
-            // 
-            panelKetQuaTimKiem.AutoScroll = true;
-            panelKetQuaTimKiem.BackColor = SystemColors.Control;
-            panelKetQuaTimKiem.Location = new Point(45, 6);
-            panelKetQuaTimKiem.Name = "panelKetQuaTimKiem";
-            panelKetQuaTimKiem.Size = new Size(463, 221);
-            panelKetQuaTimKiem.TabIndex = 40;
-            // 
             // panel1
             // 
-            panel1.Controls.Add(buttonThemHoaDon);
+            panel1.BackColor = SystemColors.Window;
             panel1.Controls.Add(panel);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
+            panel1.Controls.Add(comboBox1);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(button1);
+            panel1.Dock = DockStyle.Right;
+            panel1.Location = new Point(929, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1394, 63);
-            panel1.TabIndex = 3;
+            panel1.Size = new Size(466, 656);
+            panel1.TabIndex = 1;
             // 
-            // buttonThemHoaDon
+            // button1
             // 
-            buttonThemHoaDon.Location = new Point(752, 12);
-            buttonThemHoaDon.Name = "buttonThemHoaDon";
-            buttonThemHoaDon.Size = new Size(151, 29);
-            buttonThemHoaDon.TabIndex = 38;
-            buttonThemHoaDon.Text = "Them Hoa don";
-            buttonThemHoaDon.UseVisualStyleBackColor = true;
+            button1.Location = new Point(130, 536);
+            button1.Name = "button1";
+            button1.Size = new Size(236, 67);
+            button1.TabIndex = 0;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanelTTHH
+            // 
+            flowLayoutPanelTTHH.Dock = DockStyle.Fill;
+            flowLayoutPanelTTHH.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanelTTHH.Location = new Point(0, 0);
+            flowLayoutPanelTTHH.Name = "flowLayoutPanelTTHH";
+            flowLayoutPanelTTHH.Size = new Size(929, 656);
+            flowLayoutPanelTTHH.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(37, 122);
+            label1.Name = "label1";
+            label1.Size = new Size(50, 20);
+            label1.TabIndex = 1;
+            label1.Text = "label1";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(37, 187);
+            label2.Name = "label2";
+            label2.Size = new Size(50, 20);
+            label2.TabIndex = 2;
+            label2.Text = "label2";
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(37, 16);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(151, 28);
+            comboBox1.TabIndex = 3;
             // 
             // panel
             // 
+            panel.Controls.Add(buttonThemKhachHang);
             panel.Controls.Add(tableLayoutPanel5);
-            panel.Location = new Point(4, 3);
+            panel.Location = new Point(6, 50);
             panel.Name = "panel";
-            panel.Size = new Size(491, 55);
-            panel.TabIndex = 37;
+            panel.Size = new Size(446, 55);
+            panel.TabIndex = 38;
             // 
             // tableLayoutPanel5
             // 
@@ -108,7 +120,7 @@
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 86.33257F));
             tableLayoutPanel5.Controls.Add(pictureBox1, 0, 0);
             tableLayoutPanel5.Controls.Add(textBoxTimHH, 1, 0);
-            tableLayoutPanel5.Location = new Point(28, 3);
+            tableLayoutPanel5.Location = new Point(3, 3);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 1;
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -139,17 +151,26 @@
             textBoxTimHH.TabIndex = 5;
             textBoxTimHH.Tag = "";
             // 
-            // test
+            // buttonThemKhachHang
+            // 
+            buttonThemKhachHang.Location = new Point(392, 6);
+            buttonThemKhachHang.Name = "buttonThemKhachHang";
+            buttonThemKhachHang.Size = new Size(41, 39);
+            buttonThemKhachHang.TabIndex = 39;
+            buttonThemKhachHang.Text = "+";
+            buttonThemKhachHang.UseVisualStyleBackColor = true;
+            // 
+            // UserControlFormHoaDon
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1394, 688);
-            Controls.Add(panel2);
-            Name = "test";
-            Text = "test";
-            panel2.ResumeLayout(false);
-            panel3.ResumeLayout(false);
+            AutoSize = true;
+            Controls.Add(flowLayoutPanelTTHH);
+            Controls.Add(panel1);
+            Name = "UserControlFormHoaDon";
+            Size = new Size(1395, 656);
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             panel.ResumeLayout(false);
             tableLayoutPanel5.ResumeLayout(false);
             tableLayoutPanel5.PerformLayout();
@@ -158,13 +179,14 @@
         }
 
         #endregion
-
-        private Panel panel2;
-        private Panel panel3;
-        private Panel panelKetQuaTimKiem;
         private Panel panel1;
-        private Button buttonThemHoaDon;
+        private Button button1;
+        private FlowLayoutPanel flowLayoutPanelTTHH;
+        private ComboBox comboBox1;
+        private Label label2;
+        private Label label1;
         private Panel panel;
+        private Button buttonThemKhachHang;
         private TableLayoutPanel tableLayoutPanel5;
         private PictureBox pictureBox1;
         private TextBox textBoxTimHH;

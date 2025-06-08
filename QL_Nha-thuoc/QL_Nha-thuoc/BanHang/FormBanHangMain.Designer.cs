@@ -1,6 +1,6 @@
-﻿namespace QL_Nha_thuoc
+﻿namespace QL_Nha_thuoc.BanHang
 {
-    partial class test
+    partial class FormBanHangMain
     {
         /// <summary>
         /// Required designer variable.
@@ -30,6 +30,8 @@
         {
             panel2 = new Panel();
             panel3 = new Panel();
+            tabControlHoaDon = new TabControl();
+            tabPageHoaDon1 = new TabPage();
             panelKetQuaTimKiem = new Panel();
             panel1 = new Panel();
             buttonThemHoaDon = new Button();
@@ -39,6 +41,7 @@
             textBoxTimHH = new TextBox();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
+            tabControlHoaDon.SuspendLayout();
             panel1.SuspendLayout();
             panel.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
@@ -52,17 +55,38 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1394, 688);
+            panel2.Size = new Size(1400, 749);
             panel2.TabIndex = 4;
             // 
             // panel3
             // 
+            panel3.Controls.Add(tabControlHoaDon);
             panel3.Controls.Add(panelKetQuaTimKiem);
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(0, 63);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1394, 625);
+            panel3.Size = new Size(1400, 686);
             panel3.TabIndex = 4;
+            // 
+            // tabControlHoaDon
+            // 
+            tabControlHoaDon.Controls.Add(tabPageHoaDon1);
+            tabControlHoaDon.Dock = DockStyle.Fill;
+            tabControlHoaDon.Location = new Point(0, 0);
+            tabControlHoaDon.Name = "tabControlHoaDon";
+            tabControlHoaDon.SelectedIndex = 0;
+            tabControlHoaDon.Size = new Size(1400, 686);
+            tabControlHoaDon.TabIndex = 41;
+            // 
+            // tabPageHoaDon1
+            // 
+            tabPageHoaDon1.BackColor = SystemColors.Control;
+            tabPageHoaDon1.Location = new Point(4, 29);
+            tabPageHoaDon1.Name = "tabPageHoaDon1";
+            tabPageHoaDon1.Padding = new Padding(3);
+            tabPageHoaDon1.Size = new Size(1392, 653);
+            tabPageHoaDon1.TabIndex = 0;
+            tabPageHoaDon1.Text = "Hoa don 1";
             // 
             // panelKetQuaTimKiem
             // 
@@ -80,7 +104,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1394, 63);
+            panel1.Size = new Size(1400, 63);
             panel1.TabIndex = 3;
             // 
             // buttonThemHoaDon
@@ -91,6 +115,7 @@
             buttonThemHoaDon.TabIndex = 38;
             buttonThemHoaDon.Text = "Them Hoa don";
             buttonThemHoaDon.UseVisualStyleBackColor = true;
+            buttonThemHoaDon.Click += buttonThemHoaDon_Click;
             // 
             // panel
             // 
@@ -138,17 +163,20 @@
             textBoxTimHH.Size = new Size(325, 31);
             textBoxTimHH.TabIndex = 5;
             textBoxTimHH.Tag = "";
+            textBoxTimHH.TextChanged += textBoxTimHH_TextChanged_1;
             // 
-            // test
+            // FormBanHangMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1394, 688);
+            ClientSize = new Size(1400, 749);
             Controls.Add(panel2);
-            Name = "test";
-            Text = "test";
+            Name = "FormBanHangMain";
+            Text = "FormBanHangMain";
+            Load += FormBanHangMain_Load;
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
+            tabControlHoaDon.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel.ResumeLayout(false);
             tableLayoutPanel5.ResumeLayout(false);
@@ -168,5 +196,7 @@
         private TableLayoutPanel tableLayoutPanel5;
         private PictureBox pictureBox1;
         private TextBox textBoxTimHH;
+        private TabControl tabControlHoaDon;
+        private TabPage tabPageHoaDon1;
     }
 }

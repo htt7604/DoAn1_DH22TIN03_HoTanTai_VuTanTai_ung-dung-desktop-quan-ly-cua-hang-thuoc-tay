@@ -72,12 +72,18 @@ namespace QL_Nha_thuoc.HangHoa
 
         private void comboBoxLoaiHang_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBoxLoaiHang.SelectedIndex == -1)
+            {
+                comboBoxNhomHang.DataSource = null; // Xóa dữ liệu nhóm hàng khi không có loại hàng nào được chọn
+                return;
+            }
             LoadDataToComboBoxNhomHanghoa();
         }
 
         // Load dữ liệu hãng sản xuất vào combobox
         private void LoadDataToComboboxHangSX()
         {
+
             try
             {
                 using (SqlConnection conn = new CSDL().GetConnection())
@@ -106,7 +112,6 @@ namespace QL_Nha_thuoc.HangHoa
         private void FormThemHanghoa_Load(object sender, EventArgs e)
         {
             LoadDataToComboBoxLoaiHanghoa();
-            LoadDataToComboboxHangSX();
         }
 
         private void buttonBoQua_Click(object sender, EventArgs e)

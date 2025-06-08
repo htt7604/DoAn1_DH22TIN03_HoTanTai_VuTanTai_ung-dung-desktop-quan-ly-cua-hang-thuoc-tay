@@ -33,13 +33,13 @@
             label1 = new Label();
             panel1 = new Panel();
             panel2 = new Panel();
+            buttonTimKiem = new Button();
             comboBoxLoaiTimKiem = new ComboBox();
             panel4 = new Panel();
             pictureBox1 = new PictureBox();
             textBoxTimThuoc = new TextBox();
             panel7 = new Panel();
             dataGridViewdsThuoc = new DataGridView();
-            buttonTimKiem = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel4.SuspendLayout();
@@ -77,6 +77,16 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1208, 57);
             panel2.TabIndex = 5;
+            // 
+            // buttonTimKiem
+            // 
+            buttonTimKiem.Location = new Point(678, 20);
+            buttonTimKiem.Name = "buttonTimKiem";
+            buttonTimKiem.Size = new Size(94, 29);
+            buttonTimKiem.TabIndex = 4;
+            buttonTimKiem.Text = "Tim kiem";
+            buttonTimKiem.UseVisualStyleBackColor = true;
+            buttonTimKiem.Click += buttonTimKiem_Click;
             // 
             // comboBoxLoaiTimKiem
             // 
@@ -120,6 +130,7 @@
             textBoxTimThuoc.Size = new Size(260, 25);
             textBoxTimThuoc.TabIndex = 1;
             textBoxTimThuoc.Tag = "";
+            textBoxTimThuoc.TextChanged += comboBoxLoaiTimKiem_SelectedIndexChanged;
             // 
             // panel7
             // 
@@ -159,16 +170,6 @@
             dataGridViewdsThuoc.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewdsThuoc.Size = new Size(1208, 595);
             dataGridViewdsThuoc.TabIndex = 38;
-            // 
-            // buttonTimKiem
-            // 
-            buttonTimKiem.Location = new Point(678, 20);
-            buttonTimKiem.Name = "buttonTimKiem";
-            buttonTimKiem.Size = new Size(94, 29);
-            buttonTimKiem.TabIndex = 4;
-            buttonTimKiem.Text = "Tim kiem";
-            buttonTimKiem.UseVisualStyleBackColor = true;
-            buttonTimKiem.Click += buttonTimKiem_Click;
             // 
             // DanhMucThuoc
             // 

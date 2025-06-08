@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using QL_Nha_thuoc;
 using QL_Nha_thuoc.NhanVien;
+using QL_Nha_thuoc.HangHoa;
+using QL_Nha_thuoc.BanHang;
+
+
+
 
 namespace QL_Nha_thuoc
 {
@@ -63,7 +68,15 @@ namespace QL_Nha_thuoc
             danhMucThuoc.Show();
         }
 
-
-
+        private void bánHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //tat form main 
+            this.Hide();
+            //mở form bán hàng
+           FormBanHangMain formBanHangMain = new FormBanHangMain();
+            formBanHangMain.ShowDialog();
+            //hiện lại form main
+            this.Show();
+        }
     }
 }
