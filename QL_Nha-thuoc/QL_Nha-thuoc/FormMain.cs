@@ -1,4 +1,9 @@
-﻿using System;
+﻿using QL_Nha_thuoc;
+using QL_Nha_thuoc.BanHang;
+using QL_Nha_thuoc.HangHoa;
+using QL_Nha_thuoc.model;
+using QL_Nha_thuoc.NhanVien;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,10 +12,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QL_Nha_thuoc;
-using QL_Nha_thuoc.NhanVien;
-using QL_Nha_thuoc.HangHoa;
-using QL_Nha_thuoc.BanHang;
 
 
 
@@ -19,6 +20,15 @@ namespace QL_Nha_thuoc
 {
     public partial class FormMain : Form
     {
+        private ClassTaiKhoan taiKhoanDangNhap;
+
+        // Constructor nhận thông tin tài khoản
+        public FormMain(ClassTaiKhoan taiKhoan)
+        {
+            InitializeComponent();
+            taiKhoanDangNhap = taiKhoan;
+            toolStripTextBoxTaiKhoan.Text = taiKhoanDangNhap.NhanVien.TenNhanVien;
+        }
         public FormMain()
         {
             InitializeComponent();
@@ -73,10 +83,22 @@ namespace QL_Nha_thuoc
             //tat form main 
             this.Hide();
             //mở form bán hàng
-           FormBanHangMain formBanHangMain = new FormBanHangMain();
+            FormBanHangMain formBanHangMain = new FormBanHangMain();
             formBanHangMain.ShowDialog();
             //hiện lại form main
             this.Show();
+        }
+
+        private void kiểmKhoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //mo form kiem kho
+            KiemKho kiemKho = new KiemKho();
+            kiemKho.TopLevel = false;
+            kiemKho.FormBorderStyle = FormBorderStyle.None;
+            kiemKho.Dock = DockStyle.Fill;
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(kiemKho);
+            kiemKho.Show();
         }
     }
 }

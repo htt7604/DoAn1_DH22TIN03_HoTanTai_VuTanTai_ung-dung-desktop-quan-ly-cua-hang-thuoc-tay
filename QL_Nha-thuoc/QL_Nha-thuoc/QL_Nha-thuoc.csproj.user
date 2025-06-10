@@ -10,6 +10,9 @@
     <Compile Update="BanHang\UserControlHangHoa.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="DangNhap\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="GiaoDich\HoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -31,6 +34,9 @@
     <Compile Update="HangHoa\ChiTiet\FormChiTietThuoc.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="HangHoa\kiemkho\FormChiTietKiemKho.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="HangHoa\Them\FormThemHanghoa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -43,7 +49,7 @@
     <Compile Update="HangHoa\Them\FormThemThuoc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="HangHoa\KiemKho.cs">
+    <Compile Update="HangHoa\kiemkho\KiemKho.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="HangHoa\UC_ItemThuoc.cs">

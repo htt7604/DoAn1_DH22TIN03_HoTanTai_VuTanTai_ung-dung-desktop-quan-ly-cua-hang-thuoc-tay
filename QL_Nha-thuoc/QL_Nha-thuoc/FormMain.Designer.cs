@@ -57,6 +57,7 @@
             nhânViênToolStripMenuItem = new ToolStripMenuItem();
             tàiChínhToolStripMenuItem = new ToolStripMenuItem();
             bánHàngToolStripMenuItem = new ToolStripMenuItem();
+            toolStripTextBoxTaiKhoan = new ToolStripTextBox();
             panelMain = new Panel();
             panelNoiDung.SuspendLayout();
             menuStrip1.SuspendLayout();
@@ -76,7 +77,7 @@
             menuStrip1.AutoSize = false;
             menuStrip1.BackColor = SystemColors.MenuHighlight;
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1, toolStripMenuItem2, toolStripMenuItem3, toolStripMenuItem4, toolStripMenuItem5, toolStripMenuItem6, bánHàngToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1, toolStripMenuItem2, toolStripMenuItem3, toolStripMenuItem4, toolStripMenuItem5, toolStripMenuItem6, bánHàngToolStripMenuItem, toolStripTextBoxTaiKhoan });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(0);
@@ -138,6 +139,7 @@
             kiểmKhoToolStripMenuItem.Name = "kiểmKhoToolStripMenuItem";
             kiểmKhoToolStripMenuItem.Size = new Size(254, 32);
             kiểmKhoToolStripMenuItem.Text = "Kiểm kho";
+            kiểmKhoToolStripMenuItem.Click += kiểmKhoToolStripMenuItem_Click;
             // 
             // toolStripMenuItem3
             // 
@@ -312,7 +314,7 @@
             // 
             // bánHàngToolStripMenuItem
             // 
-            bánHàngToolStripMenuItem.Alignment = ToolStripItemAlignment.Right;
+            bánHàngToolStripMenuItem.BackColor = SystemColors.HotTrack;
             bánHàngToolStripMenuItem.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             bánHàngToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
             bánHàngToolStripMenuItem.Image = Properties.Resources.shopping_bag;
@@ -321,6 +323,17 @@
             bánHàngToolStripMenuItem.Size = new Size(135, 50);
             bánHàngToolStripMenuItem.Text = "Bán hàng";
             bánHàngToolStripMenuItem.Click += bánHàngToolStripMenuItem_Click;
+            // 
+            // toolStripTextBoxTaiKhoan
+            // 
+            toolStripTextBoxTaiKhoan.BackColor = SystemColors.MenuHighlight;
+            toolStripTextBoxTaiKhoan.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            toolStripTextBoxTaiKhoan.ForeColor = SystemColors.Window;
+            toolStripTextBoxTaiKhoan.Margin = new Padding(200, 0, 1, 0);
+            toolStripTextBoxTaiKhoan.Name = "toolStripTextBoxTaiKhoan";
+            toolStripTextBoxTaiKhoan.ReadOnly = true;
+            toolStripTextBoxTaiKhoan.Size = new Size(200, 50);
+            toolStripTextBoxTaiKhoan.TextBoxTextAlign = HorizontalAlignment.Center;
             // 
             // panelMain
             // 
@@ -379,5 +392,6 @@
         private ToolStripMenuItem nhânViênToolStripMenuItem;
         private ToolStripMenuItem tàiChínhToolStripMenuItem;
         private Panel panelMain;
+        private ToolStripTextBox toolStripTextBoxTaiKhoan;
     }
 }

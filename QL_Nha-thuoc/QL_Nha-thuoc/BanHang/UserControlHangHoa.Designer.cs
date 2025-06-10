@@ -28,90 +28,130 @@
         /// </summary>
         private void InitializeComponent()
         {
-            buttonXoa = new Button();
-            numericUpDown1 = new NumericUpDown();
-            textBoxGiaBan = new TextBox();
+            tableLayoutPanel1 = new TableLayoutPanel();
             labelSTT = new Label();
+            numericUpDown1 = new NumericUpDown();
             labelMaHangHoa = new Label();
-            labelTenHang = new Label();
+            buttonXoa = new Button();
+            textBoxGiaBan = new TextBox();
+            textBoxTenHang = new TextBox();
+            tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
-            // buttonXoa
+            // tableLayoutPanel1
             // 
-            buttonXoa.Location = new Point(91, 13);
-            buttonXoa.Name = "buttonXoa";
-            buttonXoa.Size = new Size(45, 29);
-            buttonXoa.TabIndex = 0;
-            buttonXoa.Text = "x";
-            buttonXoa.UseVisualStyleBackColor = true;
-            // 
-            // numericUpDown1
-            // 
-            numericUpDown1.Location = new Point(451, 16);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(47, 27);
-            numericUpDown1.TabIndex = 1;
-            // 
-            // textBoxGiaBan
-            // 
-            textBoxGiaBan.Location = new Point(543, 15);
-            textBoxGiaBan.Name = "textBoxGiaBan";
-            textBoxGiaBan.Size = new Size(125, 27);
-            textBoxGiaBan.TabIndex = 2;
+            tableLayoutPanel1.ColumnCount = 7;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5.362776F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4.62670851F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.6161938F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.22818F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 7.99158764F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 7.88643551F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25.9809113F));
+            tableLayoutPanel1.Controls.Add(labelSTT, 0, 0);
+            tableLayoutPanel1.Controls.Add(numericUpDown1, 4, 0);
+            tableLayoutPanel1.Controls.Add(labelMaHangHoa, 2, 0);
+            tableLayoutPanel1.Controls.Add(buttonXoa, 1, 0);
+            tableLayoutPanel1.Controls.Add(textBoxGiaBan, 6, 0);
+            tableLayoutPanel1.Controls.Add(textBoxTenHang, 3, 0);
+            tableLayoutPanel1.Dock = DockStyle.Top;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(951, 47);
+            tableLayoutPanel1.TabIndex = 8;
             // 
             // labelSTT
             // 
             labelSTT.AutoSize = true;
-            labelSTT.Location = new Point(19, 18);
+            labelSTT.Dock = DockStyle.Fill;
+            labelSTT.Location = new Point(3, 0);
             labelSTT.Name = "labelSTT";
-            labelSTT.Size = new Size(33, 20);
+            labelSTT.Size = new Size(45, 47);
             labelSTT.TabIndex = 3;
             labelSTT.Text = "STT";
+            labelSTT.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Dock = DockStyle.Fill;
+            numericUpDown1.Font = new Font("Segoe UI", 12F);
+            numericUpDown1.Location = new Point(553, 3);
+            numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(70, 34);
+            numericUpDown1.TabIndex = 1;
+            numericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
             // 
             // labelMaHangHoa
             // 
-            labelMaHangHoa.AutoSize = true;
-            labelMaHangHoa.Location = new Point(159, 18);
+            labelMaHangHoa.Dock = DockStyle.Fill;
+            labelMaHangHoa.Location = new Point(98, 0);
             labelMaHangHoa.Name = "labelMaHangHoa";
-            labelMaHangHoa.Size = new Size(67, 20);
+            labelMaHangHoa.Size = new Size(133, 47);
             labelMaHangHoa.TabIndex = 4;
             labelMaHangHoa.Text = "Ma hang";
+            labelMaHangHoa.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // labelTenHang
+            // buttonXoa
             // 
-            labelTenHang.AutoSize = true;
-            labelTenHang.Location = new Point(286, 18);
-            labelTenHang.Name = "labelTenHang";
-            labelTenHang.Size = new Size(68, 20);
-            labelTenHang.TabIndex = 5;
-            labelTenHang.Text = "TenHang";
+            buttonXoa.Dock = DockStyle.Fill;
+            buttonXoa.Location = new Point(54, 3);
+            buttonXoa.Name = "buttonXoa";
+            buttonXoa.Size = new Size(38, 41);
+            buttonXoa.TabIndex = 0;
+            buttonXoa.Text = "x";
+            buttonXoa.UseVisualStyleBackColor = true;
+            buttonXoa.Click += buttonXoa_Click;
+            // 
+            // textBoxGiaBan
+            // 
+            textBoxGiaBan.Font = new Font("Segoe UI", 12F);
+            textBoxGiaBan.Location = new Point(704, 3);
+            textBoxGiaBan.Name = "textBoxGiaBan";
+            textBoxGiaBan.ReadOnly = true;
+            textBoxGiaBan.Size = new Size(103, 34);
+            textBoxGiaBan.TabIndex = 2;
+            // 
+            // textBoxTenHang
+            // 
+            textBoxTenHang.BackColor = SystemColors.Window;
+            textBoxTenHang.BorderStyle = BorderStyle.None;
+            textBoxTenHang.Dock = DockStyle.Fill;
+            textBoxTenHang.Font = new Font("Segoe UI", 12F);
+            textBoxTenHang.Location = new Point(237, 3);
+            textBoxTenHang.Multiline = true;
+            textBoxTenHang.Name = "textBoxTenHang";
+            textBoxTenHang.ReadOnly = true;
+            textBoxTenHang.Size = new Size(310, 41);
+            textBoxTenHang.TabIndex = 6;
+            textBoxTenHang.Text = "TenHang";
             // 
             // UserControlHangHoa
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
-            Controls.Add(labelTenHang);
-            Controls.Add(labelMaHangHoa);
-            Controls.Add(labelSTT);
-            Controls.Add(textBoxGiaBan);
-            Controls.Add(numericUpDown1);
-            Controls.Add(buttonXoa);
+            Controls.Add(tableLayoutPanel1);
             Name = "UserControlHangHoa";
-            Size = new Size(935, 58);
+            Size = new Size(951, 55);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private Button buttonXoa;
-        private NumericUpDown numericUpDown1;
-        private TextBox textBoxGiaBan;
+        private TableLayoutPanel tableLayoutPanel1;
         private Label labelSTT;
+        private TextBox textBoxTenHang;
+        private NumericUpDown numericUpDown1;
+        private Button buttonXoa;
         private Label labelMaHangHoa;
-        private Label labelTenHang;
+        private TextBox textBoxGiaBan;
     }
 }

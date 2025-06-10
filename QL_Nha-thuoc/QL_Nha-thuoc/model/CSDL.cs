@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
-namespace QL_Nha_thuoc
+namespace QL_Nha_thuoc.model
 {
     internal class CSDL
     {

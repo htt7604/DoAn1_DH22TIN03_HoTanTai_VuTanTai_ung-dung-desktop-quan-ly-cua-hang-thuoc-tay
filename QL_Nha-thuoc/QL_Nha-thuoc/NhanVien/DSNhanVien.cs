@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QL_Nha_thuoc.NhanVien;
+using QL_Nha_thuoc.model;
 namespace QL_Nha_thuoc
 {
     public partial class DSNhanVien : Form

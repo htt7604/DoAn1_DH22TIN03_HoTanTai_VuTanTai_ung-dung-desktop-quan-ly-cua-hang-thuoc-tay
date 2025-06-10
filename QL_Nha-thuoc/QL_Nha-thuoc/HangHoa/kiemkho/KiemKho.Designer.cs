@@ -37,24 +37,33 @@
             groupBox1 = new GroupBox();
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
-            panel4 = new Panel();
-            pictureBox1 = new PictureBox();
-            textBoxTimNV = new TextBox();
             buttonThemNV = new Button();
             label1 = new Label();
             panel3 = new Panel();
             groupBox3 = new GroupBox();
             textBox1 = new TextBox();
+            dataGridViewdsPhieuKiemKho = new DataGridView();
+            panel4 = new Panel();
+            pictureBox1 = new PictureBox();
+            textBoxTimNV = new TextBox();
             panel1 = new Panel();
-            dataGridViewds = new DataGridView();
+            panel2 = new Panel();
+            buttonTimKiem = new Button();
+            comboBoxLoaiTimKiem = new ComboBox();
+            panel5 = new Panel();
+            pictureBox2 = new PictureBox();
+            textBoxTimPhieuKiem = new TextBox();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
-            panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel3.SuspendLayout();
             groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewdsPhieuKiemKho).BeginInit();
+            panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewds).BeginInit();
+            panel2.SuspendLayout();
+            panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // groupBox2
@@ -141,43 +150,10 @@
             radioButton1.Text = "Tháng này";
             radioButton1.UseVisualStyleBackColor = true;
             // 
-            // panel4
-            // 
-            panel4.BackColor = SystemColors.ButtonHighlight;
-            panel4.Controls.Add(pictureBox1);
-            panel4.Controls.Add(textBoxTimNV);
-            panel4.Location = new Point(6, 6);
-            panel4.Name = "panel4";
-            panel4.Padding = new Padding(5, 2, 5, 2);
-            panel4.Size = new Size(425, 37);
-            panel4.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor = SystemColors.ButtonHighlight;
-            pictureBox1.Image = Properties.Resources.search;
-            pictureBox1.Location = new Point(8, 5);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(40, 25);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 2;
-            pictureBox1.TabStop = false;
-            // 
-            // textBoxTimNV
-            // 
-            textBoxTimNV.BorderStyle = BorderStyle.None;
-            textBoxTimNV.Location = new Point(54, 5);
-            textBoxTimNV.Multiline = true;
-            textBoxTimNV.Name = "textBoxTimNV";
-            textBoxTimNV.PlaceholderText = "Tìm theo mã phiếu kiểm";
-            textBoxTimNV.Size = new Size(354, 25);
-            textBoxTimNV.TabIndex = 1;
-            textBoxTimNV.Tag = "";
-            // 
             // buttonThemNV
             // 
             buttonThemNV.BackColor = Color.LimeGreen;
-            buttonThemNV.Location = new Point(631, 6);
+            buttonThemNV.Location = new Point(787, 10);
             buttonThemNV.Name = "buttonThemNV";
             buttonThemNV.Size = new Size(130, 40);
             buttonThemNV.TabIndex = 0;
@@ -225,20 +201,12 @@
             textBox1.Size = new Size(196, 27);
             textBox1.TabIndex = 0;
             // 
-            // panel1
+            // dataGridViewdsPhieuKiemKho
             // 
-            panel1.Controls.Add(panel4);
-            panel1.Controls.Add(buttonThemNV);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(251, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1131, 57);
-            panel1.TabIndex = 6;
-            // 
-            // dataGridViewds
-            // 
-            dataGridViewds.BackgroundColor = SystemColors.Window;
-            dataGridViewds.BorderStyle = BorderStyle.None;
+            dataGridViewdsPhieuKiemKho.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewdsPhieuKiemKho.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewdsPhieuKiemKho.BackgroundColor = SystemColors.Window;
+            dataGridViewdsPhieuKiemKho.BorderStyle = BorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
@@ -246,8 +214,8 @@
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridViewds.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewds.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewdsPhieuKiemKho.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewdsPhieuKiemKho.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
@@ -255,22 +223,132 @@
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridViewds.DefaultCellStyle = dataGridViewCellStyle2;
-            dataGridViewds.Dock = DockStyle.Fill;
-            dataGridViewds.Location = new Point(251, 57);
-            dataGridViewds.MultiSelect = false;
-            dataGridViewds.Name = "dataGridViewds";
-            dataGridViewds.RowHeadersWidth = 51;
-            dataGridViewds.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewds.Size = new Size(1131, 595);
-            dataGridViewds.TabIndex = 38;
+            dataGridViewdsPhieuKiemKho.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewdsPhieuKiemKho.Dock = DockStyle.Fill;
+            dataGridViewdsPhieuKiemKho.Location = new Point(251, 57);
+            dataGridViewdsPhieuKiemKho.MultiSelect = false;
+            dataGridViewdsPhieuKiemKho.Name = "dataGridViewdsPhieuKiemKho";
+            dataGridViewdsPhieuKiemKho.ReadOnly = true;
+            dataGridViewdsPhieuKiemKho.RowHeadersWidth = 51;
+            dataGridViewdsPhieuKiemKho.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewdsPhieuKiemKho.Size = new Size(1131, 595);
+            dataGridViewdsPhieuKiemKho.TabIndex = 38;
+            dataGridViewdsPhieuKiemKho.CellDoubleClick += dataGridViewdsPhieuKiemKho_CellDoubleClick;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = SystemColors.ButtonHighlight;
+            panel4.Controls.Add(pictureBox1);
+            panel4.Controls.Add(textBoxTimNV);
+            panel4.Location = new Point(6, 6);
+            panel4.Name = "panel4";
+            panel4.Padding = new Padding(5, 2, 5, 2);
+            panel4.Size = new Size(425, 37);
+            panel4.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = SystemColors.ButtonHighlight;
+            pictureBox1.Image = Properties.Resources.search;
+            pictureBox1.Location = new Point(8, 5);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(40, 25);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 2;
+            pictureBox1.TabStop = false;
+            // 
+            // textBoxTimNV
+            // 
+            textBoxTimNV.BorderStyle = BorderStyle.None;
+            textBoxTimNV.Location = new Point(54, 5);
+            textBoxTimNV.Multiline = true;
+            textBoxTimNV.Name = "textBoxTimNV";
+            textBoxTimNV.PlaceholderText = "Tìm theo mã phiếu kiểm";
+            textBoxTimNV.Size = new Size(354, 25);
+            textBoxTimNV.TabIndex = 1;
+            textBoxTimNV.Tag = "";
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(panel2);
+            panel1.Controls.Add(panel4);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(251, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1131, 57);
+            panel1.TabIndex = 6;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(buttonTimKiem);
+            panel2.Controls.Add(buttonThemNV);
+            panel2.Controls.Add(comboBoxLoaiTimKiem);
+            panel2.Controls.Add(panel5);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1131, 57);
+            panel2.TabIndex = 6;
+            // 
+            // buttonTimKiem
+            // 
+            buttonTimKiem.Location = new Point(547, 16);
+            buttonTimKiem.Name = "buttonTimKiem";
+            buttonTimKiem.Size = new Size(94, 29);
+            buttonTimKiem.TabIndex = 4;
+            buttonTimKiem.Text = "Tim kiem";
+            buttonTimKiem.UseVisualStyleBackColor = true;
+            buttonTimKiem.Click += buttonTimKiem_Click;
+            // 
+            // comboBoxLoaiTimKiem
+            // 
+            comboBoxLoaiTimKiem.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxLoaiTimKiem.FormattingEnabled = true;
+            comboBoxLoaiTimKiem.Location = new Point(371, 16);
+            comboBoxLoaiTimKiem.Name = "comboBoxLoaiTimKiem";
+            comboBoxLoaiTimKiem.Size = new Size(151, 28);
+            comboBoxLoaiTimKiem.TabIndex = 3;
+            comboBoxLoaiTimKiem.SelectedIndexChanged += comboBoxLoaiTimKiem_SelectedIndexChanged;
+            // 
+            // panel5
+            // 
+            panel5.BackColor = SystemColors.ButtonHighlight;
+            panel5.Controls.Add(pictureBox2);
+            panel5.Controls.Add(textBoxTimPhieuKiem);
+            panel5.Location = new Point(6, 10);
+            panel5.Name = "panel5";
+            panel5.Padding = new Padding(5, 2, 5, 2);
+            panel5.Size = new Size(347, 41);
+            panel5.TabIndex = 2;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackColor = SystemColors.ButtonHighlight;
+            pictureBox2.Image = Properties.Resources.search;
+            pictureBox2.Location = new Point(8, 7);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(40, 25);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 2;
+            pictureBox2.TabStop = false;
+            // 
+            // textBoxTimPhieuKiem
+            // 
+            textBoxTimPhieuKiem.BorderStyle = BorderStyle.None;
+            textBoxTimPhieuKiem.Location = new Point(68, 7);
+            textBoxTimPhieuKiem.Multiline = true;
+            textBoxTimPhieuKiem.Name = "textBoxTimPhieuKiem";
+            textBoxTimPhieuKiem.PlaceholderText = "Tìm theo tên thuốc";
+            textBoxTimPhieuKiem.Size = new Size(260, 25);
+            textBoxTimPhieuKiem.TabIndex = 1;
+            textBoxTimPhieuKiem.Tag = "";
             // 
             // KiemKho
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1382, 652);
-            Controls.Add(dataGridViewds);
+            Controls.Add(dataGridViewdsPhieuKiemKho);
             Controls.Add(panel1);
             Controls.Add(panel3);
             Name = "KiemKho";
@@ -279,15 +357,19 @@
             groupBox2.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewdsPhieuKiemKho).EndInit();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridViewds).EndInit();
+            panel2.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
         }
 
@@ -295,9 +377,6 @@
         private GroupBox groupBox1;
         private RadioButton radioButton2;
         private RadioButton radioButton1;
-        private Panel panel4;
-        private PictureBox pictureBox1;
-        private TextBox textBoxTimNV;
         private Button buttonThemNV;
         private Label label1;
         private GroupBox groupBox2;
@@ -307,7 +386,16 @@
         private Panel panel3;
         private GroupBox groupBox3;
         private TextBox textBox1;
+        private DataGridView dataGridViewdsPhieuKiemKho;
+        private Panel panel4;
+        private PictureBox pictureBox1;
+        private TextBox textBoxTimNV;
         private Panel panel1;
-        private DataGridView dataGridViewds;
+        private Panel panel2;
+        private Button buttonTimKiem;
+        private ComboBox comboBoxLoaiTimKiem;
+        private Panel panel5;
+        private PictureBox pictureBox2;
+        private TextBox textBoxTimPhieuKiem;
     }
 }
