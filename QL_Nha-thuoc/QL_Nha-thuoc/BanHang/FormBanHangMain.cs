@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using QL_Nha_thuoc.HangHoa;
+using QL_Nha_thuoc.model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using static QL_Nha_thuoc.DanhMuc;
 
 namespace QL_Nha_thuoc.BanHang
@@ -30,7 +32,22 @@ namespace QL_Nha_thuoc.BanHang
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string query = "SELECT HH.MA_HANG_HOA, HH.TEN_HANG_HOA, GBHH.GIA_BAN_HH, HH.HINH_ANH_HH FROM HANG_HOA HH JOIN GIA_HANG_HOA GBHH ON HH.MA_HANG_HOA = GBHH.MA_HANG_HOA  WHERE TEN_HANG_HOA LIKE @keyword";
+                string query = @"
+            SELECT 
+                HH.MA_HANG_HOA, 
+                HH.TEN_HANG_HOA, 
+                GBHH.GIA_BAN_HH, 
+                HH.HINH_ANH_HH,
+                HH.TON_KHO
+            FROM 
+                HANG_HOA HH
+            JOIN 
+                GIA_HANG_HOA GBHH 
+            ON 
+                HH.MA_HANG_HOA = GBHH.MA_HANG_HOA
+            WHERE 
+                TEN_HANG_HOA LIKE @keyword";
+
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
@@ -43,9 +60,11 @@ namespace QL_Nha_thuoc.BanHang
                             {
                                 Ma = reader["MA_HANG_HOA"].ToString(),
                                 Ten = reader["TEN_HANG_HOA"].ToString(),
-                                Gia = Convert.ToInt32(reader["GIA_BAN_HH"]),
-                                hinhanhhh = reader["HINH_ANH_HH"].ToString()
+                                Gia = Convert.ToUInt32(reader["GIA_BAN_HH"]),
+                                hinhanhhh = reader["HINH_ANH_HH"].ToString(),
+                                SoLuongTon = Convert.ToInt32(reader["TON_KHO"])
                             };
+
                             ketQua.Add(t);
                         }
                     }
@@ -57,7 +76,8 @@ namespace QL_Nha_thuoc.BanHang
 
 
 
-        private void ThemHangVaoTabHienTai(string ten, string mah)
+
+        private void ThemHangVaoTabHienTai(string ten, string mah, float giaBan)
         {
             if (tabControlHoaDon.TabPages.Count > 0)
             {
@@ -68,7 +88,7 @@ namespace QL_Nha_thuoc.BanHang
 
                 if (ucFormHoaDon != null)
                 {
-                    ucFormHoaDon.ThemHang(ten, mah); // Gọi tới hàm đã định nghĩa trong UC
+                    ucFormHoaDon.ThemHang(ten, mah, giaBan); // Gọi tới hàm đã định nghĩa trong UC
                 }
             }
         }
@@ -92,39 +112,34 @@ namespace QL_Nha_thuoc.BanHang
             panelKetQuaTimKiem.Visible = true;
 
             string keyword = textBoxTimHH.Text.Trim();
-
             if (string.IsNullOrWhiteSpace(keyword))
             {
                 panelKetQuaTimKiem.Visible = false;
                 return;
             }
 
-            var ds = TimThuocTuCSDL(keyword);
-
+            var danhSachThuoc = TimThuocTuCSDL(keyword);
             panelKetQuaTimKiem.Controls.Clear();
-            int y = 0;
 
-            foreach (var thuoc in ds)
+            foreach (var thuoc in danhSachThuoc)
             {
-                var uc = new UC_ItemThuoc();
-                uc.SetData(thuoc.Ten, thuoc.Ma, thuoc.Gia, thuoc.hinhanhhh);
-                uc.Width = panelKetQuaTimKiem.Width;
-                uc.Location = new Point(0, y);
-                y += uc.Height + 10;
+                UC_ItemThuoc item = new UC_ItemThuoc();
+                item.SetData(thuoc.Ten, thuoc.Ma, thuoc.Gia, thuoc.hinhanhhh, thuoc.SoLuongTon);
+                item.Dock = DockStyle.Top;
 
-                // Gắn sự kiện Click để thêm vào tab hiện tại
-                uc.Click += (s, e) =>
+                item.Click += (s, ev) =>
                 {
-                    ThemHangVaoTabHienTai(thuoc.Ten, thuoc.Ma);
-
+                    ThemHangVaoTabHienTai(thuoc.Ten, thuoc.Ma, thuoc.Gia);
                     panelKetQuaTimKiem.Visible = false;
                     textBoxTimHH.Clear();
                 };
 
-
-                panelKetQuaTimKiem.Controls.Add(uc);
+                panelKetQuaTimKiem.Controls.Add(item);
             }
         }
+
+
+
         private void FormBanHangMain_Load(object sender, EventArgs e)
         {
             if (tabControlHoaDon.TabPages.Count > 0)
@@ -143,6 +158,50 @@ namespace QL_Nha_thuoc.BanHang
         private void buttonThemHoaDon_Click(object sender, EventArgs e)
         {
             ThemTabHoaDonMoi();
+        }
+
+        private void buttonXoaHoaDon_Click(object sender, EventArgs e)
+        {
+            // Kiểm tra xem có tab nào không
+            if (tabControlHoaDon.TabPages.Count > 1)
+            {
+                //thong báo người dùng co muon xóa không
+                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa hóa đơn hiện tại không?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                //neu người dùng đồng ý xóa
+                if (result == DialogResult.Yes)
+                {
+                    // Xóa tab hiện tại
+                    var currentTab = tabControlHoaDon.SelectedTab;
+                    if (currentTab != null)
+                    {
+                        tabControlHoaDon.TabPages.Remove(currentTab);
+                    }
+                }
+            }
+        }
+
+        private void tabControlHoaDon_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            TabControl tabControl = sender as TabControl;
+            TabPage currentTab = tabControl.TabPages[e.Index];
+
+            // Kiểm tra nếu là tab được chọn
+            bool isSelected = (e.Index == tabControl.SelectedIndex);
+
+            // Chọn màu nền và chữ
+            Color backColor = isSelected ? Color.Blue : SystemColors.Control;
+            Color textColor = isSelected ? Color.White : Color.Black;
+
+            using (SolidBrush bgBrush = new SolidBrush(backColor))
+            using (SolidBrush textBrush = new SolidBrush(textColor))
+            using (StringFormat sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+            {
+                // Vẽ nền tab
+                e.Graphics.FillRectangle(bgBrush, e.Bounds);
+
+                // Vẽ chữ tiêu đề tab
+                e.Graphics.DrawString(currentTab.Text, this.Font, textBrush, e.Bounds, sf);
+            }
         }
     }
 }

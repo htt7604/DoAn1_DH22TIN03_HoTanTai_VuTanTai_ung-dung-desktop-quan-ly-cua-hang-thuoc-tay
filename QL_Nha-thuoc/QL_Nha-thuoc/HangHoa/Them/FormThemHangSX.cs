@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using QL_Nha_thuoc.model;
 namespace QL_Nha_thuoc.HangHoa
 {
     public partial class FormThemHangSX : Form

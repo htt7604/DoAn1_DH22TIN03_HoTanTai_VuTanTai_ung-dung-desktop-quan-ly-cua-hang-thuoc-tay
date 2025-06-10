@@ -9,7 +9,7 @@ namespace QL_Nha_thuoc.HangHoa
     {
         // Thuộc tính công khai (đọc) để lấy mã hàng hóa
         public string MaHangHoa { get; private set; }
-
+        public int SoLuongTon { get; private set; }
         public UC_ItemThuoc()
         {
             InitializeComponent();
@@ -33,13 +33,14 @@ namespace QL_Nha_thuoc.HangHoa
         /// <summary>
         /// Thiết lập dữ liệu hiển thị cho UserControl
         /// </summary>
-        public void SetData(string tenThuoc, string ma, float gia, string tenHinhAnh)
+        public void SetData(string tenThuoc, string ma, float gia, string tenHinhAnh,int SoLuongTon)
         {
             labelTenHH.Text = tenThuoc;
             labelMaHH.Text = ma;
             labelGiaBanHH.Text = $"Giá bán: {gia:N0}";
             MaHangHoa = ma;
-
+            labelTonHH.Text = "Ton: "+SoLuongTon.ToString();
+            SoLuongTon = SoLuongTon;// Lưu số lượng tồn kho
             // Đường dẫn thư mục ảnh
             string thuMucAnh = @"C:\Users\hotan\OneDrive\Tài liệu\GitHub\DoAn1_DH22TIN03_HoTanTai_VuTanTai_ung-dung-desktop-quan-ly-nha-thuoc-Long-Chau\QL_Nha-thuoc\QL_Nha-thuoc\Hinh_anh_hang_hoa";
 
@@ -81,6 +82,8 @@ namespace QL_Nha_thuoc.HangHoa
         private void UC_ItemThuoc_Click(object sender, EventArgs e)
         {
             this.OnClick(e); // Gọi lại sự kiện Click để form ngoài xử lý
+            //dau so luong ton
+
         }
 
         private void UC_ItemThuoc_Load(object sender, EventArgs e)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using QL_Nha_thuoc.HangHoa.CapNhat;
+using QL_Nha_thuoc.model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

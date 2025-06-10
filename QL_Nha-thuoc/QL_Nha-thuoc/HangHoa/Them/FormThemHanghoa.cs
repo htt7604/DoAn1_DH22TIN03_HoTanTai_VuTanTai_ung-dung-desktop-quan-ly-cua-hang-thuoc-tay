@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Windows.Forms;
+using QL_Nha_thuoc.model;
 
 namespace QL_Nha_thuoc.HangHoa
 {

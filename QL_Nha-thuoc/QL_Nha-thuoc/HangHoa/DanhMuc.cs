@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using QL_Nha_thuoc.HangHoa;
+using QL_Nha_thuoc.model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -483,6 +484,7 @@ namespace QL_Nha_thuoc
             public string Ten { get; set; }
             public float Gia { get; set; }
             public string hinhanhhh { get; set; }
+            public int SoLuongTon { get; set; }  // Thêm dòng này
         }
 
 
@@ -497,7 +499,7 @@ namespace QL_Nha_thuoc
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string query = "SELECT HH.MA_HANG_HOA, HH.TEN_HANG_HOA, GBHH.GIA_BAN_HH, HH.HINH_ANH_HH FROM HANG_HOA HH JOIN GIA_HANG_HOA GBHH ON HH.MA_HANG_HOA = GBHH.MA_HANG_HOA  WHERE TEN_HANG_HOA LIKE @keyword";
+                string query = "SELECT HH.MA_HANG_HOA, HH.TEN_HANG_HOA, GBHH.GIA_BAN_HH, HH.HINH_ANH_HH, HH.TON_KHO FROM HANG_HOA HH JOIN GIA_HANG_HOA GBHH ON HH.MA_HANG_HOA = GBHH.MA_HANG_HOA  WHERE TEN_HANG_HOA LIKE @keyword";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
@@ -511,7 +513,8 @@ namespace QL_Nha_thuoc
                                 Ma = reader["MA_HANG_HOA"].ToString(),
                                 Ten = reader["TEN_HANG_HOA"].ToString(),
                                 Gia = Convert.ToInt32(reader["GIA_BAN_HH"]),
-                                hinhanhhh = reader["HINH_ANH_HH"].ToString()
+                                hinhanhhh = reader["HINH_ANH_HH"].ToString(),
+                                SoLuongTon = Convert.ToInt32(reader["TON_KHO"])
                             };
                             ketQua.Add(t);
                         }
@@ -557,7 +560,7 @@ namespace QL_Nha_thuoc
             foreach (var thuoc in ds)
             {
                 var uc = new UC_ItemThuoc();
-                uc.SetData(thuoc.Ten, thuoc.Ma, thuoc.Gia, thuoc.hinhanhhh);
+                uc.SetData(thuoc.Ten, thuoc.Ma, thuoc.Gia, thuoc.hinhanhhh,thuoc.SoLuongTon);
                 uc.Width = panelKetQuaTimKiem.Width;
                 uc.Location = new Point(0, y);
                 y += uc.Height + 10;

@@ -34,6 +34,7 @@
             tabPageHoaDon1 = new TabPage();
             panelKetQuaTimKiem = new Panel();
             panel1 = new Panel();
+            buttonXoaHoaDon = new Button();
             buttonThemHoaDon = new Button();
             panel = new Panel();
             tableLayoutPanel5 = new TableLayoutPanel();
@@ -72,19 +73,22 @@
             // 
             tabControlHoaDon.Controls.Add(tabPageHoaDon1);
             tabControlHoaDon.Dock = DockStyle.Fill;
+            tabControlHoaDon.DrawMode = TabDrawMode.OwnerDrawFixed;
+            tabControlHoaDon.Font = new Font("Segoe UI", 12F);
             tabControlHoaDon.Location = new Point(0, 0);
             tabControlHoaDon.Name = "tabControlHoaDon";
             tabControlHoaDon.SelectedIndex = 0;
             tabControlHoaDon.Size = new Size(1400, 686);
             tabControlHoaDon.TabIndex = 41;
+            tabControlHoaDon.DrawItem += tabControlHoaDon_DrawItem;
             // 
             // tabPageHoaDon1
             // 
             tabPageHoaDon1.BackColor = SystemColors.Control;
-            tabPageHoaDon1.Location = new Point(4, 29);
+            tabPageHoaDon1.Location = new Point(4, 37);
             tabPageHoaDon1.Name = "tabPageHoaDon1";
             tabPageHoaDon1.Padding = new Padding(3);
-            tabPageHoaDon1.Size = new Size(1392, 653);
+            tabPageHoaDon1.Size = new Size(1392, 645);
             tabPageHoaDon1.TabIndex = 0;
             tabPageHoaDon1.Text = "Hoa don 1";
             // 
@@ -99,6 +103,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(buttonXoaHoaDon);
             panel1.Controls.Add(buttonThemHoaDon);
             panel1.Controls.Add(panel);
             panel1.Dock = DockStyle.Top;
@@ -107,11 +112,21 @@
             panel1.Size = new Size(1400, 63);
             panel1.TabIndex = 3;
             // 
+            // buttonXoaHoaDon
+            // 
+            buttonXoaHoaDon.Location = new Point(676, 3);
+            buttonXoaHoaDon.Name = "buttonXoaHoaDon";
+            buttonXoaHoaDon.Size = new Size(151, 45);
+            buttonXoaHoaDon.TabIndex = 39;
+            buttonXoaHoaDon.Text = "Xoa hoa don";
+            buttonXoaHoaDon.UseVisualStyleBackColor = true;
+            buttonXoaHoaDon.Click += buttonXoaHoaDon_Click;
+            // 
             // buttonThemHoaDon
             // 
-            buttonThemHoaDon.Location = new Point(752, 12);
+            buttonThemHoaDon.Location = new Point(501, 6);
             buttonThemHoaDon.Name = "buttonThemHoaDon";
-            buttonThemHoaDon.Size = new Size(151, 29);
+            buttonThemHoaDon.Size = new Size(151, 45);
             buttonThemHoaDon.TabIndex = 38;
             buttonThemHoaDon.Text = "Them Hoa don";
             buttonThemHoaDon.UseVisualStyleBackColor = true;
@@ -198,5 +213,6 @@
         private TextBox textBoxTimHH;
         private TabControl tabControlHoaDon;
         private TabPage tabPageHoaDon1;
+        private Button buttonXoaHoaDon;
     }
 }
