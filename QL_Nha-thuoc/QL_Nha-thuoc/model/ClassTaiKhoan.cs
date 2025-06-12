@@ -10,11 +10,27 @@ namespace QL_Nha_thuoc.model
     public class DBHelper
     {
         private static string connectionString = @"Data Source=WIN_BYTAI;Initial Catalog=QL_NhaThuoc;Integrated Security=True;Trust Server Certificate=True";
+
         public static SqlConnection GetConnection()
         {
             return new SqlConnection(connectionString);
         }
     }
+
+    public class NhanVien
+    {
+        public string MaNhanVien { get; set; }
+        public string TenNhanVien { get; set; }
+        public string VaiTro { get; set; }
+
+        public NhanVien(string maNV, string tenNV, string vaiTro = "")
+        {
+            MaNhanVien = maNV;
+            TenNhanVien = tenNV;
+            VaiTro = vaiTro;
+        }
+    }
+
     public class ClassTaiKhoan
     {
         public string TenTaiKhoan { get; set; }
@@ -30,50 +46,37 @@ namespace QL_Nha_thuoc.model
             NhanVien = nv;
         }
 
-        // ✅ Method để lấy thông tin tài khoản từ DB theo tên tài khoản
+        // ✅ Lấy tài khoản từ DB theo tên tài khoản
         public static ClassTaiKhoan LayTaiKhoan(string tenTK)
         {
             using (SqlConnection conn = DBHelper.GetConnection())
             {
                 string query = @"
-            SELECT TK.TEN_TAI_KHOAN, TK.MAT_KHAU, TK.MA_NV, NV.HO_TEN_NV
-            FROM TAI_KHOAN TK
-            JOIN NHAN_VIEN NV ON TK.MA_NV = NV.MA_NV
-            WHERE TK.TEN_TAI_KHOAN = @TenTaiKhoan"; // ✅ thêm WHERE đúng cú pháp
+                SELECT TK.TEN_TAI_KHOAN, TK.MAT_KHAU, TK.MA_NV, NV.HO_TEN_NV, VT.TEN_VAI_TRO 
+                FROM TAI_KHOAN TK 
+                join NHAN_VIEN NV on TK.MA_NV=NV.MA_NV JOIN VAI_TRO VT ON TK.MA_VAI_TRO=VT.MA_VAI_TRO
+                WHERE TK.TEN_TAI_KHOAN = @TenTaiKhoan";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@TenTaiKhoan", tenTK);
 
                 conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    string matKhau = reader["MAT_KHAU"].ToString();
-                    string maNV = reader["MA_NV"].ToString();
-                    string tenNV = reader["HO_TEN_NV"].ToString(); // ✅ đúng tên cột
+                    if (reader.Read())
+                    {
+                        string matKhau = reader["MAT_KHAU"].ToString();
+                        string maNV = reader["MA_NV"].ToString();
+                        string tenNV = reader["HO_TEN_NV"].ToString();
+                        string vaiTro = reader["TEN_VAI_TRO"].ToString();
 
-                    var nhanVien = new NhanVien(maNV, tenNV);
-                    return new ClassTaiKhoan(tenTK, matKhau, maNV, nhanVien);
-                }
-                else
-                {
-                    return null; // Không tìm thấy
+                        var nhanVien = new NhanVien(maNV, tenNV, vaiTro);
+                        return new ClassTaiKhoan(tenTK, matKhau, maNV, nhanVien);
+                    }
                 }
             }
+
+            return null;
         }
     }
-
-    public class NhanVien
-    {
-        public string MaNhanVien { get; set; }
-        public string TenNhanVien { get; set; }
-
-        public NhanVien(string maNV, string tenNV)
-        {
-            MaNhanVien = maNV;
-            TenNhanVien = tenNV;
-        }
-    }
-
 }

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             groupBox2 = new GroupBox();
             checkBox3 = new CheckBox();
             checkBox2 = new CheckBox();
@@ -37,7 +37,7 @@
             groupBox1 = new GroupBox();
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
-            buttonThemNV = new Button();
+            buttonThemKiemKho = new Button();
             label1 = new Label();
             panel3 = new Panel();
             groupBox3 = new GroupBox();
@@ -150,15 +150,16 @@
             radioButton1.Text = "Tháng này";
             radioButton1.UseVisualStyleBackColor = true;
             // 
-            // buttonThemNV
+            // buttonThemKiemKho
             // 
-            buttonThemNV.BackColor = Color.LimeGreen;
-            buttonThemNV.Location = new Point(787, 10);
-            buttonThemNV.Name = "buttonThemNV";
-            buttonThemNV.Size = new Size(130, 40);
-            buttonThemNV.TabIndex = 0;
-            buttonThemNV.Text = "+ Kiểm kho";
-            buttonThemNV.UseVisualStyleBackColor = false;
+            buttonThemKiemKho.BackColor = Color.LimeGreen;
+            buttonThemKiemKho.Location = new Point(787, 10);
+            buttonThemKiemKho.Name = "buttonThemKiemKho";
+            buttonThemKiemKho.Size = new Size(130, 40);
+            buttonThemKiemKho.TabIndex = 0;
+            buttonThemKiemKho.Text = "+ Kiểm kho";
+            buttonThemKiemKho.UseVisualStyleBackColor = false;
+            buttonThemKiemKho.Click += buttonThemKiemKho_Click;
             // 
             // label1
             // 
@@ -207,23 +208,23 @@
             dataGridViewdsPhieuKiemKho.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewdsPhieuKiemKho.BackgroundColor = SystemColors.Window;
             dataGridViewdsPhieuKiemKho.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridViewdsPhieuKiemKho.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridViewdsPhieuKiemKho.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewdsPhieuKiemKho.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridViewdsPhieuKiemKho.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dataGridViewdsPhieuKiemKho.DefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewdsPhieuKiemKho.Dock = DockStyle.Fill;
             dataGridViewdsPhieuKiemKho.Location = new Point(251, 57);
             dataGridViewdsPhieuKiemKho.MultiSelect = false;
@@ -281,7 +282,7 @@
             // panel2
             // 
             panel2.Controls.Add(buttonTimKiem);
-            panel2.Controls.Add(buttonThemNV);
+            panel2.Controls.Add(buttonThemKiemKho);
             panel2.Controls.Add(comboBoxLoaiTimKiem);
             panel2.Controls.Add(panel5);
             panel2.Dock = DockStyle.Top;
@@ -377,7 +378,7 @@
         private GroupBox groupBox1;
         private RadioButton radioButton2;
         private RadioButton radioButton1;
-        private Button buttonThemNV;
+        private Button buttonThemKiemKho;
         private Label label1;
         private GroupBox groupBox2;
         private CheckBox checkBox3;

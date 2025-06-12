@@ -41,10 +41,14 @@ namespace QL_Nha_thuoc.DangNhap
             if (KiemTraDangNhap(tenTK, matKhau))
             {
                 var taiKhoan = ClassTaiKhoan.LayTaiKhoan(tenTK);
+
+                // ✅ Lưu thông tin đăng nhập
+                Session.TaiKhoanDangNhap = taiKhoan;
+
                 MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 this.Hide();
-                FormMain formMain = new FormMain(taiKhoan);
+                FormMain formMain = new FormMain();
                 formMain.ShowDialog();
                 this.Show();
             }
@@ -54,10 +58,12 @@ namespace QL_Nha_thuoc.DangNhap
             }
         }
 
-
-
-
-
-
+        private void FormLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonDangNhap.PerformClick(); // Giả lập nút đăng nhập
+            }
+        }
     }
 }

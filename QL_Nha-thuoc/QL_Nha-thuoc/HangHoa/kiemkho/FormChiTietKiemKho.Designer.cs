@@ -28,15 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel3 = new Panel();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
-            panel2 = new Panel();
-            dataGridViewdsTTPhieuKiemKho = new DataGridView();
+            labelTongChenhLech = new Label();
+            labelTongLechGiam = new Label();
+            labelTongLechTang = new Label();
+            labelTongThucTe = new Label();
+            buttonHuyBo = new Button();
+            buttonLuu = new Button();
             panel1 = new Panel();
             textBoxTrangThai = new TextBox();
             textBoxThoiGianKiemKho = new TextBox();
@@ -49,11 +48,13 @@
             label2 = new Label();
             textBoxMaKiemKho = new TextBox();
             label1 = new Label();
+            dataGridViewdsTTPhieuKiemKho = new DataGridView();
+            tableLayoutPanel2 = new TableLayoutPanel();
             tableLayoutPanel1.SuspendLayout();
             panel3.SuspendLayout();
-            panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewdsTTPhieuKiemKho).BeginInit();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewdsTTPhieuKiemKho).BeginInit();
+            tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -61,8 +62,8 @@
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Controls.Add(panel3, 0, 2);
-            tableLayoutPanel1.Controls.Add(panel2, 0, 1);
             tableLayoutPanel1.Controls.Add(panel1, 0, 0);
+            tableLayoutPanel1.Controls.Add(dataGridViewdsTTPhieuKiemKho, 0, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -75,83 +76,69 @@
             // 
             // panel3
             // 
-            panel3.Controls.Add(button3);
-            panel3.Controls.Add(button2);
-            panel3.Controls.Add(button1);
+            panel3.Controls.Add(tableLayoutPanel2);
+            panel3.Controls.Add(buttonHuyBo);
+            panel3.Controls.Add(buttonLuu);
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(3, 568);
             panel3.Name = "panel3";
             panel3.Size = new Size(1108, 225);
             panel3.TabIndex = 2;
             // 
-            // button3
+            // labelTongChenhLech
             // 
-            button3.Location = new Point(726, 187);
-            button3.Name = "button3";
-            button3.Size = new Size(94, 29);
-            button3.TabIndex = 2;
-            button3.Text = "button3";
-            button3.UseVisualStyleBackColor = true;
+            labelTongChenhLech.AutoSize = true;
+            labelTongChenhLech.Location = new Point(107, 123);
+            labelTongChenhLech.Name = "labelTongChenhLech";
+            labelTongChenhLech.Size = new Size(127, 20);
+            labelTongChenhLech.TabIndex = 6;
+            labelTongChenhLech.Text = "Tong chenh lech:  ";
             // 
-            // button2
+            // labelTongLechGiam
             // 
-            button2.Location = new Point(851, 187);
-            button2.Name = "button2";
-            button2.Size = new Size(94, 29);
-            button2.TabIndex = 1;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            labelTongLechGiam.AutoSize = true;
+            labelTongLechGiam.Location = new Point(112, 82);
+            labelTongLechGiam.Name = "labelTongLechGiam";
+            labelTongLechGiam.Size = new Size(122, 20);
+            labelTongLechGiam.TabIndex = 5;
+            labelTongLechGiam.Text = "Tong lech giam:  ";
             // 
-            // button1
+            // labelTongLechTang
             // 
-            button1.Location = new Point(600, 187);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            labelTongLechTang.AutoSize = true;
+            labelTongLechTang.Location = new Point(116, 41);
+            labelTongLechTang.Name = "labelTongLechTang";
+            labelTongLechTang.Size = new Size(118, 20);
+            labelTongLechTang.TabIndex = 4;
+            labelTongLechTang.Text = "Tong lech tang:  ";
             // 
-            // panel2
+            // labelTongThucTe
             // 
-            panel2.Controls.Add(dataGridViewdsTTPhieuKiemKho);
-            panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(3, 178);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1108, 384);
-            panel2.TabIndex = 1;
+            labelTongThucTe.AutoSize = true;
+            labelTongThucTe.Location = new Point(132, 0);
+            labelTongThucTe.Name = "labelTongThucTe";
+            labelTongThucTe.Size = new Size(102, 20);
+            labelTongThucTe.TabIndex = 3;
+            labelTongThucTe.Text = "Tong thuc te:  ";
             // 
-            // dataGridViewdsTTPhieuKiemKho
+            // buttonHuyBo
             // 
-            dataGridViewdsTTPhieuKiemKho.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewdsTTPhieuKiemKho.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewdsTTPhieuKiemKho.BackgroundColor = SystemColors.Window;
-            dataGridViewdsTTPhieuKiemKho.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridViewdsTTPhieuKiemKho.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewdsTTPhieuKiemKho.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridViewdsTTPhieuKiemKho.DefaultCellStyle = dataGridViewCellStyle2;
-            dataGridViewdsTTPhieuKiemKho.Dock = DockStyle.Fill;
-            dataGridViewdsTTPhieuKiemKho.Location = new Point(0, 0);
-            dataGridViewdsTTPhieuKiemKho.MultiSelect = false;
-            dataGridViewdsTTPhieuKiemKho.Name = "dataGridViewdsTTPhieuKiemKho";
-            dataGridViewdsTTPhieuKiemKho.ReadOnly = true;
-            dataGridViewdsTTPhieuKiemKho.RowHeadersWidth = 51;
-            dataGridViewdsTTPhieuKiemKho.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewdsTTPhieuKiemKho.Size = new Size(1108, 384);
-            dataGridViewdsTTPhieuKiemKho.TabIndex = 39;
+            buttonHuyBo.Location = new Point(986, 187);
+            buttonHuyBo.Name = "buttonHuyBo";
+            buttonHuyBo.Size = new Size(94, 29);
+            buttonHuyBo.TabIndex = 1;
+            buttonHuyBo.Text = "Huy bo";
+            buttonHuyBo.UseVisualStyleBackColor = true;
+            // 
+            // buttonLuu
+            // 
+            buttonLuu.Location = new Point(834, 187);
+            buttonLuu.Name = "buttonLuu";
+            buttonLuu.Size = new Size(94, 29);
+            buttonLuu.TabIndex = 0;
+            buttonLuu.Text = "Luu";
+            buttonLuu.UseVisualStyleBackColor = true;
+            buttonLuu.Click += buttonLuu_Click;
             // 
             // panel1
             // 
@@ -174,29 +161,37 @@
             // 
             // textBoxTrangThai
             // 
+            textBoxTrangThai.Enabled = false;
             textBoxTrangThai.Location = new Point(461, 9);
             textBoxTrangThai.Name = "textBoxTrangThai";
+            textBoxTrangThai.ReadOnly = true;
             textBoxTrangThai.Size = new Size(163, 27);
             textBoxTrangThai.TabIndex = 10;
             // 
             // textBoxThoiGianKiemKho
             // 
+            textBoxThoiGianKiemKho.Enabled = false;
             textBoxThoiGianKiemKho.Location = new Point(121, 66);
             textBoxThoiGianKiemKho.Name = "textBoxThoiGianKiemKho";
+            textBoxThoiGianKiemKho.ReadOnly = true;
             textBoxThoiGianKiemKho.Size = new Size(174, 27);
             textBoxThoiGianKiemKho.TabIndex = 9;
             // 
             // textBoxThoiGianCanBang
             // 
+            textBoxThoiGianCanBang.Enabled = false;
             textBoxThoiGianCanBang.Location = new Point(121, 116);
             textBoxThoiGianCanBang.Name = "textBoxThoiGianCanBang";
+            textBoxThoiGianCanBang.ReadOnly = true;
             textBoxThoiGianCanBang.Size = new Size(174, 27);
             textBoxThoiGianCanBang.TabIndex = 8;
             // 
             // textBoxNguoiTao
             // 
+            textBoxNguoiTao.Enabled = false;
             textBoxNguoiTao.Location = new Point(461, 70);
             textBoxNguoiTao.Name = "textBoxNguoiTao";
+            textBoxNguoiTao.ReadOnly = true;
             textBoxNguoiTao.Size = new Size(163, 27);
             textBoxNguoiTao.TabIndex = 7;
             // 
@@ -246,8 +241,10 @@
             // 
             // textBoxMaKiemKho
             // 
+            textBoxMaKiemKho.Enabled = false;
             textBoxMaKiemKho.Location = new Point(121, 9);
             textBoxMaKiemKho.Name = "textBoxMaKiemKho";
+            textBoxMaKiemKho.ReadOnly = true;
             textBoxMaKiemKho.Size = new Size(174, 27);
             textBoxMaKiemKho.TabIndex = 1;
             // 
@@ -260,6 +257,36 @@
             label1.TabIndex = 0;
             label1.Text = "Ma kiem kho:";
             // 
+            // dataGridViewdsTTPhieuKiemKho
+            // 
+            dataGridViewdsTTPhieuKiemKho.BackgroundColor = SystemColors.Window;
+            dataGridViewdsTTPhieuKiemKho.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewdsTTPhieuKiemKho.Dock = DockStyle.Fill;
+            dataGridViewdsTTPhieuKiemKho.Location = new Point(3, 178);
+            dataGridViewdsTTPhieuKiemKho.Name = "dataGridViewdsTTPhieuKiemKho";
+            dataGridViewdsTTPhieuKiemKho.RowHeadersWidth = 51;
+            dataGridViewdsTTPhieuKiemKho.Size = new Size(1108, 384);
+            dataGridViewdsTTPhieuKiemKho.TabIndex = 3;
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 1;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(labelTongChenhLech, 0, 3);
+            tableLayoutPanel2.Controls.Add(labelTongLechTang, 0, 1);
+            tableLayoutPanel2.Controls.Add(labelTongLechGiam, 0, 2);
+            tableLayoutPanel2.Controls.Add(labelTongThucTe, 0, 0);
+            tableLayoutPanel2.Location = new Point(862, 16);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RightToLeft = RightToLeft.Yes;
+            tableLayoutPanel2.RowCount = 4;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.Size = new Size(237, 165);
+            tableLayoutPanel2.TabIndex = 7;
+            // 
             // FormChiTietKiemKho
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -271,10 +298,11 @@
             Load += FormChiTietKiemKho_Load_1;
             tableLayoutPanel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
-            panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridViewdsTTPhieuKiemKho).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewdsTTPhieuKiemKho).EndInit();
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -282,9 +310,7 @@
 
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel3;
-        private Panel panel2;
         private Panel panel1;
-        private DataGridView dataGridViewdsTTPhieuKiemKho;
         private TextBox textBoxTrangThai;
         private TextBox textBoxThoiGianKiemKho;
         private TextBox textBoxThoiGianCanBang;
@@ -296,8 +322,13 @@
         private Label label2;
         private TextBox textBoxMaKiemKho;
         private Label label1;
-        private Button button3;
-        private Button button2;
-        private Button button1;
+        private Button buttonHuyBo;
+        private Button buttonLuu;
+        private Label labelTongChenhLech;
+        private Label labelTongLechGiam;
+        private Label labelTongLechTang;
+        private Label labelTongThucTe;
+        private DataGridView dataGridViewdsTTPhieuKiemKho;
+        private TableLayoutPanel tableLayoutPanel2;
     }
 }

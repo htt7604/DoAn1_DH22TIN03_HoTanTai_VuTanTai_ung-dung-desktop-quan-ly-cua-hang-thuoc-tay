@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using QL_Nha_thuoc.model;
 
 
 
@@ -20,19 +20,35 @@ namespace QL_Nha_thuoc
 {
     public partial class FormMain : Form
     {
-        private ClassTaiKhoan taiKhoanDangNhap;
 
-        // Constructor nhận thông tin tài khoản
-        public FormMain(ClassTaiKhoan taiKhoan)
+        public void LoadFormVaoPanel(Form formCon)
         {
-            InitializeComponent();
-            taiKhoanDangNhap = taiKhoan;
-            toolStripTextBoxTaiKhoan.Text = taiKhoanDangNhap.NhanVien.TenNhanVien;
+            panelMain.Controls.Clear();                // Xóa control cũ nếu có
+            formCon.TopLevel = false;                  // Bắt buộc khi đưa form vào panel
+            formCon.FormBorderStyle = FormBorderStyle.None;
+            formCon.Dock = DockStyle.Fill;
+
+            panelMain.Controls.Add(formCon);
+            formCon.Show();
         }
+
+
+
         public FormMain()
         {
             InitializeComponent();
+
+            if (Session.TaiKhoanDangNhap != null)
+            {
+                toolStripTextBoxTaiKhoan.Text = Session.TaiKhoanDangNhap.TenTaiKhoan;
+            }
+            else
+            {
+                toolStripTextBoxTaiKhoan.Text = "Chưa đăng nhập";
+            }
         }
+
+
 
         private void danhSáchNhânViênToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -89,7 +105,7 @@ namespace QL_Nha_thuoc
             this.Show();
         }
 
-        private void kiểmKhoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void kiemKhoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //mo form kiem kho
             KiemKho kiemKho = new KiemKho();
@@ -99,6 +115,10 @@ namespace QL_Nha_thuoc
             panelMain.Controls.Clear();
             panelMain.Controls.Add(kiemKho);
             kiemKho.Show();
+
+            // Load form KiemKho vào panel chính
+            KiemKho formKiemKho = new KiemKho(this);
+            LoadFormVaoPanel(formKiemKho);
         }
     }
 }
