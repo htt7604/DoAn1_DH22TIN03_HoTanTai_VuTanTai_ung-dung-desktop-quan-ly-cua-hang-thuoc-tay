@@ -83,7 +83,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
         }
 
 
-        private void ThemHangVaoTabHienTai(model.HangHoa thongtin)
+        private void ThemHangVaoTabHienTai(model.ClassHangHoa thongtin)
         {
             if (tabControlPhieuKiem.TabPages.Count > 0)
             {
@@ -135,7 +135,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                 uc.Click += (s, e) =>
                 {
                     // Khi người dùng click vào một hàng hóa trong kết quả tìm kiếm
-                    model.HangHoa thongtin = model.HangHoa.LayThongTinMotHangHoa(thuoc.Ma);
+                    model.ClassHangHoa thongtin = model.ClassHangHoa.LayThongTinMotHangHoa(thuoc.Ma);
                     ThemHangVaoTabHienTai(thongtin);
                     panelKetQuaTimKiem.Visible = false; // Ẩn panel kết quả tìm kiếm sau khi chọn
                     textBoxTimHH.Text = ""; // Xóa nội dung ô tìm kiếm

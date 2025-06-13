@@ -34,7 +34,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
         }
 
 
-        public void ThemHang(model.HangHoa thongtin)
+        public void ThemHang(model.ClassHangHoa thongtin)
         {
             if (thongtin == null || string.IsNullOrWhiteSpace(thongtin.MaHangHoa))
             {

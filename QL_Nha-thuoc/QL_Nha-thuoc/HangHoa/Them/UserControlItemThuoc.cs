@@ -21,12 +21,25 @@ namespace QL_Nha_thuoc.HangHoa.Them
         public UserControlItemThuoc()
         {
             InitializeComponent();
+
+            // Gắn sự kiện cho chính control
             this.Click += UserControlItemThuoc_Click;
-            foreach (Control c in this.Controls)  // Đảm bảo toàn bộ vùng UserControl có thể click
+
+            // Gắn sự kiện cho tất cả các control con để đảm bảo click ở đâu cũng bắt được
+            foreach (Control c in this.Controls)
             {
                 c.Click += UserControlItemThuoc_Click;
+                // Nếu control con có control con nữa, gắn đệ quy
+                foreach (Control sub in c.Controls)
+                {
+                    sub.Click += UserControlItemThuoc_Click;
+                }
             }
         }
+
+
+
+
         //ham set giá trị cho các thuộc tính của UserControlItemThemThuoc
         public void SetValues(ClassThuoc thuoc)
         {

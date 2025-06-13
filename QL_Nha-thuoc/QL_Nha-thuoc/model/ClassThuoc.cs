@@ -25,13 +25,14 @@ namespace QL_Nha_thuoc.model
         public string TenDonViTinh { get; set; } // Tên đơn vị tính, từ bảng DON_VI_TINH
 
         // Thông tin liên kết
+        public string MaHangSanXuat { get; set; } // Mã nhà sản xuất, từ bảng HANG_SAN_XUAT
         public string TenHangSanXuat { get; set; } // từ bảng HANG_SAN_XUAT
         public string MaDonViTinh { get; set; }    // từ bảng DON_VI_TINH
 
         public ClassThuoc() { }
 
         public ClassThuoc(string maThuoc, string tenThuoc, string soDangKy, string hoatChatChinh,
-                          string hamLuong, string quyCachDongGoi, string tenHangSanXuat, string maDonViTinh, string tenDonViTinh)
+                          string hamLuong, string quyCachDongGoi, string tenHangSanXuat, string maDonViTinh, string tenDonViTinh, string maHangSanXuat)
         {
             MaThuoc = maThuoc;
             TenThuoc = tenThuoc;
@@ -42,6 +43,7 @@ namespace QL_Nha_thuoc.model
             TenHangSanXuat = tenHangSanXuat;
             MaDonViTinh = maDonViTinh;
             TenDonViTinh = tenDonViTinh;
+            MaHangSanXuat = maHangSanXuat;
         }
 
         // ✅ Hàm lấy danh sách thuốc từ cơ sở dữ liệu
@@ -86,7 +88,8 @@ namespace QL_Nha_thuoc.model
                             QuyCachDongGoi = reader["QUY_CACH_DONG_GOI"]?.ToString(),
                             TenHangSanXuat = reader["TEN_HANG_SX"]?.ToString(),
                             MaDonViTinh = reader["MA_DON_VI_TINH"]?.ToString(),
-                            TenDonViTinh = reader["TEN_DON_VI_TINH"]?.ToString()
+                            TenDonViTinh = reader["TEN_DON_VI_TINH"]?.ToString(),
+                            MaHangSanXuat = reader["MA_HANG_SX"]?.ToString()
 
                         };
 

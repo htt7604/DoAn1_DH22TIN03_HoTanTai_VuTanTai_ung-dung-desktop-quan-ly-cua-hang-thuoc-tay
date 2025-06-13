@@ -13,7 +13,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             InitializeComponent();
         }
         public string MaHangHoa { get; private set; }
-        public void SetData(model.HangHoa thongtin)
+        public void SetData(model.ClassHangHoa thongtin)
         {
             MaHangHoa = thongtin.MaHangHoa;
 
