@@ -1,6 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using QL_Nha_thuoc.HangHoa.kiemkho;
+using QL_Nha_thuoc;
 using QL_Nha_thuoc.model;
+using QL_Nha_thuoc.NhanVien;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -10,6 +12,21 @@ namespace QL_Nha_thuoc
 {
     public partial class KiemKho : Form
     {
+        private FormMain formMain;
+
+
+        public KiemKho(FormMain main)
+        {
+            InitializeComponent();
+            formMain = main;
+
+            LoadThuocTinhKiemKhoComboBox();
+            LoadDanhSachPhieuKiemKho();
+        }
+
+
+
+
         public KiemKho()
         {
             InitializeComponent();
@@ -19,14 +36,14 @@ namespace QL_Nha_thuoc
 
         private void LoadDanhSachPhieuKiemKho()
         {
-            using (SqlConnection connection = DBHelperPK.GetConnection()) // Sử dụng đúng DBHelperPK
+            using (SqlConnection connection = DBHelperPK.GetConnection())
             {
                 try
                 {
                     connection.Open();
-                    string query = @"SELECT PKK.MA_KIEM_KHO, NV.HO_TEN_NV 
-                                     FROM PHIEU_KIEM_KHO PKK
-                                     JOIN NHAN_VIEN NV ON PKK.MA_NV = NV.MA_NV";
+                    string query = @"SELECT PKK.MA_KIEM_KHO, NV.HO_TEN_NV, PKK.NGAY_KIEM_KHO, PKK.NGAY_CAN_BANG_KHO, PKK.TRANG_THAI_PHIEU_KIEM,PKK.GHI_CHU_KIEM_KHO
+                             FROM PHIEU_KIEM_KHO PKK
+                             JOIN NHAN_VIEN NV ON PKK.MA_NV = NV.MA_NV";
 
                     SqlCommand cmd = new SqlCommand(query, connection);
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -37,8 +54,12 @@ namespace QL_Nha_thuoc
                     {
                         string maPhieu = reader["MA_KIEM_KHO"].ToString();
                         string tenNV = reader["HO_TEN_NV"].ToString();
+                        DateTime ngayKiem = reader["NGAY_KIEM_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_KIEM_KHO"]);
+                        DateTime ngayCanBang = reader["NGAY_CAN_BANG_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_CAN_BANG_KHO"]);
+                        string trangThai = reader["TRANG_THAI_PHIEU_KIEM"].ToString();
+                        string ghiChu = reader["GHI_CHU_KIEM_KHO"] == DBNull.Value ? string.Empty : reader["GHI_CHU_KIEM_KHO"].ToString();
 
-                        danhSachPhieu.Add(new PhieuKiemKho(maPhieu, tenNV));
+                        danhSachPhieu.Add(new PhieuKiemKho(maPhieu, tenNV, ngayKiem, ngayCanBang, trangThai, ghiChu));
                     }
 
                     dataGridViewdsPhieuKiemKho.DataSource = danhSachPhieu;
@@ -49,6 +70,7 @@ namespace QL_Nha_thuoc
                 }
             }
         }
+
 
         private void LoadThuocTinhKiemKhoComboBox()
         {
@@ -91,10 +113,10 @@ namespace QL_Nha_thuoc
                 {
                     connection.Open();
 
-                    string query = $@"SELECT PKK.MA_KIEM_KHO, NV.HO_TEN_NV 
-                                      FROM PHIEU_KIEM_KHO PKK
-                                      JOIN NHAN_VIEN NV ON PKK.MA_NV = NV.MA_NV
-                                      WHERE {cotTimKiem} LIKE @GiaTriTimKiem";
+                    string query = $@"SELECT PKK.MA_KIEM_KHO, NV.HO_TEN_NV, PKK.NGAY_KIEM_KHO, PKK.NGAY_CAN_BANG_KHO, PKK.TRANG_THAI_PHIEU_KIEM, PKK.GHI_CHU_KIEM_KHO
+                              FROM PHIEU_KIEM_KHO PKK
+                              JOIN NHAN_VIEN NV ON PKK.MA_NV = NV.MA_NV
+                              WHERE {cotTimKiem} LIKE @GiaTriTimKiem";
 
                     SqlCommand cmd = new SqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@GiaTriTimKiem", $"%{giaTriTimKiem}%");
@@ -106,8 +128,12 @@ namespace QL_Nha_thuoc
                     {
                         string maPhieu = reader["MA_KIEM_KHO"].ToString();
                         string tenNV = reader["HO_TEN_NV"].ToString();
+                        DateTime ngayKiem = reader["NGAY_KIEM_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_KIEM_KHO"]);
+                        DateTime ngayCanBang = reader["NGAY_CAN_BANG_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_CAN_BANG_KHO"]);
+                        string trangThai = reader["TRANG_THAI_PHIEU_KIEM"].ToString();
+                        string ghiChu = reader["GHI_CHU_KIEM_KHO"] == DBNull.Value ? string.Empty : reader["GHI_CHU_KIEM_KHO"].ToString();
 
-                        ketQuaTim.Add(new PhieuKiemKho(maPhieu, tenNV));
+                        ketQuaTim.Add(new PhieuKiemKho(maPhieu, tenNV, ngayKiem, ngayCanBang, trangThai, ghiChu));
                     }
 
                     dataGridViewdsPhieuKiemKho.DataSource = ketQuaTim;
@@ -118,6 +144,7 @@ namespace QL_Nha_thuoc
                 }
             }
         }
+
 
         private void buttonTimKiem_Click(object sender, EventArgs e)
         {
@@ -146,6 +173,40 @@ namespace QL_Nha_thuoc
         }
 
 
+
+        private void buttonThemKiemKho_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = DBHelperPK.GetConnection())
+            {
+                try
+                {
+                    connection.Open();
+
+                    // ✅ Sinh mã mới
+                    string maPhieuKiem = PhieuKiemKho.SinhMaPhieuMoi(connection);
+
+
+
+                    // ✅ Thêm vào CSDL
+                    string query = @"INSERT INTO PHIEU_KIEM_KHO (MA_KIEM_KHO,MA_KHO, MA_NV, NGAY_KIEM_KHO, TRANG_THAI_PHIEU_KIEM)
+                             VALUES (@MaPhieu,'1', @MaNV, @NgayKiem, N'Phiếu tạm')";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@MaPhieu", maPhieuKiem);
+                    //Session.TaiKhoanDangNhap.NhanVien.MaNhanVien
+                    cmd.Parameters.AddWithValue("@MaNV",Session.TaiKhoanDangNhap.MaNhanVien);
+                    cmd.Parameters.AddWithValue("@NgayKiem", DateTime.Now);
+                    cmd.ExecuteNonQuery();
+
+                    // ✅ Tạo form mới và truyền mã vào
+                    FormThemKiemKho formThemKiemKho = new FormThemKiemKho(maPhieuKiem);
+                    formMain.LoadFormVaoPanel(formThemKiemKho);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi tạo phiếu kiểm kho: " + ex.Message);
+                }
+            }
+        }
 
 
 

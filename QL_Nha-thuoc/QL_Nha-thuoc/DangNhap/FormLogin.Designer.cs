@@ -71,6 +71,7 @@
             textBoxMatKhau.Size = new Size(296, 27);
             textBoxMatKhau.TabIndex = 3;
             textBoxMatKhau.UseSystemPasswordChar = true;
+            textBoxMatKhau.KeyDown += FormLogin_KeyDown;
             // 
             // label2
             // 

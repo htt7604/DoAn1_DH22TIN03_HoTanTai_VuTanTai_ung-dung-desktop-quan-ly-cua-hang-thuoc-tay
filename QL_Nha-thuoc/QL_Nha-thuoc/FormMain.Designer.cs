@@ -139,7 +139,7 @@
             kiểmKhoToolStripMenuItem.Name = "kiểmKhoToolStripMenuItem";
             kiểmKhoToolStripMenuItem.Size = new Size(254, 32);
             kiểmKhoToolStripMenuItem.Text = "Kiểm kho";
-            kiểmKhoToolStripMenuItem.Click += kiểmKhoToolStripMenuItem_Click;
+            kiểmKhoToolStripMenuItem.Click += kiemKhoToolStripMenuItem_Click;
             // 
             // toolStripMenuItem3
             // 
