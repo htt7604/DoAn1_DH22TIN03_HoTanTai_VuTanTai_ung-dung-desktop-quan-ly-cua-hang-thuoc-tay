@@ -15,13 +15,15 @@ namespace QL_Nha_thuoc.HangHoa
 {
     public partial class FormChiTietThuoc : Form
     {
-        public FormChiTietThuoc(string maHH)
+        public FormChiTietThuoc(string maHH,string maDVT)
         {
             InitializeComponent();
             maHangHoa = maHH;
+            maDoViTinh = maDVT; // Lưu mã đơn vị tính nếu cần
             this.Load += ChitietThuoc_Load; // Gọi hàm khi form load
         }
         private string maHangHoa;
+        private string maDoViTinh;
 
         private void ChitietThuoc_Load(object sender, EventArgs e)
         {
@@ -252,6 +254,8 @@ namespace QL_Nha_thuoc.HangHoa
             {
                 try
                 {
+                    //xoa gia hang hoa truoc
+                    ClassGiaBanHH.XoaGiaBanTheoMaHangHoa(maHangHoa,maDoViTinh);
                     using (SqlConnection conn = new CSDL().GetConnection())
                     {
                         conn.Open();

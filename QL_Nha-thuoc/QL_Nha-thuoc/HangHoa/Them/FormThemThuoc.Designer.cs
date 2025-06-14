@@ -142,7 +142,7 @@
             // 
             // textBoxGiaBan
             // 
-            textBoxGiaBan.Location = new Point(1022, 150);
+            textBoxGiaBan.Location = new Point(1022, 128);
             textBoxGiaBan.Name = "textBoxGiaBan";
             textBoxGiaBan.Size = new Size(200, 27);
             textBoxGiaBan.TabIndex = 80;
@@ -150,7 +150,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(845, 157);
+            label3.Location = new Point(845, 135);
             label3.Name = "label3";
             label3.Size = new Size(63, 20);
             label3.TabIndex = 79;
@@ -411,7 +411,7 @@
             // flowLayoutPanelListThuoc
             // 
             flowLayoutPanelListThuoc.AutoScroll = true;
-            flowLayoutPanelListThuoc.Location = new Point(363, 225);
+            flowLayoutPanelListThuoc.Location = new Point(348, 224);
             flowLayoutPanelListThuoc.Name = "flowLayoutPanelListThuoc";
             flowLayoutPanelListThuoc.Size = new Size(942, 275);
             flowLayoutPanelListThuoc.TabIndex = 107;

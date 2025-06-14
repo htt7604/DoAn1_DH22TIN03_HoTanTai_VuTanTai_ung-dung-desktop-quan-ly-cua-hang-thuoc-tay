@@ -56,7 +56,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1400, 749);
+            panel2.Size = new Size(1515, 808);
             panel2.TabIndex = 4;
             // 
             // panel3
@@ -66,7 +66,7 @@
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(0, 63);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1400, 686);
+            panel3.Size = new Size(1515, 745);
             panel3.TabIndex = 4;
             // 
             // tabControlHoaDon
@@ -78,7 +78,7 @@
             tabControlHoaDon.Location = new Point(0, 0);
             tabControlHoaDon.Name = "tabControlHoaDon";
             tabControlHoaDon.SelectedIndex = 0;
-            tabControlHoaDon.Size = new Size(1400, 686);
+            tabControlHoaDon.Size = new Size(1515, 745);
             tabControlHoaDon.TabIndex = 41;
             tabControlHoaDon.DrawItem += tabControlHoaDon_DrawItem;
             // 
@@ -88,7 +88,7 @@
             tabPageHoaDon1.Location = new Point(4, 37);
             tabPageHoaDon1.Name = "tabPageHoaDon1";
             tabPageHoaDon1.Padding = new Padding(3);
-            tabPageHoaDon1.Size = new Size(1392, 645);
+            tabPageHoaDon1.Size = new Size(1507, 704);
             tabPageHoaDon1.TabIndex = 0;
             tabPageHoaDon1.Text = "Hoa don 1";
             // 
@@ -109,7 +109,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1400, 63);
+            panel1.Size = new Size(1515, 63);
             panel1.TabIndex = 3;
             // 
             // buttonXoaHoaDon
@@ -184,7 +184,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1400, 749);
+            ClientSize = new Size(1515, 808);
             Controls.Add(panel2);
             Name = "FormBanHangMain";
             Text = "FormBanHangMain";

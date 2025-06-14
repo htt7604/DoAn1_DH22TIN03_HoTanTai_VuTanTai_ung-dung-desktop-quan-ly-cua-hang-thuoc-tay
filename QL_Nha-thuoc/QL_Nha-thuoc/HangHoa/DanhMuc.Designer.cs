@@ -95,10 +95,10 @@
             radioButtonTatCa.AutoSize = true;
             radioButtonTatCa.Location = new Point(18, 137);
             radioButtonTatCa.Name = "radioButtonTatCa";
-            radioButtonTatCa.Size = new Size(68, 24);
+            radioButtonTatCa.Size = new Size(70, 24);
             radioButtonTatCa.TabIndex = 30;
             radioButtonTatCa.TabStop = true;
-            radioButtonTatCa.Text = "Tat ca";
+            radioButtonTatCa.Text = "Tất cả";
             radioButtonTatCa.UseVisualStyleBackColor = true;
             radioButtonTatCa.CheckedChanged += radioButtonTatCa_CheckedChanged;
             // 
@@ -107,10 +107,10 @@
             radioButtonNgungKinhDoanh.AutoSize = true;
             radioButtonNgungKinhDoanh.Location = new Point(18, 98);
             radioButtonNgungKinhDoanh.Name = "radioButtonNgungKinhDoanh";
-            radioButtonNgungKinhDoanh.Size = new Size(152, 24);
+            radioButtonNgungKinhDoanh.Size = new Size(157, 24);
             radioButtonNgungKinhDoanh.TabIndex = 29;
             radioButtonNgungKinhDoanh.TabStop = true;
-            radioButtonNgungKinhDoanh.Text = "Ngung kinh doanh";
+            radioButtonNgungKinhDoanh.Text = "Ngừng kinh doanh ";
             radioButtonNgungKinhDoanh.UseVisualStyleBackColor = true;
             radioButtonNgungKinhDoanh.CheckedChanged += radioButtonNgungKinhDoanh_CheckedChanged;
             // 
@@ -122,7 +122,7 @@
             radioButtonDangKinhDoanh.Size = new Size(143, 24);
             radioButtonDangKinhDoanh.TabIndex = 28;
             radioButtonDangKinhDoanh.TabStop = true;
-            radioButtonDangKinhDoanh.Text = "Dang kinh doanh";
+            radioButtonDangKinhDoanh.Text = "Đang kinh doanh";
             radioButtonDangKinhDoanh.UseVisualStyleBackColor = true;
             radioButtonDangKinhDoanh.CheckedChanged += radioButtonDangKinhDoanh_CheckedChanged;
             // 

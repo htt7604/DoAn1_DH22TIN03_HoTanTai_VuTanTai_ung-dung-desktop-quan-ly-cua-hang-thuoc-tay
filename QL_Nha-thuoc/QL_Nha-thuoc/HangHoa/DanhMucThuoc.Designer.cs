@@ -33,7 +33,6 @@
             label1 = new Label();
             panel1 = new Panel();
             panel2 = new Panel();
-            buttonTimKiem = new Button();
             comboBoxLoaiTimKiem = new ComboBox();
             panel4 = new Panel();
             pictureBox1 = new PictureBox();
@@ -69,7 +68,6 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(buttonTimKiem);
             panel2.Controls.Add(comboBoxLoaiTimKiem);
             panel2.Controls.Add(panel4);
             panel2.Dock = DockStyle.Top;
@@ -77,16 +75,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1208, 57);
             panel2.TabIndex = 5;
-            // 
-            // buttonTimKiem
-            // 
-            buttonTimKiem.Location = new Point(678, 20);
-            buttonTimKiem.Name = "buttonTimKiem";
-            buttonTimKiem.Size = new Size(94, 29);
-            buttonTimKiem.TabIndex = 4;
-            buttonTimKiem.Text = "Tim kiem";
-            buttonTimKiem.UseVisualStyleBackColor = true;
-            buttonTimKiem.Click += buttonTimKiem_Click;
             // 
             // comboBoxLoaiTimKiem
             // 
@@ -203,6 +191,5 @@
         private Panel panel7;
         private DataGridView dataGridViewdsThuoc;
         private ComboBox comboBoxLoaiTimKiem;
-        private Button buttonTimKiem;
     }
 }

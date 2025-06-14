@@ -11,11 +11,13 @@ namespace QL_Nha_thuoc.HangHoa
     public partial class ChitietHangHoa : Form
     {
         private string maHangHoa;
+        private string maDonViTinh;
 
-        public ChitietHangHoa(string maHH)
+        public ChitietHangHoa(string maHH,string maDVT)
         {
             InitializeComponent();
             maHangHoa = maHH;
+            maDonViTinh = maDVT;
             this.Load += ChitietHangHoa_Load; // Gọi hàm khi form load
         }
 
@@ -152,22 +154,7 @@ namespace QL_Nha_thuoc.HangHoa
 
 
 
-        private void 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            buttonDong_Click(object sender, EventArgs e)
+        private void buttonDong_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -293,7 +280,8 @@ namespace QL_Nha_thuoc.HangHoa
                             cmd.Parameters.AddWithValue("@maHH", maHangHoa);
                             int rows = cmd.ExecuteNonQuery();
 
-                            if (rows > 0)
+                            bool xoa= ClassGiaBanHH.XoaGiaBanTheoMaHangHoa(maHangHoa,maDonViTinh);
+                            if (rows > 0&& xoa==false)
                             {
                                 MessageBox.Show("Xóa hàng hóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 this.Close(); // Đóng form chi tiết

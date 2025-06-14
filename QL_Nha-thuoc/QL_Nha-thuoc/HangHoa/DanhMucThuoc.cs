@@ -30,7 +30,7 @@ namespace QL_Nha_thuoc
                 try
                 {
                     connection.Open();
-                    string query = "SELECT * FROM HANG_HOA join NHOM_HANG on NHOM_HANG.MA_NHOM_HH=HANG_HOA.MA_NHOM_HH join LOAI_HANG on LOAI_HANG.MA_LOAI_HH=NHOM_HANG.MA_LOAI_HH where LOAI_HANG.MA_LOAI_HH='T'  "; // Thay đổi tên bảng nếu cần
+                    string query = "SELECT * FROM DANH_MUC_THUOC "; // Thay đổi tên bảng nếu cần
                     SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
@@ -68,10 +68,9 @@ namespace QL_Nha_thuoc
             List<ThuocTinhHienThi> danhSachThuocTinh = new List<ThuocTinhHienThi>
             {
                 //new ThuocTinhHienThi { GiaTri = "MA_HANG_HOA", HienThi = "Mã hàng hóa" },
-                new ThuocTinhHienThi { GiaTri = "TEN_HANG_HOA", HienThi = "Tên hàng hóa" },
+                new ThuocTinhHienThi { GiaTri = "TEN_THUOC", HienThi = "Tên hàng hóa" },
                 new ThuocTinhHienThi { GiaTri = "MA_THUOC", HienThi = "Mã thuốc" },
-                new ThuocTinhHienThi { GiaTri = "SO_DANG_KY_THUOC", HienThi = "Số đăng ký" },
-                new ThuocTinhHienThi { GiaTri = "LOAI_THUOC", HienThi = "Loại thuốc" },
+                new ThuocTinhHienThi { GiaTri = "SO_DANG_KY", HienThi = "Số đăng ký" }
                 // Thêm nếu cần
             };
 
@@ -97,6 +96,16 @@ namespace QL_Nha_thuoc
         private void comboBoxLoaiTimKiem_SelectedIndexChanged(object sender, EventArgs e)
         {
             textBoxTimThuoc.PlaceholderText = "Tim kiem theo " + comboBoxLoaiTimKiem.SelectedItem.ToString();
+            string cotTimKiem = LayCotTimKiem();
+            string giaTriTimKiem = textBoxTimThuoc.Text.Trim();
+            if (string.IsNullOrEmpty(cotTimKiem) || string.IsNullOrEmpty(giaTriTimKiem))
+            {
+                //MessageBox.Show("Vui lòng chọn loại tìm kiếm và nhập giá trị cần tìm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                LoadDanhSachThuoc(); // Nếu không có giá trị tìm kiếm, tải lại danh sách thuốc
+                return;
+            }
+            // Thực hiện tìm kiếm trong cơ sở dữ liệu
+            TimKiemThuoc(cotTimKiem, giaTriTimKiem);
         }
 
 
@@ -110,7 +119,7 @@ namespace QL_Nha_thuoc
                 try
                 {
                     connection.Open();
-                    string query = $"SELECT * FROM HANG_HOA join NHOM_HANG on NHOM_HANG.MA_NHOM_HH=HANG_HOA.MA_NHOM_HH join LOAI_HANG on LOAI_HANG.MA_LOAI_HH=NHOM_HANG.MA_LOAI_HH where LOAI_HANG.MA_LOAI_HH='T' and {cotTimKiem} LIKE @GiaTriTimKiem";
+                    string query = $"SELECT * FROM DANH_MUC_THUOC where {cotTimKiem} LIKE @GiaTriTimKiem";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@GiaTriTimKiem", "%" + giaTriTimKiem + "%");
@@ -131,16 +140,7 @@ namespace QL_Nha_thuoc
         //ham tim kiem theo trang thai tim kiem va gia tri nhap vao textBoxTimThuoc
         private void buttonTimKiem_Click(object sender, EventArgs e)
         {
-            string cotTimKiem = LayCotTimKiem();
-            string giaTriTimKiem = textBoxTimThuoc.Text.Trim();
-            if (string.IsNullOrEmpty(cotTimKiem) || string.IsNullOrEmpty(giaTriTimKiem))
-            {
-                //MessageBox.Show("Vui lòng chọn loại tìm kiếm và nhập giá trị cần tìm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                LoadDanhSachThuoc(); // Nếu không có giá trị tìm kiếm, tải lại danh sách thuốc
-                return;
-            }
-            // Thực hiện tìm kiếm trong cơ sở dữ liệu
-            TimKiemThuoc(cotTimKiem, giaTriTimKiem);
+            
         }
 
 

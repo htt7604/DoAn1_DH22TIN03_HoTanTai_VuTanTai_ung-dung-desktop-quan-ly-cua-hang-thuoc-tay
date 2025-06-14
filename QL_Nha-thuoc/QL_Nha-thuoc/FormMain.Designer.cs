@@ -131,6 +131,7 @@
             thiếtLậpGiáToolStripMenuItem.Name = "thiếtLậpGiáToolStripMenuItem";
             thiếtLậpGiáToolStripMenuItem.Size = new Size(254, 32);
             thiếtLậpGiáToolStripMenuItem.Text = "Thiết lập giá";
+            thiếtLậpGiáToolStripMenuItem.Click += thiếtLậpGiáToolStripMenuItem_Click;
             // 
             // kiểmKhoToolStripMenuItem
             // 
