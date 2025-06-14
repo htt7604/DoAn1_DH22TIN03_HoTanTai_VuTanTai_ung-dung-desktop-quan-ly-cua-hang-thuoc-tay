@@ -464,6 +464,7 @@
             // 
             textBoxTiLeLoiNhuan.Location = new Point(501, 468);
             textBoxTiLeLoiNhuan.Name = "textBoxTiLeLoiNhuan";
+            textBoxTiLeLoiNhuan.ReadOnly = true;
             textBoxTiLeLoiNhuan.Size = new Size(200, 27);
             textBoxTiLeLoiNhuan.TabIndex = 128;
             // 

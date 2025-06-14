@@ -34,6 +34,12 @@
     <Compile Update="HangHoa\ChiTiet\FormChiTietThuoc.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="HangHoa\ThietLapGia\FormSuaGiaBanitem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="HangHoa\ThietLapGia\FormThietLapGia.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="HangHoa\kiemkho\FormChiTietKiemKho.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,7 +67,16 @@
     <Compile Update="HangHoa\kiemkho\KiemKho.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="HangHoa\Them\UserControlitemHangHoa.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="HangHoa\Them\UserControlItemThuoc.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="HangHoa\ThietLapGia\UserControlitemThietLapGia.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="HangHoa\ThietLapGia\UserControlTTGia.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="HangHoa\UC_ItemThuoc.cs">

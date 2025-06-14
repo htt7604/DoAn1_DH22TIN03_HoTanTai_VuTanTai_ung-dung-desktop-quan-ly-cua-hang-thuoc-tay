@@ -128,7 +128,6 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                 var uc = new UC_ItemThuoc();
                 uc.SetData(thuoc.Ten, thuoc.Ma, thuoc.Gia, thuoc.hinhanhhh, thuoc.SoLuongTon);
                 uc.Location = new Point(0, y);
-                //uc.Width = flowLayoutPanelTatCaPhieuKiem.ClientSize.Width - flowLayoutPanelTatCaPhieuKiem.Padding.Horizontal - 5;
                 uc.Dock = DockStyle.Top;
                 y += uc.Height + 10;
 

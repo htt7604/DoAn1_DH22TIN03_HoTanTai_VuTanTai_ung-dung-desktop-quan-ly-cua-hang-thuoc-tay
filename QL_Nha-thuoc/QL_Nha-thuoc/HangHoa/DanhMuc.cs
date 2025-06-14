@@ -224,6 +224,7 @@ namespace QL_Nha_thuoc
         SELECT * FROM HANG_HOA 
         JOIN NHOM_HANG ON NHOM_HANG.MA_NHOM_HH = HANG_HOA.MA_NHOM_HH 
         JOIN LOAI_HANG ON LOAI_HANG.MA_LOAI_HH = NHOM_HANG.MA_LOAI_HH 
+        JOIN GIA_HANG_HOA ON HANG_HOA.MA_HANG_HOA = GIA_HANG_HOA.MA_HANG_HOA
         WHERE 1=1 ");
 
             parameters = new Dictionary<string, object>();
@@ -333,16 +334,16 @@ namespace QL_Nha_thuoc
 
                 // Lấy giá trị MA_LOAI_HH từ dòng
                 string maLoaiHH = selectedRow.Cells["MA_LOAI_HH"].Value?.ToString();
-
                 if (maLoaiHH == "HH") // Nếu là hàng hóa
                 {
                     string maHH = selectedRow.Cells["MA_HANG_HOA"].Value?.ToString();
+                    string maDVT = selectedRow.Cells["MA_DON_VI_TINH"].Value?.ToString();
 
                     if (!string.IsNullOrEmpty(maHH))
                     {
                         //// Mở form chi tiết hàng hóa                      
                         // Truyền tham chiếu this vào form chi tiết
-                        var formChiTiet = new ChitietHangHoa(maHH, this);
+                        var formChiTiet = new ChitietHangHoa(maHH,maDVT);
                         formChiTiet.FormClosed += (s, args) => Getthongtinhanghoa(); // Load lại danh sách khi form chi tiết đóng
                         formChiTiet.ShowDialog();
                     }
@@ -350,11 +351,12 @@ namespace QL_Nha_thuoc
                 else
                 {
                     string maHH = selectedRow.Cells["MA_HANG_HOA"].Value?.ToString();
+                    string maDVT = selectedRow.Cells["MA_DON_VI_TINH"].Value?.ToString();
 
                     if (!string.IsNullOrEmpty(maHH))
                     {
                         // Mở form chi tiết hàng hóa
-                        FormChiTietThuoc formChiTietthuoc = new FormChiTietThuoc(maHH);
+                        FormChiTietThuoc formChiTietthuoc = new FormChiTietThuoc(maHH,maDVT);
                         formChiTietthuoc.FormClosed += (s, args) => Getthongtinhanghoa(); // Load lại danh sách khi form chi tiết đóng
                         formChiTietthuoc.ShowDialog(); // Mở modal                  
                     }

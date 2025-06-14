@@ -188,78 +188,77 @@ namespace QL_Nha_thuoc.HangHoa
 
         private void buttonLuu_Click(object sender, EventArgs e)
         {
-            //kiem tra xem đã nhập đủ thông tin chưa
-            if (textBoxTenHH.Text.Trim() == string.Empty)
-            {
-                MessageBox.Show("Vui lòng them thuoc.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            else
-            if (comboBoxNhomHang.SelectedIndex == -1 || comboBoxNhomHang.Text == null)
+            // 1. Kiểm tra đầu vào
+            if (comboBoxNhomHang.SelectedIndex == -1)
             {
                 MessageBox.Show("Vui lòng chọn nhóm hàng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else if (comboBoxDonViTinh.SelectedIndex == -1 || comboBoxDonViTinh.Text == null)
+            if (comboBoxDonViTinh.SelectedIndex == -1)
             {
                 MessageBox.Show("Vui lòng chọn đơn vị tính.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else if (string.IsNullOrWhiteSpace(comboBoxHangSanXuat.Text))
+            if (string.IsNullOrWhiteSpace(comboBoxHangSanXuat.Text))
             {
                 MessageBox.Show("Vui lòng chọn nhà sản xuất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(textBoxTenThuoc.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tên thuốc.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. Kiểm tra và chuyển đổi số liệu giá bán - giá vốn
+            decimal giaBan = 0, giaVon = 0;
+            if (!decimal.TryParse(textBoxGiaBan.Text.Trim(), out giaBan) || giaBan < 0)
+            {
+                MessageBox.Show("Giá bán không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!decimal.TryParse(textBoxGiaVon.Text.Trim(), out giaVon) || giaVon < 0)
+            {
+                MessageBox.Show("Giá vốn không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 3. Tạo thuốc mới
+            string mahh = ClassHangHoa.TaoMaHangHoaTuDong(); // Tạo mã hàng hóa tự động
+            ClassHangHoa thuoc = new ClassHangHoa
+            {
+                MaHangHoa = mahh,
+                MaThuoc = textBoxMaThuoc.Text.Trim(),
+                TenHangHoa = textBoxTenThuoc.Text.Trim(),
+                SoDangKy = textBoxSoDangKy.Text.Trim(),
+                HoatChatChinh = textBoxHoatChat.Text.Trim(),
+                HamLuong = textBoxHamLuong.Text.Trim(),
+                QuyCachDongGoi = textBoxQuyCachDongGoi.Text.Trim(),
+                MaHangSX = MaHangSXThem, // Biến này phải đảm bảo đã gán từ comboBoxHangSanXuat
+                MaDonViTinh = comboBoxDonViTinh.SelectedValue.ToString(),
+                MaNhomHang = comboBoxNhomHang.SelectedValue.ToString(),
+                TinhTrang = "Đang kinh doanh", // Mặc định là còn hàng
+                GiaBan = giaBan,
+                GiaVon = giaVon
+            };
+
+            // 4. Gọi hàm thêm thuốc vào CSDL
+            bool kq = ClassHangHoa.ThemThuocMoi(thuoc);
+
+            // 5. Thông báo kết quả
+            if (kq)
+            {
+                MessageBox.Show("Thêm thuốc thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close(); // Đóng form
+
             }
             else
             {
-                string mahh = ClassHangHoa.TaoMaHangHoaTuDong(); // Tạo mã hàng hóa tự động
-                ClassHangHoa thuoc = new ClassHangHoa
-                {
-                    MaHangHoa = mahh,
-                    MaThuoc = textBoxMaThuoc.Text.Trim(),
-                    TenHangHoa = textBoxTenThuoc.Text.Trim(),
-                    SoDangKy = textBoxSoDangKy.Text.Trim(),
-                    HoatChatChinh = textBoxHoatChat.Text.Trim(),
-                    HamLuong = textBoxHamLuong.Text.Trim(),
-                    QuyCachDongGoi = textBoxQuyCachDongGoi.Text.Trim(),
-                    MaHangSX = MaHangSXThem,
-                    MaDonViTinh = comboBoxDonViTinh.SelectedValue.ToString(),
-                    MaNhomHang = comboBoxNhomHang.SelectedValue.ToString()
-                };
-                //them thuoc vao csdl
-
-                bool kq = ClassHangHoa.ThemThuocMoi(thuoc);
-                //luu hang hoa vao csdl
-                try
-                {
-                    if (kq)
-                    {
-                        //them gia ban hang hoa
-                        ClassGiaBanHH gia = new ClassGiaBanHH
-                        {
-                            MaHangHoa = mahh,
-                            MaDonViTinh = comboBoxDonViTinh.SelectedValue.ToString(),
-                            GiaVon = 0, // Giá vốn có thể để 0 hoặc nhập từ người dùng
-                            GiaBan = 0 // Giá bán có thể để 0 hoặc nhập từ người dùng
-                        };
-                        if (ClassGiaBanHH.ThemGiaBan(gia))
-                        {
-                            MessageBox.Show("Thêm thuốc thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Close(); // Đóng form sau khi thêm thành công
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        //in loi neu them khong thanh cong
-                        MessageBox.Show("Không thể thêm thuốc. Vui lòng kiểm tra lại thông tin.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi khi thêm thuốc: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                }
+                MessageBox.Show("Không thể thêm thuốc. Vui lòng kiểm tra lại thông tin.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
 
         private void buttonXoaTT_Click(object sender, EventArgs e)
         {

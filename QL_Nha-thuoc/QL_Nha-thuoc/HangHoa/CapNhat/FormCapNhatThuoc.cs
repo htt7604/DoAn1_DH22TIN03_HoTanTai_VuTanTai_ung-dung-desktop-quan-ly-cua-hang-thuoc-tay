@@ -350,7 +350,6 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
         {
 
             textBoxMaHH.ReadOnly = true; // Mã hàng hóa không cho phép sửa
-            textBoxGiaBan.ReadOnly = true; // Giá bán không cho phép sửa
             comboBoxLoaiHang.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxHangSX.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxNhomHang.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -417,7 +416,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                 }
             }
         }
-
+        public decimal tiLeLoi = 0; // Mặc định là 0 nếu không đủ dữ liệu
         private void buttonLuu_Click(object sender, EventArgs e)
         {
             string maHH = textBoxMaHH.Text.Trim();
@@ -444,7 +443,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
 
             bool coGiaVon = decimal.TryParse(giaVonStr, out decimal giaVon);
             bool coGiaBan = decimal.TryParse(giaBanStr, out decimal giaBan);
-            bool coTiLeLoi = decimal.TryParse(tiLeLoiStr, out decimal tiLeLoi);
+            //bool coTiLeLoi = decimal.TryParse(tiLeLoiStr, out decimal tiLeLoi);
             bool coTrongLuong = decimal.TryParse(trongLuongStr, out decimal trongLuong);
             bool coDonViTinh = !string.IsNullOrEmpty(maDonViTinh);
 
@@ -462,17 +461,6 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
             if (!coDonViTinh)
             {
                 MessageBox.Show("Bạn phải chọn đơn vị tính .", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if ((coGiaVon || coGiaBan || coTiLeLoi) && !coDonViTinh)
-            {
-                MessageBox.Show("Bạn phải chọn đơn vị tính khi nhập giá vốn, giá bán hoặc tỷ lệ lợi nhuận.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (coTiLeLoi && !coGiaVon)
-            {
-                MessageBox.Show("Phải có giá vốn khi nhập tỷ lệ lợi nhuận.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -588,18 +576,24 @@ VALUES (@maHH, @tenHH, @tenVT, @maThuoc, @soDK, @hoatChat, @hamLuong, @duongDung
                         if (countGia > 0)
                         {
                             string updateGia = @"
-UPDATE GIA_HANG_HOA SET
-    GIA_VON_HH = @giaVon,
-    GIA_BAN_HH = @giaBan,
-    TI_LE_LOI = @tiLeLoi,
-    MA_DON_VI_TINH = @maDVT
-WHERE MA_HANG_HOA = @maHH";
+                            UPDATE GIA_HANG_HOA SET
+                                GIA_VON_HH = @giaVon,
+                                GIA_BAN_HH = @giaBan,
+                                TI_LE_LOI = @tiLeLoi,
+                                MA_DON_VI_TINH = @maDVT
+                            WHERE MA_HANG_HOA = @maHH";
+
 
                             using (SqlCommand cmdUpdateGia = new SqlCommand(updateGia, conn))
                             {
+                                // Tính tỷ lệ lời nếu đủ dữ liệu
+                                if ((giaBan > 0 && giaVon > 0))
+                                {
+                                    tiLeLoi = Math.Round(((giaBan - giaVon) / giaVon) * 100, 2);
+                                }
                                 cmdUpdateGia.Parameters.AddWithValue("@giaVon", coGiaVon ? giaVon : 0);
                                 cmdUpdateGia.Parameters.AddWithValue("@giaBan", coGiaBan ? giaBan : 0);
-                                cmdUpdateGia.Parameters.AddWithValue("@tiLeLoi", coTiLeLoi ? tiLeLoi : 0);
+                                cmdUpdateGia.Parameters.AddWithValue("@tiLeLoi", tiLeLoi);
                                 cmdUpdateGia.Parameters.AddWithValue("@maDVT", coDonViTinh ? (object)maDonViTinh : DBNull.Value);
                                 cmdUpdateGia.Parameters.AddWithValue("@maHH", maHH);
 
@@ -609,16 +603,21 @@ WHERE MA_HANG_HOA = @maHH";
                         else
                         {
                             string insertGia = @"
-INSERT INTO GIA_HANG_HOA (MA_HANG_HOA, GIA_VON_HH, GIA_BAN_HH, MA_DON_VI_TINH, TI_LE_LOI)
-VALUES (@maHH, @giaVon, @giaBan, @maDVT, @tiLeLoi)";
+                            INSERT INTO GIA_HANG_HOA (MA_HANG_HOA, GIA_VON_HH, GIA_BAN_HH, MA_DON_VI_TINH, TI_LE_LOI)
+                            VALUES (@maHH, @giaVon, @giaBan, @maDVT, @tiLeLoi)";
 
                             using (SqlCommand cmdInsertGia = new SqlCommand(insertGia, conn))
                             {
+                                // Tính tỷ lệ lời nếu đủ dữ liệu
+                                if ((giaBan > 0 && giaVon > 0))
+                                {
+                                     tiLeLoi = Math.Round(((giaBan - giaVon) / giaVon) * 100, 2);
+                                }
                                 cmdInsertGia.Parameters.AddWithValue("@maHH", maHH);
                                 cmdInsertGia.Parameters.AddWithValue("@giaVon", coGiaVon ? giaVon : 0);
                                 cmdInsertGia.Parameters.AddWithValue("@giaBan", coGiaBan ? giaBan : 0);
                                 cmdInsertGia.Parameters.AddWithValue("@maDVT", coDonViTinh ? (object)maDonViTinh : DBNull.Value);
-                                cmdInsertGia.Parameters.AddWithValue("@tiLeLoi", coTiLeLoi ? tiLeLoi : 0);
+                                cmdInsertGia.Parameters.AddWithValue("@tiLeLoi", tiLeLoi);
 
                                 cmdInsertGia.ExecuteNonQuery();
                             }

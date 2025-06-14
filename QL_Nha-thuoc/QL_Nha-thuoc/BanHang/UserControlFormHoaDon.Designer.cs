@@ -259,7 +259,7 @@
             // 
             labelThoiGian.Anchor = AnchorStyles.None;
             labelThoiGian.AutoSize = true;
-            labelThoiGian.Location = new Point(314, 16);
+            labelThoiGian.Location = new Point(219, 16);
             labelThoiGian.Name = "labelThoiGian";
             labelThoiGian.Size = new Size(39, 20);
             labelThoiGian.TabIndex = 46;

@@ -120,5 +120,22 @@ namespace QL_Nha_thuoc
             KiemKho formKiemKho = new KiemKho(this);
             LoadFormVaoPanel(formKiemKho);
         }
+
+        private void thiếtLậpGiáToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //mo form ThietLapGia
+            FormThietLapGia formThietLapGia = new FormThietLapGia();
+            formThietLapGia.TopLevel = false;
+            formThietLapGia.FormBorderStyle = FormBorderStyle.None;
+            formThietLapGia.Dock = DockStyle.Fill;
+
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(formThietLapGia);
+            // Hiển thị form ThietLapGia
+            //formThietLapGia.ShowDialog(); // Nếu bạn muốn mở dưới dạng dialog
+
+            formThietLapGia.Show();
+            
+        }
     }
 }
