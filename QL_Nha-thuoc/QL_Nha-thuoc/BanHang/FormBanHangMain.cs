@@ -22,7 +22,7 @@ namespace QL_Nha_thuoc.BanHang
             InitializeComponent();
         }
         //tim thuoc
-        List<Thuoc> TimThuocTuCSDL(string keyword)
+        List<Thuoc> TimHangHoaTuCSDL(string keyword)
         {
             var ketQua = new List<Thuoc>();
 
@@ -118,7 +118,7 @@ namespace QL_Nha_thuoc.BanHang
                 return;
             }
 
-            var danhSachThuoc = TimThuocTuCSDL(keyword);
+            var danhSachThuoc = TimHangHoaTuCSDL(keyword);
             panelKetQuaTimKiem.Controls.Clear();
 
             foreach (var thuoc in danhSachThuoc)
@@ -144,9 +144,12 @@ namespace QL_Nha_thuoc.BanHang
         {
             if (tabControlHoaDon.TabPages.Count > 0)
             {
+                //ham load tai khoan vao 
+
                 var currentTab = tabControlHoaDon.TabPages[0];
 
                 var userControlHoaDon = new UserControlFormHoaDon();
+                userControlHoaDon.LoadTaiKhoan();
                 userControlHoaDon.Dock = DockStyle.Fill;
 
                 currentTab.Controls.Clear();
@@ -203,5 +206,10 @@ namespace QL_Nha_thuoc.BanHang
                 e.Graphics.DrawString(currentTab.Text, this.Font, textBrush, e.Bounds, sf);
             }
         }
+
+
+
+
+
     }
 }

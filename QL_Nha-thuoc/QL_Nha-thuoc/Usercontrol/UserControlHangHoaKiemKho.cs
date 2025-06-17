@@ -13,6 +13,9 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             InitializeComponent();
         }
         public string MaHangHoa { get; private set; }
+        public string TenHangHoa => textBoxTenHang.Text.Trim();
+        public string DonViTinh => labelDonViTinh.Text.Trim();
+        public int SoLuongHeThong => int.Parse(labelTonKho.Text.Trim());
         public void SetData(model.ClassHangHoa thongtin)
         {
             MaHangHoa = thongtin.MaHangHoa;

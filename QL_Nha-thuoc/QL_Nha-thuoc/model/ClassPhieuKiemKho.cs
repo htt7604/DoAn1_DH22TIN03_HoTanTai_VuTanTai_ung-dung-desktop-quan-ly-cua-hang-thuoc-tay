@@ -256,7 +256,7 @@ namespace QL_Nha_thuoc.model
                     DateTime ngayKiem = reader["NGAY_KIEM_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_KIEM_KHO"]);
                     DateTime ngayCanBang = reader["NGAY_CAN_BANG_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_CAN_BANG_KHO"]);
                     string ghiChu = reader["GHI_CHU_KIEM_KHO"] == DBNull.Value ? "" : reader["GHI_CHU_KIEM_KHO"].ToString();
-
+                    
                     return new PhieuKiemKho(maPhieuKiem, hoTenNV, ngayKiem, ngayCanBang, trangThai, ghiChu)
                     {
                         MaNhanVien = maNV
@@ -288,6 +288,43 @@ namespace QL_Nha_thuoc.model
             }
 
             return maMoi;
+        }
+
+        //them
+        public static bool ThemPhieuKiemKho(PhieuKiemKho phieu)
+        {
+            using (SqlConnection conn = DBHelperPK.GetConnection())
+            {
+                string query = @"
+            INSERT INTO PHIEU_KIEM_KHO (
+                MA_KIEM_KHO,
+                MA_KHO,
+                MA_NV,
+                NGAY_KIEM_KHO,
+                NGAY_CAN_BANG_KHO,
+                TRANG_THAI_PHIEU_KIEM,
+                GHI_CHU_KIEM_KHO
+            ) VALUES (
+                @MaKiemKho,
+                '1',
+                @MaNV,
+                @NgayKiemKho,
+                @NgayCanBangKho,
+                @TrangThaiPhieuKiem,
+                @GhiChu
+            )";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@MaKiemKho", phieu.MaPhieuKiemKho);
+                cmd.Parameters.AddWithValue("@MaNV", phieu.MaNhanVien);
+                cmd.Parameters.AddWithValue("@NgayKiemKho", phieu.NgayKiemKho ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@NgayCanBangKho", phieu.ThoiGianCanBangKho ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@TrangThaiPhieuKiem", phieu.TrangThaiPhieuKiem ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@GhiChu", phieu.GhiChu ?? (object)DBNull.Value);
+
+                conn.Open();
+                return cmd.ExecuteNonQuery() > 0;
+            }
         }
 
         // 🔹 Lưu phiếu kiểm kho mới vào DB

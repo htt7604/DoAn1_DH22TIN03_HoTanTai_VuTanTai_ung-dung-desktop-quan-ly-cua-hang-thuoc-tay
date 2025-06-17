@@ -60,6 +60,8 @@
             textBoxTiLeLoiNhuan = new TextBox();
             label7 = new Label();
             label8 = new Label();
+            textBoxTonKho = new TextBox();
+            label11 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHangHoa).BeginInit();
             SuspendLayout();
             // 
@@ -347,11 +349,29 @@
             label8.TabIndex = 108;
             label8.Text = "%";
             // 
+            // textBoxTonKho
+            // 
+            textBoxTonKho.Location = new Point(495, 461);
+            textBoxTonKho.Name = "textBoxTonKho";
+            textBoxTonKho.Size = new Size(200, 27);
+            textBoxTonKho.TabIndex = 109;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(391, 464);
+            label11.Name = "label11";
+            label11.Size = new Size(64, 20);
+            label11.TabIndex = 110;
+            label11.Text = "Ton kho:";
+            // 
             // FormCapNhatHangHoa
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1361, 775);
+            Controls.Add(label11);
+            Controls.Add(textBoxTonKho);
             Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(textBoxTiLeLoiNhuan);
@@ -427,5 +447,7 @@
         private TextBox textBoxTiLeLoiNhuan;
         private Label label7;
         private Label label8;
+        private TextBox textBoxTonKho;
+        private Label label11;
     }
 }

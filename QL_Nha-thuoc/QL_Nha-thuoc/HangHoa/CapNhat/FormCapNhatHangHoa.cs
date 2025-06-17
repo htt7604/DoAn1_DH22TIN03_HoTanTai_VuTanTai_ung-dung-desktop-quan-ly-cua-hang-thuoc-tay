@@ -15,6 +15,7 @@ namespace QL_Nha_thuoc.HangHoa
 {
     public partial class FormCapNhatHangHoa : Form
     {
+        public string tonKhohientai; // Biến toàn cục để lưu trữ tồn kho hiện tại, nếu cần sử dụng sau này
         public FormCapNhatHangHoa(string maHangHoa)
         {
             InitializeComponent();
@@ -159,7 +160,7 @@ namespace QL_Nha_thuoc.HangHoa
             string query = @"
         SELECT HH.MA_HANG_HOA, HH.TEN_HANG_HOA, GHH.GIA_BAN_HH, 
                NH.TEN_NHOM, LH.TEN_LOAI_HH, HH.HINH_ANH_HH, HH.MA_VACH, GHH.GIA_VON_HH, 
-               HH.DUONG_DUNG_CHO_THUOC, HH.QUY_CACH_DONG_GOI, HH.GHI_CHU_HH,HSX.TEN_HANG_SX, HH.MA_HANG_SX,
+               HH.DUONG_DUNG_CHO_THUOC, HH.QUY_CACH_DONG_GOI, HH.GHI_CHU_HH,HSX.TEN_HANG_SX, HH.MA_HANG_SX,HH.TON_KHO,
                NCC.TEN_NHA_CUNG_CAP, HH.NGAY_HET_HAN_HH, DVT.TEN_DON_VI_TINH,HH.MA_NHOM_HH, NH.MA_LOAI_HH,HH.QUY_CACH_DONG_GOI,DVT.MA_DON_VI_TINH,DVT.TEN_DON_VI_TINH,
                GHH.Ti_LE_LOI
         FROM HANG_HOA HH
@@ -192,7 +193,9 @@ namespace QL_Nha_thuoc.HangHoa
                             textBoxTiLeLoiNhuan.Text = reader["Ti_LE_LOI"]?.ToString() ?? "0";
                             textBoxQuyCachDongGoi.Text = reader["QUY_CACH_DONG_GOI"]?.ToString() ?? string.Empty;
                             textBoxGhiChu.Text = reader["GHI_CHU_HH"]?.ToString() ?? string.Empty;
+                            textBoxTonKho.Text = reader["TON_KHO"]?.ToString() ?? "0";
 
+                            tonKhohientai = textBoxTonKho.Text; // Lưu tồn kho hiện tại vào biến toàn cục
 
                             // Load và chọn Loại hàng hóa
                             LoadDataToComboBoxLoaiHanghoa();
@@ -380,7 +383,7 @@ namespace QL_Nha_thuoc.HangHoa
             string tiLeLoi = textBoxTiLeLoiNhuan.Text.Trim();
             string ghiChu = textBoxGhiChu.Text.Trim();
             string quyCach = textBoxQuyCachDongGoi.Text.Trim();
-
+            string tonKhoStr = textBoxTonKho.Text.Trim();
             string maLoai = comboBoxLoaiHang.SelectedValue?.ToString();
             string maNhom = comboBoxNhomHang.SelectedValue?.ToString();
             string maHangSX = comboBoxHangSX.SelectedValue?.ToString();
@@ -426,7 +429,7 @@ namespace QL_Nha_thuoc.HangHoa
                     conn.Open();
 
                     StringBuilder query = new StringBuilder();
-                    query.Append("UPDATE HANG_HOA SET TEN_HANG_HOA = @tenHH, MA_VACH = @maVach, MA_NHOM_HH = @maNhom, MA_HANG_SX = @maHangSX, DUONG_DUNG_CHO_THUOC = NULL, QUY_CACH_DONG_GOI = @quyCach, GHI_CHU_HH = @ghiChu");
+                    query.Append("UPDATE HANG_HOA SET TEN_HANG_HOA = @tenHH, MA_VACH = @maVach, MA_NHOM_HH = @maNhom, MA_HANG_SX = @maHangSX, DUONG_DUNG_CHO_THUOC = NULL, QUY_CACH_DONG_GOI = @quyCach, GHI_CHU_HH = @ghiChu,TON_KHO=@tonKho");
 
                     if (!string.IsNullOrEmpty(tenAnhLuu))
                     {
@@ -445,7 +448,7 @@ namespace QL_Nha_thuoc.HangHoa
                         cmd.Parameters.AddWithValue("@maNhom", maNhom);
                         cmd.Parameters.AddWithValue("@maHangSX", string.IsNullOrEmpty(maHangSX) ? DBNull.Value : (object)maHangSX);
                         cmd.Parameters.AddWithValue("@maDonViTinh", string.IsNullOrEmpty(maDonViTinh) ? DBNull.Value : (object)maDonViTinh);
-
+                        cmd.Parameters.AddWithValue("@tonKho",string.IsNullOrEmpty(tonKhoStr) ? 0 : int.Parse(tonKhoStr));
                         if (!string.IsNullOrEmpty(tenAnhLuu))
                         {
                             cmd.Parameters.AddWithValue("@tenAnh", tenAnhLuu);
@@ -498,6 +501,38 @@ namespace QL_Nha_thuoc.HangHoa
                             deleteCmd.ExecuteNonQuery();
                         }
                     }
+
+                    //neu thay doi ton kho thi tao ra phieu kiem kho 
+                    if (tonKhohientai != tonKhoStr)
+                    {
+                        //tao ma phieu kiem kho moi 
+                        string makiemkho = PhieuKiemKho.SinhMaPhieuMoi(conn);
+                        //them phieu kiem kho
+                        PhieuKiemKho phieuKiemKho = new PhieuKiemKho
+                        {
+                            MaPhieuKiemKho = makiemkho,
+                            NgayKiemKho = DateTime.Now,
+                            MaNhanVien = Session.TaiKhoanDangNhap.MaNhanVien, // Cần thay đổi theo mã nhân viên thực tế
+                            GhiChu = "Cập nhật tồn kho hàng hóa",
+                            TrangThaiPhieuKiem= "Đã cân bằng kho"
+                        };
+                        PhieuKiemKho.ThemPhieuKiemKho(phieuKiemKho);
+                        //tao chi tiet phieu kiem kho
+                        ClassChiTietPhieuKiemKho chiTietPhieuKiemKho = new ClassChiTietPhieuKiemKho
+                        {
+                            MaPhieuKiemKho = makiemkho,
+                            MaHangHoa = maHH,
+                            TenHangHoa = tenHH,
+                            SoLuongHeThong = int.Parse(tonKhohientai),
+                            SoLuongThucTe = int.Parse(tonKhoStr),
+
+                        };
+                        ClassChiTietPhieuKiemKho.ThemChiTietPhieuKiemKho(chiTietPhieuKiemKho);
+                        MessageBox.Show("Tạo phiếu kiểm kho với mã: " + makiemkho, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+
+
 
                     MessageBox.Show("Cập nhật hàng hóa thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     formChiTiet?.LoadData();

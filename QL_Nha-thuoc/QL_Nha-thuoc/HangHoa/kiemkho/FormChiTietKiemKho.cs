@@ -92,10 +92,10 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             }
 
             // Gán vào các TextBox (bạn cần tạo trước các TextBox này trong Designer)
-            labelTongThucTe.Text = "Tong thuc te: "+ tongThucTe.ToString();
-            labelTongLechTang.Text = "Tong lech tang: "+ tongLechTang.ToString();
-            labelTongLechGiam.Text = "Tong lech giam: "+ tongLechGiam.ToString();
-            labelTongChenhLech.Text = "Tong chenh lech: "+ tongChenhLech.ToString();
+            labelTongThucTe.Text = "Tong thuc te: " + tongThucTe.ToString();
+            labelTongLechTang.Text = "Tong lech tang: " + tongLechTang.ToString();
+            labelTongLechGiam.Text = "Tong lech giam: " + tongLechGiam.ToString();
+            labelTongChenhLech.Text = "Tong chenh lech: " + tongChenhLech.ToString();
 
         }
 
@@ -150,6 +150,47 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                 }
             }
         }
+
+        public void buttonHuyBo_Click(object sender, EventArgs e)
+        {
+            //thong bao nguoi dung co muon huy bo khong
+            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn hủy bỏ phiếu kiểm không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                bool xoachitiet = ClassChiTietPhieuKiemKho.XoaChiTietPhieuKiemKho(maPhieuKiem);
+                //thong bao xoa thanh cong
+                if (xoachitiet)
+                {
+                    MessageBox.Show("Đã hủy bỏ phiếu kiểm kho thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //load lai du lieu tren form
+                    //LoadChiTietPhieuKiemKho();
+                    //this.Close(); // Đóng form
+                }
+                else
+                {
+                    MessageBox.Show("Không thể hủy bỏ phiếu kiểm kho.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                //xoa phieu kiem kho
+                bool xoaPhieuKiemKho = PhieuKiemKho.XoaPhieuKiemKho(maPhieuKiem);
+                if (xoaPhieuKiemKho)
+                {
+                    MessageBox.Show("Phiếu kiểm kho đã được xóa thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadChiTietPhieuKiemKho();
+                    this.Close(); // Đóng form
+                }
+                else
+                {
+                    MessageBox.Show("Không thể xóa phiếu kiểm kho.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
+                
+            }
+            else
+            {
+                //khong lam gi ca
+            }
+        }
+
 
 
 

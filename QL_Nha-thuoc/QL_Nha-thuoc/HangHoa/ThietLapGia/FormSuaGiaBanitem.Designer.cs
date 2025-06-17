@@ -85,7 +85,6 @@
             textBoxSoNhap.Name = "textBoxSoNhap";
             textBoxSoNhap.Size = new Size(125, 27);
             textBoxSoNhap.TabIndex = 5;
-            textBoxSoNhap.Click += textBoxSoNhap_Click;
             textBoxSoNhap.TextChanged += textBoxSoNhap_TextChanged;
             textBoxSoNhap.KeyPress += textBoxSoNhap_KeyPress;
             // 
@@ -127,15 +126,16 @@
             buttonBoQua.TabIndex = 9;
             buttonBoQua.Text = "Bo qua";
             buttonBoQua.UseVisualStyleBackColor = true;
+            buttonBoQua.Click += buttonBoQua_Click;
             // 
             // checkBoxApDungAll
             // 
             checkBoxApDungAll.AutoSize = true;
-            checkBoxApDungAll.Location = new Point(113, 161);
+            checkBoxApDungAll.Location = new Point(33, 138);
             checkBoxApDungAll.Name = "checkBoxApDungAll";
-            checkBoxApDungAll.Size = new Size(234, 24);
+            checkBoxApDungAll.Size = new Size(330, 24);
             checkBoxApDungAll.TabIndex = 10;
-            checkBoxApDungAll.Text = "Ap dung cho tat ca hang hoa ?";
+            checkBoxApDungAll.Text = "Áp dụng cong thức cho tất cả các hàng hóa ?\r\n";
             checkBoxApDungAll.UseVisualStyleBackColor = true;
             // 
             // FormSuaGiaBanitem

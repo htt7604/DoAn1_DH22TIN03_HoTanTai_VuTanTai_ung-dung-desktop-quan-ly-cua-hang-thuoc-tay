@@ -30,9 +30,10 @@
         {
             tableLayoutPanel1 = new TableLayoutPanel();
             panel3 = new Panel();
+            tableLayoutPanel2 = new TableLayoutPanel();
             labelTongChenhLech = new Label();
-            labelTongLechGiam = new Label();
             labelTongLechTang = new Label();
+            labelTongLechGiam = new Label();
             labelTongThucTe = new Label();
             buttonHuyBo = new Button();
             buttonLuu = new Button();
@@ -49,12 +50,11 @@
             textBoxMaKiemKho = new TextBox();
             label1 = new Label();
             dataGridViewdsTTPhieuKiemKho = new DataGridView();
-            tableLayoutPanel2 = new TableLayoutPanel();
             tableLayoutPanel1.SuspendLayout();
             panel3.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsTTPhieuKiemKho).BeginInit();
-            tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -85,6 +85,25 @@
             panel3.Size = new Size(1108, 225);
             panel3.TabIndex = 2;
             // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 1;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(labelTongChenhLech, 0, 3);
+            tableLayoutPanel2.Controls.Add(labelTongLechTang, 0, 1);
+            tableLayoutPanel2.Controls.Add(labelTongLechGiam, 0, 2);
+            tableLayoutPanel2.Controls.Add(labelTongThucTe, 0, 0);
+            tableLayoutPanel2.Location = new Point(862, 16);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RightToLeft = RightToLeft.Yes;
+            tableLayoutPanel2.RowCount = 4;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.Size = new Size(237, 165);
+            tableLayoutPanel2.TabIndex = 7;
+            // 
             // labelTongChenhLech
             // 
             labelTongChenhLech.AutoSize = true;
@@ -94,15 +113,6 @@
             labelTongChenhLech.TabIndex = 6;
             labelTongChenhLech.Text = "Tong chenh lech:  ";
             // 
-            // labelTongLechGiam
-            // 
-            labelTongLechGiam.AutoSize = true;
-            labelTongLechGiam.Location = new Point(112, 82);
-            labelTongLechGiam.Name = "labelTongLechGiam";
-            labelTongLechGiam.Size = new Size(122, 20);
-            labelTongLechGiam.TabIndex = 5;
-            labelTongLechGiam.Text = "Tong lech giam:  ";
-            // 
             // labelTongLechTang
             // 
             labelTongLechTang.AutoSize = true;
@@ -111,6 +121,15 @@
             labelTongLechTang.Size = new Size(118, 20);
             labelTongLechTang.TabIndex = 4;
             labelTongLechTang.Text = "Tong lech tang:  ";
+            // 
+            // labelTongLechGiam
+            // 
+            labelTongLechGiam.AutoSize = true;
+            labelTongLechGiam.Location = new Point(112, 82);
+            labelTongLechGiam.Name = "labelTongLechGiam";
+            labelTongLechGiam.Size = new Size(122, 20);
+            labelTongLechGiam.TabIndex = 5;
+            labelTongLechGiam.Text = "Tong lech giam:  ";
             // 
             // labelTongThucTe
             // 
@@ -129,6 +148,7 @@
             buttonHuyBo.TabIndex = 1;
             buttonHuyBo.Text = "Huy bo";
             buttonHuyBo.UseVisualStyleBackColor = true;
+            buttonHuyBo.Click += buttonHuyBo_Click;
             // 
             // buttonLuu
             // 
@@ -268,25 +288,6 @@
             dataGridViewdsTTPhieuKiemKho.Size = new Size(1108, 384);
             dataGridViewdsTTPhieuKiemKho.TabIndex = 3;
             // 
-            // tableLayoutPanel2
-            // 
-            tableLayoutPanel2.ColumnCount = 1;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Controls.Add(labelTongChenhLech, 0, 3);
-            tableLayoutPanel2.Controls.Add(labelTongLechTang, 0, 1);
-            tableLayoutPanel2.Controls.Add(labelTongLechGiam, 0, 2);
-            tableLayoutPanel2.Controls.Add(labelTongThucTe, 0, 0);
-            tableLayoutPanel2.Location = new Point(862, 16);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RightToLeft = RightToLeft.Yes;
-            tableLayoutPanel2.RowCount = 4;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel2.Size = new Size(237, 165);
-            tableLayoutPanel2.TabIndex = 7;
-            // 
             // FormChiTietKiemKho
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -298,11 +299,11 @@
             Load += FormChiTietKiemKho_Load_1;
             tableLayoutPanel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsTTPhieuKiemKho).EndInit();
-            tableLayoutPanel2.ResumeLayout(false);
-            tableLayoutPanel2.PerformLayout();
             ResumeLayout(false);
         }
 

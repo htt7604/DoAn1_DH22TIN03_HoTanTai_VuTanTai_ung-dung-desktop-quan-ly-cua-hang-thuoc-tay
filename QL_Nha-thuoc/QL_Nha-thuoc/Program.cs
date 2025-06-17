@@ -1,4 +1,6 @@
-﻿using QL_Nha_thuoc.DangNhap;
+﻿using QL_Nha_thuoc.BanHang;
+using QL_Nha_thuoc.DangNhap;
+using QL_Nha_thuoc.DoiTac;
 using QL_Nha_thuoc.HangHoa;
 using QL_Nha_thuoc.HangHoa.ThietLapGia;
 

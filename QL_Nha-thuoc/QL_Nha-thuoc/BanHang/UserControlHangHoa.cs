@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QL_Nha_thuoc.model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,18 +21,36 @@ namespace QL_Nha_thuoc.BanHang
 
         public event EventHandler? SoLuongHoacGiaThayDoi;
         public event EventHandler? XoaYeuCau;
+        public event EventHandler? DonViThayDoi;
 
         public NumericUpDown SoLuongControl => numericUpDown1;
         public decimal SoLuongTon { get; set; }
 
+        public string maHangHoa;
 
         //set du lieu cho control
         public void SetData(string tenThuoc, string mah, float giaBan)
         {
             textBoxTenHang.Text = tenThuoc;
             labelMaHangHoa.Text = mah;
-            textBoxGiaBan.Text = giaBan.ToString("N0");
+
+            maHangHoa= mah;//luu lai mahh
+            List<ClassDonViTinh> danhSachDonViTinh = ClassGiaBanHH.LayDanhSachDonViTinhTheoMaHangHoa(mah);
+
+            comboBoxDonVITinh.Items.Clear(); // Xoá dữ liệu cũ nếu có
+            comboBoxDonVITinh.DisplayMember = "TenDonViTinh";   // Hiển thị tên
+            comboBoxDonVITinh.ValueMember = "MaDonViTinh";      // Lưu giá trị là mã
+            comboBoxDonVITinh.DataSource = danhSachDonViTinh;   // Gán dữ liệu
+
+            // Nếu muốn chọn mặc định dòng đầu tiên:
+            if (comboBoxDonVITinh.Items.Count > 0)
+                comboBoxDonVITinh.SelectedIndex = 0;
+
+
         }
+
+
+
 
 
         //thay doi so luong va gia ban
@@ -48,6 +67,21 @@ namespace QL_Nha_thuoc.BanHang
         {
             XoaYeuCau?.Invoke(this, EventArgs.Empty); // Gửi yêu cầu xóa đến control cha
         }
+
+        private void comboBoxDonVITinh_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxDonVITinh.SelectedValue != null)
+            {
+                string dvt = comboBoxDonVITinh.SelectedValue.ToString();
+                if (!string.IsNullOrEmpty(dvt))
+                {
+                    ClassGiaBanHH giaBan = ClassGiaBanHH.LayGiaBanTheoMavamaDVT(maHangHoa, dvt);
+                    textBoxGiaBan.Text = giaBan.GiaBan.ToString("N0"); // Hiển thị có phân cách hàng nghìn
+                }
+            }
+            DonViThayDoi?.Invoke(this,EventArgs.Empty);
+        }
+
 
 
 

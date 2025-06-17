@@ -34,16 +34,18 @@
             textBoxMatKhau = new TextBox();
             label2 = new Label();
             label3 = new Label();
+            button1 = new Button();
             SuspendLayout();
             // 
             // buttonDangNhap
             // 
-            buttonDangNhap.Location = new Point(301, 292);
+            buttonDangNhap.BackColor = Color.Lime;
+            buttonDangNhap.Location = new Point(172, 295);
             buttonDangNhap.Name = "buttonDangNhap";
             buttonDangNhap.Size = new Size(94, 29);
             buttonDangNhap.TabIndex = 0;
-            buttonDangNhap.Text = "Dang nhap";
-            buttonDangNhap.UseVisualStyleBackColor = true;
+            buttonDangNhap.Text = "Quản lý";
+            buttonDangNhap.UseVisualStyleBackColor = false;
             buttonDangNhap.Click += buttonDangNhap_Click;
             // 
             // label1
@@ -91,11 +93,22 @@
             label3.TabIndex = 5;
             label3.Text = "Mat khau";
             // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.Highlight;
+            button1.Location = new Point(388, 295);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 29);
+            button1.TabIndex = 6;
+            button1.Text = "Bán Hàng";
+            button1.UseVisualStyleBackColor = false;
+            // 
             // FormLogin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(682, 385);
+            Controls.Add(button1);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(textBoxMatKhau);
@@ -117,5 +130,6 @@
         private TextBox textBoxMatKhau;
         private Label label2;
         private Label label3;
+        private Button button1;
     }
 }

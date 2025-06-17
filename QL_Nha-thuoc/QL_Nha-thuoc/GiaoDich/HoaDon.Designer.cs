@@ -36,31 +36,31 @@
             buttonThemNV = new Button();
             label1 = new Label();
             panel1 = new Panel();
-            groupBox3 = new GroupBox();
-            comboBox2 = new ComboBox();
-            groupBox1 = new GroupBox();
-            radioButton2 = new RadioButton();
-            radioButton1 = new RadioButton();
+            groupBox5 = new GroupBox();
+            radioButton5 = new RadioButton();
+            radioButton3 = new RadioButton();
+            radioButton4 = new RadioButton();
+            groupBox4 = new GroupBox();
+            comboBox1 = new ComboBox();
             groupBox2 = new GroupBox();
             checkBox3 = new CheckBox();
             checkBox2 = new CheckBox();
             checkBox1 = new CheckBox();
-            groupBox4 = new GroupBox();
-            comboBox1 = new ComboBox();
-            groupBox5 = new GroupBox();
-            radioButton3 = new RadioButton();
-            radioButton4 = new RadioButton();
-            radioButton5 = new RadioButton();
+            groupBox1 = new GroupBox();
+            radioButton2 = new RadioButton();
+            radioButton1 = new RadioButton();
+            groupBox3 = new GroupBox();
+            comboBox2 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsHD).BeginInit();
             panel2.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
-            groupBox3.SuspendLayout();
-            groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
-            groupBox4.SuspendLayout();
             groupBox5.SuspendLayout();
+            groupBox4.SuspendLayout();
+            groupBox2.SuspendLayout();
+            groupBox1.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridViewdsHD
@@ -149,62 +149,75 @@
             panel1.Size = new Size(229, 947);
             panel1.TabIndex = 4;
             // 
-            // groupBox3
+            // groupBox5
             // 
-            groupBox3.BackColor = SystemColors.ButtonHighlight;
-            groupBox3.Controls.Add(comboBox2);
-            groupBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox3.Location = new Point(0, 536);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(231, 101);
-            groupBox3.TabIndex = 2;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Người tạo";
+            groupBox5.BackColor = SystemColors.ButtonHighlight;
+            groupBox5.Controls.Add(radioButton5);
+            groupBox5.Controls.Add(radioButton3);
+            groupBox5.Controls.Add(radioButton4);
+            groupBox5.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            groupBox5.Location = new Point(2, 324);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Size = new Size(229, 177);
+            groupBox5.TabIndex = 7;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Hình thức";
             // 
-            // comboBox2
+            // radioButton5
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(19, 48);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(151, 28);
-            comboBox2.TabIndex = 1;
+            radioButton5.AutoSize = true;
+            radioButton5.Font = new Font("Segoe UI", 9F);
+            radioButton5.Location = new Point(23, 123);
+            radioButton5.Name = "radioButton5";
+            radioButton5.Size = new Size(166, 24);
+            radioButton5.TabIndex = 2;
+            radioButton5.TabStop = true;
+            radioButton5.Text = "Không bán theo đơn";
+            radioButton5.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // radioButton3
             // 
-            groupBox1.BackColor = SystemColors.ButtonHighlight;
-            groupBox1.Controls.Add(radioButton2);
-            groupBox1.Controls.Add(radioButton1);
-            groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox1.Location = new Point(0, 3);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(229, 123);
-            groupBox1.TabIndex = 3;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Thời gian";
+            radioButton3.AutoSize = true;
+            radioButton3.Font = new Font("Segoe UI", 9F);
+            radioButton3.Location = new Point(23, 77);
+            radioButton3.Name = "radioButton3";
+            radioButton3.Size = new Size(119, 24);
+            radioButton3.TabIndex = 1;
+            radioButton3.TabStop = true;
+            radioButton3.Text = "Bán theo đơn";
+            radioButton3.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // radioButton4
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Font = new Font("Segoe UI", 9F);
-            radioButton2.Location = new Point(23, 77);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(124, 24);
-            radioButton2.TabIndex = 1;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Lựa chọn khác";
-            radioButton2.UseVisualStyleBackColor = true;
+            radioButton4.AutoSize = true;
+            radioButton4.Font = new Font("Segoe UI", 9F);
+            radioButton4.Location = new Point(23, 38);
+            radioButton4.Name = "radioButton4";
+            radioButton4.Size = new Size(70, 24);
+            radioButton4.TabIndex = 0;
+            radioButton4.TabStop = true;
+            radioButton4.Text = "Tất cả";
+            radioButton4.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // groupBox4
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Font = new Font("Segoe UI", 9F);
-            radioButton1.Location = new Point(23, 38);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(98, 24);
-            radioButton1.TabIndex = 0;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Tháng này";
-            radioButton1.UseVisualStyleBackColor = true;
+            groupBox4.BackColor = SystemColors.ButtonHighlight;
+            groupBox4.Controls.Add(comboBox1);
+            groupBox4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            groupBox4.Location = new Point(2, 669);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(229, 101);
+            groupBox4.TabIndex = 3;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Người bán";
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(19, 48);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(151, 28);
+            comboBox1.TabIndex = 1;
             // 
             // groupBox2
             // 
@@ -253,77 +266,64 @@
             checkBox1.Text = "Phiếu tạm";
             checkBox1.UseVisualStyleBackColor = true;
             // 
-            // groupBox4
+            // groupBox1
             // 
-            groupBox4.BackColor = SystemColors.ButtonHighlight;
-            groupBox4.Controls.Add(comboBox1);
-            groupBox4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox4.Location = new Point(2, 669);
-            groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(229, 101);
-            groupBox4.TabIndex = 3;
-            groupBox4.TabStop = false;
-            groupBox4.Text = "Người bán";
+            groupBox1.BackColor = SystemColors.ButtonHighlight;
+            groupBox1.Controls.Add(radioButton2);
+            groupBox1.Controls.Add(radioButton1);
+            groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            groupBox1.Location = new Point(0, 3);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(229, 123);
+            groupBox1.TabIndex = 3;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Thời gian";
             // 
-            // comboBox1
+            // radioButton2
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(19, 48);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 28);
-            comboBox1.TabIndex = 1;
+            radioButton2.AutoSize = true;
+            radioButton2.Font = new Font("Segoe UI", 9F);
+            radioButton2.Location = new Point(23, 77);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(124, 24);
+            radioButton2.TabIndex = 1;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "Lựa chọn khác";
+            radioButton2.UseVisualStyleBackColor = true;
             // 
-            // groupBox5
+            // radioButton1
             // 
-            groupBox5.BackColor = SystemColors.ButtonHighlight;
-            groupBox5.Controls.Add(radioButton5);
-            groupBox5.Controls.Add(radioButton3);
-            groupBox5.Controls.Add(radioButton4);
-            groupBox5.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox5.Location = new Point(2, 324);
-            groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(229, 177);
-            groupBox5.TabIndex = 7;
-            groupBox5.TabStop = false;
-            groupBox5.Text = "Hình thức";
+            radioButton1.AutoSize = true;
+            radioButton1.Font = new Font("Segoe UI", 9F);
+            radioButton1.Location = new Point(23, 38);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(98, 24);
+            radioButton1.TabIndex = 0;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "Tháng này";
+            radioButton1.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // groupBox3
             // 
-            radioButton3.AutoSize = true;
-            radioButton3.Font = new Font("Segoe UI", 9F);
-            radioButton3.Location = new Point(23, 77);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(119, 24);
-            radioButton3.TabIndex = 1;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "Bán theo đơn";
-            radioButton3.UseVisualStyleBackColor = true;
+            groupBox3.BackColor = SystemColors.ButtonHighlight;
+            groupBox3.Controls.Add(comboBox2);
+            groupBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            groupBox3.Location = new Point(0, 536);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(231, 101);
+            groupBox3.TabIndex = 2;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Người tạo";
             // 
-            // radioButton4
+            // comboBox2
             // 
-            radioButton4.AutoSize = true;
-            radioButton4.Font = new Font("Segoe UI", 9F);
-            radioButton4.Location = new Point(23, 38);
-            radioButton4.Name = "radioButton4";
-            radioButton4.Size = new Size(70, 24);
-            radioButton4.TabIndex = 0;
-            radioButton4.TabStop = true;
-            radioButton4.Text = "Tất cả";
-            radioButton4.UseVisualStyleBackColor = true;
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Location = new Point(19, 48);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(151, 28);
+            comboBox2.TabIndex = 1;
             // 
-            // radioButton5
-            // 
-            radioButton5.AutoSize = true;
-            radioButton5.Font = new Font("Segoe UI", 9F);
-            radioButton5.Location = new Point(23, 123);
-            radioButton5.Name = "radioButton5";
-            radioButton5.Size = new Size(166, 24);
-            radioButton5.TabIndex = 2;
-            radioButton5.TabStop = true;
-            radioButton5.Text = "Không bán theo đơn";
-            radioButton5.UseVisualStyleBackColor = true;
-            // 
-            // FormHoaDon
+            // HoaDon
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -332,7 +332,8 @@
             Controls.Add(label1);
             Controls.Add(panel2);
             Controls.Add(dataGridViewdsHD);
-            Name = "FormHoaDon";
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "HoaDon";
             Text = "FormHoaDon";
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsHD).EndInit();
             panel2.ResumeLayout(false);
@@ -340,14 +341,14 @@
             panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
-            groupBox3.ResumeLayout(false);
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
-            groupBox4.ResumeLayout(false);
             groupBox5.ResumeLayout(false);
             groupBox5.PerformLayout();
+            groupBox4.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox3.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }

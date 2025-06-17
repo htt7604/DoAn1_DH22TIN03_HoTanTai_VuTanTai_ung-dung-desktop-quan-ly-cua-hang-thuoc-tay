@@ -77,6 +77,8 @@
             label18 = new Label();
             label19 = new Label();
             buttonThemNhomHang = new Button();
+            label20 = new Label();
+            textBoxTonKho = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHangHoa).BeginInit();
             SuspendLayout();
             // 
@@ -239,7 +241,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(857, 325);
+            label5.Location = new Point(860, 328);
             label5.Name = "label5";
             label5.Size = new Size(137, 20);
             label5.TabIndex = 95;
@@ -445,7 +447,7 @@
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(852, 616);
+            label17.Location = new Point(860, 617);
             label17.Name = "label17";
             label17.Size = new Size(84, 20);
             label17.TabIndex = 125;
@@ -497,11 +499,29 @@
             buttonThemNhomHang.Text = "+";
             buttonThemNhomHang.UseVisualStyleBackColor = true;
             // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(860, 661);
+            label20.Name = "label20";
+            label20.Size = new Size(64, 20);
+            label20.TabIndex = 133;
+            label20.Text = "Ton kho:";
+            // 
+            // textBoxTonKho
+            // 
+            textBoxTonKho.Location = new Point(1031, 654);
+            textBoxTonKho.Name = "textBoxTonKho";
+            textBoxTonKho.Size = new Size(200, 27);
+            textBoxTonKho.TabIndex = 132;
+            // 
             // FormCapNhatThuoc
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1373, 777);
+            Controls.Add(label20);
+            Controls.Add(textBoxTonKho);
             Controls.Add(buttonThemNhomHang);
             Controls.Add(label19);
             Controls.Add(label18);
@@ -610,5 +630,7 @@
         private Label label18;
         private Label label19;
         private Button buttonThemNhomHang;
+        private Label label20;
+        private TextBox textBoxTonKho;
     }
 }
