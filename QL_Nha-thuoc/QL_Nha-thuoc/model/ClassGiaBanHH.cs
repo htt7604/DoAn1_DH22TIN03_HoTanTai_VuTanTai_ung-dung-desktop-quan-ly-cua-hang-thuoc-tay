@@ -137,6 +137,63 @@ namespace QL_Nha_thuoc.model
             return danhSach;
         }
 
+        //lay theo manhom hang hoa
+        public static List<ClassGiaBanHH> LayDanhSachGiaBanTheoMaNhom(string maNhomHangHoa)
+        {
+            List<ClassGiaBanHH> danhSach = new List<ClassGiaBanHH>();
+            using (SqlConnection conn = DBHelperHH.GetConnection())
+            {
+                conn.Open();
+                string query = @"
+                    SELECT GHH.MA_HANG_HOA, GHH.MA_DON_VI_TINH, GHH.GIA_VON_HH, GHH.GIA_BAN_HH, HH.TEN_HANG_HOA 
+                    FROM GIA_HANG_HOA GHH 
+                    JOIN HANG_HOA HH ON HH.MA_HANG_HOA = GHH.MA_HANG_HOA 
+                    WHERE HH.MA_NHOM_HH = @maNhomHangHoa";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@maNhomHangHoa", maNhomHangHoa);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var gia = new ClassGiaBanHH
+                            {
+                                MaHangHoa = reader["MA_HANG_HOA"].ToString(),
+                                MaDonViTinh = reader["MA_DON_VI_TINH"].ToString(),
+                                GiaVon = Convert.ToDecimal(reader["GIA_VON_HH"]),
+                                GiaBan = Convert.ToDecimal(reader["GIA_BAN_HH"]),
+                                TenHangHoa = reader["TEN_HANG_HOA"].ToString()
+                            };
+                            danhSach.Add(gia);
+                        }
+                    }
+                }
+            }
+            return danhSach;
+        }
+        //ham loc theo gia 
+        public static List<ClassGiaBanHH> LocGiaBanTheoKhoangGia(List<ClassGiaBanHH> danhSach, string loc, string loaiGia)
+        {
+            return danhSach.Where(item =>
+            {
+                decimal giaBan = item.GiaBan;
+                decimal giaSoSanh = loaiGia == "Gia von" ? item.GiaVon : 0;
+
+                return loc switch
+                {
+                    "<" => giaBan < giaSoSanh,
+                    ">" => giaBan > giaSoSanh,
+                    "=" => giaBan == giaSoSanh,
+                    "<=" => giaBan <= giaSoSanh,
+                    ">=" => giaBan >= giaSoSanh,
+                    _ => true
+                };
+            }).ToList();
+        }
+
+
+
+
         /// <summary>
         /// Thêm giá bán mới cho hàng hóa
         /// </summary>
@@ -213,6 +270,49 @@ namespace QL_Nha_thuoc.model
                 return cmd.ExecuteNonQuery() > 0;
             }
         }
+
+
+        //lay danh sach don vi tinh cua ma hang hoa
+        public static List<ClassDonViTinh> LayDanhSachDonViTinhTheoMaHangHoa(string maHangHoa)
+        {
+            List<ClassDonViTinh> danhSachMaDonViTinh = new List<ClassDonViTinh>();
+
+            string connectionString = @"Data Source=WIN_BYTAI;Initial Catalog=QL_NhaThuoc;Integrated Security=True;Trust Server Certificate=True";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string sql = @"
+            SELECT DISTINCT GHH.MA_DON_VI_TINH, DVT.TEN_DON_VI_TINH 
+            FROM GIA_HANG_HOA GHH
+            JOIN DON_VI_TINH DVT ON GHH.MA_DON_VI_TINH = DVT.MA_DON_VI_TINH
+            WHERE GHH.MA_HANG_HOA = @maHangHoa";
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@maHangHoa", maHangHoa);
+                    conn.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ClassDonViTinh dvt = new ClassDonViTinh
+                            {
+                                MaDonViTinh = reader["MA_DON_VI_TINH"].ToString(),
+                                TenDonViTinh = reader["TEN_DON_VI_TINH"].ToString()
+                            };
+                            danhSachMaDonViTinh.Add(dvt);
+                        }
+                    }
+                }
+            }
+
+            return danhSachMaDonViTinh;
+        }
+
+
+
+
     }
 }
 

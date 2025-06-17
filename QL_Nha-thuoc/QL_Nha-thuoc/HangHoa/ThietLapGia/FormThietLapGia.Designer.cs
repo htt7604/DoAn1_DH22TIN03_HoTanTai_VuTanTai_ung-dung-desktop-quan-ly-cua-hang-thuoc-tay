@@ -29,13 +29,19 @@
         private void InitializeComponent()
         {
             splitContainer1 = new SplitContainer();
+            groupBox2 = new GroupBox();
+            comboBoxNhomHang = new ComboBox();
+            groupBox1 = new GroupBox();
+            comboBoxLoc = new ComboBox();
+            comboBoxLoaiGia = new ComboBox();
             label1 = new Label();
             flowLayoutPanelThietLapGia = new FlowLayoutPanel();
-            comboBox1 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // splitContainer1
@@ -46,7 +52,8 @@
             // 
             // splitContainer1.Panel1
             // 
-            splitContainer1.Panel1.Controls.Add(comboBox1);
+            splitContainer1.Panel1.Controls.Add(groupBox2);
+            splitContainer1.Panel1.Controls.Add(groupBox1);
             splitContainer1.Panel1.Controls.Add(label1);
             // 
             // splitContainer1.Panel2
@@ -55,6 +62,54 @@
             splitContainer1.Size = new Size(1382, 652);
             splitContainer1.SplitterDistance = 234;
             splitContainer1.TabIndex = 0;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(comboBoxNhomHang);
+            groupBox2.Location = new Point(12, 140);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(199, 125);
+            groupBox2.TabIndex = 5;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Nhom hang";
+            // 
+            // comboBoxNhomHang
+            // 
+            comboBoxNhomHang.FormattingEnabled = true;
+            comboBoxNhomHang.Location = new Point(22, 53);
+            comboBoxNhomHang.Name = "comboBoxNhomHang";
+            comboBoxNhomHang.Size = new Size(151, 28);
+            comboBoxNhomHang.TabIndex = 1;
+            comboBoxNhomHang.SelectedIndexChanged += comboBoxNhomHang_SelectedIndexChanged;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(comboBoxLoc);
+            groupBox1.Controls.Add(comboBoxLoaiGia);
+            groupBox1.Location = new Point(13, 311);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(219, 86);
+            groupBox1.TabIndex = 4;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Giá Bán";
+            // 
+            // comboBoxLoc
+            // 
+            comboBoxLoc.FormattingEnabled = true;
+            comboBoxLoc.Location = new Point(5, 41);
+            comboBoxLoc.Name = "comboBoxLoc";
+            comboBoxLoc.Size = new Size(41, 28);
+            comboBoxLoc.TabIndex = 2;
+            comboBoxLoc.SelectedIndexChanged += comboBoxLoc_SelectedIndexChanged;
+            // 
+            // comboBoxLoaiGia
+            // 
+            comboBoxLoaiGia.FormattingEnabled = true;
+            comboBoxLoaiGia.Location = new Point(62, 41);
+            comboBoxLoaiGia.Name = "comboBoxLoaiGia";
+            comboBoxLoaiGia.Size = new Size(136, 28);
+            comboBoxLoaiGia.TabIndex = 3;
+            comboBoxLoaiGia.SelectedIndexChanged += comboBoxLoaiGia_SelectedIndexChanged;
             // 
             // label1
             // 
@@ -77,14 +132,6 @@
             flowLayoutPanelThietLapGia.TabIndex = 0;
             flowLayoutPanelThietLapGia.SizeChanged += flowLayoutPanelThietLapGia_SizeChanged;
             // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(47, 164);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 28);
-            comboBox1.TabIndex = 1;
-            // 
             // FormThietLapGia
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -99,6 +146,8 @@
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -107,6 +156,10 @@
         private SplitContainer splitContainer1;
         private Label label1;
         private FlowLayoutPanel flowLayoutPanelThietLapGia;
-        private ComboBox comboBox1;
+        private ComboBox comboBoxNhomHang;
+        private GroupBox groupBox1;
+        private ComboBox comboBoxLoc;
+        private ComboBox comboBoxLoaiGia;
+        private GroupBox groupBox2;
     }
 }

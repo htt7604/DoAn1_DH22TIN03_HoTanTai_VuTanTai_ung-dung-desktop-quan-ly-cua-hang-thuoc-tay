@@ -13,6 +13,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QL_Nha_thuoc.model;
+using QL_Nha_thuoc.ThongKeTongquan;
+using QL_Nha_thuoc.DoiTac;
 
 
 
@@ -135,7 +137,90 @@ namespace QL_Nha_thuoc
             //formThietLapGia.ShowDialog(); // Nếu bạn muốn mở dưới dạng dialog
 
             formThietLapGia.Show();
-            
+
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            //them form tong quan vao panel chính
+            FormTongQuan formTongQuan = new FormTongQuan();
+            formTongQuan.TopLevel = false; // Đặt TopLevel là false để có thể nhúng vào panel
+            formTongQuan.FormBorderStyle = FormBorderStyle.None; // Không có viền cửa sổ
+            formTongQuan.Dock = DockStyle.Top;
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(formTongQuan); // Thêm form vào panel
+            formTongQuan.Show(); // Hiển thị form trong panel
+        }
+
+        private void hóaĐơnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //them form hoa don vao panel chính
+            HoaDon formHoaDon = new HoaDon();
+            formHoaDon.TopLevel = false; // Đặt TopLevel là false để có thể nhúng vào panel
+            formHoaDon.FormBorderStyle = FormBorderStyle.None; // Không có viền cửa sổ
+            formHoaDon.Dock = DockStyle.Fill; // Đặt Dock để chiếm toàn bộ không gian panel
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(formHoaDon); // Thêm form vào panel
+            formHoaDon.Show();
+
+        }
+
+        private void trảHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TraHang traHang = new TraHang();
+            traHang.TopLevel = false;
+            traHang.FormBorderStyle = FormBorderStyle.None;
+            traHang.Dock = DockStyle.Fill;
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(traHang);
+            traHang.Show();
+
+        }
+
+        private void nhậpHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NhapHang nhapHang = new NhapHang();
+            nhapHang.TopLevel = false;
+            nhapHang.FormBorderStyle = FormBorderStyle.None;
+            nhapHang.Dock = DockStyle.Fill;
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(nhapHang);
+            nhapHang.Show();
+        }
+
+        private void trảNhậpHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TraNhapHang traNhapHang = new TraNhapHang();
+            traNhapHang.TopLevel = false;
+            traNhapHang.FormBorderStyle = FormBorderStyle.None;
+            traNhapHang.Dock = DockStyle.Fill;
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(traNhapHang);
+            traNhapHang.Show();
+        }
+
+        private void kháchHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //mo form KhachHang
+            FormKhachHang formKhachHang = new FormKhachHang();
+            formKhachHang.TopLevel = false; // Đặt TopLevel là false để có thể nhúng vào panel
+            formKhachHang.FormBorderStyle = FormBorderStyle.None; // Không có viền cửa sổ
+            formKhachHang.Dock = DockStyle.Fill; // Đặt Dock để chiếm toàn bộ không gian panel
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(formKhachHang); // Thêm form vào panel
+            formKhachHang.Show();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //them form tong quan vao panel chính
+            FormTongQuan formTongQuan = new FormTongQuan();
+            formTongQuan.TopLevel = false; // Đặt TopLevel là false để có thể nhúng vào panel
+            formTongQuan.FormBorderStyle = FormBorderStyle.None; // Không có viền cửa sổ
+            formTongQuan.Dock = DockStyle.Top; 
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(formTongQuan); // Thêm form vào panel
+            formTongQuan.Show(); // Hiển thị form trong panel
         }
     }
 }

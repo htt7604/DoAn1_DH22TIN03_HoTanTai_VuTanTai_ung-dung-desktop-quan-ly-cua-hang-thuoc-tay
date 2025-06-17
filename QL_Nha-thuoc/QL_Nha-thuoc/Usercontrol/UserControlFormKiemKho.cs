@@ -20,7 +20,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
         {
             InitializeComponent();
             MaKiemKho = maKiemKho;
-            ghiChu=textBoxGhiChu.Text;
+            ghiChu = textBoxGhiChu.Text;
             SetTrangThaiPhieu();
         }
 
@@ -86,6 +86,54 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             comboBoxTaiKhoan.Text = phieukiemkho.TenNhanVien;
 
         }
+        private void buttonLuuTam_Click(object sender, EventArgs e)
+        {
+            List<ClassChiTietPhieuKiemKho> danhSachChiTiet = new List<ClassChiTietPhieuKiemKho>();
+
+            foreach (UserControlHangHoaKiemKho item in flowLayoutPanelKiemKho.Controls.OfType<UserControlHangHoaKiemKho>())
+            {
+                ClassChiTietPhieuKiemKho chiTiet = new ClassChiTietPhieuKiemKho
+                {
+                    MaPhieuKiemKho = MaKiemKho,
+                    MaHangHoa = item.MaHangHoa,
+                    TenHangHoa = item.TenHangHoa,
+                    SoLuongHeThong = item.SoLuongHeThong,
+                    SoLuongThucTe = item.SoLuongThucTe,
+                    GhiChu = textBoxGhiChu.Text.Trim()
+                };
+                danhSachChiTiet.Add(chiTiet);
+            }
+
+            // Lưu tạm vào cơ sở dữ liệu
+            foreach (var chiTiet in danhSachChiTiet)
+            {
+                try
+                {
+                    // Nếu dữ liệu đã tồn tại thì cập nhật, ngược lại thì thêm mới
+                    var danhSachCu = ClassChiTietPhieuKiemKho.LayDanhSachChiTietPhieuKiemKho(MaKiemKho);
+                    bool daTonTai = danhSachCu.Any(x => x.MaHangHoa == chiTiet.MaHangHoa);
+
+                    if (daTonTai)
+                    {
+                        ClassChiTietPhieuKiemKho.CapNhatChiTietPhieuKiemKho(chiTiet);
+                    }
+                    else
+                    {
+                        ClassChiTietPhieuKiemKho.ThemChiTietPhieuKiemKho(chiTiet);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi lưu hàng hóa {chiTiet.MaHangHoa}: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            MessageBox.Show("Lưu tạm phiếu kiểm kho thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
+
+
 
 
     }

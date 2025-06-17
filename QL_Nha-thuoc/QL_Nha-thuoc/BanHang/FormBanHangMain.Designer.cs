@@ -187,7 +187,9 @@
             ClientSize = new Size(1515, 808);
             Controls.Add(panel2);
             Name = "FormBanHangMain";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormBanHangMain";
+            WindowState = FormWindowState.Maximized;
             Load += FormBanHangMain_Load;
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);

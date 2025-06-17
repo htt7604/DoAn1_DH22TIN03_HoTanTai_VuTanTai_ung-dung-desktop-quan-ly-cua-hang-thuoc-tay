@@ -15,6 +15,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
 {
     public partial class FormCapNhatThuoc : Form
     {
+        public string tonKhohientai; // Biến toàn cục để lưu trữ tồn kho hiện tại, nếu cần sử dụng sau này
         public FormCapNhatThuoc(string maHangHoa)
         {
             InitializeComponent();
@@ -23,9 +24,6 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
             //LoadDataToComboboxHangSX(); // Load dữ liệu hãng sản xuất
             //LoadDataToComboboxDonViTinh(); // Load dữ liệu đơn vị tính
         }
-
-
-
 
         // Load dữ liệu vào combobox Loại hàng
         private void LoadDataToComboBoxLoaiHanghoa()
@@ -182,7 +180,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
             CSDL cSDL = new CSDL();
             SqlConnection conn = cSDL.GetConnection();
             string query = @"
-        SELECT HH.MA_HANG_HOA, HH.TEN_HANG_HOA,HH.TEN_VIET_TAT,HH.TRONG_LUONG_HH,HH.SO_DANG_KY_THUOC,HH.MA_THUOC,HH.HAM_LUONG,
+        SELECT HH.MA_HANG_HOA, HH.TEN_HANG_HOA,HH.TEN_VIET_TAT,HH.TRONG_LUONG_HH,HH.SO_DANG_KY_THUOC,HH.MA_THUOC,HH.HAM_LUONG,HH.TON_KHO,
                HH.HOAT_CHAT, GHH.GIA_BAN_HH,NH.MA_LOAI_HH, HH.MA_NHOM_HH,
                NH.TEN_NHOM, LH.TEN_LOAI_HH, HH.HINH_ANH_HH, HH.MA_VACH, GHH.GIA_VON_HH, 
                HSSX.MA_HANG_SX,HSSX.TEN_HANG_SX, HH.DUONG_DUNG_CHO_THUOC, HH.QUY_CACH_DONG_GOI, HH.GHI_CHU_HH, 
@@ -225,8 +223,9 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                             textBoxTiLeLoiNhuan.Text = reader["TI_LE_LOI"]?.ToString() ?? "0"; // Nếu có trường tỷ lệ lợi nhuận, nếu không thì mặc định là 0
                             textBoxQuyCachDongGoi.Text = reader["QUY_CACH_DONG_GOI"]?.ToString() ?? string.Empty;
                             textBoxGhiChu.Text = reader["GHI_CHU_HH"]?.ToString() ?? string.Empty; // Nếu có trường ghi chú
+                            textBoxTonKho.Text = reader["TON_KHO"]?.ToString() ?? "0"; // Nếu có trường tồn kho, nếu không thì mặc định là 0
 
-
+                            tonKhohientai = textBoxTonKho.Text; // Lưu trữ tồn kho hiện tại để sử dụng sau này
 
                             dateTimePickerNgayHetHan.Format = DateTimePickerFormat.Custom;
                             dateTimePickerNgayHetHan.CustomFormat = "dd/MM/yyyy";
@@ -434,6 +433,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
             string giaBanStr = textBoxGiaBan.Text.Trim();
             string trongLuongStr = textBoxTrongLuong.Text.Trim();
             string tiLeLoiStr = textBoxTiLeLoiNhuan.Text.Trim();
+            string tonKhoStr = textBoxTonKho.Text.Trim();
             DateTime ngayHetHan = dateTimePickerNgayHetHan.Value;
 
             string maNhom = comboBoxNhomHang.SelectedValue?.ToString();
@@ -505,7 +505,8 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                             updateHH.AppendLine(" MA_VACH = @maVach,");
                             updateHH.AppendLine(" NGAY_HET_HAN_HH = @ngayHetHan,");
                             updateHH.AppendLine(" MA_HANG_SX = @maHangSX,");
-                            updateHH.AppendLine(" TRONG_LUONG_HH = @trongLuong");
+                            updateHH.AppendLine(" TRONG_LUONG_HH = @trongLuong, ");
+                            updateHH.AppendLine(" TON_KHO = @tonKho ");
                             if (!string.IsNullOrEmpty(tenAnhLuu))
                                 updateHH.AppendLine(", HINH_ANH_HH = @tenAnh");
                             updateHH.AppendLine(" WHERE MA_HANG_HOA = @maHH;");
@@ -526,6 +527,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                                 cmdUpdateHH.Parameters.AddWithValue("@ngayHetHan", ngayHetHan);
                                 cmdUpdateHH.Parameters.AddWithValue("@maHangSX", (object)maHangSX ?? DBNull.Value);
                                 cmdUpdateHH.Parameters.AddWithValue("@trongLuong", trongLuongStr);
+                                cmdUpdateHH.Parameters.AddWithValue("@tonKho", string.IsNullOrEmpty(tonKhoStr) ? 0 : int.Parse(tonKhoStr));
                                 if (!string.IsNullOrEmpty(tenAnhLuu))
                                     cmdUpdateHH.Parameters.AddWithValue("@tenAnh", tenAnhLuu);
                                 cmdUpdateHH.Parameters.AddWithValue("@maHH", maHH);
@@ -537,10 +539,10 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                         {
                             // Thêm mới hàng hóa
                             string insertHH = @"
-INSERT INTO HANG_HOA (MA_HANG_HOA, TEN_HANG_HOA, TEN_VIET_TAT, MA_THUOC, SO_DANG_KY_THUOC, HOAT_CHAT, HAM_LUONG,
-    DUONG_DUNG_CHO_THUOC, QUY_CACH_DONG_GOI, GHI_CHU_HH, MA_NHOM_HH, MA_VACH, NGAY_HET_HAN_HH, MA_HANG_SX, TRONG_LUONG_HH, HINH_ANH_HH)
-VALUES (@maHH, @tenHH, @tenVT, @maThuoc, @soDK, @hoatChat, @hamLuong, @duongDung, @quyCach,
-    @ghiChu, @maNhom, @maVach, @ngayHetHan, @maHangSX, @trongLuong, @tenAnh)";
+                        INSERT INTO HANG_HOA (MA_HANG_HOA, TEN_HANG_HOA, TEN_VIET_TAT, MA_THUOC, SO_DANG_KY_THUOC, HOAT_CHAT, HAM_LUONG,
+                            DUONG_DUNG_CHO_THUOC, QUY_CACH_DONG_GOI, GHI_CHU_HH, MA_NHOM_HH, MA_VACH, NGAY_HET_HAN_HH, MA_HANG_SX, TRONG_LUONG_HH, HINH_ANH_HH, TON_KHO)
+                        VALUES (@maHH, @tenHH, @tenVT, @maThuoc, @soDK, @hoatChat, @hamLuong, @duongDung, @quyCach,
+                            @ghiChu, @maNhom, @maVach, @ngayHetHan, @maHangSX, @trongLuong, @tenAnh,@tonKho)";
 
                             using (SqlCommand cmdInsertHH = new SqlCommand(insertHH, conn))
                             {
@@ -560,7 +562,7 @@ VALUES (@maHH, @tenHH, @tenVT, @maThuoc, @soDK, @hoatChat, @hamLuong, @duongDung
                                 cmdInsertHH.Parameters.AddWithValue("@maHangSX", (object)maHangSX ?? DBNull.Value);
                                 cmdInsertHH.Parameters.AddWithValue("@trongLuong", trongLuongStr);
                                 cmdInsertHH.Parameters.AddWithValue("@tenAnh", string.IsNullOrEmpty(tenAnhLuu) ? DBNull.Value : (object)tenAnhLuu);
-
+                                cmdInsertHH.Parameters.AddWithValue("@tonKho", string.IsNullOrEmpty(tonKhoStr) ? 0 : int.Parse(tonKhoStr));
                                 cmdInsertHH.ExecuteNonQuery();
                             }
                         }
@@ -623,6 +625,33 @@ VALUES (@maHH, @tenHH, @tenVT, @maThuoc, @soDK, @hoatChat, @hamLuong, @duongDung
                             }
                         }
                     }
+                    //neu thay doi ton kho thi tao ra phieu kiem kho 
+                    if(tonKhohientai != tonKhoStr)
+                    {
+                        //tao ma phieu kiem kho moi 
+                        string makiemkho = PhieuKiemKho.SinhMaPhieuMoi(conn);
+                        //them phieu kiem kho
+                        PhieuKiemKho phieuKiemKho = new PhieuKiemKho
+                        {
+                            MaPhieuKiemKho = makiemkho,
+                            NgayKiemKho = DateTime.Now,
+                            MaNhanVien =Session.TaiKhoanDangNhap.MaNhanVien, // Cần thay đổi theo mã nhân viên thực tế
+                            GhiChu = "Cập nhật tồn kho hàng hóa"
+                        };
+                        PhieuKiemKho.ThemPhieuKiemKho(phieuKiemKho);
+                        //tao chi tiet phieu kiem kho
+                        ClassChiTietPhieuKiemKho chiTietPhieuKiemKho = new ClassChiTietPhieuKiemKho
+                        {
+                            MaPhieuKiemKho = makiemkho,
+                            MaHangHoa = maHH,
+                            TenHangHoa = tenHH,
+                            SoLuongHeThong = int.Parse(tonKhohientai),
+                            SoLuongThucTe = int.Parse(tonKhoStr),
+                            
+                        };
+                        ClassChiTietPhieuKiemKho.ThemChiTietPhieuKiemKho(chiTietPhieuKiemKho);
+                        MessageBox.Show("Tạo phiếu kiểm kho với mã: " + makiemkho, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
 
                     MessageBox.Show("Lưu thông tin hàng hóa thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     formChiTietThuoc?.LoadData();
@@ -635,15 +664,6 @@ VALUES (@maHH, @tenHH, @tenVT, @maThuoc, @soDK, @hoatChat, @hamLuong, @duongDung
             }
         }
 
-
-
-
-
-
-
-
-
-
         private FormChiTietThuoc formChiTietThuoc;
 
         public FormCapNhatThuoc(string maHangHoa, FormChiTietThuoc formChiTietThuoc = null)
@@ -653,16 +673,6 @@ VALUES (@maHH, @tenHH, @tenVT, @maThuoc, @soDK, @hoatChat, @hamLuong, @duongDung
             // Load dữ liệu vào form
             LoadDataToForm(maHangHoa);
         }
-
-
-
-
-
-
-
-
-
-
 
 
     }

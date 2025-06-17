@@ -11,6 +11,7 @@ namespace QL_Nha_thuoc.model
         public string MaDonViTinh { get; set; }
         public string TenDonViTinh { get; set; }
 
+
         // ✅ Hàm lấy danh sách đơn vị tính, có thể truyền từ khóa tìm kiếm
         public static List<ClassDonViTinh> TimDanhSachDonViTinh(string tuKhoa = "")
         {

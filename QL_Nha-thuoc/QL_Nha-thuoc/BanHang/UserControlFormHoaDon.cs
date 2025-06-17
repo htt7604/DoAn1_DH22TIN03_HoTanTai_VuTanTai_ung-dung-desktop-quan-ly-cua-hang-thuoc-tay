@@ -1,4 +1,7 @@
-﻿using QL_Nha_thuoc.HangHoa;
+﻿using Microsoft.VisualBasic.Devices;
+using QL_Nha_thuoc.DoiTac;
+using QL_Nha_thuoc.HangHoa;
+using QL_Nha_thuoc.model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using QL_Nha_thuoc.DoiTac.khachhang;
 namespace QL_Nha_thuoc.BanHang
 {
     public partial class UserControlFormHoaDon : UserControl
@@ -16,11 +19,33 @@ namespace QL_Nha_thuoc.BanHang
         public UserControlFormHoaDon()
         {
             InitializeComponent();
+        }
+        //load comboxboxtaikhoan
 
+        public UserControlFormHoaDon? FormHoaDonCha { get; set; }
+
+        public void LoadTaiKhoan()
+        {
+            var danhSachTaiKhoan = ClassTaiKhoan.LayDanhSachTaiKhoan();
+            comboBoxTaiKhoan.DataSource = danhSachTaiKhoan;
+            comboBoxTaiKhoan.DisplayMember = "TenHienThi"; // sử dụng thuộc tính mới
+            comboBoxTaiKhoan.ValueMember = "TenTaiKhoan";
+            //chon tai khoan dang dang nhap
+            ClassTaiKhoan taiKhoan = Session.TaiKhoanDangNhap;
+            var taiKhoanDangNhap = ClassTaiKhoan.LayTaiKhoan(taiKhoan.TenTaiKhoan);
+            if (taiKhoanDangNhap != null)
+            {
+                comboBoxTaiKhoan.SelectedValue = taiKhoanDangNhap.TenTaiKhoan;
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy tài khoản đăng nhập.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
 
-        private void CapNhatTongTien()
+
+        public void CapNhatTongTien()
         {
             decimal tongTien = 0;
 
@@ -66,6 +91,10 @@ namespace QL_Nha_thuoc.BanHang
                 flowLayoutPanelTTHH.Controls.Remove(item); // Xóa control khỏi danh sách
                 CapNhatTongTien(); // Cập nhật lại tổng tiền
             };
+            item.DonViThayDoi += (s, e) =>
+            {
+                CapNhatTongTien();
+            };
 
             item.Margin = new Padding(0, 5, 0, 0);
             flowLayoutPanelTTHH.Controls.Add(item);
@@ -82,6 +111,12 @@ namespace QL_Nha_thuoc.BanHang
                 ctrl.Width = flowLayoutPanelTTHH.ClientSize.Width - flowLayoutPanelTTHH.Padding.Horizontal - 5;
             }
         }
+
+
+        public decimal TongTiencantra;
+
+
+
 
         public decimal TinhTongTien()
         {
@@ -109,35 +144,29 @@ namespace QL_Nha_thuoc.BanHang
 
             return tongTien;
         }
+        private void textBoxGiamGia_Click(object sender, EventArgs e)
+        {
+            //hien panel
+            if (panelGiamGia != null)
+                panelGiamGia.Visible = !panelGiamGia.Visible;
+            radioButtonVND.Checked = true; // Mặc định chọn VND
+            //cap nhat tong tien khi click vao textbox giam gia
+            //cap nhat tien khach can tra
+            textBoxGiamGia.Text = textBoxNhapGiamGia.Text; // Đặt giá trị mặc định là 0
+            textBoxSoTienCanTra.Text = giacuoicung.ToString(); // Hiển thị tiền khách cần trả
+            //cap nhat textbox giam gia
+        }
 
+
+        decimal giacuoicung;
         private void textBoxNhapGiamGia_TextChanged(object sender, EventArgs e)
         {
-            ////su kien nhap chia chu so theo hang chuc 
-            //TextBox tb = sender as TextBox;
-            //if (string.IsNullOrWhiteSpace(tb.Text)) return;
-
-            //// Lưu vị trí con trỏ chuột
-            //int selectionStart = tb.SelectionStart;
-
-            //// Xóa ký tự không phải số (giữ lại số)
-            //string digitsOnly = new string(tb.Text.Where(char.IsDigit).ToArray());
-
-            //if (decimal.TryParse(digitsOnly, out decimal value))
-            //{
-            //    tb.Text = string.Format("{0:N0}", value); // Format: 1,000,000
-            //                                              // Đặt lại vị trí con trỏ cuối
-            //    tb.SelectionStart = tb.Text.Length;
-            //}
-            //else
-            //{
-            //    tb.Text = "";
-            //}
+            decimal tongTien = TinhTongTien();
             //neu chon VND thi tinh giam gia theo VND
             if (radioButtonVND.Checked)
             {
                 if (decimal.TryParse(textBoxNhapGiamGia.Text, out decimal giamGiaVND))
                 {
-                    decimal tongTien = TinhTongTien();
                     decimal tongTienSauGiamGia = tongTien - giamGiaVND;
                     //neu tongTienSauGiamGia < 0 thi khong tinh giam gia
                     if (tongTienSauGiamGia < 0)
@@ -149,7 +178,7 @@ namespace QL_Nha_thuoc.BanHang
                     else if (tongTienSauGiamGia >= 0)
                     {
                         //neu tongTienSauGiamGia >= 0 thi tinh giam gia
-                        labelTongTienHang.Text = tongTien.ToString("N0") + " đ"; // Hiển thị tổng tiền trước giảm giá
+                        //labelTongTienHang.Text = tongTien.ToString("N0") + " đ"; // Hiển thị tổng tiền trước giảm giá
                         textBoxSoTienCanTra.Text = tongTienSauGiamGia.ToString("N0") + " đ"; // Hiển thị tiền khách cần trả sau giảm giá
                     }
                     else if (giamGiaVND < 0)
@@ -163,14 +192,16 @@ namespace QL_Nha_thuoc.BanHang
                 }
                 else
                 {
-                    labelTongTienHang.Text = TinhTongTien().ToString("N0") + " đ"; // Hiển thị tổng tiền nếu không hợp lệ
+                    //labelTongTienHang.Text = TinhTongTien().ToString("N0") + " đ"; // Hiển thị tổng tiền nếu không hợp lệ
                 }
-            }
+                //truyen so tien can tra vao bien giacuoicung
+                decimal.TryParse(textBoxGiamGia.Text.Replace(" đ", "").Replace(",", ""), out decimal giamGia);
+                giacuoicung = tongTien - giamGia;
+           }
             else if (radioButtonPhanTram.Checked)
             {
                 if (decimal.TryParse(textBoxNhapGiamGia.Text, out decimal giamGiaPhanTram))
                 {
-                    decimal tongTien = TinhTongTien();
                     decimal giamGiaVND = tongTien * (giamGiaPhanTram / 100);
                     decimal tongTienSauGiamGia = tongTien - giamGiaVND;
                     //neu tongTienSauGiamGia < 0 thi khong tinh giam gia
@@ -183,7 +214,7 @@ namespace QL_Nha_thuoc.BanHang
                     else if (tongTienSauGiamGia >= 0)
                     {
                         //neu tongTienSauGiamGia >= 0 thi tinh giam gia
-                        labelTongTienHang.Text = tongTien.ToString("N0") + " đ"; // Hiển thị tổng tiền trước giảm giá
+                        //labelTongTienHang.Text = tongTien.ToString("N0") + " đ"; // Hiển thị tổng tiền trước giảm giá
                         textBoxSoTienCanTra.Text = tongTienSauGiamGia.ToString("N0") + " đ"; // Hiển thị tiền khách cần trả sau giảm giá
                     }
                     else if (giamGiaPhanTram < 0)
@@ -201,6 +232,8 @@ namespace QL_Nha_thuoc.BanHang
                 {
                     labelTongTienHang.Text = TinhTongTien().ToString("N0") + " đ"; // Hiển thị tổng tiền nếu không hợp lệ
                 }
+                decimal.TryParse(textBoxGiamGia.Text.Replace(" đ", "").Replace(",", ""), out decimal giamGia);
+                giacuoicung = tongTien - giamGia;
             }
             //tienh tien khach hang can tra
         }
@@ -213,8 +246,12 @@ namespace QL_Nha_thuoc.BanHang
                 if (decimal.TryParse(textBoxNhapGiamGia.Text, out decimal giamGiaVND))
                 {
                     decimal tongTien = TinhTongTien();
+                    if (tongTien != 0)
+                    {
                     decimal giamGiaPhanTram = (giamGiaVND / tongTien) * 100;
                     textBoxNhapGiamGia.Text = giamGiaPhanTram.ToString("N2"); // Hiển thị với 2 chữ số thập phân
+                    }
+
                 }
             }
         }
@@ -233,20 +270,7 @@ namespace QL_Nha_thuoc.BanHang
             }
         }
 
-        private void textBoxSoTienCanTra_TextChanged(object sender, EventArgs e)
-        {
 
-            //hien panel
-            if (panelGiamGia != null)
-                panelGiamGia.Visible = !panelGiamGia.Visible;
-            radioButtonVND.Checked = true; // Mặc định chọn VND
-            //cap nhat tong tien khi click vao textbox giam gia
-            labelTongTienHang.Text = TinhTongTien().ToString("N0") + " đ"; // Hiển thị tổng tiền trước giảm giá
-            //cap nhat tien khach can tra
-            textBoxSoTienCanTra.Text = TinhTongTien().ToString("N0") + " đ"; // Hiển thị tiền khách cần trả
-            //cap nhat textbox giam gia
-            textBoxGiamGia.Text = textBoxNhapGiamGia.Text; // Đặt giá trị mặc định là 0
-        }
 
 
         //load du lieu len form
@@ -303,5 +327,54 @@ namespace QL_Nha_thuoc.BanHang
                 textBoxTienTraLai.Text = "0 đ"; // Nếu không thể chuyển đổi, hiển thị 0
             }
         }
+
+
+        // Biến để lưu khách hàng đã chọn
+        public ClassKhachHang? KhachHangDuocChon { get; set; }
+        private void textBoxTimKH_TextChanged(object sender, EventArgs e)
+        {
+            //khi nhap vao hien thi 
+            flowLayoutPanelDanhSachKhachHang.BringToFront(); // Đưa flowLayoutPanelDanhSachKhachHang lên trên cùng
+            flowLayoutPanelDanhSachKhachHang.Controls.Clear(); // Xóa tất cả các control hiện tại trong flowLayoutPanelDanhSachKhachHang
+            // Lấy giá trị tìm kiếm từ textBoxTimKH
+            string searchText = textBoxTimKH.Text.Trim().ToLower(); // Lấy giá trị tìm kiếm và chuyển về chữ thường
+            // Kiểm tra nếu không có giá trị tìm kiếm thì hiển thị tất cả khách hàng
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                flowLayoutPanelDanhSachKhachHang.Visible = false; // Ẩn flowLayoutPanelDanhSachKhachHang nếu không có giá trị tìm kiếm
+                return;
+            }
+            flowLayoutPanelDanhSachKhachHang.Visible = true; // Hiển thị flowLayoutPanelDanhSachKhachHang
+            //them usecontrolkhachhangitem vao flowlayoutpanelkhachhang
+            List<ClassKhachHang> danhSachKhachHang = ClassKhachHang.LayDanhSachKhachHang();
+            // Nếu không có giá trị tìm kiếm, hiển thị tất cả các mặt hàng
+            foreach (var item in danhSachKhachHang)
+            {
+                UserControlKhachHangitem khachHangItem = new UserControlKhachHangitem();
+                khachHangItem.Setdata(item);
+                // Sự kiện click: gán tên vào textbox và lưu mã khách hàng
+                khachHangItem.Click += (s, e2) =>
+                {
+                    textBoxTimKH.Text = $"{item.TenKH} ({item.MaKH})";
+                    KhachHangDuocChon = item;
+                    flowLayoutPanelDanhSachKhachHang.Visible = false;
+                };
+                flowLayoutPanelDanhSachKhachHang.Controls.Add(khachHangItem);
+
+            }
+        }
+
+        private void buttonThemKhachHang_Click(object sender, EventArgs e)
+        {
+            // Open the form to add a customer
+            FormThem_Suakhachhang formThemKhachHang = new FormThem_Suakhachhang();
+            formThemKhachHang.FormClosed += (s, args) =>
+            {
+                // After the form is closed, update the customer list
+                textBoxTimKH_TextChanged(null, null);
+            };
+            formThemKhachHang.Show(); // Ensure the form is displayed
+        }
+
     }
 }

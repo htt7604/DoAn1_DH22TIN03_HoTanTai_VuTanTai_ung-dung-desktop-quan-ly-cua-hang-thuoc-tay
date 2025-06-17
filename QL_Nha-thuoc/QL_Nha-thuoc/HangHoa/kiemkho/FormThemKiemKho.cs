@@ -224,11 +224,11 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                     if (ucFormKiemKho != null)
                     {
                         string maPhieu = ucFormKiemKho.MaKiemKho;
-
+                        bool xoachitiet =  ClassChiTietPhieuKiemKho.XoaChiTietPhieuKiemKho(maPhieu); // Xóa chi tiết phiếu kiểm kho
                         // Gọi hàm xóa phiếu kiểm kho trong database
                         bool xoaThanhCong = PhieuKiemKho.XoaPhieuKiemKho(maPhieu);
 
-                        if (xoaThanhCong)
+                        if (xoaThanhCong&&xoachitiet)
                         {
                             MessageBox.Show("Đã hủy và xóa phiếu kiểm kho.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             tabControlPhieuKiem.TabPages.Remove(currentTab); // Xóa tab

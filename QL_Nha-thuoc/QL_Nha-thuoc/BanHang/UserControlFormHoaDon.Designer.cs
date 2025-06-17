@@ -30,6 +30,7 @@
         {
             tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new Panel();
+            flowLayoutPanelDanhSachKhachHang = new FlowLayoutPanel();
             textBoxTienTraLai = new TextBox();
             textBoxSoTienCanTra = new TextBox();
             panelGiamGia = new Panel();
@@ -40,7 +41,7 @@
             panel = new Panel();
             tableLayoutPanel5 = new TableLayoutPanel();
             pictureBox1 = new PictureBox();
-            textBoxTimHH = new TextBox();
+            textBoxTimKH = new TextBox();
             buttonThemKhachHang = new Button();
             label5 = new Label();
             labelThoiGian = new Label();
@@ -81,6 +82,7 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.Window;
+            panel1.Controls.Add(flowLayoutPanelDanhSachKhachHang);
             panel1.Controls.Add(textBoxTienTraLai);
             panel1.Controls.Add(textBoxSoTienCanTra);
             panel1.Controls.Add(panelGiamGia);
@@ -102,6 +104,17 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(472, 653);
             panel1.TabIndex = 6;
+            // 
+            // flowLayoutPanelDanhSachKhachHang
+            // 
+            flowLayoutPanelDanhSachKhachHang.AutoScroll = true;
+            flowLayoutPanelDanhSachKhachHang.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanelDanhSachKhachHang.Location = new Point(27, 123);
+            flowLayoutPanelDanhSachKhachHang.Name = "flowLayoutPanelDanhSachKhachHang";
+            flowLayoutPanelDanhSachKhachHang.Size = new Size(365, 343);
+            flowLayoutPanelDanhSachKhachHang.TabIndex = 54;
+            flowLayoutPanelDanhSachKhachHang.Visible = false;
+            flowLayoutPanelDanhSachKhachHang.WrapContents = false;
             // 
             // textBoxTienTraLai
             // 
@@ -131,7 +144,7 @@
             panelGiamGia.Controls.Add(radioButtonVND);
             panelGiamGia.Controls.Add(textBoxNhapGiamGia);
             panelGiamGia.Controls.Add(label6);
-            panelGiamGia.Location = new Point(6, 228);
+            panelGiamGia.Location = new Point(6, 220);
             panelGiamGia.Name = "panelGiamGia";
             panelGiamGia.Size = new Size(276, 125);
             panelGiamGia.TabIndex = 50;
@@ -202,7 +215,7 @@
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.6674261F));
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 86.33257F));
             tableLayoutPanel5.Controls.Add(pictureBox1, 0, 0);
-            tableLayoutPanel5.Controls.Add(textBoxTimHH, 1, 0);
+            tableLayoutPanel5.Controls.Add(textBoxTimKH, 1, 0);
             tableLayoutPanel5.Location = new Point(3, 3);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 1;
@@ -222,18 +235,19 @@
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
             // 
-            // textBoxTimHH
+            // textBoxTimKH
             // 
-            textBoxTimHH.BackColor = SystemColors.Control;
-            textBoxTimHH.BorderStyle = BorderStyle.None;
-            textBoxTimHH.Font = new Font("Segoe UI", 11F);
-            textBoxTimHH.Location = new Point(53, 3);
-            textBoxTimHH.Multiline = true;
-            textBoxTimHH.Name = "textBoxTimHH";
-            textBoxTimHH.PlaceholderText = "Tìm theo mã, tên hang hoa";
-            textBoxTimHH.Size = new Size(303, 31);
-            textBoxTimHH.TabIndex = 5;
-            textBoxTimHH.Tag = "";
+            textBoxTimKH.BackColor = SystemColors.Control;
+            textBoxTimKH.BorderStyle = BorderStyle.None;
+            textBoxTimKH.Font = new Font("Segoe UI", 11F);
+            textBoxTimKH.Location = new Point(53, 3);
+            textBoxTimKH.Multiline = true;
+            textBoxTimKH.Name = "textBoxTimKH";
+            textBoxTimKH.PlaceholderText = "Tìm theo mã, tên khac hang";
+            textBoxTimKH.Size = new Size(303, 31);
+            textBoxTimKH.TabIndex = 5;
+            textBoxTimKH.Tag = "";
+            textBoxTimKH.TextChanged += textBoxTimKH_TextChanged;
             // 
             // buttonThemKhachHang
             // 
@@ -243,6 +257,7 @@
             buttonThemKhachHang.TabIndex = 39;
             buttonThemKhachHang.Text = "+";
             buttonThemKhachHang.UseVisualStyleBackColor = true;
+            buttonThemKhachHang.Click += buttonThemKhachHang_Click;
             // 
             // label5
             // 
@@ -308,7 +323,7 @@
             textBoxGiamGia.ReadOnly = true;
             textBoxGiamGia.Size = new Size(151, 34);
             textBoxGiamGia.TabIndex = 52;
-            textBoxGiamGia.Click += textBoxSoTienCanTra_TextChanged;
+            textBoxGiamGia.Click += textBoxGiamGia_Click;
             // 
             // label4
             // 
@@ -338,7 +353,7 @@
             comboBoxTaiKhoan.FormattingEnabled = true;
             comboBoxTaiKhoan.Location = new Point(6, 16);
             comboBoxTaiKhoan.Name = "comboBoxTaiKhoan";
-            comboBoxTaiKhoan.Size = new Size(151, 28);
+            comboBoxTaiKhoan.Size = new Size(196, 28);
             comboBoxTaiKhoan.TabIndex = 3;
             // 
             // label2
@@ -375,6 +390,7 @@
             // 
             // flowLayoutPanelTTHH
             // 
+            flowLayoutPanelTTHH.AutoScroll = true;
             flowLayoutPanelTTHH.BorderStyle = BorderStyle.FixedSingle;
             flowLayoutPanelTTHH.Dock = DockStyle.Fill;
             flowLayoutPanelTTHH.FlowDirection = FlowDirection.TopDown;
@@ -427,7 +443,7 @@
         private Panel panel;
         private TableLayoutPanel tableLayoutPanel5;
         private PictureBox pictureBox1;
-        private TextBox textBoxTimHH;
+        private TextBox textBoxTimKH;
         private Panel panelGiamGia;
         private RadioButton radioButtonPhanTram;
         private RadioButton radioButtonVND;
@@ -436,5 +452,6 @@
         private TextBox textBoxGiamGia;
         private TextBox textBoxSoTienCanTra;
         private TextBox textBoxTienTraLai;
+        private FlowLayoutPanel flowLayoutPanelDanhSachKhachHang;
     }
 }

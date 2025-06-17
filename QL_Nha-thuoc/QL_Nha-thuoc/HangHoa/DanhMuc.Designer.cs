@@ -354,6 +354,7 @@
             Controls.Add(panel4);
             Controls.Add(panel6);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "DanhMuc";

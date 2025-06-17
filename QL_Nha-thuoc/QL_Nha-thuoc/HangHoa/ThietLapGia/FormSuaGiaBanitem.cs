@@ -64,7 +64,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
             }
         }
 
-      
+
 
 
         private void btnCong_Click(object sender, EventArgs e)
@@ -74,7 +74,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
             buttonCong.BackColor = Color.LightGreen;
             buttonTru.Enabled = true;
             buttonTru.BackColor = SystemColors.Control;
-            textBoxSoNhap.Text = "0";
+            textBoxSoNhap.Clear();
         }
 
         private void btnTru_Click(object sender, EventArgs e)
@@ -84,7 +84,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
             buttonCong.BackColor = SystemColors.Control;
             buttonTru.Enabled = false;
             buttonTru.BackColor = Color.LightGreen;
-            textBoxSoNhap.Text = "0";
+            textBoxSoNhap.Clear();
         }
 
         private void btnVND_Click(object sender, EventArgs e)
@@ -94,7 +94,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
             buttonVND.BackColor = Color.LightGreen;
             buttonPhanTram.Enabled = true;
             buttonPhanTram.BackColor = SystemColors.Control;
-            textBoxSoNhap.Text = "0";
+            textBoxSoNhap.Clear();
         }
 
         private void btnPhanTram_Click(object sender, EventArgs e)
@@ -104,7 +104,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
             buttonVND.BackColor = SystemColors.Control;
             buttonPhanTram.Enabled = false;
             buttonPhanTram.BackColor = Color.LightGreen;
-            textBoxSoNhap.Text = "0";
+            textBoxSoNhap.Clear();
         }
 
         private void textBoxSoNhap_TextChanged(object sender, EventArgs e)
@@ -141,18 +141,13 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
 
         private void comboBoxLoaiGia_SelectedIndexChanged(object sender, EventArgs e)
         {
-            textBoxSoNhap.Text = "0";
-            TinhGiaMoi();
-        }
-
-        private void textBoxSoNhap_Click(object sender, EventArgs e)
-        {
             textBoxSoNhap.Clear();
+            TinhGiaMoi();
         }
 
         private void FormSuaGiaBanitem_Click(object sender, EventArgs e)
         {
-            textBoxSoNhap.Text = "0";
+            textBoxSoNhap.Clear();
         }
 
 
@@ -172,8 +167,8 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
             decimal giadetinh = cachtinh == "Gia von" ? hanghoa.GiaVon : hanghoa.GiaBan;
 
             // Tính giá mới
-            giaMoi = phepTinh == "+" 
-                ? giadetinh + (donVi == "VND" ? soThayDoiGia : giadetinh * soThayDoiGia / 100) 
+            giaMoi = phepTinh == "+"
+                ? giadetinh + (donVi == "VND" ? soThayDoiGia : giadetinh * soThayDoiGia / 100)
                 : giadetinh - (donVi == "VND" ? soThayDoiGia : giadetinh * soThayDoiGia / 100);
 
             labelHienThi.Text = $"Giá mới [{giaMoi:N0}] =";
@@ -200,7 +195,8 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
             // Nếu checkbox áp dụng toàn bộ được check
             if (checkBoxApDungAll.Checked)
             {
-                var danhSach = ClassGiaBanHH.LayDanhSachToanboGiaBan();
+
+                var danhSach = formThietLapGia.danhMucLoc;
                 int soThanhCong = 0;
 
                 foreach (var hh in danhSach)
@@ -211,7 +207,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
                     decimal giaMoiHH = phepTinh == "+"
                         ? giadetinh + (donVi == "VND" ? soThayDoiGia : giadetinh * soThayDoiGia / 100)
                         : giadetinh - (donVi == "VND" ? soThayDoiGia : giadetinh * soThayDoiGia / 100);
-                       
+
                     hh.GiaBan = giaMoiHH; // Cập nhật giá bán mới
 
                     if (ClassGiaBanHH.CapNhatGiaBan(hh))
@@ -251,7 +247,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
                 var giaBanMoi = ClassGiaBanHH.LayGiaBanTheoMavamaDVT(_maHangHoa, _maDonViTinh);
                 if (giaBanMoi != null)
                 {
-                    formThietLapGia.FormThietLapGia_Load(sender,e); // Gọi lại để cập nhật giao diện
+                    formThietLapGia.FormThietLapGia_Load(sender, e); // Gọi lại để cập nhật giao diện
                 }
 
                 this.Close();
@@ -262,8 +258,12 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
             }
         }
 
-
-
-
+        private void buttonBoQua_Click(object sender, EventArgs e)
+        {
+            //dong form 
+            this.Close();
+            //load lai danh sach gia ban
+            formThietLapGia.FormThietLapGia_Load(sender, e);
+        }
     }
 }

@@ -94,6 +94,7 @@
             toolStripMenuItem1.Padding = new Padding(7, 0, 5, 0);
             toolStripMenuItem1.Size = new Size(155, 50);
             toolStripMenuItem1.Text = " Tổng quan";
+            toolStripMenuItem1.Click += toolStripMenuItem1_Click;
             // 
             // toolStripMenuItem2
             // 
@@ -160,6 +161,7 @@
             hóaĐơnToolStripMenuItem.Name = "hóaĐơnToolStripMenuItem";
             hóaĐơnToolStripMenuItem.Size = new Size(233, 32);
             hóaĐơnToolStripMenuItem.Text = "Hóa đơn";
+            hóaĐơnToolStripMenuItem.Click += hóaĐơnToolStripMenuItem_Click;
             // 
             // trảHàngToolStripMenuItem
             // 
@@ -168,6 +170,7 @@
             trảHàngToolStripMenuItem.Name = "trảHàngToolStripMenuItem";
             trảHàngToolStripMenuItem.Size = new Size(233, 32);
             trảHàngToolStripMenuItem.Text = "Trả hàng";
+            trảHàngToolStripMenuItem.Click += trảHàngToolStripMenuItem_Click;
             // 
             // nhậpHàngToolStripMenuItem
             // 
@@ -176,6 +179,7 @@
             nhậpHàngToolStripMenuItem.Name = "nhậpHàngToolStripMenuItem";
             nhậpHàngToolStripMenuItem.Size = new Size(233, 32);
             nhậpHàngToolStripMenuItem.Text = "Nhập hàng";
+            nhậpHàngToolStripMenuItem.Click += nhậpHàngToolStripMenuItem_Click;
             // 
             // trảNhậpHàngToolStripMenuItem
             // 
@@ -184,6 +188,7 @@
             trảNhậpHàngToolStripMenuItem.Name = "trảNhậpHàngToolStripMenuItem";
             trảNhậpHàngToolStripMenuItem.Size = new Size(233, 32);
             trảNhậpHàngToolStripMenuItem.Text = "Trả nhập hàng";
+            trảNhậpHàngToolStripMenuItem.Click += trảNhậpHàngToolStripMenuItem_Click;
             // 
             // toolStripMenuItem4
             // 
@@ -202,6 +207,7 @@
             kháchHàngToolStripMenuItem.Name = "kháchHàngToolStripMenuItem";
             kháchHàngToolStripMenuItem.Size = new Size(228, 32);
             kháchHàngToolStripMenuItem.Text = "Khách hàng";
+            kháchHàngToolStripMenuItem.Click += kháchHàngToolStripMenuItem_Click;
             // 
             // nhàCungCấpToolStripMenuItem
             // 
@@ -338,6 +344,7 @@
             // 
             // panelMain
             // 
+            panelMain.AutoScroll = true;
             panelMain.BackColor = Color.Gainsboro;
             panelMain.Dock = DockStyle.Fill;
             panelMain.Location = new Point(0, 50);
@@ -354,7 +361,10 @@
             Controls.Add(panelMain);
             Controls.Add(panelNoiDung);
             Name = "FormMain";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormMain";
+            WindowState = FormWindowState.Maximized;
+            Load += FormMain_Load;
             panelNoiDung.ResumeLayout(false);
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

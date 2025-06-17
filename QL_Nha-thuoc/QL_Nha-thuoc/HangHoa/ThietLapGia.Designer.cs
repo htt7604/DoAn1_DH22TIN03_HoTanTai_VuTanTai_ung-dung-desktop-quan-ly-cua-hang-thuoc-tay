@@ -239,6 +239,7 @@
             Controls.Add(panel1);
             Controls.Add(label1);
             Controls.Add(dataGridViewdsTLG);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "ThietLapGia";
             Text = "ThietLapGia";
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsTLG).EndInit();

@@ -81,7 +81,7 @@ namespace QL_Nha_thuoc.HangHoa
                             textBoxGhiChu.Text = reader["GHI_CHU_HH"]?.ToString() ?? string.Empty;
                             textBoxNhaCungCap.Text = reader["TEN_NHA_CUNG_CAP"]?.ToString() ?? string.Empty;
                             textBoxDonViTinh.Text = reader["TEN_DON_VI_TINH"]?.ToString() ?? string.Empty;
-                            buttonNgungKinhDoanh.Text = reader["TINH_TRANG_HH"]?.ToString() == "Đang kinh doanh " ? "Ngừng kinh doanh" : "Kích hoạt kinh doanh";
+                            buttonNgungKinhDoanh.Text = reader["TINH_TRANG_HH"]?.ToString() == "Đang kinh doanh " ? "Kích hoạt kinh doanh" : "Ngừng kinh doanh";
                             // Ngày hết hạn
                             if (reader["NGAY_HET_HAN_HH"] != DBNull.Value)
                             {
@@ -291,6 +291,22 @@ namespace QL_Nha_thuoc.HangHoa
                                 MessageBox.Show("Không tìm thấy hàng hóa để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
+                        //cap nhat  chi tiet phieu kiem kho
+                        //tim toan bo chi tiet phieu kiem kho co ma hang hoa nay
+                        // Cập nhật chi tiết phiếu kiểm kho
+
+                        PhieuKiemKho maphieukiemcochuahanghoa = PhieuKiemKho.LayPhieuKiemKho(maHangHoa);
+                        ClassChiTietPhieuKiemKho ClassChiTietPhieuKiemKho = new ClassChiTietPhieuKiemKho {
+                            MaPhieuKiemKho = maHangHoa, // Giả sử MaPhieuKiemKho là mã hàng hóa
+                            MaHangHoa = maHangHoa,
+                            SoLuongHeThong = 0, // Cập nhật số lượng hệ thống về 0
+                            SoLuongThucTe = 0, // Cập nhật số lượng thực tế về 0
+                            GhiChu = "Hàng hóa đã bị xóa" // Ghi chú nếu cần
+                        };      
+                        ClassChiTietPhieuKiemKho.CapNhatChiTietPhieuKiemKho(ClassChiTietPhieuKiemKho);
+
+                        //xoa phieu kiem kho
+
                     }
                 }
                 catch (Exception ex)

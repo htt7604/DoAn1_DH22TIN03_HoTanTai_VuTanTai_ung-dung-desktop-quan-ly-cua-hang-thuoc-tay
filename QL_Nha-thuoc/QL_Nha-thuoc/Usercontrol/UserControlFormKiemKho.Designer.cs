@@ -129,6 +129,7 @@
             buttonLuuTam.Size = new Size(125, 125);
             buttonLuuTam.TabIndex = 6;
             buttonLuuTam.Text = "Luu tam";
+            buttonLuuTam.Click += buttonLuuTam_Click;
             // 
             // labelTime
             // 
