@@ -1,13 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using QL_Nha_thuoc.model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QL_Nha_thuoc.DangNhap
@@ -17,36 +10,53 @@ namespace QL_Nha_thuoc.DangNhap
         public FormLogin()
         {
             InitializeComponent();
+            this.KeyPreview = true;
         }
-        public static bool KiemTraDangNhap(string tenTK, string matKhau)
+
+        private void FormLogin_KeyDown(object sender, KeyEventArgs e)
         {
-            using (SqlConnection conn = DBHelper.GetConnection())
+            if (e.KeyCode == Keys.Enter)
             {
-                string query = "SELECT COUNT(*) FROM TAI_KHOAN WHERE TEN_TAI_KHOAN = @TK AND MAT_KHAU = @MK";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@TK", tenTK);
-                cmd.Parameters.AddWithValue("@MK", matKhau);
-
-                conn.Open();
-                int count = (int)cmd.ExecuteScalar();
-                return count > 0;
+                buttonQuanLy.PerformClick(); // Mặc định Enter là quản lý
             }
         }
-        private void buttonDangNhap_Click(object sender, EventArgs e)
+
+        private void buttonQuanLy_Click(object sender, EventArgs e)
+        {
+            DangNhapTheoVaiTro("Quản lý"); // vai trò đúng theo cột TEN_VAI_TRO trong bảng VAI_TRO
+        }
+
+        private void buttonBanHang_Click(object sender, EventArgs e)
+        {
+            DangNhapTheoVaiTro("Bán hàng"); // vai trò đúng theo cột TEN_VAI_TRO trong bảng VAI_TRO
+        }
+
+        private void DangNhapTheoVaiTro(string vaiTroYeuCau)
         {
             string tenTK = textBoxTenDangNhap.Text.Trim();
             string matKhau = textBoxMatKhau.Text.Trim();
 
-            if (KiemTraDangNhap(tenTK, matKhau))
+            if (string.IsNullOrEmpty(tenTK) || string.IsNullOrEmpty(matKhau))
             {
-                var taiKhoan = ClassTaiKhoan.LayTaiKhoan(tenTK);
+                MessageBox.Show("Vui lòng nhập tên đăng nhập và mật khẩu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Lấy thông tin tài khoản từ database
+            var taiKhoan = ClassTaiKhoan.LayTaiKhoan(tenTK);
+
+            if (taiKhoan != null && taiKhoan.MatKhau == matKhau)
+            {
+                if (taiKhoan.VaiTro != vaiTroYeuCau)
+                {
+                    MessageBox.Show($"Tài khoản không có quyền truy cập với vai trò '{vaiTroYeuCau}'!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
                 // ✅ Lưu thông tin đăng nhập
                 Session.TaiKhoanDangNhap = taiKhoan;
 
                 MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 this.Hide();
                 FormMain formMain = new FormMain();
                 formMain.ShowDialog();
@@ -55,14 +65,6 @@ namespace QL_Nha_thuoc.DangNhap
             else
             {
                 MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void FormLogin_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                buttonDangNhap.PerformClick(); // Giả lập nút đăng nhập
             }
         }
     }
