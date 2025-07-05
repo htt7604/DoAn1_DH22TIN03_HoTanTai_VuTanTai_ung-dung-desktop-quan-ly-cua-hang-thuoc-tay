@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using QL_Nha_thuoc.BanHang;
 using QL_Nha_thuoc.model;
 using System;
 using System.Windows.Forms;
@@ -58,8 +59,19 @@ namespace QL_Nha_thuoc.DangNhap
 
                 MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Hide();
-                FormMain formMain = new FormMain();
-                formMain.ShowDialog();
+
+                // Mở form tương ứng theo vai trò
+                if (vaiTroYeuCau == "Quản lý")
+                {
+                    FormMain formMain = new FormMain();
+                    formMain.ShowDialog();
+                }
+                else if (vaiTroYeuCau == "Bán hàng")
+                {
+                    FormBanHangMain formbanhangmain = new FormBanHangMain();
+                    formbanhangmain.ShowDialog();
+                }
+
                 this.Show();
             }
             else
@@ -67,5 +79,9 @@ namespace QL_Nha_thuoc.DangNhap
                 MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+
+
     }
 }

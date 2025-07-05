@@ -9,6 +9,7 @@
       "QL_Nha-thuoc/1.0.0": {
         "dependencies": {
           "Microsoft.Data.SqlClient": "6.0.2",
+          "Microsoft.ReportViewer.WinForms": "10.0.40219.1",
           "Microsoft.ReportingServices.ReportViewerControl.Winforms": "150.1652.0"
         },
         "runtime": {
@@ -461,6 +462,7 @@
           }
         }
       },
+      "Microsoft.ReportViewer.WinForms/10.0.40219.1": {},
       "Microsoft.SqlServer.Server/1.0.0": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.SqlServer.Server.dll": {
@@ -723,6 +725,13 @@
       "sha512": "sha512-635TIM0OY7vreXBj5xTx2bV+lnMgCaKcPT+UzRghF7HGVVwfKfZD5Bv7Kcj/3rzVe96POj5h9YT5IYqXGLu7vA==",
       "path": "microsoft.reportingservices.reportviewercontrol.winforms/150.1652.0",
       "hashPath": "microsoft.reportingservices.reportviewercontrol.winforms.150.1652.0.nupkg.sha512"
+    },
+    "Microsoft.ReportViewer.WinForms/10.0.40219.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jUPFTKTQ+HHr2uttku6fKoxTR4nsQfQEaTqABtopWPHRvRjKHTSKfexMqW0SwnWToQIAG5u2T5w/9j0iGW44mQ==",
+      "path": "microsoft.reportviewer.winforms/10.0.40219.1",
+      "hashPath": "microsoft.reportviewer.winforms.10.0.40219.1.nupkg.sha512"
     },
     "Microsoft.SqlServer.Server/1.0.0": {
       "type": "package",

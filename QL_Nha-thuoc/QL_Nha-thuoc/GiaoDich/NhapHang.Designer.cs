@@ -28,139 +28,80 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridViewdsNH = new DataGridView();
-            label1 = new Label();
-            panel2 = new Panel();
-            panel4 = new Panel();
-            pictureBox1 = new PictureBox();
-            textBoxTimNV = new TextBox();
-            buttonThemNV = new Button();
-            panel1 = new Panel();
-            groupBox5 = new GroupBox();
-            comboBox3 = new ComboBox();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            splitContainer1 = new SplitContainer();
+            groupBox3 = new GroupBox();
+            comboBox2 = new ComboBox();
             groupBox2 = new GroupBox();
+            checkBox2 = new CheckBox();
             checkBox3 = new CheckBox();
             checkBox1 = new CheckBox();
             groupBox1 = new GroupBox();
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
-            groupBox3 = new GroupBox();
-            comboBox2 = new ComboBox();
-            checkBox2 = new CheckBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewdsNH).BeginInit();
-            panel2.SuspendLayout();
-            panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel1.SuspendLayout();
-            groupBox5.SuspendLayout();
+            label1 = new Label();
+            dataGridViewdsDMHH = new DataGridView();
+            panel6 = new Panel();
+            panel = new Panel();
+            tableLayoutPanel5 = new TableLayoutPanel();
+            pictureBox1 = new PictureBox();
+            textBoxTimHH = new TextBox();
+            buttonThemHH = new Button();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
-            groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewdsDMHH).BeginInit();
+            panel6.SuspendLayout();
+            panel.SuspendLayout();
+            tableLayoutPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // dataGridViewdsNH
+            // splitContainer1
             // 
-            dataGridViewdsNH.BackgroundColor = SystemColors.ButtonFace;
-            dataGridViewdsNH.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewdsNH.Dock = DockStyle.Fill;
-            dataGridViewdsNH.Location = new Point(0, 0);
-            dataGridViewdsNH.Name = "dataGridViewdsNH";
-            dataGridViewdsNH.RowHeadersWidth = 51;
-            dataGridViewdsNH.Size = new Size(1271, 658);
-            dataGridViewdsNH.TabIndex = 1;
+            splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.Location = new Point(0, 0);
+            splitContainer1.Name = "splitContainer1";
             // 
-            // label1
+            // splitContainer1.Panel1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label1.Location = new Point(12, 25);
-            label1.Name = "label1";
-            label1.Size = new Size(162, 25);
-            label1.TabIndex = 4;
-            label1.Text = "Phiếu nhập hàng";
+            splitContainer1.Panel1.Controls.Add(groupBox3);
+            splitContainer1.Panel1.Controls.Add(groupBox2);
+            splitContainer1.Panel1.Controls.Add(groupBox1);
+            splitContainer1.Panel1.Controls.Add(label1);
             // 
-            // panel2
+            // splitContainer1.Panel2
             // 
-            panel2.Controls.Add(panel4);
-            panel2.Controls.Add(buttonThemNV);
-            panel2.Location = new Point(180, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1089, 60);
-            panel2.TabIndex = 5;
+            splitContainer1.Panel2.Controls.Add(dataGridViewdsDMHH);
+            splitContainer1.Panel2.Controls.Add(panel6);
+            splitContainer1.Size = new Size(1271, 658);
+            splitContainer1.SplitterDistance = 229;
+            splitContainer1.TabIndex = 0;
             // 
-            // panel4
+            // groupBox3
             // 
-            panel4.BackColor = SystemColors.ButtonHighlight;
-            panel4.Controls.Add(pictureBox1);
-            panel4.Controls.Add(textBoxTimNV);
-            panel4.Location = new Point(45, 11);
-            panel4.Name = "panel4";
-            panel4.Padding = new Padding(5, 2, 5, 2);
-            panel4.Size = new Size(449, 46);
-            panel4.TabIndex = 1;
+            groupBox3.BackColor = SystemColors.ButtonHighlight;
+            groupBox3.Controls.Add(comboBox2);
+            groupBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            groupBox3.Location = new Point(3, 436);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(223, 101);
+            groupBox3.TabIndex = 2;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Người nhập";
             // 
-            // pictureBox1
+            // comboBox2
             // 
-            pictureBox1.BackColor = SystemColors.ButtonHighlight;
-            pictureBox1.Image = Properties.Resources.search;
-            pictureBox1.Location = new Point(22, 14);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(40, 25);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 2;
-            pictureBox1.TabStop = false;
-            // 
-            // textBoxTimNV
-            // 
-            textBoxTimNV.BorderStyle = BorderStyle.None;
-            textBoxTimNV.Location = new Point(68, 14);
-            textBoxTimNV.Multiline = true;
-            textBoxTimNV.Name = "textBoxTimNV";
-            textBoxTimNV.PlaceholderText = "Tìm theo mã phiếu nhập";
-            textBoxTimNV.Size = new Size(354, 25);
-            textBoxTimNV.TabIndex = 1;
-            textBoxTimNV.Tag = "";
-            // 
-            // buttonThemNV
-            // 
-            buttonThemNV.BackColor = Color.LimeGreen;
-            buttonThemNV.Location = new Point(639, 10);
-            buttonThemNV.Name = "buttonThemNV";
-            buttonThemNV.Size = new Size(130, 40);
-            buttonThemNV.TabIndex = 0;
-            buttonThemNV.Text = "+ Nhập hàng";
-            buttonThemNV.UseVisualStyleBackColor = false;
-            // 
-            // panel1
-            // 
-            panel1.AutoScroll = true;
-            panel1.Controls.Add(groupBox2);
-            panel1.Controls.Add(groupBox1);
-            panel1.Controls.Add(groupBox3);
-            panel1.Location = new Point(12, 66);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(229, 595);
-            panel1.TabIndex = 6;
-            // 
-            // groupBox5
-            // 
-            groupBox5.BackColor = SystemColors.ButtonHighlight;
-            groupBox5.Controls.Add(comboBox3);
-            groupBox5.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox5.Location = new Point(11, 398);
-            groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(231, 101);
-            groupBox5.TabIndex = 3;
-            groupBox5.TabStop = false;
-            groupBox5.Text = "Người tạo";
-            // 
-            // comboBox3
-            // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(19, 48);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(151, 28);
-            comboBox3.TabIndex = 1;
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Location = new Point(19, 48);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(151, 28);
+            comboBox2.TabIndex = 1;
             // 
             // groupBox2
             // 
@@ -169,12 +110,23 @@
             groupBox2.Controls.Add(checkBox3);
             groupBox2.Controls.Add(checkBox1);
             groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox2.Location = new Point(3, 163);
+            groupBox2.Location = new Point(3, 230);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(228, 135);
+            groupBox2.Size = new Size(223, 135);
             groupBox2.TabIndex = 6;
             groupBox2.TabStop = false;
             groupBox2.Text = "Trạng thái";
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Font = new Font("Segoe UI", 9F);
+            checkBox2.Location = new Point(11, 105);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(77, 24);
+            checkBox2.TabIndex = 3;
+            checkBox2.Text = "Đã hủy";
+            checkBox2.UseVisualStyleBackColor = true;
             // 
             // checkBox3
             // 
@@ -204,9 +156,9 @@
             groupBox1.Controls.Add(radioButton2);
             groupBox1.Controls.Add(radioButton1);
             groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox1.Location = new Point(0, 3);
+            groupBox1.Location = new Point(3, 60);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(229, 123);
+            groupBox1.Size = new Size(223, 123);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thời gian";
@@ -219,13 +171,13 @@
             radioButton2.Name = "radioButton2";
             radioButton2.Size = new Size(124, 24);
             radioButton2.TabIndex = 1;
-            radioButton2.TabStop = true;
             radioButton2.Text = "Lựa chọn khác";
             radioButton2.UseVisualStyleBackColor = true;
             // 
             // radioButton1
             // 
             radioButton1.AutoSize = true;
+            radioButton1.Checked = true;
             radioButton1.Font = new Font("Segoe UI", 9F);
             radioButton1.Location = new Point(23, 38);
             radioButton1.Name = "radioButton1";
@@ -235,78 +187,146 @@
             radioButton1.Text = "Tháng này";
             radioButton1.UseVisualStyleBackColor = true;
             // 
-            // groupBox3
+            // label1
             // 
-            groupBox3.BackColor = SystemColors.ButtonHighlight;
-            groupBox3.Controls.Add(comboBox2);
-            groupBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox3.Location = new Point(3, 471);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(231, 101);
-            groupBox3.TabIndex = 2;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Người nhập";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label1.Location = new Point(26, 19);
+            label1.Name = "label1";
+            label1.Size = new Size(162, 25);
+            label1.TabIndex = 10;
+            label1.Text = "Phiếu nhập hàng";
             // 
-            // comboBox2
+            // dataGridViewdsDMHH
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(19, 48);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(151, 28);
-            comboBox2.TabIndex = 1;
+            dataGridViewdsDMHH.BackgroundColor = SystemColors.Window;
+            dataGridViewdsDMHH.BorderStyle = BorderStyle.None;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridViewdsDMHH.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewdsDMHH.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dataGridViewdsDMHH.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewdsDMHH.Dock = DockStyle.Fill;
+            dataGridViewdsDMHH.Location = new Point(0, 66);
+            dataGridViewdsDMHH.MultiSelect = false;
+            dataGridViewdsDMHH.Name = "dataGridViewdsDMHH";
+            dataGridViewdsDMHH.RowHeadersWidth = 51;
+            dataGridViewdsDMHH.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewdsDMHH.Size = new Size(1038, 592);
+            dataGridViewdsDMHH.TabIndex = 42;
             // 
-            // checkBox2
+            // panel6
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Font = new Font("Segoe UI", 9F);
-            checkBox2.Location = new Point(11, 105);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(77, 24);
-            checkBox2.TabIndex = 3;
-            checkBox2.Text = "Đã hủy";
-            checkBox2.UseVisualStyleBackColor = true;
+            panel6.Controls.Add(panel);
+            panel6.Controls.Add(buttonThemHH);
+            panel6.Dock = DockStyle.Top;
+            panel6.Location = new Point(0, 0);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(1038, 66);
+            panel6.TabIndex = 41;
+            // 
+            // panel
+            // 
+            panel.Controls.Add(tableLayoutPanel5);
+            panel.Location = new Point(0, 4);
+            panel.Name = "panel";
+            panel.Size = new Size(491, 55);
+            panel.TabIndex = 36;
+            // 
+            // tableLayoutPanel5
+            // 
+            tableLayoutPanel5.BackColor = SystemColors.Window;
+            tableLayoutPanel5.ColumnCount = 2;
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.6674261F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 86.33257F));
+            tableLayoutPanel5.Controls.Add(pictureBox1, 0, 0);
+            tableLayoutPanel5.Controls.Add(textBoxTimHH, 1, 0);
+            tableLayoutPanel5.Location = new Point(28, 3);
+            tableLayoutPanel5.Name = "tableLayoutPanel5";
+            tableLayoutPanel5.RowCount = 1;
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel5.Size = new Size(383, 42);
+            tableLayoutPanel5.TabIndex = 8;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = SystemColors.ButtonHighlight;
+            pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Image = Properties.Resources.search;
+            pictureBox1.Location = new Point(3, 3);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(46, 36);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 6;
+            pictureBox1.TabStop = false;
+            // 
+            // textBoxTimHH
+            // 
+            textBoxTimHH.BorderStyle = BorderStyle.None;
+            textBoxTimHH.Font = new Font("Segoe UI", 11F);
+            textBoxTimHH.Location = new Point(55, 3);
+            textBoxTimHH.Multiline = true;
+            textBoxTimHH.Name = "textBoxTimHH";
+            textBoxTimHH.PlaceholderText = "Tìm theo mã, tên hang hoa";
+            textBoxTimHH.Size = new Size(325, 31);
+            textBoxTimHH.TabIndex = 5;
+            textBoxTimHH.Tag = "";
+            // 
+            // buttonThemHH
+            // 
+            buttonThemHH.BackColor = Color.LimeGreen;
+            buttonThemHH.Location = new Point(548, 13);
+            buttonThemHH.Name = "buttonThemHH";
+            buttonThemHH.Size = new Size(108, 40);
+            buttonThemHH.TabIndex = 37;
+            buttonThemHH.Text = "+ Them moi";
+            buttonThemHH.UseVisualStyleBackColor = false;
             // 
             // NhapHang
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1271, 658);
-            Controls.Add(groupBox5);
-            Controls.Add(panel1);
-            Controls.Add(panel2);
-            Controls.Add(label1);
-            Controls.Add(dataGridViewdsNH);
+            Controls.Add(splitContainer1);
             Name = "NhapHang";
             Text = "NhapHang";
-            ((System.ComponentModel.ISupportInitialize)dataGridViewdsNH).EndInit();
-            panel2.ResumeLayout(false);
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel1.ResumeLayout(false);
-            groupBox5.ResumeLayout(false);
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel1.PerformLayout();
+            splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            groupBox3.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewdsDMHH).EndInit();
+            panel6.ResumeLayout(false);
+            panel.ResumeLayout(false);
+            tableLayoutPanel5.ResumeLayout(false);
+            tableLayoutPanel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridViewdsNH;
+        private SplitContainer splitContainer1;
         private Label label1;
-        private Panel panel2;
-        private Panel panel4;
-        private PictureBox pictureBox1;
-        private TextBox textBoxTimNV;
-        private Button buttonThemNV;
-        private Panel panel1;
-        private GroupBox groupBox5;
-        private ComboBox comboBox3;
         private GroupBox groupBox2;
+        private CheckBox checkBox2;
         private CheckBox checkBox3;
         private CheckBox checkBox1;
         private GroupBox groupBox1;
@@ -314,6 +334,12 @@
         private RadioButton radioButton1;
         private GroupBox groupBox3;
         private ComboBox comboBox2;
-        private CheckBox checkBox2;
+        private Panel panel6;
+        private Panel panel;
+        private TableLayoutPanel tableLayoutPanel5;
+        private PictureBox pictureBox1;
+        private TextBox textBoxTimHH;
+        private Button buttonThemHH;
+        private DataGridView dataGridViewdsDMHH;
     }
 }

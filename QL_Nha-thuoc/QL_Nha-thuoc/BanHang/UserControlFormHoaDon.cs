@@ -21,7 +21,7 @@ namespace QL_Nha_thuoc.BanHang
             InitializeComponent();
         }
         //load comboxboxtaikhoan
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public UserControlFormHoaDon? FormHoaDonCha { get; set; }
 
         public void LoadTaiKhoan()
@@ -69,7 +69,7 @@ namespace QL_Nha_thuoc.BanHang
                 }
             }
 
-            labelTongTienHang.Text = tongTien.ToString("N0") + " đ";
+            textBoxSoTienCanTra.Text = tongTien.ToString("N0") + " đ";
         }
 
 
@@ -330,6 +330,7 @@ namespace QL_Nha_thuoc.BanHang
 
 
         // Biến để lưu khách hàng đã chọn
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ClassKhachHang? KhachHangDuocChon { get; set; }
         private void textBoxTimKH_TextChanged(object sender, EventArgs e)
         {

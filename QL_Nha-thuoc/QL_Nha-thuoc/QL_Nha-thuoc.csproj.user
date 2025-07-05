@@ -34,6 +34,9 @@
     <Compile Update="DoiTac\FormNhaCungCap.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="GiaoDich\HoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,9 +109,6 @@
     <Compile Update="NhanVien\DSNhanVien.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,9 +126,6 @@
     </Compile>
     <Compile Update="NhanVien\UserControlThemNV.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="test.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Update="ThongKeTongquan\FormTongQuan.cs">
       <SubType>Form</SubType>

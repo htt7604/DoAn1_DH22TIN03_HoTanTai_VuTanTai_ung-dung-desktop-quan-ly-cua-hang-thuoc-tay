@@ -17,17 +17,6 @@ namespace QL_Nha_thuoc.BanHang
         public UserControlKhachHangitem()
         {
             InitializeComponent();
-            GanClickChoTatCa(this);
-        }
-
-        private void GanClickChoTatCa(Control control)
-        {
-            control.Click += (s, e) => this.OnClick(e); // đẩy sự kiện lên UserControl chính
-
-            foreach (Control child in control.Controls)
-            {
-                GanClickChoTatCa(child); // GỌI ĐÚNG: với child, không phải control
-            }
         }
 
 
