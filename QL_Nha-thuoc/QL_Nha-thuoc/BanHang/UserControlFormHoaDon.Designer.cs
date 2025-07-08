@@ -30,7 +30,6 @@
         {
             splitContainer1 = new SplitContainer();
             flowLayoutPanelTTHH = new FlowLayoutPanel();
-            flowLayoutPanelDanhSachKhachHang = new FlowLayoutPanel();
             comboBoxTaiKhoan = new ComboBox();
             panelGiamGia = new Panel();
             radioButtonPhanTram = new RadioButton();
@@ -43,9 +42,10 @@
             buttonThanhToan = new Button();
             label5 = new Label();
             label4 = new Label();
-            labelTongTienHang = new Label();
+            labelTienHang = new Label();
             labelThoiGian = new Label();
             panel = new Panel();
+            flowLayoutPanelDanhSachKhachHang = new FlowLayoutPanel();
             tableLayoutPanel5 = new TableLayoutPanel();
             pictureBox1 = new PictureBox();
             textBoxTimKH = new TextBox();
@@ -85,7 +85,7 @@
             splitContainer1.Panel2.Controls.Add(buttonThanhToan);
             splitContainer1.Panel2.Controls.Add(label5);
             splitContainer1.Panel2.Controls.Add(label4);
-            splitContainer1.Panel2.Controls.Add(labelTongTienHang);
+            splitContainer1.Panel2.Controls.Add(labelTienHang);
             splitContainer1.Panel2.Controls.Add(labelThoiGian);
             splitContainer1.Panel2.Controls.Add(panel);
             splitContainer1.Panel2.Controls.Add(textBoxTienTraLai);
@@ -108,17 +108,6 @@
             flowLayoutPanelTTHH.Size = new Size(927, 663);
             flowLayoutPanelTTHH.TabIndex = 6;
             flowLayoutPanelTTHH.WrapContents = false;
-            // 
-            // flowLayoutPanelDanhSachKhachHang
-            // 
-            flowLayoutPanelDanhSachKhachHang.AutoScroll = true;
-            flowLayoutPanelDanhSachKhachHang.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanelDanhSachKhachHang.Location = new Point(12, 125);
-            flowLayoutPanelDanhSachKhachHang.Name = "flowLayoutPanelDanhSachKhachHang";
-            flowLayoutPanelDanhSachKhachHang.Size = new Size(436, 287);
-            flowLayoutPanelDanhSachKhachHang.TabIndex = 60;
-            flowLayoutPanelDanhSachKhachHang.Visible = false;
-            flowLayoutPanelDanhSachKhachHang.WrapContents = false;
             // 
             // comboBoxTaiKhoan
             // 
@@ -249,20 +238,21 @@
             label4.TabIndex = 54;
             label4.Text = "Khach thanh toan";
             // 
-            // labelTongTienHang
+            // labelTienHang
             // 
-            labelTongTienHang.AutoSize = true;
-            labelTongTienHang.Font = new Font("Segoe UI", 12F);
-            labelTongTienHang.Location = new Point(23, 157);
-            labelTongTienHang.Name = "labelTongTienHang";
-            labelTongTienHang.Size = new Size(142, 28);
-            labelTongTienHang.TabIndex = 53;
-            labelTongTienHang.Text = "Tong tien hang";
+            labelTienHang.AutoSize = true;
+            labelTienHang.Font = new Font("Segoe UI", 12F);
+            labelTienHang.Location = new Point(23, 157);
+            labelTienHang.Name = "labelTienHang";
+            labelTienHang.Size = new Size(142, 28);
+            labelTienHang.TabIndex = 53;
+            labelTienHang.Text = "Tong tien hang";
             // 
             // labelThoiGian
             // 
+            labelThoiGian.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             labelThoiGian.AutoSize = true;
-            labelThoiGian.Location = new Point(428, 25);
+            labelThoiGian.Location = new Point(400, 25);
             labelThoiGian.Name = "labelThoiGian";
             labelThoiGian.Size = new Size(39, 20);
             labelThoiGian.TabIndex = 51;
@@ -270,13 +260,25 @@
             // 
             // panel
             // 
+            panel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel.BackColor = SystemColors.Control;
             panel.Controls.Add(tableLayoutPanel5);
             panel.Controls.Add(buttonThemKhachHang);
             panel.Location = new Point(12, 77);
             panel.Name = "panel";
-            panel.Size = new Size(436, 49);
+            panel.Size = new Size(436, 41);
             panel.TabIndex = 50;
+            // 
+            // flowLayoutPanelDanhSachKhachHang
+            // 
+            flowLayoutPanelDanhSachKhachHang.AutoScroll = true;
+            flowLayoutPanelDanhSachKhachHang.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanelDanhSachKhachHang.Location = new Point(12, 119);
+            flowLayoutPanelDanhSachKhachHang.Name = "flowLayoutPanelDanhSachKhachHang";
+            flowLayoutPanelDanhSachKhachHang.Size = new Size(436, 287);
+            flowLayoutPanelDanhSachKhachHang.TabIndex = 60;
+            flowLayoutPanelDanhSachKhachHang.Visible = false;
+            flowLayoutPanelDanhSachKhachHang.WrapContents = false;
             // 
             // tableLayoutPanel5
             // 
@@ -290,7 +292,7 @@
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 1;
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel5.Size = new Size(370, 42);
+            tableLayoutPanel5.Size = new Size(370, 36);
             tableLayoutPanel5.TabIndex = 8;
             // 
             // pictureBox1
@@ -299,7 +301,7 @@
             pictureBox1.Image = Properties.Resources.search;
             pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(44, 36);
+            pictureBox1.Size = new Size(44, 30);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
@@ -308,21 +310,23 @@
             // 
             textBoxTimKH.BackColor = SystemColors.Control;
             textBoxTimKH.BorderStyle = BorderStyle.None;
+            textBoxTimKH.Dock = DockStyle.Fill;
             textBoxTimKH.Font = new Font("Segoe UI", 11F);
             textBoxTimKH.Location = new Point(53, 3);
             textBoxTimKH.Multiline = true;
             textBoxTimKH.Name = "textBoxTimKH";
             textBoxTimKH.PlaceholderText = "Tìm theo mã, tên khac hang";
-            textBoxTimKH.Size = new Size(303, 31);
+            textBoxTimKH.Size = new Size(314, 30);
             textBoxTimKH.TabIndex = 5;
             textBoxTimKH.Tag = "";
             textBoxTimKH.TextChanged += textBoxTimKH_TextChanged;
             // 
             // buttonThemKhachHang
             // 
-            buttonThemKhachHang.Location = new Point(388, 6);
+            buttonThemKhachHang.Dock = DockStyle.Right;
+            buttonThemKhachHang.Location = new Point(395, 0);
             buttonThemKhachHang.Name = "buttonThemKhachHang";
-            buttonThemKhachHang.Size = new Size(41, 39);
+            buttonThemKhachHang.Size = new Size(41, 41);
             buttonThemKhachHang.TabIndex = 39;
             buttonThemKhachHang.Text = "+";
             buttonThemKhachHang.UseVisualStyleBackColor = true;
@@ -405,7 +409,7 @@
         private RadioButton radioButtonVND;
         private TextBox textBoxNhapGiamGia;
         private Label label6;
-        private Label labelTongTienHang;
+        private Label labelTienHang;
         private Label label4;
         private Label label5;
         private Button buttonThanhToan;

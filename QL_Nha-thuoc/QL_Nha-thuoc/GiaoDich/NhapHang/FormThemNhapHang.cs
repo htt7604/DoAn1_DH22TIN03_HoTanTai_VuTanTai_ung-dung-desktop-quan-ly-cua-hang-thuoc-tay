@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QL_Nha_thuoc.DoiTac
+namespace QL_Nha_thuoc.GiaoDich.NhapHang
 {
-    public partial class FormNhaCungCap : Form
+    public partial class FormThemNhapHang : Form
     {
-        public FormNhaCungCap()
+        public FormThemNhapHang()
         {
             InitializeComponent();
         }

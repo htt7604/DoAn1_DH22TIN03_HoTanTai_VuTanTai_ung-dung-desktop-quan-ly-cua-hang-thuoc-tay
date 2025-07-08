@@ -18,11 +18,6 @@ namespace QL_Nha_thuoc.BanHang
         {
             InitializeComponent();
         }
-
-
-
-
-
         public void Setdata(ClassKhachHang khachHang)
         {
             if (khachHang == null)

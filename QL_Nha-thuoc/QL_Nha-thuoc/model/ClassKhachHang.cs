@@ -26,8 +26,7 @@ namespace QL_Nha_thuoc.model
         public string TenNhomKH { get; set; }
         public string TenCongTy {  get; set; }
         public string GhiChu { get; set; }
-
-        public string nguoiTao;
+        public string nguoiTao { get; set; }
         public string MaSoThue { get; set; }
         public string ThongTinDayDu => $"{TenKH} ( {DiaChiKH} )";
 
@@ -109,7 +108,7 @@ namespace QL_Nha_thuoc.model
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT * FROM KHACH_HANG KH join NHOM_KH NKH on NKH.MA_NHOM_KH=KH.MA_NHOM_KH WHERE TEN_KH COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%' + @tenKH + '%'";
+                string query = "SELECT * FROM KHACH_HANG KH join NHOM_KH NKH on NKH.MA_NHOM_KH=KH.MA_NHOM_KH join NHAN_VIEN NV on KH.MA_NV=NV.MA_NV WHERE TEN_KH COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%' + @tenKH + '%'";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@tenKH", tenKH);
 
@@ -136,7 +135,7 @@ namespace QL_Nha_thuoc.model
                         nguoiTao = reader["HO_TEN_NV"]?.ToString(), // Lấy tên người tạo nếu có
                         MaSoThue = reader["MA_SO_THUE"]?.ToString(), // Lấy mã số thuế nếu có
                         Email = reader["EMAIL"]?.ToString(), // Lấy email nếu có
-                        TenCongTy = reader["TEN_CONG_TY"]?.ToString()
+                        TenCongTy = reader["TEN_CONG_TY"]?.ToString(),
                     };
 
                     danhSach.Add(kh);

@@ -41,13 +41,14 @@
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
             label1 = new Label();
-            dataGridViewdsDMHH = new DataGridView();
+            dataGridViewdsNhapHang = new DataGridView();
             panel6 = new Panel();
+            comboBoxLoaiTimKiem = new ComboBox();
             panel = new Panel();
             tableLayoutPanel5 = new TableLayoutPanel();
             pictureBox1 = new PictureBox();
             textBoxTimHH = new TextBox();
-            buttonThemHH = new Button();
+            buttonThemNhapHang = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -55,7 +56,7 @@
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewdsDMHH).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewdsNhapHang).BeginInit();
             panel6.SuspendLayout();
             panel.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
@@ -77,26 +78,28 @@
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(dataGridViewdsDMHH);
+            splitContainer1.Panel2.Controls.Add(dataGridViewdsNhapHang);
             splitContainer1.Panel2.Controls.Add(panel6);
             splitContainer1.Size = new Size(1271, 658);
-            splitContainer1.SplitterDistance = 229;
+            splitContainer1.SplitterDistance = 234;
             splitContainer1.TabIndex = 0;
             // 
             // groupBox3
             // 
+            groupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox3.BackColor = SystemColors.ButtonHighlight;
             groupBox3.Controls.Add(comboBox2);
             groupBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox3.Location = new Point(3, 436);
+            groupBox3.Location = new Point(8, 454);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(223, 101);
-            groupBox3.TabIndex = 2;
+            groupBox3.TabIndex = 14;
             groupBox3.TabStop = false;
             groupBox3.Text = "Người nhập";
             // 
             // comboBox2
             // 
+            comboBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             comboBox2.FormattingEnabled = true;
             comboBox2.Location = new Point(19, 48);
             comboBox2.Name = "comboBox2";
@@ -105,20 +108,22 @@
             // 
             // groupBox2
             // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.BackColor = SystemColors.ButtonHighlight;
             groupBox2.Controls.Add(checkBox2);
             groupBox2.Controls.Add(checkBox3);
             groupBox2.Controls.Add(checkBox1);
             groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox2.Location = new Point(3, 230);
+            groupBox2.Location = new Point(6, 262);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(223, 135);
-            groupBox2.TabIndex = 6;
+            groupBox2.TabIndex = 13;
             groupBox2.TabStop = false;
             groupBox2.Text = "Trạng thái";
             // 
             // checkBox2
             // 
+            checkBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             checkBox2.AutoSize = true;
             checkBox2.Font = new Font("Segoe UI", 9F);
             checkBox2.Location = new Point(11, 105);
@@ -130,6 +135,7 @@
             // 
             // checkBox3
             // 
+            checkBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             checkBox3.AutoSize = true;
             checkBox3.Font = new Font("Segoe UI", 9F);
             checkBox3.Location = new Point(11, 66);
@@ -141,6 +147,7 @@
             // 
             // checkBox1
             // 
+            checkBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             checkBox1.AutoSize = true;
             checkBox1.Font = new Font("Segoe UI", 9F);
             checkBox1.Location = new Point(11, 26);
@@ -152,19 +159,21 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.BackColor = SystemColors.ButtonHighlight;
             groupBox1.Controls.Add(radioButton2);
             groupBox1.Controls.Add(radioButton1);
             groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox1.Location = new Point(3, 60);
+            groupBox1.Location = new Point(3, 76);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(223, 123);
-            groupBox1.TabIndex = 3;
+            groupBox1.Size = new Size(228, 143);
+            groupBox1.TabIndex = 12;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thời gian";
             // 
             // radioButton2
             // 
+            radioButton2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             radioButton2.AutoSize = true;
             radioButton2.Font = new Font("Segoe UI", 9F);
             radioButton2.Location = new Point(23, 77);
@@ -176,6 +185,7 @@
             // 
             // radioButton1
             // 
+            radioButton1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             radioButton1.AutoSize = true;
             radioButton1.Checked = true;
             radioButton1.Font = new Font("Segoe UI", 9F);
@@ -191,16 +201,16 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label1.Location = new Point(26, 19);
+            label1.Location = new Point(27, 22);
             label1.Name = "label1";
             label1.Size = new Size(162, 25);
-            label1.TabIndex = 10;
+            label1.TabIndex = 11;
             label1.Text = "Phiếu nhập hàng";
             // 
-            // dataGridViewdsDMHH
+            // dataGridViewdsNhapHang
             // 
-            dataGridViewdsDMHH.BackgroundColor = SystemColors.Window;
-            dataGridViewdsDMHH.BorderStyle = BorderStyle.None;
+            dataGridViewdsNhapHang.BackgroundColor = SystemColors.Window;
+            dataGridViewdsNhapHang.BorderStyle = BorderStyle.None;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Control;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
@@ -208,8 +218,8 @@
             dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridViewdsDMHH.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridViewdsDMHH.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewdsNhapHang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewdsNhapHang.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = SystemColors.Window;
             dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
@@ -217,32 +227,43 @@
             dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dataGridViewdsDMHH.DefaultCellStyle = dataGridViewCellStyle4;
-            dataGridViewdsDMHH.Dock = DockStyle.Fill;
-            dataGridViewdsDMHH.Location = new Point(0, 66);
-            dataGridViewdsDMHH.MultiSelect = false;
-            dataGridViewdsDMHH.Name = "dataGridViewdsDMHH";
-            dataGridViewdsDMHH.RowHeadersWidth = 51;
-            dataGridViewdsDMHH.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewdsDMHH.Size = new Size(1038, 592);
-            dataGridViewdsDMHH.TabIndex = 42;
+            dataGridViewdsNhapHang.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewdsNhapHang.Dock = DockStyle.Fill;
+            dataGridViewdsNhapHang.Location = new Point(0, 58);
+            dataGridViewdsNhapHang.MultiSelect = false;
+            dataGridViewdsNhapHang.Name = "dataGridViewdsNhapHang";
+            dataGridViewdsNhapHang.RowHeadersWidth = 51;
+            dataGridViewdsNhapHang.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewdsNhapHang.Size = new Size(1033, 600);
+            dataGridViewdsNhapHang.TabIndex = 43;
             // 
             // panel6
             // 
+            panel6.Controls.Add(comboBoxLoaiTimKiem);
             panel6.Controls.Add(panel);
-            panel6.Controls.Add(buttonThemHH);
+            panel6.Controls.Add(buttonThemNhapHang);
             panel6.Dock = DockStyle.Top;
             panel6.Location = new Point(0, 0);
             panel6.Name = "panel6";
-            panel6.Size = new Size(1038, 66);
-            panel6.TabIndex = 41;
+            panel6.Size = new Size(1033, 58);
+            panel6.TabIndex = 42;
+            // 
+            // comboBoxLoaiTimKiem
+            // 
+            comboBoxLoaiTimKiem.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxLoaiTimKiem.FormattingEnabled = true;
+            comboBoxLoaiTimKiem.Location = new Point(497, 12);
+            comboBoxLoaiTimKiem.Name = "comboBoxLoaiTimKiem";
+            comboBoxLoaiTimKiem.Size = new Size(151, 28);
+            comboBoxLoaiTimKiem.TabIndex = 38;
+            comboBoxLoaiTimKiem.SelectedIndexChanged += comboBoxLoaiTimKiem_SelectedIndexChanged;
             // 
             // panel
             // 
             panel.Controls.Add(tableLayoutPanel5);
             panel.Location = new Point(0, 4);
             panel.Name = "panel";
-            panel.Size = new Size(491, 55);
+            panel.Size = new Size(491, 49);
             panel.TabIndex = 36;
             // 
             // tableLayoutPanel5
@@ -253,11 +274,12 @@
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 86.33257F));
             tableLayoutPanel5.Controls.Add(pictureBox1, 0, 0);
             tableLayoutPanel5.Controls.Add(textBoxTimHH, 1, 0);
-            tableLayoutPanel5.Location = new Point(28, 3);
+            tableLayoutPanel5.Dock = DockStyle.Fill;
+            tableLayoutPanel5.Location = new Point(0, 0);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 1;
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel5.Size = new Size(383, 42);
+            tableLayoutPanel5.Size = new Size(491, 49);
             tableLayoutPanel5.TabIndex = 8;
             // 
             // pictureBox1
@@ -267,7 +289,7 @@
             pictureBox1.Image = Properties.Resources.search;
             pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(46, 36);
+            pictureBox1.Size = new Size(61, 43);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
@@ -275,24 +297,29 @@
             // textBoxTimHH
             // 
             textBoxTimHH.BorderStyle = BorderStyle.None;
+            textBoxTimHH.Dock = DockStyle.Fill;
             textBoxTimHH.Font = new Font("Segoe UI", 11F);
-            textBoxTimHH.Location = new Point(55, 3);
+            textBoxTimHH.Location = new Point(70, 3);
             textBoxTimHH.Multiline = true;
             textBoxTimHH.Name = "textBoxTimHH";
-            textBoxTimHH.PlaceholderText = "Tìm theo mã, tên hang hoa";
-            textBoxTimHH.Size = new Size(325, 31);
+            textBoxTimHH.PlaceholderText = "Tìm theo mã phieu nhap";
+            textBoxTimHH.Size = new Size(418, 43);
             textBoxTimHH.TabIndex = 5;
             textBoxTimHH.Tag = "";
+            textBoxTimHH.TextChanged += textBoxTimHH_TextChanged;
+            textBoxTimHH.KeyDown += textBoxTimHH_KeyDown;
             // 
-            // buttonThemHH
+            // buttonThemNhapHang
             // 
-            buttonThemHH.BackColor = Color.LimeGreen;
-            buttonThemHH.Location = new Point(548, 13);
-            buttonThemHH.Name = "buttonThemHH";
-            buttonThemHH.Size = new Size(108, 40);
-            buttonThemHH.TabIndex = 37;
-            buttonThemHH.Text = "+ Them moi";
-            buttonThemHH.UseVisualStyleBackColor = false;
+            buttonThemNhapHang.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonThemNhapHang.BackColor = Color.LimeGreen;
+            buttonThemNhapHang.Location = new Point(815, 7);
+            buttonThemNhapHang.Name = "buttonThemNhapHang";
+            buttonThemNhapHang.Size = new Size(108, 40);
+            buttonThemNhapHang.TabIndex = 37;
+            buttonThemNhapHang.Text = "+ Them moi";
+            buttonThemNhapHang.UseVisualStyleBackColor = false;
+            buttonThemNhapHang.Click += buttonThemNhapHang_Click;
             // 
             // NhapHang
             // 
@@ -302,6 +329,7 @@
             Controls.Add(splitContainer1);
             Name = "NhapHang";
             Text = "NhapHang";
+            WindowState = FormWindowState.Maximized;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);
@@ -312,7 +340,7 @@
             groupBox2.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewdsDMHH).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewdsNhapHang).EndInit();
             panel6.ResumeLayout(false);
             panel.ResumeLayout(false);
             tableLayoutPanel5.ResumeLayout(false);
@@ -325,13 +353,13 @@
 
         private SplitContainer splitContainer1;
         private Label label1;
+        private GroupBox groupBox1;
+        private RadioButton radioButton2;
+        private RadioButton radioButton1;
         private GroupBox groupBox2;
         private CheckBox checkBox2;
         private CheckBox checkBox3;
         private CheckBox checkBox1;
-        private GroupBox groupBox1;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
         private GroupBox groupBox3;
         private ComboBox comboBox2;
         private Panel panel6;
@@ -339,7 +367,8 @@
         private TableLayoutPanel tableLayoutPanel5;
         private PictureBox pictureBox1;
         private TextBox textBoxTimHH;
-        private Button buttonThemHH;
-        private DataGridView dataGridViewdsDMHH;
+        private Button buttonThemNhapHang;
+        private DataGridView dataGridViewdsNhapHang;
+        private ComboBox comboBoxLoaiTimKiem;
     }
 }

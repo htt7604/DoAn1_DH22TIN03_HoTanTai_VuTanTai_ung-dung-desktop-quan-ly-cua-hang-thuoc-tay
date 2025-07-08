@@ -28,9 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            splitContainer1 = new SplitContainer();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
             comboBoxLocTheo = new ComboBox();
             buttonThemNCC = new Button();
@@ -38,30 +37,23 @@
             tableLayoutPanel5 = new TableLayoutPanel();
             pictureBox1 = new PictureBox();
             textBoxTimNCC = new TextBox();
+            splitContainer1 = new SplitContainer();
             dataGridViewdsNCC = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
-            splitContainer1.Panel2.SuspendLayout();
-            splitContainer1.SuspendLayout();
+            ColumnMaNCC = new DataGridViewTextBoxColumn();
+            ColumnTenNCC = new DataGridViewTextBoxColumn();
+            ColumnDienThoai = new DataGridViewTextBoxColumn();
+            ColumnEmail = new DataGridViewTextBoxColumn();
+            ColumnNoCanTra = new DataGridViewTextBoxColumn();
+            ColumnTongMua = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             panel.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsNCC).BeginInit();
             SuspendLayout();
-            // 
-            // splitContainer1
-            // 
-            splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.Location = new Point(0, 0);
-            splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel2
-            // 
-            splitContainer1.Panel2.Controls.Add(dataGridViewdsNCC);
-            splitContainer1.Panel2.Controls.Add(panel1);
-            splitContainer1.Size = new Size(1382, 652);
-            splitContainer1.SplitterDistance = 239;
-            splitContainer1.TabIndex = 0;
             // 
             // panel1
             // 
@@ -139,36 +131,94 @@
             textBoxTimNCC.TabIndex = 5;
             textBoxTimNCC.Tag = "";
             // 
+            // splitContainer1
+            // 
+            splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.Location = new Point(0, 0);
+            splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.Controls.Add(dataGridViewdsNCC);
+            splitContainer1.Panel2.Controls.Add(panel1);
+            splitContainer1.Size = new Size(1382, 652);
+            splitContainer1.SplitterDistance = 239;
+            splitContainer1.TabIndex = 1;
+            // 
             // dataGridViewdsNCC
             // 
             dataGridViewdsNCC.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewdsNCC.BackgroundColor = SystemColors.Window;
             dataGridViewdsNCC.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridViewdsNCC.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.LightBlue;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewdsNCC.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewdsNCC.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Window;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dataGridViewdsNCC.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewdsNCC.Columns.AddRange(new DataGridViewColumn[] { ColumnMaNCC, ColumnTenNCC, ColumnDienThoai, ColumnEmail, ColumnNoCanTra, ColumnTongMua });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewdsNCC.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewdsNCC.Dock = DockStyle.Fill;
+            dataGridViewdsNCC.EnableHeadersVisualStyles = false;
             dataGridViewdsNCC.Location = new Point(0, 57);
             dataGridViewdsNCC.MultiSelect = false;
             dataGridViewdsNCC.Name = "dataGridViewdsNCC";
+            dataGridViewdsNCC.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewdsNCC.RowHeadersWidth = 51;
             dataGridViewdsNCC.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewdsNCC.Size = new Size(1139, 595);
             dataGridViewdsNCC.TabIndex = 39;
+            // 
+            // ColumnMaNCC
+            // 
+            ColumnMaNCC.FillWeight = 120F;
+            ColumnMaNCC.HeaderText = "Mã NCC";
+            ColumnMaNCC.MinimumWidth = 6;
+            ColumnMaNCC.Name = "ColumnMaNCC";
+            // 
+            // ColumnTenNCC
+            // 
+            ColumnTenNCC.FillWeight = 200F;
+            ColumnTenNCC.HeaderText = "Tên NCC";
+            ColumnTenNCC.MinimumWidth = 6;
+            ColumnTenNCC.Name = "ColumnTenNCC";
+            // 
+            // ColumnDienThoai
+            // 
+            ColumnDienThoai.FillWeight = 120F;
+            ColumnDienThoai.HeaderText = "Điện Thoại";
+            ColumnDienThoai.MinimumWidth = 6;
+            ColumnDienThoai.Name = "ColumnDienThoai";
+            // 
+            // ColumnEmail
+            // 
+            ColumnEmail.FillWeight = 180F;
+            ColumnEmail.HeaderText = "Email";
+            ColumnEmail.MinimumWidth = 6;
+            ColumnEmail.Name = "ColumnEmail";
+            // 
+            // ColumnNoCanTra
+            // 
+            ColumnNoCanTra.FillWeight = 150F;
+            ColumnNoCanTra.HeaderText = "Nợ Cần Trả NCC";
+            ColumnNoCanTra.MinimumWidth = 6;
+            ColumnNoCanTra.Name = "ColumnNoCanTra";
+            // 
+            // ColumnTongMua
+            // 
+            ColumnTongMua.HeaderText = "Tổng Mua";
+            ColumnTongMua.MinimumWidth = 6;
+            ColumnTongMua.Name = "ColumnTongMua";
             // 
             // FormNhaCungCap
             // 
@@ -176,24 +226,24 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1382, 652);
             Controls.Add(splitContainer1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
             Name = "FormNhaCungCap";
             Text = "FormNhaCungCap";
-            splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
-            splitContainer1.ResumeLayout(false);
+            Load += FormNhaCungCap_Load;
             panel1.ResumeLayout(false);
             panel.ResumeLayout(false);
             tableLayoutPanel5.ResumeLayout(false);
             tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsNCC).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private SplitContainer splitContainer1;
         private Panel panel1;
         private ComboBox comboBoxLocTheo;
         private Button buttonThemNCC;
@@ -201,6 +251,13 @@
         private TableLayoutPanel tableLayoutPanel5;
         private PictureBox pictureBox1;
         private TextBox textBoxTimNCC;
+        private SplitContainer splitContainer1;
         private DataGridView dataGridViewdsNCC;
+        private DataGridViewTextBoxColumn ColumnMaNCC;
+        private DataGridViewTextBoxColumn ColumnTenNCC;
+        private DataGridViewTextBoxColumn ColumnDienThoai;
+        private DataGridViewTextBoxColumn ColumnEmail;
+        private DataGridViewTextBoxColumn ColumnNoCanTra;
+        private DataGridViewTextBoxColumn ColumnTongMua;
     }
 }

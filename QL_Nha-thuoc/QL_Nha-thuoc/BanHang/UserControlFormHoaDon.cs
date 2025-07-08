@@ -230,7 +230,7 @@ namespace QL_Nha_thuoc.BanHang
                 }
                 else
                 {
-                    labelTongTienHang.Text = TinhTongTien().ToString("N0") + " đ"; // Hiển thị tổng tiền nếu không hợp lệ
+                    labelTienHang.Text = TinhTongTien().ToString("N0") + " đ"; // Hiển thị tổng tiền nếu không hợp lệ
                 }
                 decimal.TryParse(textBoxGiamGia.Text.Replace(" đ", "").Replace(",", ""), out decimal giamGia);
                 giacuoicung = tongTien - giamGia;
@@ -295,7 +295,6 @@ namespace QL_Nha_thuoc.BanHang
                 }
             }
             // Cập nhật tổng tiền ban đầu
-            labelTongTienHang.Text = TinhTongTien().ToString("N0") + " đ"; // Hiển thị tổng tiền ban đầu
             textBoxSoTienCanTra.Text = TinhTongTien().ToString("N0") + " đ"; // Hiển thị tiền khách cần trả ban đầu
             textBoxGiamGia.Text = "0 đ"; // Đặt giá trị mặc định là 0
             textBoxNhapGiamGia.Text = "0"; // Đặt giá trị mặc định là 0
@@ -347,7 +346,7 @@ namespace QL_Nha_thuoc.BanHang
             }
             flowLayoutPanelDanhSachKhachHang.Visible = true; // Hiển thị flowLayoutPanelDanhSachKhachHang
             //them usecontrolkhachhangitem vao flowlayoutpanelkhachhang
-            List<ClassKhachHang> danhSachKhachHang = ClassKhachHang.LayDanhSachKhachHang();
+            List<ClassKhachHang> danhSachKhachHang = ClassKhachHang.TimDanhSachKhachHangTheoTen(searchText);
             // Nếu không có giá trị tìm kiếm, hiển thị tất cả các mặt hàng
             foreach (var item in danhSachKhachHang)
             {
