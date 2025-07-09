@@ -34,6 +34,12 @@
     <Compile Update="DoiTac\nhacungcap\FormNhaCungCap.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="DoiTac\nhacungcap\FormSuaNhaCungCap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DoiTac\nhacungcap\FormThemNhaCungCap.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
