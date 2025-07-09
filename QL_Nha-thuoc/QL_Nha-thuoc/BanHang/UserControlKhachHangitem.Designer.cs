@@ -61,7 +61,7 @@
             Controls.Add(labelMaKhachHang);
             Controls.Add(labelTenKachHang);
             Name = "UserControlKhachHangitem";
-            Size = new Size(351, 54);
+            Size = new Size(425, 54);
             ResumeLayout(false);
             PerformLayout();
         }

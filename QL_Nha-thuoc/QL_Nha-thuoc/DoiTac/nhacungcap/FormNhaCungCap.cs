@@ -16,5 +16,18 @@ namespace QL_Nha_thuoc.DoiTac
         {
             InitializeComponent();
         }
+
+        //load comboboxLoctheo
+        private void comboBoxLocTheo_load()
+        {
+            comboBoxLocTheo.Items.Add("Mã NCC");
+            comboBoxLocTheo.Items.Add("Tên NCC");
+            comboBoxLocTheo.SelectedIndex = 0; // mặc định là "Mã KH"
+
+        }
+
+        private void FormNhaCungCap_Load(object sender, EventArgs e)
+        {
+        }
     }
 }

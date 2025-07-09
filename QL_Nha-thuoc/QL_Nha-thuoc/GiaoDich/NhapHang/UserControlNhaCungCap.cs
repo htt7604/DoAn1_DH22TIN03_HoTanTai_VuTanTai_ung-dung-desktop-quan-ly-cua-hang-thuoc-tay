@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QL_Nha_thuoc.model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,13 +9,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QL_Nha_thuoc
+namespace QL_Nha_thuoc.GiaoDich.NhapHang
 {
-    public partial class test : Form
+    public partial class UserControlNhaCungCap : UserControl
     {
-        public test()
+        public UserControlNhaCungCap()
         {
             InitializeComponent();
+        }
+        public void setdata(string maHH)
+        {
+            
         }
     }
 }

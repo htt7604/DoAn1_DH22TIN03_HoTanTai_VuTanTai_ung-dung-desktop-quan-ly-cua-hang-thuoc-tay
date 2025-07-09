@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            buttonDangNhap = new Button();
+            buttonQuanLy = new Button();
             label1 = new Label();
             textBoxTenDangNhap = new TextBox();
             textBoxMatKhau = new TextBox();
             label2 = new Label();
             label3 = new Label();
-            button1 = new Button();
+            buttonBanHang = new Button();
             SuspendLayout();
             // 
-            // buttonDangNhap
+            // buttonQuanLy
             // 
-            buttonDangNhap.BackColor = Color.Lime;
-            buttonDangNhap.Location = new Point(172, 295);
-            buttonDangNhap.Name = "buttonDangNhap";
-            buttonDangNhap.Size = new Size(94, 29);
-            buttonDangNhap.TabIndex = 0;
-            buttonDangNhap.Text = "Quản lý";
-            buttonDangNhap.UseVisualStyleBackColor = false;
-            buttonDangNhap.Click += buttonDangNhap_Click;
+            buttonQuanLy.BackColor = Color.Lime;
+            buttonQuanLy.Location = new Point(172, 295);
+            buttonQuanLy.Name = "buttonQuanLy";
+            buttonQuanLy.Size = new Size(94, 29);
+            buttonQuanLy.TabIndex = 0;
+            buttonQuanLy.Text = "Quản lý";
+            buttonQuanLy.UseVisualStyleBackColor = false;
+            buttonQuanLy.Click += buttonQuanLy_Click;
             // 
             // label1
             // 
@@ -93,28 +93,29 @@
             label3.TabIndex = 5;
             label3.Text = "Mat khau";
             // 
-            // button1
+            // buttonBanHang
             // 
-            button1.BackColor = SystemColors.Highlight;
-            button1.Location = new Point(388, 295);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 6;
-            button1.Text = "Bán Hàng";
-            button1.UseVisualStyleBackColor = false;
+            buttonBanHang.BackColor = SystemColors.Highlight;
+            buttonBanHang.Location = new Point(388, 295);
+            buttonBanHang.Name = "buttonBanHang";
+            buttonBanHang.Size = new Size(94, 29);
+            buttonBanHang.TabIndex = 6;
+            buttonBanHang.Text = "Bán Hàng";
+            buttonBanHang.UseVisualStyleBackColor = false;
+            buttonBanHang.Click += buttonBanHang_Click;
             // 
             // FormLogin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(682, 385);
-            Controls.Add(button1);
+            Controls.Add(buttonBanHang);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(textBoxMatKhau);
             Controls.Add(textBoxTenDangNhap);
             Controls.Add(label1);
-            Controls.Add(buttonDangNhap);
+            Controls.Add(buttonQuanLy);
             Name = "FormLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormLogin";
@@ -124,12 +125,12 @@
 
         #endregion
 
-        private Button buttonDangNhap;
+        private Button buttonQuanLy;
         private Label label1;
         private TextBox textBoxTenDangNhap;
         private TextBox textBoxMatKhau;
         private Label label2;
         private Label label3;
-        private Button button1;
+        private Button buttonBanHang;
     }
 }
