@@ -19,6 +19,7 @@ namespace QL_Nha_thuoc.model
         public string MaPhieuNhap { get; set; }
         public string MaNhaCungCap { get; set; }
         public string MaNhanVien { get; set; }
+        public string TenNhanVien { get; set; }
         public DateTime? NgayNhap { get; set; }
         public string TrangThai { get; set; }
         public string GhiChuPhieuNhap { get; set; }
@@ -32,7 +33,7 @@ namespace QL_Nha_thuoc.model
 
         public PhieuNhapHang() { }
 
-        public PhieuNhapHang(string maPhieuNhap, string maNCC, string maNV, DateTime? ngayNhap,
+        public PhieuNhapHang(string maPhieuNhap, string maNCC, string maNV,string tenNV, DateTime? ngayNhap,
             string trangThai, string ghiChu, decimal? tongTien, decimal? daThanhToan,decimal soTienConNo, DateTime? ngayThanhToan)
         {
             MaPhieuNhap = maPhieuNhap;
@@ -45,33 +46,8 @@ namespace QL_Nha_thuoc.model
             SoTienDaThanhToan = daThanhToan;
             SoTienConNo=soTienConNo;
             NgayThanhToanHangNhap = ngayThanhToan;
+            TenNhanVien = tenNV;
         }
-    }
-
-    // Đại diện chi tiết hàng hóa trong phiếu nhập (nếu có bảng CHI_TIET_PHIEU_NHAP)
-    public class ChiTietPhieuNhap
-    {
-        public string MaPhieuNhap { get; set; }
-        public string MaHangHoa { get; set; }
-        public string TenHangHoa { get; set; }
-        public int SoLuong { get; set; }
-        public decimal DonGia { get; set; }
-        public decimal GiamGia { get; set; }
-        public decimal ThanhTien { get; set; }
-
-        public ChiTietPhieuNhap() { }
-
-        public ChiTietPhieuNhap(string maPhieu, string maHH, string tenHH, int soLuong, decimal donGia, decimal giamGia, decimal thanhTien)
-        {
-            MaPhieuNhap = maPhieu;
-            MaHangHoa = maHH;
-            TenHangHoa = tenHH;
-            SoLuong = soLuong;
-            DonGia = donGia;
-            GiamGia = giamGia;
-            ThanhTien = thanhTien;
-        }
-
         public static PhieuNhapHang TimPhieuNhapTheoMa(string maPhieuNhap)
         {
             using (SqlConnection conn = DBHelperPN.GetConnection())
@@ -120,9 +96,11 @@ namespace QL_Nha_thuoc.model
         SELECT PN.MA_PHIEU_NHAP, PN.NGAY_NHAP, 
                NCC.TEN_NHA_CUNG_CAP, PN.TRANG_THAI,
                PN.TONG_TIEN_NHAP_HANG, PN.SO_TIEN_DA_THANH_TOAN,
-               (ISNULL(PN.TONG_TIEN_NHAP_HANG, 0) - ISNULL(PN.SO_TIEN_DA_THANH_TOAN, 0)) AS SO_TIEN_CON_NO
+               (ISNULL(PN.TONG_TIEN_NHAP_HANG, 0) - ISNULL(PN.SO_TIEN_DA_THANH_TOAN, 0)) AS SO_TIEN_CON_NO,
+                PN.MA_NV,NV.HO_TEN_NV
         FROM PHIEU_NHAP_HANG PN
         JOIN NHA_CUNG_CAP NCC ON PN.MA_NHA_CUNG_CAP = NCC.MA_NHA_CUNG_CAP
+        JOIN NHAN_VIEN NV ON PN.MA_NV=NV.MA_NV
         WHERE PN.MA_NHA_CUNG_CAP = @MaNCC
         ORDER BY PN.NGAY_NHAP DESC";
 
@@ -142,7 +120,8 @@ namespace QL_Nha_thuoc.model
                         TrangThai = reader["TRANG_THAI"]?.ToString(),
                         TongTienNhapHang = reader["TONG_TIEN_NHAP_HANG"] != DBNull.Value ? Convert.ToDecimal(reader["TONG_TIEN_NHAP_HANG"]) : null,
                         SoTienDaThanhToan = reader["SO_TIEN_DA_THANH_TOAN"] != DBNull.Value ? Convert.ToDecimal(reader["SO_TIEN_DA_THANH_TOAN"]) : null,
-                        SoTienConNo = reader["SO_TIEN_CON_NO"] != DBNull.Value ? Convert.ToDecimal(reader["SO_TIEN_CON_NO"]) :0
+                        SoTienConNo = reader["SO_TIEN_CON_NO"] != DBNull.Value ? Convert.ToDecimal(reader["SO_TIEN_CON_NO"]) : 0,
+                        TenNhanVien = reader["HO_TEN_NV"].ToString()
                     };
 
                     danhSach.Add(pn);
@@ -185,7 +164,7 @@ namespace QL_Nha_thuoc.model
                         TrangThai = reader["TRANG_THAI"]?.ToString(),
                         TongTienNhapHang = reader["TONG_TIEN_NHAP_HANG"] != DBNull.Value ? Convert.ToDecimal(reader["TONG_TIEN_NHAP_HANG"]) : null,
                         SoTienDaThanhToan = reader["SO_TIEN_DA_THANH_TOAN"] != DBNull.Value ? Convert.ToDecimal(reader["SO_TIEN_DA_THANH_TOAN"]) : null,
-                        SoTienConNo = reader["SO_TIEN_CON_NO"] != DBNull.Value ? Convert.ToDecimal(reader["SO_TIEN_CON_NO"]) :0
+                        SoTienConNo = reader["SO_TIEN_CON_NO"] != DBNull.Value ? Convert.ToDecimal(reader["SO_TIEN_CON_NO"]) : 0
                     };
 
                     danhSach.Add(pn);
@@ -229,6 +208,33 @@ namespace QL_Nha_thuoc.model
                 }
             }
         }
+    }
+
+    // Đại diện chi tiết hàng hóa trong phiếu nhập (nếu có bảng CHI_TIET_PHIEU_NHAP)
+    public class ChiTietPhieuNhap
+    {
+        public string MaPhieuNhap { get; set; }
+        public string MaHangHoa { get; set; }
+        public string TenHangHoa { get; set; }
+        public int SoLuong { get; set; }
+        public decimal DonGia { get; set; }
+        public decimal GiamGia { get; set; }
+        public decimal ThanhTien { get; set; }
+
+        public ChiTietPhieuNhap() { }
+
+        public ChiTietPhieuNhap(string maPhieu, string maHH, string tenHH, int soLuong, decimal donGia, decimal giamGia, decimal thanhTien)
+        {
+            MaPhieuNhap = maPhieu;
+            MaHangHoa = maHH;
+            TenHangHoa = tenHH;
+            SoLuong = soLuong;
+            DonGia = donGia;
+            GiamGia = giamGia;
+            ThanhTien = thanhTien;
+        }
+
+      
 
 
 

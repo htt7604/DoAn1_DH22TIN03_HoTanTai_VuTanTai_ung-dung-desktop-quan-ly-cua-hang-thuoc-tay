@@ -130,10 +130,11 @@ namespace QL_Nha_thuoc.model
             {
                 conn.Open();
                 string query = @"
-                    SELECT TOP 1 MA_NHA_CUNG_CAP 
-                    FROM NHA_CUNG_CAP 
-                    WHERE MA_NHA_CUNG_CAP LIKE 'NCC%' 
-                    ORDER BY CAST(SUBSTRING(MA_NHA_CUNG_CAP, 4, LEN(MA_NHA_CUNG_CAP)) AS INT) DESC";
+            SELECT TOP 1 MA_NHA_CUNG_CAP 
+            FROM NHA_CUNG_CAP 
+            WHERE MA_NHA_CUNG_CAP LIKE 'NCC%' 
+              AND TRANG_THAI != N'Đã xóa'
+            ORDER BY CAST(SUBSTRING(MA_NHA_CUNG_CAP, 4, LEN(MA_NHA_CUNG_CAP)) AS INT) DESC";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -152,6 +153,7 @@ namespace QL_Nha_thuoc.model
                 }
             }
         }
+
 
         // Thêm nhà cung cấp
         public static void ThemNhaCungCap(ClassNhaCungCap ncc)
@@ -182,15 +184,62 @@ namespace QL_Nha_thuoc.model
             }
         }
 
-        public static void XoaNhaCungCap(string maNCC)
+        public static bool XoaNhaCungCap(string maNCC)
+        {
+            string maNCCMoi = maNCC + "-Deleted";
+
+            using (SqlConnection conn = GetConnection())
+            {
+                conn.Open();
+
+                string query = @"
+            UPDATE NHA_CUNG_CAP
+            SET MA_NHA_CUNG_CAP = @MaNCCMoi,
+                TRANG_THAI = N'Đã xóa'
+            WHERE MA_NHA_CUNG_CAP = @MaNCC";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaNCC", maNCC);
+                    cmd.Parameters.AddWithValue("@MaNCCMoi", maNCCMoi);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
+
+
+
+
+        public static void SuaNhaCungCap(ClassNhaCungCap ncc)
         {
             using (SqlConnection conn = GetConnection())
             {
                 conn.Open();
-                string query = "UPDATE NHA_CUNG_CAP SET TRANG_THAI = N'Đã xóa' WHERE MA_NHA_CUNG_CAP = @MaNCC";
+                string query = @"
+            UPDATE NHA_CUNG_CAP SET 
+                TEN_NHA_CUNG_CAP = @TenNhaCungCap,
+                DIA_CHI_NHA_CUNG_CAP = @DiaChiNCC,
+                SDT_NHA_CUNG_CAP = @DienThoai,
+                EMAIL_NHA_CUNG_CAP = @Email,
+                GHI_CHU = @GhiChu,
+                TEN_CONG_TY = @TenCongTy,
+                MA_SO_THUE = @MaSoThue
+            WHERE MA_NHA_CUNG_CAP = @MaNhaCungCap";
+
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@MaNCC", maNCC);
+                    cmd.Parameters.AddWithValue("@MaNhaCungCap", ncc.MaNhaCungCap);
+                    cmd.Parameters.AddWithValue("@TenNhaCungCap", ncc.TenNhaCungCap);
+                    cmd.Parameters.AddWithValue("@DiaChiNCC", ncc.DiaChiNCC);
+                    cmd.Parameters.AddWithValue("@DienThoai", ncc.DienThoai);
+                    cmd.Parameters.AddWithValue("@Email", ncc.Email);
+                    cmd.Parameters.AddWithValue("@GhiChu", ncc.GhiChu ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@TenCongTy", ncc.TenCongTy ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@MaSoThue", ncc.MaSoThue ?? (object)DBNull.Value);
+
                     cmd.ExecuteNonQuery();
                 }
             }

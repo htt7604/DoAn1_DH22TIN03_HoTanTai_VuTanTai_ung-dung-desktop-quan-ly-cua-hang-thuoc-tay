@@ -50,7 +50,7 @@ namespace QL_Nha_thuoc.DoiTac
 
         private void textBoxTimNCC_TextChanged(object sender, EventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(textBoxTimNCC.Text.Trim()))
+            if (string.IsNullOrWhiteSpace(textBoxTimNCC.Text.Trim()))
             {
                 // Nếu ô tìm kiếm trống, tải lại danh sách nhà cung cấp
                 LoadDanhSachNhaCungCap();
@@ -59,7 +59,7 @@ namespace QL_Nha_thuoc.DoiTac
             string searchText = textBoxTimNCC.Text.Trim().ToLower();
             string locTheo = comboBoxLocTheo.SelectedItem?.ToString() ?? "Mã NCC"; // Lấy giá trị đã chọn trong ComboBox, mặc định là "Mã NCC"
             // Lấy danh sách nhà cung cấp từ cơ sở dữ liệu
-            List<ClassNhaCungCap> danhSachNCC = ClassNhaCungCap.LayDanhSachNhaCungCapTheoLoai(locTheo,searchText);
+            List<ClassNhaCungCap> danhSachNCC = ClassNhaCungCap.LayDanhSachNhaCungCapTheoLoai(locTheo, searchText);
             // Xóa dữ liệu cũ trong DataGridView
             dataGridViewdsNCC.Rows.Clear();
             // Thêm từng nhà cung cấp vào DataGridView
@@ -132,22 +132,56 @@ namespace QL_Nha_thuoc.DoiTac
 
         private void buttonXoa_Click(object sender, EventArgs e)
         {
-            // Duyệt từ dưới lên để tránh lỗi chỉ số khi xóa dòng
-            for (int i = dataGridViewdsNCC.Rows.Count - 1; i >= 0; i--)
+            int soDongCanXoa = 0;
+
+            // Đếm số dòng được chọn để xác nhận trước khi xóa
+            for (int i = 0; i < dataGridViewdsNCC.Rows.Count; i++)
             {
                 bool isChecked = Convert.ToBoolean(dataGridViewdsNCC.Rows[i].Cells[0].Value);
                 if (isChecked)
                 {
-                    string maNCC = dataGridViewdsNCC.Rows[i].Cells["ColumnMaNCC"].Value.ToString();
-                    // Gọi hàm xóa trong DB nếu có
-                    ClassNhaCungCap.XoaNhaCungCap(maNCC);
-                    // Xóa dòng khỏi DataGridView
-                    dataGridViewdsNCC.Rows.RemoveAt(i);
+                    soDongCanXoa++;
                 }
             }
 
-            labelSoX.Visible = false;
+            // Xác nhận xóa
+            DialogResult result = MessageBox.Show(
+                $"Bạn có chắc chắn muốn xóa {soDongCanXoa} nhà cung cấp đã chọn?",
+                "Xác nhận xóa",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                for (int i = dataGridViewdsNCC.Rows.Count - 1; i >= 0; i--)
+                {
+                    bool isChecked = Convert.ToBoolean(dataGridViewdsNCC.Rows[i].Cells[0].Value);
+                    if (isChecked)
+                    {
+                        string maNCC = dataGridViewdsNCC.Rows[i].Cells["ColumnMaNCC"].Value.ToString();
+                        bool xoaThanhCong = ClassNhaCungCap.XoaNhaCungCap(maNCC);
+
+                        if (xoaThanhCong)
+                        {
+                            dataGridViewdsNCC.Rows.RemoveAt(i);
+                            //thong báo xóa thành công
+                            MessageBox.Show($"Đã xóa thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Không thể xóa nhà cung cấp có mã {maNCC}.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+
+                // Cập nhật lại UI
+                labelSoX.Visible = false;
+                buttonXoa.Visible = false;
+                buttonX.Visible = false;
+            }
         }
+
 
         private void buttonX_Click(object sender, EventArgs e)
         {
@@ -162,5 +196,24 @@ namespace QL_Nha_thuoc.DoiTac
             buttonXoa.Visible = false;
             buttonX.Visible = false;
         }
+
+        private void dataGridViewdsNCC_DoubleClick(object sender, EventArgs e)
+        {
+            //mo form chi tiết nhà cung cấp
+            if (dataGridViewdsNCC.CurrentRow != null && dataGridViewdsNCC.CurrentRow.Index >= 0)
+            {
+                string maNCC = dataGridViewdsNCC.CurrentRow.Cells["ColumnMaNCC"].Value.ToString();
+                FormChiTietNhaCungCap formChiTietNCC = new FormChiTietNhaCungCap(maNCC);
+                // Đăng ký sự kiện trước khi hiển thị form
+                formChiTietNCC.FormClosed += (s, args) =>
+                {
+                    LoadDanhSachNhaCungCap(); // Reload danh sách NCC sau khi đóng form
+                };
+                formChiTietNCC.ShowDialog();
+            }
+
+        }
+
+
     }
 }

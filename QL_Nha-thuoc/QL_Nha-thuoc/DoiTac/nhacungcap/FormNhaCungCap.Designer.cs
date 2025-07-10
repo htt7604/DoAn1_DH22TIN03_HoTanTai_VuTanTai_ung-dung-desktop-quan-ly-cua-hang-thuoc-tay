@@ -232,6 +232,7 @@
             dataGridViewdsNCC.TabIndex = 39;
             dataGridViewdsNCC.CellValueChanged += dataGridViewdsNCC_CellValueChanged;
             dataGridViewdsNCC.CurrentCellDirtyStateChanged += dataGridViewdsNCC_CurrentCellDirtyStateChanged;
+            dataGridViewdsNCC.DoubleClick += dataGridViewdsNCC_DoubleClick;
             // 
             // Columncheckbox
             // 
