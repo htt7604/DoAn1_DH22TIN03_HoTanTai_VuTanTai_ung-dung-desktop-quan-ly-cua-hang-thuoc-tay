@@ -317,7 +317,6 @@
             // 
             // dataGridViewdsDMHH
             // 
-            dataGridViewdsDMHH.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridViewdsDMHH.BackgroundColor = SystemColors.Window;
             dataGridViewdsDMHH.BorderStyle = BorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -337,6 +336,7 @@
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dataGridViewdsDMHH.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewdsDMHH.Dock = DockStyle.Fill;
             dataGridViewdsDMHH.Location = new Point(0, 0);
             dataGridViewdsDMHH.MultiSelect = false;
             dataGridViewdsDMHH.Name = "dataGridViewdsDMHH";

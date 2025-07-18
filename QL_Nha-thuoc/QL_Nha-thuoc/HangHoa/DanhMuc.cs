@@ -394,7 +394,7 @@ namespace QL_Nha_thuoc
             return loaiHangList;
         }
 
-        void LoadThemTuSQL()
+        private void LoadThemTuSQL()
         {
             List<string> dsLoaiHang = LayDanhSachLoaiHangThem();
 
@@ -458,7 +458,7 @@ namespace QL_Nha_thuoc
 
             if (formType != null)
             {
-                Form f = (Form)Activator.CreateInstance(formType, tenLoai);
+                Form f = (Form)Activator.CreateInstance(formType, tenLoai, this);
                 f.StartPosition = FormStartPosition.CenterParent;
                 f.ShowDialog(this); // Mở modal, chặn thao tác form cha
             }

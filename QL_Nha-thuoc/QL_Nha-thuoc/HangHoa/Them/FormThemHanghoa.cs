@@ -1,21 +1,47 @@
 ﻿using Microsoft.Data.SqlClient;
 using QL_Nha_thuoc.HangHoa.Them;
 using QL_Nha_thuoc.model;
+
 using System;
 using System.Data;
 using System.Diagnostics;
 using System.Windows.Forms;
 using static QL_Nha_thuoc.DanhMuc;
+using static QL_Nha_thuoc.GiaoDich.NhapHang.FormThemNhapHang;
 
 namespace QL_Nha_thuoc.HangHoa
 {
     public partial class FormThemHanghoa : Form
     {
-        public FormThemHanghoa(string loai)
+        private ICoTheReload _formChaInterface;
+        private Action _onReloadCallback;
+
+        public FormThemHanghoa(string loai, ICoTheReload formCha)
         {
             InitializeComponent();
             this.Text = "Thêm " + loai;
+            _formChaInterface = formCha;
+            this.FormClosed += FormThemHanghoa_FormClosed;
         }
+
+        public FormThemHanghoa(string loai, Action onReload)
+        {
+            InitializeComponent();
+            this.Text = "Thêm " + loai;
+            _onReloadCallback = onReload;
+            this.FormClosed += FormThemHanghoa_FormClosed;
+        }
+
+        private void FormThemHanghoa_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _formChaInterface?.ReloadSauKhiThayDoi();
+            _onReloadCallback?.Invoke();
+        }
+
+
+
+
+
 
         // Load dữ liệu vào combobox Loại hàng
         private void LoadDataToComboBoxLoaiHanghoa()
@@ -334,7 +360,10 @@ namespace QL_Nha_thuoc.HangHoa
             }
 
         }
+
+
         //khi kich nut luu. thi kiem tra / tao ma hang/ them /them don gia
+
 
 
 

@@ -66,6 +66,47 @@ namespace QL_Nha_thuoc.model
             return danhSach;
         }
 
+
+        //tim nha cung cap theo tên hoặc mã
+        public static List<ClassNhaCungCap> LayDanhSachNhaCungCapTheoTen(string tenNhaCungCap)
+        {
+            List<ClassNhaCungCap> danhSach = new List<ClassNhaCungCap>();
+            using (SqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                string query = @"
+            SELECT * 
+            FROM NHA_CUNG_CAP 
+            WHERE (TRANG_THAI IS NULL OR TRANG_THAI <> N'Đã xóa') 
+              AND (TEN_NHA_CUNG_CAP LIKE @TenNCC OR MA_NHA_CUNG_CAP LIKE @TenNCC)";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@TenNCC", "%" + tenNhaCungCap + "%");
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ClassNhaCungCap ncc = new ClassNhaCungCap()
+                            {
+                                MaNhaCungCap = reader["MA_NHA_CUNG_CAP"].ToString(),
+                                TenNhaCungCap = reader["TEN_NHA_CUNG_CAP"].ToString(),
+                                DiaChiNCC = reader["DIA_CHI_NHA_CUNG_CAP"].ToString(),
+                                DienThoai = reader["SDT_NHA_CUNG_CAP"].ToString(),
+                                Email = reader["EMAIL_NHA_CUNG_CAP"].ToString(),
+                                NoCanTraHienTai = reader["NO_CAN_TRA"] != DBNull.Value ? Convert.ToDecimal(reader["NO_CAN_TRA"]) : 0,
+                                TongMua = reader["TONG_MUA"] != DBNull.Value ? Convert.ToDecimal(reader["TONG_MUA"]) : 0,
+                                GhiChu = reader["GHI_CHU"].ToString(),
+                                TenCongTy = reader["TEN_CONG_TY"].ToString(),
+                                MaSoThue = reader["MA_SO_THUE"].ToString(),
+                                TrangThai = reader["TRANG_THAI"].ToString()
+                            };
+                            danhSach.Add(ncc);
+                        }
+                    }
+                }
+            }
+            return danhSach;
+        }
         public static List<ClassNhaCungCap> LayDanhSachNhaCungCapTheoLoai(string loaiTimKiem, string giaTriTimKiem)
         {
             List<ClassNhaCungCap> danhSach = new List<ClassNhaCungCap>();

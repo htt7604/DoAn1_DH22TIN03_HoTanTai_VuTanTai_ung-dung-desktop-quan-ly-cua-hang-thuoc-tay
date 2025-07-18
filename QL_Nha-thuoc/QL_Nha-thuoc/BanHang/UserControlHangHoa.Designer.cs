@@ -63,7 +63,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(951, 42);
+            tableLayoutPanel1.Size = new Size(1127, 42);
             tableLayoutPanel1.TabIndex = 8;
             // 
             // labelSTT
@@ -72,7 +72,7 @@
             labelSTT.Dock = DockStyle.Fill;
             labelSTT.Location = new Point(3, 0);
             labelSTT.Name = "labelSTT";
-            labelSTT.Size = new Size(28, 42);
+            labelSTT.Size = new Size(34, 42);
             labelSTT.TabIndex = 3;
             labelSTT.Text = "STT";
             labelSTT.TextAlign = ContentAlignment.MiddleCenter;
@@ -81,10 +81,10 @@
             // 
             numericUpDown1.Dock = DockStyle.Fill;
             numericUpDown1.Font = new Font("Segoe UI", 12F);
-            numericUpDown1.Location = new Point(495, 3);
+            numericUpDown1.Location = new Point(585, 3);
             numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(50, 34);
+            numericUpDown1.Size = new Size(60, 34);
             numericUpDown1.TabIndex = 1;
             numericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
@@ -92,9 +92,9 @@
             // labelMaHangHoa
             // 
             labelMaHangHoa.Dock = DockStyle.Fill;
-            labelMaHangHoa.Location = new Point(81, 0);
+            labelMaHangHoa.Location = new Point(95, 0);
             labelMaHangHoa.Name = "labelMaHangHoa";
-            labelMaHangHoa.Size = new Size(111, 42);
+            labelMaHangHoa.Size = new Size(132, 42);
             labelMaHangHoa.TabIndex = 4;
             labelMaHangHoa.Text = "Ma hang";
             labelMaHangHoa.TextAlign = ContentAlignment.MiddleCenter;
@@ -102,9 +102,9 @@
             // buttonXoa
             // 
             buttonXoa.Dock = DockStyle.Fill;
-            buttonXoa.Location = new Point(37, 3);
+            buttonXoa.Location = new Point(43, 3);
             buttonXoa.Name = "buttonXoa";
-            buttonXoa.Size = new Size(38, 36);
+            buttonXoa.Size = new Size(46, 36);
             buttonXoa.TabIndex = 0;
             buttonXoa.Text = "x";
             buttonXoa.UseVisualStyleBackColor = true;
@@ -113,7 +113,7 @@
             // textBoxGiaBan
             // 
             textBoxGiaBan.Font = new Font("Segoe UI", 12F);
-            textBoxGiaBan.Location = new Point(603, 3);
+            textBoxGiaBan.Location = new Point(712, 3);
             textBoxGiaBan.Name = "textBoxGiaBan";
             textBoxGiaBan.ReadOnly = true;
             textBoxGiaBan.Size = new Size(103, 34);
@@ -125,11 +125,11 @@
             textBoxTenHang.BorderStyle = BorderStyle.None;
             textBoxTenHang.Dock = DockStyle.Fill;
             textBoxTenHang.Font = new Font("Segoe UI", 12F);
-            textBoxTenHang.Location = new Point(198, 3);
+            textBoxTenHang.Location = new Point(233, 3);
             textBoxTenHang.Multiline = true;
             textBoxTenHang.Name = "textBoxTenHang";
             textBoxTenHang.ReadOnly = true;
-            textBoxTenHang.Size = new Size(291, 36);
+            textBoxTenHang.Size = new Size(346, 36);
             textBoxTenHang.TabIndex = 6;
             textBoxTenHang.Text = "TenHang";
             // 
@@ -137,7 +137,7 @@
             // 
             comboBoxDonVITinh.Font = new Font("Segoe UI", 12F);
             comboBoxDonVITinh.FormattingEnabled = true;
-            comboBoxDonVITinh.Location = new Point(750, 3);
+            comboBoxDonVITinh.Location = new Point(886, 3);
             comboBoxDonVITinh.Name = "comboBoxDonVITinh";
             comboBoxDonVITinh.Size = new Size(151, 36);
             comboBoxDonVITinh.TabIndex = 7;
@@ -150,7 +150,7 @@
             BackColor = SystemColors.Window;
             Controls.Add(tableLayoutPanel1);
             Name = "UserControlHangHoa";
-            Size = new Size(951, 42);
+            Size = new Size(1127, 42);
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();

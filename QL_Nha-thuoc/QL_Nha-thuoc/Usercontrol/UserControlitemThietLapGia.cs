@@ -28,7 +28,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
             labelTenHangHoa.Text = hangHoa.TenHangHoa;
             labelGiaVon.Text = hangHoa.GiaVon.ToString();
             textBoxGiaChung.Text = hangHoa.GiaBan.ToString(); // Hiển thị giá bán với định dạng số
-
+            labelDonViTinh.Text = hangHoa.TenDonViTinh; // Hiển thị tên đơn vị tính
             // Lưu mã hàng hóa từ đối tượng ClassGiaBanHH
             maDonViTinh = hangHoa.MaDonViTinh; // Lưu mã đơn vị tính từ đối tượng ClassGiaBanHH
         }

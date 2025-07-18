@@ -36,7 +36,7 @@ namespace QL_Nha_thuoc.DoiTac.nhacungcap
             List<PhieuNhapHang> dsPhieuNhapHang = PhieuNhapHang.TimPhieuNhapTheoMaNhaCungCap(ncc.MaNhaCungCap);
             foreach (var phieuNhap in dsPhieuNhapHang)
             {
-                dataGridViewLichSu.Rows.Add(phieuNhap.MaPhieuNhap,phieuNhap.TenNhanVien, phieuNhap.NgayNhap.ToString(), phieuNhap.TongTienNhapHang,phieuNhap.TrangThai);
+                dataGridViewLichSu.Rows.Add(phieuNhap.MaPhieuNhap, phieuNhap.TenNhanVien, phieuNhap.NgayNhap.ToString(), phieuNhap.TongTienNhapHang, phieuNhap.TrangThai);
             }
         }
 
@@ -207,6 +207,23 @@ namespace QL_Nha_thuoc.DoiTac.nhacungcap
             sf.LineAlignment = StringAlignment.Center;
 
             g.DrawString(tabPage.Text, this.Font, textBrush, tabBounds, sf);
+        }
+
+        private void dataGridViewLichSu_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Kiểm tra có phải là LinkColumn không
+            if (e.RowIndex >= 0 && dataGridViewLichSu.Columns[e.ColumnIndex] is DataGridViewLinkColumn)
+            {
+                // Lấy giá trị ô được click
+                string maPhieu = dataGridViewLichSu.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+
+                // Gọi hành động mong muốn (ví dụ mở form chi tiết)
+                MessageBox.Show("Bạn đã click vào phiếu: " + maPhieu);
+
+                // Hoặc: mở form mới
+                // FormChiTietPhieu frm = new FormChiTietPhieu(maPhieu);
+                // frm.ShowDialog();
+            }
         }
     }
 

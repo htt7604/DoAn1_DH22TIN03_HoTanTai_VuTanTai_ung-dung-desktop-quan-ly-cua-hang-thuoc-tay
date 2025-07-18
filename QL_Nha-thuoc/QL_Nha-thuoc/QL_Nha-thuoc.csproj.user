@@ -49,10 +49,22 @@
     <Compile Update="GiaoDich\HoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="GiaoDich\NhapHang\FormChiTietPhieuNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GiaoDich\NhapHang\FormGiamGiaPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="GiaoDich\NhapHang\FormThemNhapHang.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="GiaoDich\NhapHang\UserControlHangHoaitemNhapHang.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="GiaoDich\NhapHang\UserControlNhaCungCap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="GiaoDich\NhapHang\UserControlNhapHang.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="HangHoa\CapNhat\FormCapNhatThuoc.cs">
@@ -84,6 +96,15 @@
     </Compile>
     <Compile Update="HangHoa\kiemkho\FormThemKiemKho.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="NhanVien\FormThemNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="NhanVien\UserControlThongTinKhoiTao.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="NhanVien\UserControlThongTinThem.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Usercontrol\UserControlFormKiemKho.cs">
       <SubType>UserControl</SubType>

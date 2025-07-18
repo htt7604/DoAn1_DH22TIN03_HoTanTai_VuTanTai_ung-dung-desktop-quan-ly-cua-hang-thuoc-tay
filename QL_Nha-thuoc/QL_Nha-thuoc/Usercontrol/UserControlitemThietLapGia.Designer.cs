@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             tableLayoutPanel1 = new TableLayoutPanel();
-            label4 = new Label();
+            labelDonViTinh = new Label();
             labelGiaVon = new Label();
             labelTenHangHoa = new Label();
             labelMaHangHoa = new Label();
@@ -47,7 +47,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.8084354F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.4112482F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.4780312F));
-            tableLayoutPanel1.Controls.Add(label4, 3, 0);
+            tableLayoutPanel1.Controls.Add(labelDonViTinh, 3, 0);
             tableLayoutPanel1.Controls.Add(labelGiaVon, 2, 0);
             tableLayoutPanel1.Controls.Add(labelTenHangHoa, 1, 0);
             tableLayoutPanel1.Controls.Add(labelMaHangHoa, 0, 0);
@@ -60,16 +60,16 @@
             tableLayoutPanel1.Size = new Size(1144, 44);
             tableLayoutPanel1.TabIndex = 0;
             // 
-            // label4
+            // labelDonViTinh
             // 
-            label4.AutoSize = true;
-            label4.Dock = DockStyle.Fill;
-            label4.Location = new Point(718, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(117, 44);
-            label4.TabIndex = 3;
-            label4.Text = "label4";
-            label4.TextAlign = ContentAlignment.MiddleLeft;
+            labelDonViTinh.AutoSize = true;
+            labelDonViTinh.Dock = DockStyle.Fill;
+            labelDonViTinh.Location = new Point(718, 0);
+            labelDonViTinh.Name = "labelDonViTinh";
+            labelDonViTinh.Size = new Size(117, 44);
+            labelDonViTinh.TabIndex = 3;
+            labelDonViTinh.Text = "label4";
+            labelDonViTinh.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // labelGiaVon
             // 
@@ -130,7 +130,7 @@
         #endregion
 
         private TableLayoutPanel tableLayoutPanel1;
-        private Label label4;
+        private Label labelDonViTinh;
         private Label labelGiaVon;
         private Label labelTenHangHoa;
         private Label labelMaHangHoa;

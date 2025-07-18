@@ -216,6 +216,7 @@
             nhàCungCấpToolStripMenuItem.Name = "nhàCungCấpToolStripMenuItem";
             nhàCungCấpToolStripMenuItem.Size = new Size(228, 32);
             nhàCungCấpToolStripMenuItem.Text = "Nhà cung cấp";
+            nhàCungCấpToolStripMenuItem.Click += nhàCungCấpToolStripMenuItem_Click;
             // 
             // bácSĩToolStripMenuItem
             // 

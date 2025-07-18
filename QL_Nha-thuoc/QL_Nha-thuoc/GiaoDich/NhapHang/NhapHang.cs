@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using QL_Nha_thuoc.GiaoDich.NhapHang;
 using QL_Nha_thuoc.model;
 using System;
 using System.Collections.Generic;
@@ -9,15 +10,19 @@ namespace QL_Nha_thuoc
 {
     public partial class NhapHang : Form
     {
-        public NhapHang()
+        private FormMain _formMain; // biến để giữ tham chiếu FormMain
+
+        public NhapHang(FormMain formMain)
         {
             InitializeComponent();
+            _formMain = formMain;
+
             LoadDanhSachPhieuNhapHang();
             LoadThuocTinhKiemKhoComboBox();
 
-            // Gắn sự kiện KeyDown nếu chưa gắn trong designer
             textBoxTimHH.KeyDown += textBoxTimHH_KeyDown;
         }
+
 
         private void LoadDanhSachPhieuNhapHang()
         {
@@ -162,7 +167,11 @@ namespace QL_Nha_thuoc
 
         private void buttonThemNhapHang_Click(object sender, EventArgs e)
         {
-
+            FormThemNhapHang formThemNhapHang = new FormThemNhapHang();
+            _formMain.LoadFormVaoPanel(formThemNhapHang); // dùng biến đã truyền
         }
+
+
+
     }
 }

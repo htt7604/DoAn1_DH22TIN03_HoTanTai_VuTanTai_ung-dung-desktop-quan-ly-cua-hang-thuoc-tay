@@ -15,7 +15,7 @@ using static QL_Nha_thuoc.DanhMuc;
 
 namespace QL_Nha_thuoc.HangHoa.kiemkho
 {
-    public partial class FormThemKiemKho : Form
+    public partial class FormThemKiemKho : Form , ICoTheReload
     {
         private string maPhieuKiemKho;
 
@@ -246,7 +246,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
         private void buttonThemHangHoa_Click(object sender, EventArgs e)
         {
             //mo form them hang hoa
-            FormThemHanghoa formThemHangHoa = new FormThemHanghoa(maPhieuKiemKho);
+            FormThemHanghoa formThemHangHoa = new FormThemHanghoa(maPhieuKiemKho,this);
             formThemHangHoa.FormClosed += (s, args) =>
             {
                 // Khi form ThemHangHoa đóng, cập nhật lại danh sách hàng hóa trong tab hiện tại
@@ -264,6 +264,10 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
         }
 
 
+        public void ReloadSauKhiThayDoi()
+        {
+            //load 
+        }
 
 
 

@@ -45,7 +45,7 @@ namespace QL_Nha_thuoc.model
             using (SqlConnection conn = DBHelperHH.GetConnection())
             {
                 conn.Open();
-                string query = "SELECT GHH.MA_HANG_HOA, GHH.MA_DON_VI_TINH, GHH.GIA_VON_HH, GHH.GIA_BAN_HH, HH.TEN_HANG_HOA " +
+                string query = "SELECT GHH.MA_HANG_HOA, GHH.MA_DON_VI_TINH, GHH.GIA_VON_HH, GHH.GIA_BAN_HH, HH.TEN_HANG_HOA,DVT.TEN_DON_VI_TINH " +
                                "FROM GIA_HANG_HOA GHH " +
                                "JOIN HANG_HOA HH ON HH.MA_HANG_HOA = GHH.MA_HANG_HOA " +
                                "JOIN DON_VI_TINH DVT ON DVT.MA_DON_VI_TINH = GHH.MA_DON_VI_TINH";
@@ -59,6 +59,7 @@ namespace QL_Nha_thuoc.model
                         {
                             MaHangHoa = reader["MA_HANG_HOA"].ToString(),
                             MaDonViTinh = reader["MA_DON_VI_TINH"].ToString(),
+                            TenDonViTinh = reader[ "TEN_DON_VI_TINH" ].ToString(),
                             GiaVon = Convert.ToDecimal(reader["GIA_VON_HH"]),
                             GiaBan = Convert.ToDecimal(reader["GIA_BAN_HH"]),
                             TenHangHoa = reader["TEN_HANG_HOA"].ToString(),

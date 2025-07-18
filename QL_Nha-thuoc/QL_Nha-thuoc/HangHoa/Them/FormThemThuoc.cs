@@ -145,6 +145,7 @@ namespace QL_Nha_thuoc.HangHoa
             LoadComboBoxHangSanXuat();
         }
 
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public string MaHangSXThem { get; set; }
         private void textBoxTenThuoc_TextChanged(object sender, EventArgs e)
         {

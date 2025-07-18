@@ -400,6 +400,7 @@
             Controls.Add(buttonBoQua);
             Name = "FormThemHanghoa";
             Text = "FormThemHanghoa";
+            FormClosed += FormThemHanghoa_FormClosed;
             Load += FormThemHanghoa_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBoxHangHoa).EndInit();
             groupBox2.ResumeLayout(false);

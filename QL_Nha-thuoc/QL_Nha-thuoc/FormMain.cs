@@ -179,7 +179,7 @@ namespace QL_Nha_thuoc
 
         private void nhậpHàngToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NhapHang nhapHang = new NhapHang();
+            NhapHang nhapHang = new NhapHang(this); // truyền chính FormMain
             nhapHang.TopLevel = false;
             nhapHang.FormBorderStyle = FormBorderStyle.None;
             nhapHang.Dock = DockStyle.Fill;
@@ -217,10 +217,22 @@ namespace QL_Nha_thuoc
             FormTongQuan formTongQuan = new FormTongQuan();
             formTongQuan.TopLevel = false; // Đặt TopLevel là false để có thể nhúng vào panel
             formTongQuan.FormBorderStyle = FormBorderStyle.None; // Không có viền cửa sổ
-            formTongQuan.Dock = DockStyle.Top; 
+            formTongQuan.Dock = DockStyle.Top;
             panelMain.Controls.Clear();
             panelMain.Controls.Add(formTongQuan); // Thêm form vào panel
             formTongQuan.Show(); // Hiển thị form trong panel
+        }
+
+        private void nhàCungCấpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //mo form NhaCungCap
+            FormNhaCungCap formNhaCungCap = new FormNhaCungCap();
+            formNhaCungCap.TopLevel = false; // Đặt TopLevel là false để có thể nhúng vào panel
+            formNhaCungCap.FormBorderStyle = FormBorderStyle.None; // Không có viền cửa sổ
+            formNhaCungCap.Dock = DockStyle.Fill; // Đặt Dock để chiếm toàn bộ không gian panel
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(formNhaCungCap); // Thêm form vào panel
+            formNhaCungCap.Show(); // Hiển thị form trong panel
         }
     }
 }
