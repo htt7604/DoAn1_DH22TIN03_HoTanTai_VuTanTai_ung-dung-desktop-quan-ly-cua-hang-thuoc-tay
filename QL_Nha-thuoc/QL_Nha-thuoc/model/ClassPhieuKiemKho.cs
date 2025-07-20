@@ -268,13 +268,15 @@ namespace QL_Nha_thuoc.model
         }
 
         // 🔹 Sinh mã mới
-        public static string SinhMaPhieuMoi(SqlConnection connection)
+        public static string SinhMaPhieuMoi()
         {
             string maMoi = "PKK00001";
             string query = "SELECT TOP 1 MA_KIEM_KHO FROM PHIEU_KIEM_KHO ORDER BY MA_KIEM_KHO DESC";
 
-            using (SqlCommand cmd = new SqlCommand(query, connection))
+            using (SqlConnection conn = DBHelperPK.GetConnection())
             {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
                 object result = cmd.ExecuteScalar();
                 if (result != null)
                 {

@@ -45,7 +45,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(35, 164);
+            button1.Location = new Point(50, 177);
             button1.Name = "button1";
             button1.Size = new Size(94, 29);
             button1.TabIndex = 4;
@@ -55,15 +55,15 @@
             // pictureBox1
             // 
             pictureBox1.BackColor = SystemColors.Window;
-            pictureBox1.Location = new Point(19, 31);
+            pictureBox1.Location = new Point(26, 31);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(125, 112);
+            pictureBox1.Size = new Size(145, 124);
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
             // 
             // buttonHienThiThem
             // 
-            buttonHienThiThem.Location = new Point(193, 246);
+            buttonHienThiThem.Location = new Point(222, 244);
             buttonHienThiThem.Name = "buttonHienThiThem";
             buttonHienThiThem.Size = new Size(151, 29);
             buttonHienThiThem.TabIndex = 6;
@@ -138,7 +138,7 @@
             panel3.Controls.Add(label4);
             panel3.Controls.Add(label3);
             panel3.Controls.Add(label2);
-            panel3.Location = new Point(193, 31);
+            panel3.Location = new Point(222, 31);
             panel3.Name = "panel3";
             panel3.Size = new Size(957, 184);
             panel3.TabIndex = 5;

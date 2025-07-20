@@ -15,10 +15,32 @@ namespace QL_Nha_thuoc.HangHoa
 {
     public partial class FormThemThuoc : Form
     {
-        public FormThemThuoc(string loai)
+
+        private ICoTheReload _formChaInterface;
+        private Action _onReloadCallback;
+
+        public FormThemThuoc(string loai, ICoTheReload formCha)
         {
             InitializeComponent();
+            this.Text = "Thêm " + loai;
+            _formChaInterface = formCha;
+            this.FormClosed += FormThemThuoc_FormClosed;
         }
+
+        public FormThemThuoc(string loai, Action onReload)
+        {
+            InitializeComponent();
+            this.Text = "Thêm " + loai;
+            _onReloadCallback = onReload;
+            this.FormClosed += FormThemThuoc_FormClosed;
+        }
+        private void FormThemThuoc_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _formChaInterface?.ReloadSauKhiThayDoi();
+            _onReloadCallback?.Invoke();
+        }
+
+
 
         //load comboBoxDonViTinh
         private void LoadComboBoxDonViTinh()
@@ -143,6 +165,7 @@ namespace QL_Nha_thuoc.HangHoa
             LoadDataToComboBoxLoaiHanghoa();
             LoadComboBoxDonViTinh();
             LoadComboBoxHangSanXuat();
+            textBoxMaHH.Text = ClassHangHoa.TaoMaHangHoaTuDong(); // Tạo mã hàng hóa tự động khi mở form
         }
 
         [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
@@ -250,6 +273,30 @@ namespace QL_Nha_thuoc.HangHoa
             // 5. Thông báo kết quả
             if (kq)
             {
+                //tao ma phieu kiem kho moi 
+                string makiemkho = PhieuKiemKho.SinhMaPhieuMoi();
+                //them phieu kiem kho
+                PhieuKiemKho phieuKiemKho = new PhieuKiemKho
+                {
+                    MaPhieuKiemKho = makiemkho,
+                    NgayKiemKho = DateTime.Now,
+                    MaNhanVien = Session.TaiKhoanDangNhap.MaNhanVien, // Cần thay đổi theo mã nhân viên thực tế
+                    GhiChu = "Cập nhật tồn kho hàng hóa",
+                    TrangThaiPhieuKiem = "Đã cân bằng kho"
+                };
+                PhieuKiemKho.ThemPhieuKiemKho(phieuKiemKho);
+                //tao chi tiet phieu kiem kho
+                ClassChiTietPhieuKiemKho chiTietPhieuKiemKho = new ClassChiTietPhieuKiemKho
+                {
+                    MaPhieuKiemKho = makiemkho,
+                    MaHangHoa = textBoxMaHH.Text,
+                    TenHangHoa = textBoxTenHH.Text,
+                    SoLuongHeThong = 0,
+                    SoLuongThucTe = 0,
+
+                };
+                ClassChiTietPhieuKiemKho.ThemChiTietPhieuKiemKho(chiTietPhieuKiemKho);
+                MessageBox.Show("Tạo phiếu kiểm kho với mã: " + makiemkho, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show("Thêm thuốc thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close(); // Đóng form
 

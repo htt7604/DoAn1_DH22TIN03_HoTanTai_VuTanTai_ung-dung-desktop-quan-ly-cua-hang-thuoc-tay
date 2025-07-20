@@ -180,6 +180,7 @@
             // 
             textBoxMaHH.Location = new Point(518, 105);
             textBoxMaHH.Name = "textBoxMaHH";
+            textBoxMaHH.ReadOnly = true;
             textBoxMaHH.Size = new Size(386, 27);
             textBoxMaHH.TabIndex = 35;
             // 

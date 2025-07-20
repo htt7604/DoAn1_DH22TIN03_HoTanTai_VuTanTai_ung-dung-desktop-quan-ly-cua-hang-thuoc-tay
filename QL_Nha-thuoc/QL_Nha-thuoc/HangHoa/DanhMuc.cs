@@ -446,28 +446,34 @@ namespace QL_Nha_thuoc
         // Sự kiện xử lý khi người dùng nhấn vào button loại hàng
         private void ButtonThemLoaiHang_Click(string tenLoai)
         {
-            // Hoặc thực hiện hành động thêm hàng hóa ứng với loại này
             panelThemHH.Visible = false;
             isDropDownOpenHH = false;
 
             string tenForm = ConvertTenLoaiToTenForm(tenLoai);
-            string namespaceName = this.GetType().Namespace; // Lấy namespace hiện tại
+            string namespaceName = this.GetType().Namespace;
             string fullTypeName = namespaceName + "." + tenForm;
 
             Type formType = Type.GetType(fullTypeName);
 
             if (formType != null)
             {
-                Form f = (Form)Activator.CreateInstance(formType, tenLoai, this);
+                // Tạo callback reload lại danh sách sau khi form đóng
+                Action onReload = () =>
+                {
+                    Getthongtinhanghoa(); // hoặc bất kỳ hàm nào bạn muốn gọi lại
+                };
+
+                // Khởi tạo form với 2 tham số: string, Action
+                Form f = (Form)Activator.CreateInstance(formType, tenLoai, onReload);
                 f.StartPosition = FormStartPosition.CenterParent;
-                f.ShowDialog(this); // Mở modal, chặn thao tác form cha
+                f.ShowDialog(this);
             }
             else
             {
                 MessageBox.Show("Không tìm thấy form có tên: " + tenForm);
             }
-
         }
+
 
         bool isDropDownOpenHH = false;
 

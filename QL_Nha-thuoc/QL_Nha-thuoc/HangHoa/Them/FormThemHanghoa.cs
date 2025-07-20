@@ -171,6 +171,7 @@ namespace QL_Nha_thuoc.HangHoa
             LoadDataToComboBoxLoaiHanghoa();
             LoadDataToComboboxHangSX();
             LoadDataToComboboxDonViTinh();
+            textBoxMaHH.Text = ClassHangHoa.TaoMaHangHoaTuDong();
         }
 
         private void buttonBoQua_Click(object sender, EventArgs e)
@@ -306,6 +307,11 @@ namespace QL_Nha_thuoc.HangHoa
                 MessageBox.Show("Vui lòng chọn nhóm hàng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            if(comboBoxHangSX.SelectedIndex == -1)
+            {
+                MessageBox.Show("Vui lòng chọn hãng sản xuất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             //tao hang hoa moi 
             string maHH = ClassHangHoa.TaoMaHangHoaTuDong();
             ClassHangHoa hangHoa = new ClassHangHoa
@@ -326,9 +332,35 @@ namespace QL_Nha_thuoc.HangHoa
             // 4. Gọi hàm thêm thuốc vào CSDL
             bool kq = ClassHangHoa.ThemHangHoaMoi(hangHoa);
 
-            // 5. Thông báo kết quả
+            //tao phieu kiem kho cho hang hoa moi
+
+            // 5. Thông báo kết quả va them kiem kho
             if (kq)
             {
+                //tao ma phieu kiem kho moi 
+                string makiemkho = PhieuKiemKho.SinhMaPhieuMoi();
+                //them phieu kiem kho
+                PhieuKiemKho phieuKiemKho = new PhieuKiemKho
+                {
+                    MaPhieuKiemKho = makiemkho,
+                    NgayKiemKho = DateTime.Now,
+                    MaNhanVien = Session.TaiKhoanDangNhap.MaNhanVien, // Cần thay đổi theo mã nhân viên thực tế
+                    GhiChu = "Cập nhật tồn kho hàng hóa",
+                    TrangThaiPhieuKiem = "Đã cân bằng kho"
+                };
+                PhieuKiemKho.ThemPhieuKiemKho(phieuKiemKho);
+                //tao chi tiet phieu kiem kho
+                ClassChiTietPhieuKiemKho chiTietPhieuKiemKho = new ClassChiTietPhieuKiemKho
+                {
+                    MaPhieuKiemKho = makiemkho,
+                    MaHangHoa = maHH,
+                    TenHangHoa = textBoxTenHangHoa.Text,
+                    SoLuongHeThong = 0,
+                    SoLuongThucTe = 0,
+
+                };
+                ClassChiTietPhieuKiemKho.ThemChiTietPhieuKiemKho(chiTietPhieuKiemKho);
+                MessageBox.Show("Tạo phiếu kiểm kho với mã: " + makiemkho, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show("Thêm hang hoa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close(); // Đóng form
 

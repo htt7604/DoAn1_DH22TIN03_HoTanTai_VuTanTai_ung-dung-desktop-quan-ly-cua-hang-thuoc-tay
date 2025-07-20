@@ -256,12 +256,12 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
 
         private void buttonThuoc_Click(object sender, EventArgs e)
         {
-            loaithem = "thuoc"; // Đặt loại thêm thuốc
-            // Mở form thêm thuốc
-            FormThemThuoc formThemThuoc = new FormThemThuoc(loaithem);
-            formThemThuoc.ShowDialog();
-            // Sau khi thêm thuốc, cập nhật lại danh sách thuốc
-            textBoxTimHangHoa.Text = ""; // Xóa ô tìm kiếm thuốc
+            //loaithem = "thuoc"; // Đặt loại thêm thuốc
+            //// Mở form thêm thuốc
+            //FormThemThuoc formThemThuoc = new FormThemThuoc(loaithem);
+            //formThemThuoc.ShowDialog();
+            //// Sau khi thêm thuốc, cập nhật lại danh sách thuốc
+            //textBoxTimHangHoa.Text = ""; // Xóa ô tìm kiếm thuốc
 
         }
 

@@ -183,7 +183,7 @@ namespace QL_Nha_thuoc
                     connection.Open();
 
                     // ✅ Sinh mã mới
-                    string maPhieuKiem = PhieuKiemKho.SinhMaPhieuMoi(connection);
+                    string maPhieuKiem = PhieuKiemKho.SinhMaPhieuMoi();
 
 
 
