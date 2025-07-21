@@ -10,13 +10,13 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
 
         private string loaiDangChon = "VND"; // Mặc định
 
+        private decimal donGiaHH; // Giá trị đơn giá để tính giảm giá
         public FormGiamGiaPopup(decimal donGia, string giaTriMacDinh)
         {
             InitializeComponent();
-
             textBoxGiaTri.Text = giaTriMacDinh;
             SetLoaiGiam(loaiDangChon);
-
+            donGiaHH = donGia;
             // Chặn nhập ký tự không hợp lệ
             textBoxGiaTri.KeyPress += TextBoxGiaTri_KeyPress;
 
@@ -38,15 +38,46 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
             }
         }
 
-        private void buttonVND_Click(object sender, EventArgs e)
-        {
-            SetLoaiGiam("VND");
-        }
 
+        //ham chuyen doi giam gia
+        private decimal ChuyenDoiGiaTriGiamGia(decimal giaTriHienTai, decimal donGia, string loaiGiamHienTai)
+        {
+            if (donGia <= 0) return 0;
+
+            if (loaiGiamHienTai == "VND")
+            {
+                // Chuyển từ VND sang %
+                return giaTriHienTai * 100 / donGia;
+            }
+            else if (loaiGiamHienTai == "%")
+            {
+                // Chuyển từ % sang VND
+                return donGia * giaTriHienTai / 100;
+            }
+
+            return 0;
+        }
         private void buttonPhanTram_Click(object sender, EventArgs e)
         {
-            SetLoaiGiam("%");
+            if (decimal.TryParse(textBoxGiaTri.Text, out var giaTriHienTai))
+            {
+                var phanTram = ChuyenDoiGiaTriGiamGia(giaTriHienTai, donGiaHH, "VND");
+                SetLoaiGiam("%");
+                textBoxGiaTri.Text = phanTram.ToString("N2");
+            }
         }
+
+
+        private void buttonVND_Click(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(textBoxGiaTri.Text, out var giaTriHienTai))
+            {
+                var tienGiam = ChuyenDoiGiaTriGiamGia(giaTriHienTai, donGiaHH, "%");
+                SetLoaiGiam("VND");
+                textBoxGiaTri.Text = tienGiam.ToString("N0");
+            }
+        }
+
 
         private void TextBoxGiaTri_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -62,16 +93,6 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
                 e.Handled = true;
             }
         }
-        private void GuiGiaTriVaDong()
-        {
-            GiamGiaDaChon?.Invoke(this, new GiamGiaEventArgs
-            {
-                LoaiGiam = loaiDangChon,
-                GiaTri = decimal.TryParse(textBoxGiaTri.Text, out var g) ? g : 0
-            });
-
-            this.Close();
-        }
 
         private void textBoxGiaTri_TextChanged(object sender, EventArgs e)
         {
@@ -82,6 +103,8 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
                 GiaTri = decimal.TryParse(textBoxGiaTri.Text, out var g) ? g : 0
             });
         }
+
+
 
     }
 

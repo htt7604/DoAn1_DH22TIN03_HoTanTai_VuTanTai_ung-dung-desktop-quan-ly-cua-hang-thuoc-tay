@@ -48,7 +48,7 @@
             label1.Name = "label1";
             label1.Size = new Size(148, 40);
             label1.TabIndex = 3;
-            label1.Text = "Ma hang";
+            label1.Text = "Mã hàng";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // labelSTT
@@ -102,7 +102,7 @@
             label8.Name = "label8";
             label8.Size = new Size(154, 40);
             label8.TabIndex = 17;
-            label8.Text = "Thanh tien ";
+            label8.Text = "Thành tiền";
             label8.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label7
@@ -113,7 +113,7 @@
             label7.Name = "label7";
             label7.Size = new Size(147, 40);
             label7.TabIndex = 16;
-            label7.Text = "Giam gia ";
+            label7.Text = "Giảm giá";
             label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label6
@@ -124,7 +124,7 @@
             label6.Name = "label6";
             label6.Size = new Size(147, 40);
             label6.TabIndex = 15;
-            label6.Text = "Don gia ";
+            label6.Text = "Đơn giá";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label5
@@ -135,7 +135,7 @@
             label5.Name = "label5";
             label5.Size = new Size(147, 40);
             label5.TabIndex = 14;
-            label5.Text = "So luong";
+            label5.Text = "Số lượng";
             label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label3
@@ -146,7 +146,7 @@
             label3.Name = "label3";
             label3.Size = new Size(147, 40);
             label3.TabIndex = 13;
-            label3.Text = "DVT";
+            label3.Text = "ĐVT";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label2
@@ -157,7 +157,7 @@
             label2.Name = "label2";
             label2.Size = new Size(343, 40);
             label2.TabIndex = 12;
-            label2.Text = "Ten hang";
+            label2.Text = "Tên hàng";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // UserControlNhapHang

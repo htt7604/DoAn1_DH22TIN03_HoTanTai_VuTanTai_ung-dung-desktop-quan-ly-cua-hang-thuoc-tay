@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             splitContainer1 = new SplitContainer();
-            flowLayoutPanelketQuaTimKiem = new FlowLayoutPanel();
+            panelKetQuaTimKiem = new Panel();
             panelThemHH = new Panel();
             buttonThuoc = new Button();
             buttonHangHoa = new Button();
@@ -41,6 +41,7 @@
             textBoxTimHangHoa = new TextBox();
             buttonThemHangHoa = new Button();
             panel4 = new Panel();
+            labelSoLuongHH = new Label();
             textBoxCanTra = new TextBox();
             textBoxGiamGia = new TextBox();
             textBoxTongTien = new TextBox();
@@ -63,7 +64,6 @@
             pictureBox1 = new PictureBox();
             comboBoxTaiKhoan = new ComboBox();
             labelThoiGian = new Label();
-            labelSoLuongHH = new Label();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -86,7 +86,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            splitContainer1.Panel1.Controls.Add(flowLayoutPanelketQuaTimKiem);
+            splitContainer1.Panel1.Controls.Add(panelKetQuaTimKiem);
             splitContainer1.Panel1.Controls.Add(panelThemHH);
             splitContainer1.Panel1.Controls.Add(flowLayoutPanelNhapHang);
             splitContainer1.Panel1.Controls.Add(panel1);
@@ -100,14 +100,15 @@
             splitContainer1.SplitterDistance = 968;
             splitContainer1.TabIndex = 0;
             // 
-            // flowLayoutPanelketQuaTimKiem
+            // panelKetQuaTimKiem
             // 
-            flowLayoutPanelketQuaTimKiem.AutoScroll = true;
-            flowLayoutPanelketQuaTimKiem.Location = new Point(233, 57);
-            flowLayoutPanelketQuaTimKiem.Name = "flowLayoutPanelketQuaTimKiem";
-            flowLayoutPanelketQuaTimKiem.Size = new Size(419, 209);
-            flowLayoutPanelketQuaTimKiem.TabIndex = 0;
-            flowLayoutPanelketQuaTimKiem.Visible = false;
+            panelKetQuaTimKiem.AutoScroll = true;
+            panelKetQuaTimKiem.BackColor = SystemColors.Control;
+            panelKetQuaTimKiem.Location = new Point(233, 57);
+            panelKetQuaTimKiem.Name = "panelKetQuaTimKiem";
+            panelKetQuaTimKiem.Size = new Size(416, 396);
+            panelKetQuaTimKiem.TabIndex = 70;
+            panelKetQuaTimKiem.Visible = false;
             // 
             // panelThemHH
             // 
@@ -127,7 +128,7 @@
             buttonThuoc.Name = "buttonThuoc";
             buttonThuoc.Size = new Size(131, 29);
             buttonThuoc.TabIndex = 1;
-            buttonThuoc.Text = "Thuoc";
+            buttonThuoc.Text = "Thuốc";
             buttonThuoc.UseVisualStyleBackColor = true;
             buttonThuoc.Click += buttonThuoc_Click;
             // 
@@ -137,7 +138,7 @@
             buttonHangHoa.Name = "buttonHangHoa";
             buttonHangHoa.Size = new Size(131, 29);
             buttonHangHoa.TabIndex = 0;
-            buttonHangHoa.Text = "Hang hoa";
+            buttonHangHoa.Text = "Hàng hóa";
             buttonHangHoa.UseVisualStyleBackColor = true;
             buttonHangHoa.Click += buttonHangHoa_Click;
             // 
@@ -173,7 +174,7 @@
             label7.Name = "label7";
             label7.Size = new Size(116, 28);
             label7.TabIndex = 77;
-            label7.Text = "Nhap hang";
+            label7.Text = "Nhập hàng";
             // 
             // tableLayoutPanel2
             // 
@@ -211,7 +212,7 @@
             textBoxTimHangHoa.Location = new Point(49, 3);
             textBoxTimHangHoa.Multiline = true;
             textBoxTimHangHoa.Name = "textBoxTimHangHoa";
-            textBoxTimHangHoa.PlaceholderText = "Tìm theo mã, tên hang hoa";
+            textBoxTimHangHoa.PlaceholderText = "Tìm theo mã, tên hàng hóa";
             textBoxTimHangHoa.Size = new Size(288, 34);
             textBoxTimHangHoa.TabIndex = 5;
             textBoxTimHangHoa.Tag = "";
@@ -251,6 +252,16 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(383, 638);
             panel4.TabIndex = 3;
+            // 
+            // labelSoLuongHH
+            // 
+            labelSoLuongHH.AutoSize = true;
+            labelSoLuongHH.BorderStyle = BorderStyle.FixedSingle;
+            labelSoLuongHH.Location = new Point(137, 183);
+            labelSoLuongHH.Name = "labelSoLuongHH";
+            labelSoLuongHH.Size = new Size(19, 22);
+            labelSoLuongHH.TabIndex = 112;
+            labelSoLuongHH.Text = "0";
             // 
             // textBoxCanTra
             // 
@@ -304,7 +315,7 @@
             buttonHoanThanh.Name = "buttonHoanThanh";
             buttonHoanThanh.Size = new Size(138, 131);
             buttonHoanThanh.TabIndex = 108;
-            buttonHoanThanh.Text = "Hoan Thanh";
+            buttonHoanThanh.Text = "Hoàn thành ";
             buttonHoanThanh.UseVisualStyleBackColor = true;
             // 
             // buttonLuuTam
@@ -314,7 +325,7 @@
             buttonLuuTam.Name = "buttonLuuTam";
             buttonLuuTam.Size = new Size(148, 131);
             buttonLuuTam.TabIndex = 107;
-            buttonLuuTam.Text = "Luu Tam";
+            buttonLuuTam.Text = "Lưu tạm";
             buttonLuuTam.UseVisualStyleBackColor = true;
             // 
             // textBox1
@@ -324,7 +335,7 @@
             textBox1.Location = new Point(10, 382);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Ghi chu";
+            textBox1.PlaceholderText = "Ghi chú..";
             textBox1.Size = new Size(365, 86);
             textBox1.TabIndex = 105;
             // 
@@ -358,7 +369,7 @@
             label6.Name = "label6";
             label6.Size = new Size(175, 23);
             label6.TabIndex = 92;
-            label6.Text = "Can tra nha cung cap";
+            label6.Text = "Cần trả nhà cung cấp";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label1
@@ -370,7 +381,7 @@
             label1.Name = "label1";
             label1.Size = new Size(126, 23);
             label1.TabIndex = 87;
-            label1.Text = "Ma phieu nhap";
+            label1.Text = "Mã phiếu nhập";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label5
@@ -380,9 +391,9 @@
             label5.Font = new Font("Segoe UI", 10F);
             label5.Location = new Point(6, 237);
             label5.Name = "label5";
-            label5.Size = new Size(83, 23);
+            label5.Size = new Size(78, 23);
             label5.TabIndex = 91;
-            label5.Text = "Giam gia ";
+            label5.Text = "Giảm giá";
             label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label2
@@ -394,7 +405,7 @@
             label2.Name = "label2";
             label2.Size = new Size(152, 23);
             label2.TabIndex = 88;
-            label2.Text = "Ma dat hang nhap";
+            label2.Text = "Mã đặt hàng nhập";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label3
@@ -406,7 +417,7 @@
             label3.Name = "label3";
             label3.Size = new Size(87, 23);
             label3.TabIndex = 89;
-            label3.Text = "Trang thai";
+            label3.Text = "Trạng thái";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label4
@@ -416,9 +427,9 @@
             label4.Font = new Font("Segoe UI", 10F);
             label4.Location = new Point(6, 181);
             label4.Name = "label4";
-            label4.Size = new Size(125, 23);
+            label4.Size = new Size(127, 23);
             label4.TabIndex = 90;
-            label4.Text = "Tong tien hang";
+            label4.Text = "Tổng tiền hàng";
             label4.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel3
@@ -470,7 +481,7 @@
             textBoxTimNCC.Location = new Point(33, 3);
             textBoxTimNCC.Multiline = true;
             textBoxTimNCC.Name = "textBoxTimNCC";
-            textBoxTimNCC.PlaceholderText = "Tìm theo mã, tên hang hoa";
+            textBoxTimNCC.PlaceholderText = "Tìm theo mã, tên hàng hóa";
             textBoxTimNCC.Size = new Size(257, 36);
             textBoxTimNCC.TabIndex = 40;
             textBoxTimNCC.Tag = "";
@@ -490,31 +501,23 @@
             // 
             // comboBoxTaiKhoan
             // 
+            comboBoxTaiKhoan.Font = new Font("Segoe UI", 10F);
             comboBoxTaiKhoan.FormattingEnabled = true;
             comboBoxTaiKhoan.Location = new Point(4, 9);
             comboBoxTaiKhoan.Name = "comboBoxTaiKhoan";
-            comboBoxTaiKhoan.Size = new Size(204, 28);
+            comboBoxTaiKhoan.Size = new Size(204, 31);
             comboBoxTaiKhoan.TabIndex = 98;
             comboBoxTaiKhoan.SelectedIndexChanged += comboBoxTaiKhoan_SelectedIndexChanged;
             // 
             // labelThoiGian
             // 
             labelThoiGian.AutoSize = true;
+            labelThoiGian.Font = new Font("Segoe UI", 10F);
             labelThoiGian.Location = new Point(337, 16);
             labelThoiGian.Name = "labelThoiGian";
-            labelThoiGian.Size = new Size(39, 20);
+            labelThoiGian.Size = new Size(44, 23);
             labelThoiGian.TabIndex = 99;
             labelThoiGian.Text = "time";
-            // 
-            // labelSoLuongHH
-            // 
-            labelSoLuongHH.AutoSize = true;
-            labelSoLuongHH.BorderStyle = BorderStyle.FixedSingle;
-            labelSoLuongHH.Location = new Point(137, 183);
-            labelSoLuongHH.Name = "labelSoLuongHH";
-            labelSoLuongHH.Size = new Size(19, 22);
-            labelSoLuongHH.TabIndex = 112;
-            labelSoLuongHH.Text = "0";
             // 
             // FormThemNhapHang
             // 
@@ -558,7 +561,6 @@
         private TextBox textBoxTimHangHoa;
         private Button buttonThemHangHoa;
         private FlowLayoutPanel flowLayoutPanelNhapHang;
-        private FlowLayoutPanel flowLayoutPanelketQuaTimKiem;
         private Panel panel3;
         private ComboBox comboBoxTaiKhoan;
         private Label labelThoiGian;
@@ -585,5 +587,6 @@
         private TextBox textBoxGiamGia;
         private TextBox textBoxTongTien;
         private Label labelSoLuongHH;
+        private Panel panelKetQuaTimKiem;
     }
 }

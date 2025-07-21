@@ -108,6 +108,7 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
                         //khong cho sua textboxtimNCC
                         textBoxTimNCC.ReadOnly = true;
                         maNCCdachon = ncc.MaNhaCungCap; // Lưu mã nhà cung cấp đã chọn
+
                     };
                     flowLayoutPanelDSNCC.Controls.Add(userControlNhaCungCap);
                 }
@@ -146,6 +147,9 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
 
         private void textBoxTimHangHoa_TextChanged(object sender, EventArgs e)
         {
+            panelKetQuaTimKiem.BringToFront();
+            panelKetQuaTimKiem.Visible = true;
+
             string searchText = textBoxTimHangHoa.Text.Trim();
 
             // Tìm kiếm khi có ký tự nhập vào
@@ -155,13 +159,13 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
                 List<ClassHangHoa> danhSachHangHoa = ClassHangHoa.TimKiemHangHoa(searchText);
 
                 // Xóa kết quả cũ
-                flowLayoutPanelketQuaTimKiem.Controls.Clear();
+                panelKetQuaTimKiem.Controls.Clear();
 
                 foreach (ClassHangHoa hh in danhSachHangHoa)
                 {
                     var userControlHangHoa = new UC_ItemThuoc();
                     userControlHangHoa.SetData(hh.TenHangHoa, hh.MaHangHoa, (float)hh.GiaBan, hh.HinhAnh, hh.SoLuongTon);
-
+                    userControlHangHoa.Dock=DockStyle.Top; // Đặt dock để tự động điều chỉnh chiều rộng
                     // Gắn sự kiện Click để thêm vào danh sách nhập hàng
                     userControlHangHoa.Click += (s, args) =>
                     {
@@ -181,7 +185,7 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
 
 
                         textBoxTimHangHoa.Clear();
-                        flowLayoutPanelketQuaTimKiem.Visible = false;
+                        panelKetQuaTimKiem.Visible = false;
 
                         //gan su kien click cho buttonX_Click trong itemhangHoaNhapHang
                         itemHangHoaNhapHang.buttonXoa.Click += (s2, args2) =>
@@ -202,15 +206,15 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
                     };
                     //gan su kien khi click vao nut xoa hang hoa tren tung hang hoa
 
-                    flowLayoutPanelketQuaTimKiem.Controls.Add(userControlHangHoa);
+                    panelKetQuaTimKiem.Controls.Add(userControlHangHoa);
                 }
 
-                flowLayoutPanelketQuaTimKiem.Visible = danhSachHangHoa.Any();
+                panelKetQuaTimKiem.Visible = danhSachHangHoa.Any();
             }
             else
             {
-                flowLayoutPanelketQuaTimKiem.Controls.Clear();
-                flowLayoutPanelketQuaTimKiem.Visible = false;
+                panelKetQuaTimKiem.Controls.Clear();
+                panelKetQuaTimKiem.Visible = false;
             }
         }
 
@@ -256,12 +260,12 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
 
         private void buttonThuoc_Click(object sender, EventArgs e)
         {
-            //loaithem = "thuoc"; // Đặt loại thêm thuốc
-            //// Mở form thêm thuốc
-            //FormThemThuoc formThemThuoc = new FormThemThuoc(loaithem);
-            //formThemThuoc.ShowDialog();
-            //// Sau khi thêm thuốc, cập nhật lại danh sách thuốc
-            //textBoxTimHangHoa.Text = ""; // Xóa ô tìm kiếm thuốc
+            loaithem = "T"; // Đặt loại thêm thuốc
+            // Mở form thêm thuốc
+            FormThemThuoc formThemThuoc = new FormThemThuoc(loaithem,this);
+            formThemThuoc.ShowDialog();
+            // Sau khi thêm thuốc, cập nhật lại danh sách thuốc
+            textBoxTimHangHoa.Text = ""; // Xóa ô tìm kiếm thuốc
 
         }
 

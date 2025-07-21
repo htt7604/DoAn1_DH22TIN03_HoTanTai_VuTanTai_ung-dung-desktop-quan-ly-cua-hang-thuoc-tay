@@ -116,7 +116,7 @@
             // 
             // buttonHoanThanh
             // 
-            buttonHoanThanh.Location = new Point(203, 410);
+            buttonHoanThanh.Location = new Point(242, 410);
             buttonHoanThanh.Name = "buttonHoanThanh";
             buttonHoanThanh.Size = new Size(128, 125);
             buttonHoanThanh.TabIndex = 7;
@@ -124,7 +124,7 @@
             // 
             // buttonLuuTam
             // 
-            buttonLuuTam.Location = new Point(19, 410);
+            buttonLuuTam.Location = new Point(43, 410);
             buttonLuuTam.Name = "buttonLuuTam";
             buttonLuuTam.Size = new Size(125, 125);
             buttonLuuTam.TabIndex = 6;
@@ -135,7 +135,7 @@
             // 
             labelTime.AutoSize = true;
             labelTime.Font = new Font("Segoe UI", 10F);
-            labelTime.Location = new Point(203, 17);
+            labelTime.Location = new Point(228, 18);
             labelTime.Name = "labelTime";
             labelTime.Size = new Size(47, 23);
             labelTime.TabIndex = 5;

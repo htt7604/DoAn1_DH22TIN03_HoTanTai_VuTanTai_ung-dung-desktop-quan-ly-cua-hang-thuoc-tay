@@ -86,6 +86,7 @@ namespace QL_Nha_thuoc.HangHoa.Them
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string TenNhomMoi { get; set; } // Thuộc tính trả về tên nhóm mới cho form cha
 
         private void buttonLuu_Click(object sender, EventArgs e)
@@ -153,6 +154,10 @@ namespace QL_Nha_thuoc.HangHoa.Them
             }
         }
 
-
+        private void buttonBoQua_Click(object sender, EventArgs e)
+        {
+            //dong form
+            this.DialogResult = DialogResult.Cancel;
+        }
     }
 }

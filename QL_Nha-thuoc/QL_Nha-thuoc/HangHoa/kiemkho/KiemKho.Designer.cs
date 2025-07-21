@@ -230,6 +230,7 @@
             dataGridViewdsPhieuKiemKho.MultiSelect = false;
             dataGridViewdsPhieuKiemKho.Name = "dataGridViewdsPhieuKiemKho";
             dataGridViewdsPhieuKiemKho.ReadOnly = true;
+            dataGridViewdsPhieuKiemKho.RowHeadersVisible = false;
             dataGridViewdsPhieuKiemKho.RowHeadersWidth = 51;
             dataGridViewdsPhieuKiemKho.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewdsPhieuKiemKho.Size = new Size(1131, 595);

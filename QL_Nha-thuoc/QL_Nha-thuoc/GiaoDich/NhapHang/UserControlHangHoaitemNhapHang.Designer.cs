@@ -96,9 +96,10 @@
             // labelTenHang
             // 
             labelTenHang.AutoSize = true;
+            labelTenHang.Dock = DockStyle.Fill;
             labelTenHang.Location = new Point(268, 0);
             labelTenHang.Name = "labelTenHang";
-            labelTenHang.Size = new Size(50, 20);
+            labelTenHang.Size = new Size(346, 46);
             labelTenHang.TabIndex = 3;
             labelTenHang.Text = "label2";
             labelTenHang.TextAlign = ContentAlignment.MiddleCenter;
@@ -120,6 +121,7 @@
             textBoxGiamGia.Size = new Size(149, 27);
             textBoxGiamGia.TabIndex = 5;
             textBoxGiamGia.Click += textBoxGiamGia_Click;
+            textBoxGiamGia.TextChanged += textBoxGiamGia_TextChanged;
             // 
             // textBoxDonGia
             // 

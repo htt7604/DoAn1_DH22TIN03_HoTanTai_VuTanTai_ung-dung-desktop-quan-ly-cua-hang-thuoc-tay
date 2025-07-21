@@ -54,6 +54,7 @@
             panel4 = new Panel();
             panelKetQuaTimKiem = new Panel();
             dataGridViewdsDMHH = new DataGridView();
+            ColumnCheckBox = new DataGridViewCheckBoxColumn();
             panel1.SuspendLayout();
             panel5.SuspendLayout();
             panel3.SuspendLayout();
@@ -131,9 +132,9 @@
             label4.AutoSize = true;
             label4.Location = new Point(13, 16);
             label4.Name = "label4";
-            label4.Size = new Size(121, 20);
+            label4.Size = new Size(122, 20);
             label4.TabIndex = 27;
-            label4.Text = "Lua chon hien thi";
+            label4.Text = "Lựa chọn hiển thị";
             // 
             // panel3
             // 
@@ -150,9 +151,9 @@
             label3.AutoSize = true;
             label3.Location = new Point(13, 16);
             label3.Name = "label3";
-            label3.Size = new Size(90, 20);
+            label3.Size = new Size(87, 20);
             label3.TabIndex = 27;
-            label3.Text = "Nhom Hang";
+            label3.Text = "Nhóm hàng";
             // 
             // comboBoxNhomHH
             // 
@@ -202,9 +203,9 @@
             label2.AutoSize = true;
             label2.Location = new Point(19, 21);
             label2.Name = "label2";
-            label2.Size = new Size(77, 20);
+            label2.Size = new Size(74, 20);
             label2.TabIndex = 4;
-            label2.Text = "Loai Hang";
+            label2.Text = "Loại hàng";
             // 
             // label1
             // 
@@ -269,7 +270,7 @@
             textBoxTimHH.Location = new Point(55, 3);
             textBoxTimHH.Multiline = true;
             textBoxTimHH.Name = "textBoxTimHH";
-            textBoxTimHH.PlaceholderText = "Tìm theo mã, tên hang hoa";
+            textBoxTimHH.PlaceholderText = "Tìm theo mã, tên hàng hóa";
             textBoxTimHH.Size = new Size(325, 31);
             textBoxTimHH.TabIndex = 5;
             textBoxTimHH.Tag = "";
@@ -282,7 +283,7 @@
             buttonThemHH.Name = "buttonThemHH";
             buttonThemHH.Size = new Size(108, 40);
             buttonThemHH.TabIndex = 37;
-            buttonThemHH.Text = "+ Them moi";
+            buttonThemHH.Text = "+ Thêm mới";
             buttonThemHH.UseVisualStyleBackColor = false;
             buttonThemHH.Click += buttonThemHH_Click;
             // 
@@ -317,6 +318,7 @@
             // 
             // dataGridViewdsDMHH
             // 
+            dataGridViewdsDMHH.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewdsDMHH.BackgroundColor = SystemColors.Window;
             dataGridViewdsDMHH.BorderStyle = BorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -328,6 +330,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridViewdsDMHH.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewdsDMHH.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewdsDMHH.Columns.AddRange(new DataGridViewColumn[] { ColumnCheckBox });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
@@ -340,11 +343,20 @@
             dataGridViewdsDMHH.Location = new Point(0, 0);
             dataGridViewdsDMHH.MultiSelect = false;
             dataGridViewdsDMHH.Name = "dataGridViewdsDMHH";
-            dataGridViewdsDMHH.RowHeadersWidth = 51;
+            dataGridViewdsDMHH.RowHeadersVisible = false;
+            dataGridViewdsDMHH.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             dataGridViewdsDMHH.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewdsDMHH.Size = new Size(1159, 582);
             dataGridViewdsDMHH.TabIndex = 37;
             dataGridViewdsDMHH.CellDoubleClick += dataGridViewdsDMHH_CellClick;
+            // 
+            // ColumnCheckBox
+            // 
+            ColumnCheckBox.HeaderText = "";
+            ColumnCheckBox.MinimumWidth = 6;
+            ColumnCheckBox.Name = "ColumnCheckBox";
+            ColumnCheckBox.Resizable = DataGridViewTriState.True;
+            ColumnCheckBox.SortMode = DataGridViewColumnSortMode.Automatic;
             // 
             // DanhMuc
             // 
@@ -405,5 +417,6 @@
         private Panel panel4;
         private DataGridView dataGridViewdsDMHH;
         private Panel panelKetQuaTimKiem;
+        private DataGridViewCheckBoxColumn ColumnCheckBox;
     }
 }

@@ -30,11 +30,18 @@ namespace QL_Nha_thuoc
                 try
                 {
                     connection.Open();
-                    string query = "SELECT * FROM DANH_MUC_THUOC "; // Thay đổi tên bảng nếu cần
+                    string query = "SELECT DMT.MA_THUOC,DMT.TEN_THUOC,DMT.HOAT_CHAT_CHINH,DMT.HAM_LUONG,DMT.QUY_CACH_DONG_GOI,DVT.TEN_DON_VI_TINH FROM DANH_MUC_THUOC DMT JOIN DON_VI_TINH DVT ON DVT.MA_DON_VI_TINH=DMT.MA_DON_VI_TINH "; // Thay đổi tên bảng nếu cần
                     SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
                     dataGridViewdsThuoc.DataSource = dataTable;
+
+                    dataGridViewdsThuoc.Columns["MA_THUOC"].HeaderText = "Mã thuốc";
+                    dataGridViewdsThuoc.Columns["TEN_THUOC"].HeaderText = "Tên thuốc";
+                    dataGridViewdsThuoc.Columns["HOAT_CHAT_CHINH"].HeaderText = "Hoạt chất chính";
+                    dataGridViewdsThuoc.Columns["HAM_LUONG"].HeaderText = "Hàm lượng";
+                    dataGridViewdsThuoc.Columns["QUY_CACH_DONG_GOI"].HeaderText = "Quy cách đóng gói";
+                    dataGridViewdsThuoc.Columns["TEN_DON_VI_TINH"].HeaderText = "ĐVT";
                 }
                 catch (Exception ex)
                 {

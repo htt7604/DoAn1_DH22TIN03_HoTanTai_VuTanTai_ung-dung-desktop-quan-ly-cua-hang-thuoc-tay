@@ -41,9 +41,11 @@ namespace QL_Nha_thuoc
                 try
                 {
                     connection.Open();
-                    string query = @"SELECT PKK.MA_KIEM_KHO, NV.HO_TEN_NV, PKK.NGAY_KIEM_KHO, PKK.NGAY_CAN_BANG_KHO, PKK.TRANG_THAI_PHIEU_KIEM,PKK.GHI_CHU_KIEM_KHO
-                             FROM PHIEU_KIEM_KHO PKK
-                             JOIN NHAN_VIEN NV ON PKK.MA_NV = NV.MA_NV";
+                    string query = @"SELECT PKK.MA_KIEM_KHO,PKK.NGAY_KIEM_KHO,PKK.NGAY_CAN_BANG_KHO,PKK.TONG_THUC_TE,
+                               PKK.TONG_CHECH_LECH,PKK.SO_LUONG_LECH_TANG,PKK.SO_LUONG_LECH_GIAM,pkk.GHI_CHU_KIEM_KHO,pkk.TRANG_THAI_PHIEU_KIEM,
+                              NV.HO_TEN_NV,PKK.MA_NV
+                       FROM PHIEU_KIEM_KHO PKK 
+                       JOIN NHAN_VIEN NV ON NV.MA_NV = PKK.MA_NV";
 
                     SqlCommand cmd = new SqlCommand(query, connection);
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -53,16 +55,38 @@ namespace QL_Nha_thuoc
                     while (reader.Read())
                     {
                         string maPhieu = reader["MA_KIEM_KHO"].ToString();
-                        string tenNV = reader["HO_TEN_NV"].ToString();
+                        string maNV = reader["MA_NV"].ToString();
+                        string hoTenNV = reader["HO_TEN_NV"].ToString();
+                        string trangThai = reader["TRANG_THAI_PHIEU_KIEM"].ToString();
                         DateTime ngayKiem = reader["NGAY_KIEM_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_KIEM_KHO"]);
                         DateTime ngayCanBang = reader["NGAY_CAN_BANG_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_CAN_BANG_KHO"]);
-                        string trangThai = reader["TRANG_THAI_PHIEU_KIEM"].ToString();
-                        string ghiChu = reader["GHI_CHU_KIEM_KHO"] == DBNull.Value ? string.Empty : reader["GHI_CHU_KIEM_KHO"].ToString();
+                        string ghiChu = reader["GHI_CHU_KIEM_KHO"] == DBNull.Value ? "" : reader["GHI_CHU_KIEM_KHO"].ToString();
+                        int tongThucTe = reader["TONG_THUC_TE"] == DBNull.Value ? 0 : Convert.ToInt32(reader["TONG_THUC_TE"]);
+                        int tongChechLech = reader["TONG_CHECH_LECH"] == DBNull.Value ? 0 : Convert.ToInt32(reader["TONG_CHECH_LECH"]);
+                        int soLuongLechGiam = reader["SO_LUONG_LECH_GIAM"] == DBNull.Value ? 0 : Convert.ToInt32(reader["SO_LUONG_LECH_GIAM"]);
+                        int soLuongLechTang = reader["SO_LUONG_LECH_TANG"] == DBNull.Value ? 0 : Convert.ToInt32(reader["SO_LUONG_LECH_TANG"]);
 
-                        danhSachPhieu.Add(new PhieuKiemKho(maPhieu, tenNV, ngayKiem, ngayCanBang, trangThai, ghiChu));
+                        danhSachPhieu.Add(new PhieuKiemKho(maPhieu, hoTenNV, ngayKiem, ngayCanBang, tongThucTe, tongChechLech, soLuongLechGiam, soLuongLechTang, ghiChu, trangThai));
                     }
 
                     dataGridViewdsPhieuKiemKho.DataSource = danhSachPhieu;
+
+
+                    dataGridViewdsPhieuKiemKho.Columns["MaPhieuKiemKho"].HeaderText = "Mã phiếu kiểm kho";
+                    dataGridViewdsPhieuKiemKho.Columns["NgayKiemKho"].HeaderText = "Ngày kiểm kho";
+                    dataGridViewdsPhieuKiemKho.Columns["ThoiGianCanBangKho"].HeaderText = "Ngày cân bằng";
+                    dataGridViewdsPhieuKiemKho.Columns["TongThucTe"].HeaderText = "Tổng thực tế";
+                    dataGridViewdsPhieuKiemKho.Columns["TongChechLech"].HeaderText = "Tổng chênh lệch";
+                    dataGridViewdsPhieuKiemKho.Columns["SoLuongLechGiam"].HeaderText = "SL lệch giảm";
+                    dataGridViewdsPhieuKiemKho.Columns["SoLuongLechTang"].HeaderText = "SL lệch tăng";
+                    dataGridViewdsPhieuKiemKho.Columns["GhiChu"].HeaderText = "Ghi chú";
+                    dataGridViewdsPhieuKiemKho.Columns["TrangThaiPhieuKiem"].HeaderText = "Trạng thái";
+                    dataGridViewdsPhieuKiemKho.Columns["TenNhanVien"].HeaderText = "Nhân viên thực hiện";
+
+
+
+
+
                 }
                 catch (Exception ex)
                 {
@@ -113,9 +137,11 @@ namespace QL_Nha_thuoc
                 {
                     connection.Open();
 
-                    string query = $@"SELECT PKK.MA_KIEM_KHO, NV.HO_TEN_NV, PKK.NGAY_KIEM_KHO, PKK.NGAY_CAN_BANG_KHO, PKK.TRANG_THAI_PHIEU_KIEM, PKK.GHI_CHU_KIEM_KHO
-                              FROM PHIEU_KIEM_KHO PKK
-                              JOIN NHAN_VIEN NV ON PKK.MA_NV = NV.MA_NV
+                    string query = $@"SELECT PKK.MA_KIEM_KHO,PKK.NGAY_KIEM_KHO,PKK.NGAY_CAN_BANG_KHO,PKK.TONG_THUC_TE,
+                               PKK.TONG_CHECH_LECH,PKK.SO_LUONG_LECH_TANG,PKK.SO_LUONG_LECH_GIAM,pkk.GHI_CHU_KIEM_KHO,pkk.TRANG_THAI_PHIEU_KIEM,
+                              NV.HO_TEN_NV,PKK.MA_NV
+                       FROM PHIEU_KIEM_KHO PKK 
+                       JOIN NHAN_VIEN NV ON NV.MA_NV = PKK.MA_NV
                               WHERE {cotTimKiem} LIKE @GiaTriTimKiem";
 
                     SqlCommand cmd = new SqlCommand(query, connection);
@@ -127,13 +153,18 @@ namespace QL_Nha_thuoc
                     while (reader.Read())
                     {
                         string maPhieu = reader["MA_KIEM_KHO"].ToString();
-                        string tenNV = reader["HO_TEN_NV"].ToString();
+                        string maNV = reader["MA_NV"].ToString();
+                        string hoTenNV = reader["HO_TEN_NV"].ToString();
                         DateTime ngayKiem = reader["NGAY_KIEM_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_KIEM_KHO"]);
                         DateTime ngayCanBang = reader["NGAY_CAN_BANG_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_CAN_BANG_KHO"]);
+                        int tongThucTe = reader["TONG_THUC_TE"] == DBNull.Value ? 0 : Convert.ToInt32(reader["TONG_THUC_TE"]);
+                        int tongChechLech = reader["TONG_CHECH_LECH"] == DBNull.Value ? 0 : Convert.ToInt32(reader["TONG_CHECH_LECH"]);
+                        int soLuongLechGiam = reader["SO_LUONG_LECH_GIAM"] == DBNull.Value ? 0 : Convert.ToInt32(reader["SO_LUONG_LECH_GIAM"]);
+                        int soLuongLechTang = reader["SO_LUONG_LECH_TANG"] == DBNull.Value ? 0 : Convert.ToInt32(reader["SO_LUONG_LECH_TANG"]);
                         string trangThai = reader["TRANG_THAI_PHIEU_KIEM"].ToString();
-                        string ghiChu = reader["GHI_CHU_KIEM_KHO"] == DBNull.Value ? string.Empty : reader["GHI_CHU_KIEM_KHO"].ToString();
+                        string ghiChu = reader["GHI_CHU_KIEM_KHO"] == DBNull.Value ? "" : reader["GHI_CHU_KIEM_KHO"].ToString();
 
-                        ketQuaTim.Add(new PhieuKiemKho(maPhieu, tenNV, ngayKiem, ngayCanBang, trangThai, ghiChu));
+                        ketQuaTim.Add(new PhieuKiemKho(maPhieu, hoTenNV, ngayKiem, ngayCanBang, tongThucTe, tongChechLech, soLuongLechGiam, soLuongLechTang, ghiChu, trangThai));
                     }
 
                     dataGridViewdsPhieuKiemKho.DataSource = ketQuaTim;

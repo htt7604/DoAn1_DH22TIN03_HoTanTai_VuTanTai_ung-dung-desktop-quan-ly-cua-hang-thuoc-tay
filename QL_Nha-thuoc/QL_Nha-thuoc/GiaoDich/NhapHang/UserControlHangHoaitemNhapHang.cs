@@ -113,7 +113,18 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
 
             if (!decimal.TryParse(textBoxGiamGia.Text, out decimal giamGia))
                 giamGia = 0;
-
+            if(loaiGiam == "%")
+            {
+                // Chuyển đổi giảm giá từ phần trăm sang giá trị tiền
+                giamGia = donGia * giamGia / 100;
+            }else if (loaiGiam == "VND")
+            {
+                // Giảm giá đã là giá trị tiền
+                giamGia = giamGia;
+            }else
+            {
+                giamGia = 0; // Nếu không xác định loại giảm giá, đặt về 0
+            }
             decimal thanhTien = Math.Max(0, (donGia - giamGia) * soLuong);
             textBoxThanhTien.Text = thanhTien.ToString("N0");
             return thanhTien = ThanhTien;
@@ -153,13 +164,13 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
             string maHangHoa = linkLabelMaHangHoa.Text;
             string maDonViTinh = comboBoxDonViTinh.SelectedValue?.ToString() ?? string.Empty;
 
-            ClassHangHoa hangHoa = ClassHangHoa.LayThongTinTheoMaVaDonViTinh(maHangHoa, maDonViTinh);
-            if (hangHoa.TenLoaiHangHoa == "Thuốc")
+            ClassHangHoa hangHoa = ClassHangHoa.LayThongTinMotHangHoa(maHangHoa);
+            if (hangHoa.MaLoaiHangHoa == "T")
             {
                 FormChiTietThuoc formChiTietThuoc = new FormChiTietThuoc(maHangHoa, maDonViTinh);
                 formChiTietThuoc.ShowDialog();
             }
-            else if (hangHoa.TenLoaiHangHoa == "Hàng hóa")
+            else if (hangHoa.MaLoaiHangHoa == "HH")
             {
                 ChitietHangHoa formChiTietHangHoa = new ChitietHangHoa(maHangHoa);
                 formChiTietHangHoa.ShowDialog();
@@ -246,7 +257,7 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
         private void textBoxGiamGia_Click(object sender, EventArgs e)
         {
             decimal donGia = Convert.ToDecimal(textBoxDonGia.Text);
-            FormGiamGiaPopup popup = new FormGiamGiaPopup(donGia,"0"); // dùng txtGiaTriGiamGia thay vì textBoxGiamGia
+            FormGiamGiaPopup popup = new FormGiamGiaPopup(donGia, "0"); // dùng txtGiaTriGiamGia thay vì textBoxGiamGia
 
             // Gắn sự kiện để nhận dữ liệu khi người dùng thay đổi giảm giá
             popup.GiamGiaDaChon += (s, args) =>
@@ -261,16 +272,14 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
             Point viTriPopup = textBoxGiamGia.PointToScreen(Point.Empty);
             popup.StartPosition = FormStartPosition.Manual;
             popup.Location = new Point(viTriPopup.X, viTriPopup.Y + textBoxGiamGia.Height);
-
             popup.Show();
         }
 
-
-
-
-
-
-
+        private void textBoxGiamGia_TextChanged(object sender, EventArgs e)
+        {
+            TinhThanhTienCuaHangHoa();
+            ThayDoiSoLuongHoacDonGia?.Invoke(this, EventArgs.Empty);
+        }
     }
 
 

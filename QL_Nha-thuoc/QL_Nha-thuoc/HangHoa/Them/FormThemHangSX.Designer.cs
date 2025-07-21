@@ -41,9 +41,9 @@
             label1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             label1.Location = new Point(28, 9);
             label1.Name = "label1";
-            label1.Size = new Size(230, 25);
+            label1.Size = new Size(191, 25);
             label1.TabIndex = 0;
-            label1.Text = "Them moi hang san xuat";
+            label1.Text = "Thêm hãng sản xuất";
             // 
             // label2
             // 
@@ -53,7 +53,7 @@
             label2.Name = "label2";
             label2.Size = new Size(127, 20);
             label2.TabIndex = 1;
-            label2.Text = "Ten hang san xuat";
+            label2.Text = "Tên hãng sản xuất";
             // 
             // textBoxTenHangSX
             // 
@@ -68,7 +68,7 @@
             buttonLuu.Name = "buttonLuu";
             buttonLuu.Size = new Size(94, 29);
             buttonLuu.TabIndex = 3;
-            buttonLuu.Text = "Luu";
+            buttonLuu.Text = "Lưu";
             buttonLuu.UseVisualStyleBackColor = true;
             buttonLuu.Click += buttonLuu_Click;
             // 
@@ -78,7 +78,7 @@
             buttonHuy.Name = "buttonHuy";
             buttonHuy.Size = new Size(94, 29);
             buttonHuy.TabIndex = 4;
-            buttonHuy.Text = "Huy";
+            buttonHuy.Text = "Hủy";
             buttonHuy.UseVisualStyleBackColor = true;
             buttonHuy.Click += buttonHuy_Click;
             // 
@@ -95,7 +95,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FormThemHangSX";
-            Text = "FormThemHangSX";
+            Text = "Thêm hãng sản xuất";
             ResumeLayout(false);
             PerformLayout();
         }

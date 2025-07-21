@@ -70,7 +70,6 @@
             Controls.Add(buttonPhanTram);
             Controls.Add(buttonVND);
             Name = "FormGiamGiaPopup";
-            Text = "FormGiamGiaPopup";
             ResumeLayout(false);
             PerformLayout();
         }

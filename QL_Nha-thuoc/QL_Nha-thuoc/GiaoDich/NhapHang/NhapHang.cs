@@ -5,6 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using static QL_Nha_thuoc.DanhMucThuoc;
+using static QL_Nha_thuoc.model.ClassChiTietPhieuNhap;
+using QL_Nha_thuoc.model;
+
 
 namespace QL_Nha_thuoc
 {
@@ -170,6 +173,28 @@ namespace QL_Nha_thuoc
             FormThemNhapHang formThemNhapHang = new FormThemNhapHang();
             _formMain.LoadFormVaoPanel(formThemNhapHang); // dùng biến đã truyền
         }
+
+        private void dataGridViewdsNhapHang_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Open the form for detailed receipt
+            if (e.RowIndex >= 0 && e.RowIndex < dataGridViewdsNhapHang.Rows.Count)
+            {
+                DataGridViewRow row = dataGridViewdsNhapHang.Rows[e.RowIndex];
+                string maPhieuNhap = row.Cells["MaPhieuNhap"].Value.ToString();
+                FormChiTietPhieuNhap formChiTietPhieuNhap = new FormChiTietPhieuNhap(); 
+                PhieuNhapHang phieuNhapHang = PhieuNhapHang.TimPhieuNhapTheoMa(maPhieuNhap);
+                if (phieuNhapHang != null)
+                {
+                    formChiTietPhieuNhap.SetData(phieuNhapHang);
+                    formChiTietPhieuNhap.ShowDialog(); // Hiển thị form chi tiết phiếu nhập
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy phiếu nhập với mã: " + maPhieuNhap);
+                }
+            }
+        }
+
 
 
 

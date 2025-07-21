@@ -42,7 +42,6 @@
             pictureBoxHangHoa = new PictureBox();
             labelMaHH = new Label();
             textBoxMaHH = new TextBox();
-            textBoxTenHH = new TextBox();
             labelGia = new Label();
             textBoxGiaVon = new TextBox();
             buttonBoQua = new Button();
@@ -61,6 +60,7 @@
             label7 = new Label();
             textBoxTenHangHoa = new TextBox();
             flowLayoutPanelListHangHoa = new FlowLayoutPanel();
+            label8 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHangHoa).BeginInit();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -80,7 +80,7 @@
             label9.Name = "label9";
             label9.Size = new Size(61, 20);
             label9.TabIndex = 60;
-            label9.Text = "Ghi chu:";
+            label9.Text = "Ghi chú:";
             // 
             // label6
             // 
@@ -89,7 +89,7 @@
             label6.Name = "label6";
             label6.Size = new Size(106, 20);
             label6.TabIndex = 55;
-            label6.Text = "Hang san xuat:";
+            label6.Text = "Hãng sản xuất:";
             // 
             // textBoxQuyCachDongGoi
             // 
@@ -101,20 +101,20 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(333, 490);
+            label5.Location = new Point(340, 490);
             label5.Name = "label5";
             label5.Size = new Size(137, 20);
             label5.TabIndex = 53;
-            label5.Text = "Quy cach dong goi:";
+            label5.Text = "Quy cách đóng gói:";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(393, 268);
+            label4.Location = new Point(400, 268);
             label4.Name = "label4";
             label4.Size = new Size(77, 20);
             label4.TabIndex = 52;
-            label4.Text = "Loai hang:";
+            label4.Text = "Loại hàng:";
             // 
             // textBoxMaVach
             // 
@@ -137,25 +137,25 @@
             label3.Name = "label3";
             label3.Size = new Size(63, 20);
             label3.TabIndex = 47;
-            label3.Text = "Giá ban:";
+            label3.Text = "Giá bán:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(387, 326);
+            label2.Location = new Point(393, 326);
             label2.Name = "label2";
             label2.Size = new Size(90, 20);
             label2.TabIndex = 46;
-            label2.Text = "Nhom hang:";
+            label2.Text = "Nhóm hàng:";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(393, 160);
+            label1.Location = new Point(413, 160);
             label1.Name = "label1";
-            label1.Size = new Size(67, 20);
+            label1.Size = new Size(64, 20);
             label1.TabIndex = 45;
-            label1.Text = "Mã vach:";
+            label1.Text = "Mã vạch";
             // 
             // pictureBoxHangHoa
             // 
@@ -170,7 +170,7 @@
             // labelMaHH
             // 
             labelMaHH.AutoSize = true;
-            labelMaHH.Location = new Point(393, 112);
+            labelMaHH.Location = new Point(407, 108);
             labelMaHH.Name = "labelMaHH";
             labelMaHH.Size = new Size(70, 20);
             labelMaHH.TabIndex = 34;
@@ -184,18 +184,6 @@
             textBoxMaHH.Size = new Size(386, 27);
             textBoxMaHH.TabIndex = 35;
             // 
-            // textBoxTenHH
-            // 
-            textBoxTenHH.BackColor = SystemColors.Control;
-            textBoxTenHH.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            textBoxTenHH.ForeColor = SystemColors.MenuHighlight;
-            textBoxTenHH.Location = new Point(14, 16);
-            textBoxTenHH.Name = "textBoxTenHH";
-            textBoxTenHH.ReadOnly = true;
-            textBoxTenHH.Size = new Size(321, 43);
-            textBoxTenHH.TabIndex = 36;
-            textBoxTenHH.Text = "Them hang hoa";
-            // 
             // labelGia
             // 
             labelGia.AutoSize = true;
@@ -203,7 +191,7 @@
             labelGia.Name = "labelGia";
             labelGia.Size = new Size(62, 20);
             labelGia.TabIndex = 39;
-            labelGia.Text = "Giá von:";
+            labelGia.Text = "Giá vốn:";
             // 
             // textBoxGiaVon
             // 
@@ -214,21 +202,21 @@
             // 
             // buttonBoQua
             // 
-            buttonBoQua.Location = new Point(1251, 661);
+            buttonBoQua.Location = new Point(1251, 639);
             buttonBoQua.Name = "buttonBoQua";
-            buttonBoQua.Size = new Size(75, 32);
+            buttonBoQua.Size = new Size(75, 54);
             buttonBoQua.TabIndex = 41;
-            buttonBoQua.Text = "Bo qua";
+            buttonBoQua.Text = "Bỏ qua";
             buttonBoQua.Click += buttonBoQua_Click;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(378, 430);
+            label10.Location = new Point(384, 430);
             label10.Name = "label10";
-            label10.Size = new Size(92, 20);
+            label10.Size = new Size(93, 20);
             label10.TabIndex = 66;
-            label10.Text = "Trong luong:";
+            label10.Text = "Trọng lượng:";
             // 
             // textBoxTrongLuong
             // 
@@ -268,11 +256,11 @@
             // 
             // buttonLuu
             // 
-            buttonLuu.Location = new Point(1130, 661);
+            buttonLuu.Location = new Point(1130, 639);
             buttonLuu.Name = "buttonLuu";
-            buttonLuu.Size = new Size(75, 32);
+            buttonLuu.Size = new Size(75, 54);
             buttonLuu.TabIndex = 71;
-            buttonLuu.Text = "Luu";
+            buttonLuu.Text = "Lưu";
             buttonLuu.Click += buttonLuu_Click;
             // 
             // buttonThemNhomHang
@@ -285,6 +273,7 @@
             buttonThemNhomHang.TabIndex = 73;
             buttonThemNhomHang.Text = "+";
             buttonThemNhomHang.UseVisualStyleBackColor = true;
+            buttonThemNhomHang.Click += buttonThemNhomHang_Click;
             // 
             // buttonThemHangSX
             // 
@@ -340,11 +329,11 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(396, 215);
+            label7.Location = new Point(405, 215);
             label7.Name = "label7";
-            label7.Size = new Size(69, 20);
+            label7.Size = new Size(72, 20);
             label7.TabIndex = 111;
-            label7.Text = "Ten hang";
+            label7.Text = "Tên hàng:";
             // 
             // textBoxTenHangHoa
             // 
@@ -363,11 +352,23 @@
             flowLayoutPanelListHangHoa.TabIndex = 113;
             flowLayoutPanelListHangHoa.Visible = false;
             // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            label8.ForeColor = SystemColors.MenuHighlight;
+            label8.Location = new Point(14, 18);
+            label8.Name = "label8";
+            label8.Size = new Size(215, 37);
+            label8.TabIndex = 111;
+            label8.Text = "Thêm hàng hóa";
+            // 
             // FormThemHanghoa
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1359, 705);
+            Controls.Add(label8);
             Controls.Add(flowLayoutPanelListHangHoa);
             Controls.Add(textBoxTenHangHoa);
             Controls.Add(label7);
@@ -395,12 +396,11 @@
             Controls.Add(pictureBoxHangHoa);
             Controls.Add(labelMaHH);
             Controls.Add(textBoxMaHH);
-            Controls.Add(textBoxTenHH);
             Controls.Add(labelGia);
             Controls.Add(textBoxGiaVon);
             Controls.Add(buttonBoQua);
             Name = "FormThemHanghoa";
-            Text = "FormThemHanghoa";
+            Text = "Thêm hàng hóa";
             FormClosed += FormThemHanghoa_FormClosed;
             Load += FormThemHanghoa_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBoxHangHoa).EndInit();
@@ -429,7 +429,6 @@
         private Button buttonCapNhat;
         private Label labelMaHH;
         private TextBox textBoxMaHH;
-        private TextBox textBoxTenHH;
         private Label labelGia;
         private TextBox textBoxGiaVon;
         private Button buttonBoQua;
@@ -447,5 +446,6 @@
         private Label label7;
         private TextBox textBoxTenHangHoa;
         private FlowLayoutPanel flowLayoutPanelListHangHoa;
+        private Label label8;
     }
 }

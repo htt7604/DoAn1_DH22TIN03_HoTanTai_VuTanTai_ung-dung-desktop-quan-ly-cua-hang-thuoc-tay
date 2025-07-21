@@ -214,18 +214,26 @@ namespace QL_Nha_thuoc.model
         public string TenNhanVien { get; set; }
         public DateTime? NgayKiemKho { get; set; }
         public DateTime? ThoiGianCanBangKho { get; set; }
+        public int TongThucTe { get; set; } // Tổng số lượng thực tế
+        public int TongChechLech { get; set; } // Tổng số lượng chênh lệch
+        public int SoLuongLechGiam { get; set; } // Số lượng giảm
+        public int SoLuongLechTang { get; set; } // Số lượng tăng
         public string TrangThaiPhieuKiem { get; set; }
         public string GhiChu { get; set; }
 
         // 🔹 Constructors
         public PhieuKiemKho() { }
 
-        public PhieuKiemKho(string maPhieu, string tenNV, DateTime? ngayKiem, DateTime? ngayCanBang, string trangThai, string ghiChu)
+        public PhieuKiemKho(string maPhieu, string tenNV, DateTime? ngayKiem, DateTime? ngayCanBang,int tongThucTe,int tongChechLech,int soLuongLechGiam,int soLuongLechTang, string ghiChu, string trangThai)
         {
             MaPhieuKiemKho = maPhieu;
             TenNhanVien = tenNV;
             NgayKiemKho = ngayKiem;
             ThoiGianCanBangKho = ngayCanBang;
+            TongThucTe = tongThucTe;
+            TongChechLech = tongChechLech;
+            SoLuongLechGiam = soLuongLechGiam;
+            SoLuongLechTang = soLuongLechTang;
             TrangThaiPhieuKiem = trangThai;
             GhiChu = ghiChu;
         }
@@ -235,9 +243,9 @@ namespace QL_Nha_thuoc.model
         {
             using (SqlConnection conn = DBHelperPK.GetConnection())
             {
-                string query = @"SELECT PKK.MA_KIEM_KHO, PKK.MA_NV, PKK.MA_KHO, PKK.NGAY_KIEM_KHO,PKK.GHI_CHU_KIEM_KHO, 
-                              PKK.NGAY_CAN_BANG_KHO, PKK.TRANG_THAI_PHIEU_KIEM,
-                              NV.HO_TEN_NV
+                string query = @"SELECT PKK.MA_KIEM_KHO,PKK.NGAY_KIEM_KHO,PKK.NGAY_CAN_BANG_KHO,PKK.TONG_THUC_TE,
+                               PKK.TONG_CHECH_LECH,PKK.SO_LUONG_LECH_TANG,PKK.SO_LUONG_LECH_GIAM,pkk.GHI_CHU_KIEM_KHO,pkk.TRANG_THAI_PHIEU_KIEM,
+                              NV.HO_TEN_NV,PKK.MA_NV
                        FROM PHIEU_KIEM_KHO PKK 
                        JOIN NHAN_VIEN NV ON NV.MA_NV = PKK.MA_NV
                        WHERE MA_KIEM_KHO = @MaPhieuKiem";
@@ -256,8 +264,11 @@ namespace QL_Nha_thuoc.model
                     DateTime ngayKiem = reader["NGAY_KIEM_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_KIEM_KHO"]);
                     DateTime ngayCanBang = reader["NGAY_CAN_BANG_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_CAN_BANG_KHO"]);
                     string ghiChu = reader["GHI_CHU_KIEM_KHO"] == DBNull.Value ? "" : reader["GHI_CHU_KIEM_KHO"].ToString();
-                    
-                    return new PhieuKiemKho(maPhieuKiem, hoTenNV, ngayKiem, ngayCanBang, trangThai, ghiChu)
+                    int tongThucTe =reader["TONG_THUC_TE"] == DBNull.Value ? 0 : Convert.ToInt32(reader["TONG_THUC_TE"]);
+                    int tongChechLech = reader["TONG_CHECH_LECH"] == DBNull.Value ? 0 : Convert.ToInt32(reader["TONG_CHECH_LECH"]);
+                    int soLuongLechGiam = reader["SO_LUONG_LECH_GIAM"] == DBNull.Value ? 0 : Convert.ToInt32(reader["SO_LUONG_LECH_GIAM"]);
+                    int soLuongLechTang = reader["SO_LUONG_LECH_TANG"] == DBNull.Value ? 0 : Convert.ToInt32(reader["SO_LUONG_LECH_TANG"]);
+                    return new PhieuKiemKho(maPhieuKiem, hoTenNV, ngayKiem, ngayCanBang,tongThucTe,tongChechLech,soLuongLechGiam,soLuongLechTang,ghiChu, trangThai)
                     {
                         MaNhanVien = maNV
                     };

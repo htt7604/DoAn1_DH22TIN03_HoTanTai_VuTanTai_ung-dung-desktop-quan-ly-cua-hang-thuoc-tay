@@ -45,11 +45,12 @@ namespace QL_Nha_thuoc.model
         public string MaHangSX { get; set; }
         public string TenHangSanXuat { get; set; }
 
+        public DateTime? ThoiGianTao {  get; set; }
 
         // Constructor đầy đủ
         public ClassHangHoa(string maHangHoa,string maThuoc, string tenHangHoa, string donViTinh, int soLuongTon, decimal giaNhap, decimal giaBan,
                           string nhaCungCap, string noiSanXuat, DateTime? hanSuDung, string maLoai, string tenLoai,
-                          string maVach, string ghiChu, string hinhAnh,string maHangSX,string tinhTrang)
+                          string maVach, string ghiChu, string hinhAnh,string maHangSX,string tinhTrang,DateTime? thoiGianTao)
         {
             MaHangHoa = maHangHoa;
             MaThuoc = maThuoc;
@@ -67,7 +68,9 @@ namespace QL_Nha_thuoc.model
             GhiChu = ghiChu;
             HinhAnh = hinhAnh;
             MaHangSX = maHangSX;
-            TinhTrang = tinhTrang; // Thêm thuộc tính Tình trạng hàng hóa
+            TinhTrang = tinhTrang;
+            ThoiGianTao = thoiGianTao;
+            // Thêm thuộc tính Tình trạng hàng hóa
         }
 
         // Constructor rỗng
@@ -169,20 +172,21 @@ namespace QL_Nha_thuoc.model
             using (SqlConnection conn = DBHelperHH.GetConnection())
             {
                 string query = @"
-                SELECT 
+                 SELECT 
                 HH.MA_HANG_HOA,
                 HH.MA_THUOC,
                 HH.TEN_HANG_HOA,
+                NH.MA_LOAI_HH,
                 DVT.MA_DON_VI_TINH,
                 DVT.TEN_DON_VI_TINH,
                 HH.TON_KHO,
-                GBHH.GIA_VON_HH,
-                GBHH.GIA_BAN_HH,
+                GHH.GIA_VON_HH,
+                GHH.GIA_BAN_HH,
                 NCC.MA_NHA_CUNG_CAP,
                 NCC.TEN_NHA_CUNG_CAP,
                 HH.NGAY_HET_HAN_HH,
-                LHH.MA_LOAI_HH,
-                LHH.TEN_LOAI_HH,
+                LH.MA_LOAI_HH,
+                LH.TEN_LOAI_HH,
                 HH.MA_VACH,
                 HH.GHI_CHU_HH,
                 HH.HINH_ANH_HH,
@@ -193,7 +197,6 @@ namespace QL_Nha_thuoc.model
                 HH.MA_HANG_SX,
                 HH.TINH_TRANG_HH,
                 HSX.TEN_HANG_SX
-
         FROM HANG_HOA HH
          JOIN NHOM_HANG NH ON HH.MA_NHOM_HH = NH.MA_NHOM_HH
          JOIN LOAI_HANG LH ON NH.MA_LOAI_HH = LH.MA_LOAI_HH
@@ -218,6 +221,7 @@ namespace QL_Nha_thuoc.model
                         {
                             MaHangHoa = reader["MA_HANG_HOA"].ToString(),
                             MaThuoc = reader["MA_THUOC"]?.ToString(),
+                            MaLoaiHangHoa = reader["MA_LOAI_HH"]?.ToString(),
                             TenHangHoa = reader["TEN_HANG_HOA"].ToString(),
                             DonViTinh = reader["TEN_DON_VI_TINH"]?.ToString(),
                             SoLuongTon = reader["TON_KHO"] != DBNull.Value ? Convert.ToInt32(reader["TON_KHO"]) : 0,
@@ -419,13 +423,13 @@ namespace QL_Nha_thuoc.model
                         MA_HANG_HOA, HINH_ANH_HH, TEN_HANG_HOA, MA_VACH, QUY_CACH_DONG_GOI, 
                         GHI_CHU_HH, MA_THUOC,
                         HOAT_CHAT, HAM_LUONG, NGAY_HET_HAN_HH, 
-                        SO_DANG_KY_THUOC, TON_KHO, MA_NHOM_HH, MA_HANG_SX, TINH_TRANG_HH
+                        SO_DANG_KY_THUOC, TON_KHO, MA_NHOM_HH, MA_HANG_SX, TINH_TRANG_HH,THOI_GIAN_TAO
                     )
                     VALUES (
                         @maHH, @hinhAnh, @tenHH, @maVach, @quyCach, 
                         @ghiChu, @maThuoc,
                         @hoatChat, @hamLuong, @hanSD,
-                        @soDK, @tonKho, @maNhom, @maHangSX, @tinhTrang
+                        @soDK, @tonKho, @maNhom, @maHangSX, @tinhTrang,@thoigiantao
                     )";
 
                     using (SqlCommand cmd = new SqlCommand(insertHH, conn, transaction))
@@ -450,6 +454,7 @@ namespace QL_Nha_thuoc.model
                         cmd.Parameters.AddWithValue("@maNhom", (object)hangHoa.MaNhomHang ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@maHangSX", hangHoa.MaHangSX);
                         cmd.Parameters.AddWithValue("@tinhTrang", (object)hangHoa.TinhTrang ?? DBNull.Value); // Thêm tham số Tình trạng hàng hóa
+                        cmd.Parameters.AddWithValue("@thoigiantao", DateTime.Now);
                         cmd.ExecuteNonQuery();
                     }
 
@@ -593,8 +598,8 @@ namespace QL_Nha_thuoc.model
             NCC.MA_NHA_CUNG_CAP,
             NCC.TEN_NHA_CUNG_CAP,
             HH.NGAY_HET_HAN_HH,
-            LHH.MA_LOAI_HH,
-            LHH.TEN_LOAI_HH,
+            LH.MA_LOAI_HH,
+            LH.TEN_LOAI_HH,
             HH.MA_VACH,
             HH.GHI_CHU_HH,
             HH.HINH_ANH_HH,
@@ -612,7 +617,7 @@ namespace QL_Nha_thuoc.model
         LEFT JOIN PHIEU_NHAP_HANG PNH ON CTPN.MA_PHIEU_NHAP = PNH.MA_PHIEU_NHAP
         LEFT JOIN NHA_CUNG_CAP NCC ON PNH.MA_NHA_CUNG_CAP = NCC.MA_NHA_CUNG_CAP
         LEFT JOIN NHOM_HANG NH ON HH.MA_NHOM_HH = NH.MA_NHOM_HH
-        LEFT JOIN LOAI_HANG LHH ON NH.MA_LOAI_HH = LHH.MA_LOAI_HH
+        LEFT JOIN LOAI_HANG LH ON NH.MA_LOAI_HH = LH.MA_LOAI_HH
         LEFT JOIN HANG_SAN_XUAT HSX ON HH.MA_HANG_SX = HSX.MA_HANG_SX
         WHERE HH.MA_HANG_HOA = @maHH AND DVT.MA_DON_VI_TINH = @maDVT";
 

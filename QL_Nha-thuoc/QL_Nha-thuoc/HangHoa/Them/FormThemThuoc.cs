@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using QL_Nha_thuoc.HangHoa.Them;
 using QL_Nha_thuoc.model;
+using QL_Nha_thuoc.Usercontrol;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -166,18 +167,22 @@ namespace QL_Nha_thuoc.HangHoa
             LoadComboBoxDonViTinh();
             LoadComboBoxHangSanXuat();
             textBoxMaHH.Text = ClassHangHoa.TaoMaHangHoaTuDong(); // Tạo mã hàng hóa tự động khi mở form
+            textBoxGiaBan.Text= "0"; // Mặc định giá bán là 0
+            textBoxGiaVon.Text = "0"; // Mặc định giá vốn là 0
         }
 
         [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public string MaHangSXThem { get; set; }
         private void textBoxTenThuoc_TextChanged(object sender, EventArgs e)
         {
+
             //them cac usercontrolitemthemthuoc vao flowlayoutpanelListThuoc
             string keyword = textBoxTenThuoc.Text.Trim();
 
             // Xóa hết các item cũ trước khi hiển thị cái mới
             flowLayoutPanelListThuoc.Controls.Clear();
-
+            //add usercontrolthuoctinhitemthemthuoc vao flowlayoutpanelListThuoc
+            flowLayoutPanelListThuoc.Controls.Add(new Usercontrolthuoctinhitemthemthuoc());
             // Lấy danh sách thuốc theo từ khóa
             List<ClassThuoc> danhSach = ClassThuoc.LayDanhSachThuoc(keyword);
 
@@ -290,7 +295,7 @@ namespace QL_Nha_thuoc.HangHoa
                 {
                     MaPhieuKiemKho = makiemkho,
                     MaHangHoa = textBoxMaHH.Text,
-                    TenHangHoa = textBoxTenHH.Text,
+                    TenHangHoa = labeltieude.Text,
                     SoLuongHeThong = 0,
                     SoLuongThucTe = 0,
 
@@ -321,12 +326,26 @@ namespace QL_Nha_thuoc.HangHoa
             comboBoxDonViTinh.SelectedIndex = -1;
             comboBoxNhomHang.SelectedIndex = -1;
             flowLayoutPanelListThuoc.Visible = false; // Ẩn danh sách thuốc
-            textBoxTenHH.Clear(); // Xóa tên hàng hóa nếu có
+            textBoxTenThuoc.Clear(); // Xóa tên hàng hóa nếu có
         }
 
+        private void buttonThemNhomHang_Click(object sender, EventArgs e)
+        {
+            //moform them nhom hang
+            FormThemNhomHangHoa formThemNhomHang = new FormThemNhomHangHoa();
+            formThemNhomHang.ShowDialog(); // Hiển thị form ThemNhomHangHoa
+            formThemNhomHang.FormClosed += (s, args) =>
+            {
+                // Sau khi form ThemNhomHang đóng, load lại dữ liệu nhóm hàng
+                LoadDataToComboBoxNhomHanghoa();
+            };
+        }
 
+        private void buttonDong_Click(object sender, EventArgs e)
+        {
+            //dong form
+            this.Close();
 
-
-
+        }
     }
 }

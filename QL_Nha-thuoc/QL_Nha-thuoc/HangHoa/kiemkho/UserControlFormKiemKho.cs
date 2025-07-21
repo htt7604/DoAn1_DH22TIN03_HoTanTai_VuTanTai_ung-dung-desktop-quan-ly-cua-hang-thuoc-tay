@@ -63,6 +63,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             item.OnSoLuongThucTeThayDoi += (s, e) =>
             {
                 CapNhatTongSoLuongThucTe();
+                
             };
 
             flowLayoutPanelKiemKho.Controls.Add(item);
@@ -73,6 +74,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
         //ham truyen trang thai phieu kiem kho
         public void SetTrangThaiPhieu()
         {
+            //add usercontrolhanghoakiemkho vao flowlayoutpanel
             PhieuKiemKho phieukiemkho = PhieuKiemKho.LayPhieuKiemKho(MaKiemKho);
             if (phieukiemkho == null)
             {
@@ -84,6 +86,10 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             textBoxMaKiemKho.Text = phieukiemkho.MaPhieuKiemKho;
             labelTime.Text = phieukiemkho.NgayKiemKho.Value.ToString("dd/MM/yyyy HH:mm:ss");
             comboBoxTaiKhoan.Text = phieukiemkho.TenNhanVien;
+            //them usercontrolcotkiemkho vao flowlayoutpanel
+            var usercontrolCotKiemKho = new UserControlCotKiemKho();
+            usercontrolCotKiemKho.Width = flowLayoutPanelKiemKho.ClientSize.Width - flowLayoutPanelKiemKho.Padding.Horizontal - 5;
+            flowLayoutPanelKiemKho.Controls.Add(usercontrolCotKiemKho);
 
         }
         private void buttonLuuTam_Click(object sender, EventArgs e)

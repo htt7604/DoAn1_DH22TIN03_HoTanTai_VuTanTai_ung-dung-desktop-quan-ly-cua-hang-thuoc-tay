@@ -149,6 +149,8 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
         {
             if (tabControlPhieuKiem.TabPages.Count > 0)
             {
+
+                // Tạo một TabPage mới và thêm vào tabControlPhieuKiem
                 var currentTab = tabControlPhieuKiem.TabPages[0];
 
                 var userControlKiemKho = new UserControlFormKiemKho(maPhieuKiemKho);
@@ -157,6 +159,8 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                 currentTab.Controls.Clear();
                 currentTab.Controls.Add(userControlKiemKho);
                 userControlKiemKho.Dock = DockStyle.Fill; // Đảm bảo UserControl chiếm toàn bộ không gian của TabPage
+
+
             }
         }
 

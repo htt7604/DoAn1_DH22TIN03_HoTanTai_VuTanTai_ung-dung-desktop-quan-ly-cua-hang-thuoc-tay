@@ -69,7 +69,7 @@
             label1.Name = "label1";
             label1.Size = new Size(159, 46);
             label1.TabIndex = 4;
-            label1.Text = "Bang gia chung ";
+            label1.Text = "Bảng giá chung";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label4
@@ -81,7 +81,7 @@
             label4.Name = "label4";
             label4.Size = new Size(118, 46);
             label4.TabIndex = 3;
-            label4.Text = "label4";
+            label4.Text = "ĐVT";
             label4.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // labelGiaVon
@@ -93,7 +93,7 @@
             labelGiaVon.Name = "labelGiaVon";
             labelGiaVon.Size = new Size(99, 46);
             labelGiaVon.TabIndex = 2;
-            labelGiaVon.Text = "Gia Von";
+            labelGiaVon.Text = "Giá vốn";
             labelGiaVon.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // labelTenHangHoa
@@ -105,7 +105,7 @@
             labelTenHangHoa.Name = "labelTenHangHoa";
             labelTenHangHoa.Size = new Size(492, 46);
             labelTenHangHoa.TabIndex = 1;
-            labelTenHangHoa.Text = "Ten hang hoa";
+            labelTenHangHoa.Text = "Tên hàng hóa";
             labelTenHangHoa.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // labelMaHangHoa
@@ -117,7 +117,7 @@
             labelMaHangHoa.Name = "labelMaHangHoa";
             labelMaHangHoa.Size = new Size(103, 46);
             labelMaHangHoa.TabIndex = 0;
-            labelMaHangHoa.Text = "Ma hang hoa";
+            labelMaHangHoa.Text = "Mã hàng hóa";
             labelMaHangHoa.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // UserControlTTGia

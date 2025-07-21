@@ -42,7 +42,7 @@
             buttonQuanLy.BackColor = Color.Lime;
             buttonQuanLy.Location = new Point(172, 295);
             buttonQuanLy.Name = "buttonQuanLy";
-            buttonQuanLy.Size = new Size(94, 29);
+            buttonQuanLy.Size = new Size(94, 35);
             buttonQuanLy.TabIndex = 0;
             buttonQuanLy.Text = "Quản lý";
             buttonQuanLy.UseVisualStyleBackColor = false;
@@ -53,11 +53,11 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
             label1.ForeColor = SystemColors.MenuHighlight;
-            label1.Location = new Point(291, 51);
+            label1.Location = new Point(252, 50);
             label1.Name = "label1";
-            label1.Size = new Size(147, 35);
+            label1.Size = new Size(168, 35);
             label1.TabIndex = 1;
-            label1.Text = "Dang Nhap";
+            label1.Text = "ĐĂNG NHẬP";
             // 
             // textBoxTenDangNhap
             // 
@@ -80,9 +80,9 @@
             label2.AutoSize = true;
             label2.Location = new Point(82, 159);
             label2.Name = "label2";
-            label2.Size = new Size(112, 20);
+            label2.Size = new Size(113, 20);
             label2.TabIndex = 4;
-            label2.Text = "Ten nguoi dung";
+            label2.Text = "Tên người dùng";
             // 
             // label3
             // 
@@ -91,14 +91,14 @@
             label3.Name = "label3";
             label3.Size = new Size(70, 20);
             label3.TabIndex = 5;
-            label3.Text = "Mat khau";
+            label3.Text = "Mật khẩu";
             // 
             // buttonBanHang
             // 
             buttonBanHang.BackColor = SystemColors.Highlight;
             buttonBanHang.Location = new Point(388, 295);
             buttonBanHang.Name = "buttonBanHang";
-            buttonBanHang.Size = new Size(94, 29);
+            buttonBanHang.Size = new Size(94, 35);
             buttonBanHang.TabIndex = 6;
             buttonBanHang.Text = "Bán Hàng";
             buttonBanHang.UseVisualStyleBackColor = false;
@@ -118,7 +118,7 @@
             Controls.Add(buttonQuanLy);
             Name = "FormLogin";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FormLogin";
+            Text = "Đăng Nhập";
             ResumeLayout(false);
             PerformLayout();
         }

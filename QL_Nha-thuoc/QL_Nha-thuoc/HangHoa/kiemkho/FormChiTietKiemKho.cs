@@ -92,10 +92,10 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             }
 
             // Gán vào các TextBox (bạn cần tạo trước các TextBox này trong Designer)
-            labelTongThucTe.Text = "Tong thuc te: " + tongThucTe.ToString();
-            labelTongLechTang.Text = "Tong lech tang: " + tongLechTang.ToString();
-            labelTongLechGiam.Text = "Tong lech giam: " + tongLechGiam.ToString();
-            labelTongChenhLech.Text = "Tong chenh lech: " + tongChenhLech.ToString();
+            labelTongThucTe.Text = "Tổng thực tế: " + tongThucTe.ToString();
+            labelTongLechTang.Text = "Tổng lệch tăng: " + tongLechTang.ToString();
+            labelTongLechGiam.Text = "Tổng lệch giảm:: " + tongLechGiam.ToString();
+            labelTongChenhLech.Text = "Tổng chênh lệch: " + tongChenhLech.ToString();
 
         }
 

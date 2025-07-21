@@ -221,11 +221,11 @@ namespace QL_Nha_thuoc
         private string TaoCauTruyVanLoc(List<string> loaiHangDuocChon, string nhomHang, string trangThai, out Dictionary<string, object> parameters)
         {
             StringBuilder query = new StringBuilder(@"
-        SELECT * FROM HANG_HOA 
-        JOIN NHOM_HANG ON NHOM_HANG.MA_NHOM_HH = HANG_HOA.MA_NHOM_HH 
-        JOIN LOAI_HANG ON LOAI_HANG.MA_LOAI_HH = NHOM_HANG.MA_LOAI_HH 
-        JOIN GIA_HANG_HOA ON HANG_HOA.MA_HANG_HOA = GIA_HANG_HOA.MA_HANG_HOA
-        WHERE 1=1 ");
+         SELECT HH.MA_HANG_HOA,HH.TEN_HANG_HOA ,HH.TEN_VIET_TAT,GHH.GIA_BAN_HH,GHH.GIA_VON_HH,HH.TON_KHO,HH.THOI_GIAN_TAO FROM HANG_HOA HH
+         JOIN NHOM_HANG NH  ON NH.MA_NHOM_HH = HH.MA_NHOM_HH 
+         JOIN LOAI_HANG LH ON LH.MA_LOAI_HH = NH.MA_LOAI_HH 
+         JOIN GIA_HANG_HOA GHH ON HH.MA_HANG_HOA = GHH.MA_HANG_HOA
+         WHERE 1=1 ");
 
             parameters = new Dictionary<string, object>();
 
@@ -238,19 +238,19 @@ namespace QL_Nha_thuoc
                     placeholders.Add(paramName);
                     parameters.Add(paramName, loaiHangDuocChon[i]);
                 }
-                query.Append($" AND LOAI_HANG.TEN_LOAI_HH IN ({string.Join(", ", placeholders)}) ");
+                query.Append($" AND LH.TEN_LOAI_HH IN ({string.Join(", ", placeholders)}) ");
             }
 
             if (!string.IsNullOrEmpty(nhomHang))
             {
-                query.Append(" AND NHOM_HANG.MA_NHOM_HH = @nhomHang ");
+                query.Append(" AND NH.MA_NHOM_HH = @nhomHang ");
                 parameters.Add("@nhomHang", nhomHang);
             }
 
             // Chỉ thêm điều kiện trạng thái khi khác null
             if (!string.IsNullOrEmpty(trangThai))
             {
-                query.Append(" AND HANG_HOA.TINH_TRANG_HH = @trangThai ");
+                query.Append(" AND HH.TINH_TRANG_HH = @trangThai ");
                 parameters.Add("@trangThai", trangThai);
             }
 
@@ -293,6 +293,15 @@ namespace QL_Nha_thuoc
                     adapter.Fill(dt);
 
                     dataGridViewdsDMHH.DataSource = dt;
+
+                    dataGridViewdsDMHH.Columns["MA_HANG_HOA"].HeaderText = "Mã hàng hóa";
+                    dataGridViewdsDMHH.Columns["TEN_HANG_HOA"].HeaderText = "Tên hàng hóa";
+                    dataGridViewdsDMHH.Columns["TEN_VIET_TAT"].HeaderText = "Tên viết tắt";
+                    dataGridViewdsDMHH.Columns["GIA_BAN_HH"].HeaderText = "Giá bán";
+                    dataGridViewdsDMHH.Columns["GIA_VON_HH"].HeaderText = "Giá vốn";
+                    dataGridViewdsDMHH.Columns["TON_KHO"].HeaderText = "Tồn kho";
+                    dataGridViewdsDMHH.Columns["THOI_GIAN_TAO"].HeaderText = "Ngày tạo";
+
                 }
                 catch (Exception ex)
                 {
@@ -331,14 +340,15 @@ namespace QL_Nha_thuoc
             {
                 // Lấy dòng vừa click
                 DataGridViewRow selectedRow = dataGridViewdsDMHH.Rows[e.RowIndex];
-
+                string maHH = selectedRow.Cells["MA_HANG_HOA"].Value?.ToString();
                 // Lấy giá trị MA_LOAI_HH từ dòng
-                string maLoaiHH = selectedRow.Cells["MA_LOAI_HH"].Value?.ToString();
+                //string maLoaiHH = selectedRow.Cells["MA_LOAI_HH"].Value?.ToString();
+                ClassHangHoa hanghoa = ClassHangHoa.LayThongTinMotHangHoa(maHH);
+                string maLoaiHH = hanghoa.MaLoaiHangHoa; // Lấy mã loại hàng từ đối tượng ClassHangHoa
                 if (maLoaiHH == "HH") // Nếu là hàng hóa
                 {
-                    string maHH = selectedRow.Cells["MA_HANG_HOA"].Value?.ToString();
-                    string maDVT = selectedRow.Cells["MA_DON_VI_TINH"].Value?.ToString();
-
+                    //string maDVT = selectedRow.Cells["MA_DON_VI_TINH"].Value?.ToString();
+                    string maDVT = hanghoa.MaDonViTinh; // Lấy mã đơn vị tính từ đối tượng ClassHangHoa
                     if (!string.IsNullOrEmpty(maHH))
                     {
                         //// Mở form chi tiết hàng hóa                      
@@ -350,8 +360,8 @@ namespace QL_Nha_thuoc
                 }
                 else
                 {
-                    string maHH = selectedRow.Cells["MA_HANG_HOA"].Value?.ToString();
-                    string maDVT = selectedRow.Cells["MA_DON_VI_TINH"].Value?.ToString();
+                    //string maDVT = selectedRow.Cells["MA_DON_VI_TINH"].Value?.ToString();
+                    string maDVT = hanghoa.MaDonViTinh; // Lấy mã đơn vị tính từ đối tượng ClassHangHoa
 
                     if (!string.IsNullOrEmpty(maHH))
                     {

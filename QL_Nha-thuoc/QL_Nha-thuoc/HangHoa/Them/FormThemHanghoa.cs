@@ -172,6 +172,9 @@ namespace QL_Nha_thuoc.HangHoa
             LoadDataToComboboxHangSX();
             LoadDataToComboboxDonViTinh();
             textBoxMaHH.Text = ClassHangHoa.TaoMaHangHoaTuDong();
+            textBoxGiaBan.Text = "0";
+            textBoxGiaVon.Text = "0";
+            comboBoxDonViTinh.Text = "Chọn đơn vị tính";
         }
 
         private void buttonBoQua_Click(object sender, EventArgs e)
@@ -286,6 +289,11 @@ namespace QL_Nha_thuoc.HangHoa
 
             // 2. Kiểm tra và chuyển đổi số liệu giá bán - giá vốn
             decimal giaBan = 0, giaVon = 0;
+            if (string.IsNullOrWhiteSpace(textBoxTenHangHoa.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tên hàng hóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (!decimal.TryParse(textBoxGiaBan.Text.Trim(), out giaBan) || giaBan < 0)
             {
                 MessageBox.Show("Giá bán không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -307,7 +315,7 @@ namespace QL_Nha_thuoc.HangHoa
                 MessageBox.Show("Vui lòng chọn nhóm hàng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if(comboBoxHangSX.SelectedIndex == -1)
+            if (comboBoxHangSX.SelectedIndex == -1)
             {
                 MessageBox.Show("Vui lòng chọn hãng sản xuất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -391,6 +399,17 @@ namespace QL_Nha_thuoc.HangHoa
                 MessageBox.Show("Không thể xóa hãng sản xuất. Vui lòng kiểm tra lại thông tin.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
+        }
+
+        private void buttonThemNhomHang_Click(object sender, EventArgs e)
+        {
+            //mo form them nhom hang
+            var formThem = new FormThemNhomHangHoa();
+            formThem.StartPosition = FormStartPosition.CenterParent;
+            formThem.ShowDialog();
+
+            // sau khi form them nhom hang dong, load lai danh sach nhom hang
+            LoadDataToComboBoxNhomHanghoa();
         }
 
 
