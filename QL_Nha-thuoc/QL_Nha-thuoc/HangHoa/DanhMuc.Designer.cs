@@ -45,6 +45,9 @@
             label2 = new Label();
             label1 = new Label();
             panel6 = new Panel();
+            buttonTuyChon = new Button();
+            buttonX = new Button();
+            labelSoX = new Label();
             panel = new Panel();
             tableLayoutPanel5 = new TableLayoutPanel();
             pictureBox1 = new PictureBox();
@@ -52,9 +55,11 @@
             buttonThemHH = new Button();
             panelThemHH = new Panel();
             panel4 = new Panel();
+            panelTuyChon = new Panel();
+            buttonXoa = new Button();
+            buttonNhapHang = new Button();
             panelKetQuaTimKiem = new Panel();
             dataGridViewdsDMHH = new DataGridView();
-            ColumnCheckBox = new DataGridViewCheckBoxColumn();
             panel1.SuspendLayout();
             panel5.SuspendLayout();
             panel3.SuspendLayout();
@@ -64,6 +69,7 @@
             tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel4.SuspendLayout();
+            panelTuyChon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsDMHH).BeginInit();
             SuspendLayout();
             // 
@@ -220,13 +226,56 @@
             // 
             // panel6
             // 
+            panel6.Controls.Add(buttonTuyChon);
+            panel6.Controls.Add(buttonX);
+            panel6.Controls.Add(labelSoX);
             panel6.Controls.Add(panel);
             panel6.Controls.Add(buttonThemHH);
             panel6.Dock = DockStyle.Top;
             panel6.Location = new Point(223, 0);
             panel6.Name = "panel6";
-            panel6.Size = new Size(1159, 70);
+            panel6.Size = new Size(1159, 59);
             panel6.TabIndex = 40;
+            // 
+            // buttonTuyChon
+            // 
+            buttonTuyChon.BackColor = Color.MediumAquamarine;
+            buttonTuyChon.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            buttonTuyChon.ForeColor = SystemColors.ButtonHighlight;
+            buttonTuyChon.Location = new Point(690, 12);
+            buttonTuyChon.Name = "buttonTuyChon";
+            buttonTuyChon.Size = new Size(94, 37);
+            buttonTuyChon.TabIndex = 45;
+            buttonTuyChon.Text = "Tuy chon";
+            buttonTuyChon.UseVisualStyleBackColor = false;
+            buttonTuyChon.Visible = false;
+            buttonTuyChon.Click += buttonTuyChon_Click;
+            // 
+            // buttonX
+            // 
+            buttonX.BackColor = SystemColors.Control;
+            buttonX.FlatAppearance.BorderColor = SystemColors.Control;
+            buttonX.FlatAppearance.BorderSize = 0;
+            buttonX.ForeColor = SystemColors.ControlText;
+            buttonX.Location = new Point(601, 18);
+            buttonX.Name = "buttonX";
+            buttonX.Size = new Size(41, 29);
+            buttonX.TabIndex = 44;
+            buttonX.TabStop = false;
+            buttonX.Text = "X";
+            buttonX.UseVisualStyleBackColor = false;
+            buttonX.Visible = false;
+            buttonX.Click += buttonX_Click;
+            // 
+            // labelSoX
+            // 
+            labelSoX.AutoSize = true;
+            labelSoX.Location = new Point(513, 22);
+            labelSoX.Name = "labelSoX";
+            labelSoX.Size = new Size(50, 20);
+            labelSoX.TabIndex = 43;
+            labelSoX.Text = "label1";
+            labelSoX.Visible = false;
             // 
             // panel
             // 
@@ -279,7 +328,7 @@
             // buttonThemHH
             // 
             buttonThemHH.BackColor = Color.LimeGreen;
-            buttonThemHH.Location = new Point(548, 13);
+            buttonThemHH.Location = new Point(948, 7);
             buttonThemHH.Name = "buttonThemHH";
             buttonThemHH.Size = new Size(108, 40);
             buttonThemHH.TabIndex = 37;
@@ -291,21 +340,54 @@
             // 
             panelThemHH.AutoSize = true;
             panelThemHH.BackColor = SystemColors.Window;
-            panelThemHH.Location = new Point(548, 3);
+            panelThemHH.Location = new Point(948, 3);
             panelThemHH.Name = "panelThemHH";
-            panelThemHH.Size = new Size(137, 49);
+            panelThemHH.Size = new Size(178, 87);
             panelThemHH.TabIndex = 38;
             // 
             // panel4
             // 
+            panel4.Controls.Add(panelTuyChon);
             panel4.Controls.Add(panelKetQuaTimKiem);
             panel4.Controls.Add(dataGridViewdsDMHH);
             panel4.Controls.Add(panelThemHH);
             panel4.Dock = DockStyle.Fill;
-            panel4.Location = new Point(223, 70);
+            panel4.Location = new Point(223, 59);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1159, 582);
+            panel4.Size = new Size(1159, 593);
             panel4.TabIndex = 41;
+            // 
+            // panelTuyChon
+            // 
+            panelTuyChon.AutoSize = true;
+            panelTuyChon.BackColor = SystemColors.Window;
+            panelTuyChon.Controls.Add(buttonXoa);
+            panelTuyChon.Controls.Add(buttonNhapHang);
+            panelTuyChon.Location = new Point(690, 6);
+            panelTuyChon.Name = "panelTuyChon";
+            panelTuyChon.Size = new Size(185, 90);
+            panelTuyChon.TabIndex = 40;
+            panelTuyChon.Visible = false;
+            // 
+            // buttonXoa
+            // 
+            buttonXoa.Location = new Point(19, 51);
+            buttonXoa.Name = "buttonXoa";
+            buttonXoa.Size = new Size(145, 29);
+            buttonXoa.TabIndex = 1;
+            buttonXoa.Text = "Xoa";
+            buttonXoa.UseVisualStyleBackColor = true;
+            buttonXoa.Click += buttonXoa_Click;
+            // 
+            // buttonNhapHang
+            // 
+            buttonNhapHang.Location = new Point(19, 12);
+            buttonNhapHang.Name = "buttonNhapHang";
+            buttonNhapHang.Size = new Size(145, 29);
+            buttonNhapHang.TabIndex = 0;
+            buttonNhapHang.Text = "Nhap hang";
+            buttonNhapHang.UseVisualStyleBackColor = true;
+            buttonNhapHang.Click += buttonNhapHang_Click;
             // 
             // panelKetQuaTimKiem
             // 
@@ -319,6 +401,7 @@
             // dataGridViewdsDMHH
             // 
             dataGridViewdsDMHH.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewdsDMHH.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewdsDMHH.BackgroundColor = SystemColors.Window;
             dataGridViewdsDMHH.BorderStyle = BorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -330,14 +413,13 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridViewdsDMHH.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewdsDMHH.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewdsDMHH.Columns.AddRange(new DataGridViewColumn[] { ColumnCheckBox });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F);
             dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dataGridViewdsDMHH.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewdsDMHH.Dock = DockStyle.Fill;
             dataGridViewdsDMHH.Location = new Point(0, 0);
@@ -346,17 +428,11 @@
             dataGridViewdsDMHH.RowHeadersVisible = false;
             dataGridViewdsDMHH.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             dataGridViewdsDMHH.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewdsDMHH.Size = new Size(1159, 582);
+            dataGridViewdsDMHH.Size = new Size(1159, 593);
             dataGridViewdsDMHH.TabIndex = 37;
             dataGridViewdsDMHH.CellDoubleClick += dataGridViewdsDMHH_CellClick;
-            // 
-            // ColumnCheckBox
-            // 
-            ColumnCheckBox.HeaderText = "";
-            ColumnCheckBox.MinimumWidth = 6;
-            ColumnCheckBox.Name = "ColumnCheckBox";
-            ColumnCheckBox.Resizable = DataGridViewTriState.True;
-            ColumnCheckBox.SortMode = DataGridViewColumnSortMode.Automatic;
+            dataGridViewdsDMHH.CellValueChanged += dataGridViewdsDMHH_CellValueChanged;
+            dataGridViewdsDMHH.CurrentCellDirtyStateChanged += dataGridViewdsDMHH_CurrentCellDirtyStateChanged;
             // 
             // DanhMuc
             // 
@@ -381,12 +457,14 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             panel.ResumeLayout(false);
             tableLayoutPanel5.ResumeLayout(false);
             tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            panelTuyChon.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsDMHH).EndInit();
             ResumeLayout(false);
         }
@@ -417,6 +495,11 @@
         private Panel panel4;
         private DataGridView dataGridViewdsDMHH;
         private Panel panelKetQuaTimKiem;
-        private DataGridViewCheckBoxColumn ColumnCheckBox;
+        private Button buttonTuyChon;
+        private Button buttonX;
+        private Label labelSoX;
+        private Panel panelTuyChon;
+        private Button buttonXoa;
+        private Button buttonNhapHang;
     }
 }

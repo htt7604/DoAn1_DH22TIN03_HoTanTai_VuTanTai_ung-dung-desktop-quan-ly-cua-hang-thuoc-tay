@@ -12,13 +12,14 @@ namespace QL_Nha_thuoc.HangHoa
     {
         private string maHangHoa;
         private string maDonViTinh;
-
+        private string maNV;
         public ChitietHangHoa(string maHH,string maDVT)
         {
             InitializeComponent();
             maHangHoa = maHH;
             maDonViTinh = maDVT;
             this.Load += ChitietHangHoa_Load; // Gọi hàm khi form load
+            maNV=Session.TaiKhoanDangNhap.MaNhanVien; // Lấy mã nhân viên từ session
         }
 
         private void ChitietHangHoa_Load(object sender, EventArgs e)
@@ -262,54 +263,39 @@ namespace QL_Nha_thuoc.HangHoa
             {
                 try
                 {
-                    using (SqlConnection conn = new CSDL().GetConnection())
+                    bool xoaGiaBan = ClassGiaBanHH.XoaGiaBanTheoMaHangHoa(maHangHoa);
+                    if (xoaGiaBan)
                     {
-                        conn.Open();
-
-                        // Nếu cần xóa luôn giá hàng hóa trước (nếu không có ON DELETE CASCADE)
-                        string deleteGiaHH = "DELETE FROM GIA_HANG_HOA WHERE MA_HANG_HOA = @maHH";
-                        using (SqlCommand cmdGia = new SqlCommand(deleteGiaHH, conn))
-                        {
-                            cmdGia.Parameters.AddWithValue("@maHH", maHangHoa);
-                            cmdGia.ExecuteNonQuery();
-                        }
-
-                        // Sau đó xóa hàng hóa
-                        string deleteHangHoa = "DELETE FROM HANG_HOA WHERE MA_HANG_HOA = @maHH";
-                        using (SqlCommand cmd = new SqlCommand(deleteHangHoa, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@maHH", maHangHoa);
-                            int rows = cmd.ExecuteNonQuery();
-
-                            bool xoa= ClassGiaBanHH.XoaGiaBanTheoMaHangHoa(maHangHoa,maDonViTinh);
-                            if (rows > 0&& xoa==false)
-                            {
-                                MessageBox.Show("Xóa hàng hóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                this.Close(); // Đóng form chi tiết
-                            }
-                            else
-                            {
-                                MessageBox.Show("Không tìm thấy hàng hóa để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            }
-                        }
-                        //cap nhat  chi tiet phieu kiem kho
-                        //tim toan bo chi tiet phieu kiem kho co ma hang hoa nay
-                        // Cập nhật chi tiết phiếu kiểm kho
-
-                        PhieuKiemKho maphieukiemcochuahanghoa = PhieuKiemKho.LayPhieuKiemKho(maHangHoa);
-                        ClassChiTietPhieuKiemKho ClassChiTietPhieuKiemKho = new ClassChiTietPhieuKiemKho {
-                            MaPhieuKiemKho = maHangHoa, // Giả sử MaPhieuKiemKho là mã hàng hóa
-                            MaHangHoa = maHangHoa,
-                            SoLuongHeThong = 0, // Cập nhật số lượng hệ thống về 0
-                            SoLuongThucTe = 0, // Cập nhật số lượng thực tế về 0
-                            GhiChu = "Hàng hóa đã bị xóa" // Ghi chú nếu cần
-                        };      
-                        ClassChiTietPhieuKiemKho.CapNhatChiTietPhieuKiemKho(ClassChiTietPhieuKiemKho);
-
-                        //xoa phieu kiem kho
-
+                        MessageBox.Show("Xóa giá bán hàng hóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+                    bool xoaHangHoa = ClassHangHoa.XoaHangHoa(maHangHoa,maNV);
+                    if (xoaHangHoa)
+                    {
+                        MessageBox.Show("Xóa hàng hóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close(); // Đóng form chi tiết
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy hàng hóa để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
+                    //cap nhat  chi tiet phieu kiem kho
+                    //tim toan bo chi tiet phieu kiem kho co ma hang hoa nay
+                    // Cập nhật chi tiết phiếu kiểm kho
+
+                    ClassPhieuKiemKho maphieukiemcochuahanghoa = ClassPhieuKiemKho.LayPhieuKiemKho(maHangHoa);
+                    ClassChiTietPhieuKiemKho ClassChiTietPhieuKiemKho = new ClassChiTietPhieuKiemKho
+                    {
+                        MaPhieuKiemKho = maHangHoa, // Giả sử MaPhieuKiemKho là mã hàng hóa
+                        MaHangHoa = maHangHoa,
+                        SoLuongHeThong = 0, // Cập nhật số lượng hệ thống về 0
+                        SoLuongThucTe = 0, // Cập nhật số lượng thực tế về 0
+                        GhiChu = "Hàng hóa đã bị xóa" // Ghi chú nếu cần
+                    };
+                    ClassChiTietPhieuKiemKho.CapNhatChiTietPhieuKiemKho(ClassChiTietPhieuKiemKho);
                 }
+
+                //xoa phieu kiem kho
                 catch (Exception ex)
                 {
                     MessageBox.Show("Lỗi khi xóa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);

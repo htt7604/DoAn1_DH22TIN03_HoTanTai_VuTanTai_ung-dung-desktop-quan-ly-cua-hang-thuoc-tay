@@ -8,6 +8,9 @@ namespace QL_Nha_thuoc.DangNhap
 {
     public partial class FormLogin : Form
     {
+        // Sự kiện để thông báo khi form đăng nhập đã đóng
+        public event Action FormDaDong;
+
         public FormLogin()
         {
             InitializeComponent();

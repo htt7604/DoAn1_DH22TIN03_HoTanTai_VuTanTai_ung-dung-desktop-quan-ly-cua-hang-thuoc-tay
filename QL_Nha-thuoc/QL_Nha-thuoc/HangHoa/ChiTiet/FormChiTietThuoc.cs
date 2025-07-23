@@ -256,7 +256,7 @@ namespace QL_Nha_thuoc.HangHoa
                 try
                 {
                     //xoa gia hang hoa truoc
-                    ClassGiaBanHH.XoaGiaBanTheoMaHangHoa(maHangHoa,maDoViTinh);
+                    ClassGiaBanHH.XoaGiaBanTheoMaHangHoaVaDVT(maHangHoa,maDoViTinh);
                     using (SqlConnection conn = new CSDL().GetConnection())
                     {
                         conn.Open();

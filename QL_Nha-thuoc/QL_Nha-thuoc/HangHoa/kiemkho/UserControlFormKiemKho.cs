@@ -33,6 +33,25 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             textBoxTongThucTe.Text = tong.ToString();
         }
 
+        public int CapNhatSTT()
+        {
+            int stt = 1;
+
+            // Giả sử bạn đặt tên FlowLayoutPanel là flowLayoutPanelKiemKho
+            var flPanel = this.Controls.Find("flowLayoutPanelKiemKho", true).FirstOrDefault() as FlowLayoutPanel;
+            if (flPanel == null) return 0;
+
+            foreach (Control control in flPanel.Controls)
+            {
+                if (control is UserControlHangHoaKiemKho item)
+                {
+                    item.SetSTT(stt);
+                    stt++;
+                }
+            }
+
+            return stt - 1;
+        }
 
         public void ThemHang(model.ClassHangHoa thongtin)
         {
@@ -63,7 +82,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             item.OnSoLuongThucTeThayDoi += (s, e) =>
             {
                 CapNhatTongSoLuongThucTe();
-                
+
             };
 
             flowLayoutPanelKiemKho.Controls.Add(item);
@@ -75,7 +94,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
         public void SetTrangThaiPhieu()
         {
             //add usercontrolhanghoakiemkho vao flowlayoutpanel
-            PhieuKiemKho phieukiemkho = PhieuKiemKho.LayPhieuKiemKho(MaKiemKho);
+            ClassPhieuKiemKho phieukiemkho = ClassPhieuKiemKho.LayPhieuKiemKho(MaKiemKho);
             if (phieukiemkho == null)
             {
                 MessageBox.Show("No record found for the given MaKiemKho.");
@@ -88,7 +107,8 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             comboBoxTaiKhoan.Text = phieukiemkho.TenNhanVien;
             //them usercontrolcotkiemkho vao flowlayoutpanel
             var usercontrolCotKiemKho = new UserControlCotKiemKho();
-            usercontrolCotKiemKho.Width = flowLayoutPanelKiemKho.ClientSize.Width - flowLayoutPanelKiemKho.Padding.Horizontal - 5;
+            //usercontrolCotKiemKho.Width = flowLayoutPanelKiemKho.ClientSize.Width - flowLayoutPanelKiemKho.Padding.Horizontal - 5;
+            usercontrolCotKiemKho.Dock = DockStyle.Top;
             flowLayoutPanelKiemKho.Controls.Add(usercontrolCotKiemKho);
 
         }
@@ -137,8 +157,58 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             MessageBox.Show("Lưu tạm phiếu kiểm kho thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-
-
+        private void buttonHoanThanh_Click(object sender, EventArgs e)
+        {
+            //tao chi tiet phieu kiem kho 
+            List<ClassChiTietPhieuKiemKho> danhSachChiTiet = new List<ClassChiTietPhieuKiemKho>();
+            foreach (UserControlHangHoaKiemKho item in flowLayoutPanelKiemKho.Controls.OfType<UserControlHangHoaKiemKho>())
+            {
+                ClassChiTietPhieuKiemKho chiTiet = new ClassChiTietPhieuKiemKho
+                {
+                    MaPhieuKiemKho = MaKiemKho,
+                    MaHangHoa = item.MaHangHoa,
+                    TenHangHoa = item.TenHangHoa,
+                    SoLuongHeThong = item.SoLuongHeThong,
+                    SoLuongThucTe = item.SoLuongThucTe,
+                    GhiChu = textBoxGhiChu.Text.Trim()
+                };
+                danhSachChiTiet.Add(chiTiet);
+            }
+            // Lưu chi tiết phiếu kiểm kho vào cơ sở dữ liệu
+            foreach (var chiTiet in danhSachChiTiet)
+            {
+                try
+                {
+                    // Nếu dữ liệu đã tồn tại thì cập nhật, ngược lại thì thêm mới
+                    var danhSachCu = ClassChiTietPhieuKiemKho.LayDanhSachChiTietPhieuKiemKho(MaKiemKho);
+                    bool daTonTai = danhSachCu.Any(x => x.MaHangHoa == chiTiet.MaHangHoa);
+                    if (daTonTai)
+                    {
+                        ClassChiTietPhieuKiemKho.CapNhatChiTietPhieuKiemKho(chiTiet);
+                    }
+                    else
+                    {
+                        ClassChiTietPhieuKiemKho.ThemChiTietPhieuKiemKho(chiTiet);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi lưu hàng hóa {chiTiet.MaHangHoa}: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            //cập nhật phiếu kiểm kho
+            ClassPhieuKiemKho phieukiemkho = new ClassPhieuKiemKho
+            {
+                MaPhieuKiemKho = MaKiemKho,
+                TenNhanVien = comboBoxTaiKhoan.Text.Trim(),
+                NgayKiemKho = DateTime.Now,
+                ThoiGianCanBangKho = DateTime.Now,
+                TongThucTe = int.Parse(textBoxTongThucTe.Text.Trim()),
+                GhiChu = textBoxGhiChu.Text.Trim(),
+                TrangThaiPhieuKiem = "Đã cân bằng kho",
+                TongChechLech = danhSachChiTiet.Sum(x => x.ChenhLech), // Cần tính toán lại
+            };
+        }
 
 
 

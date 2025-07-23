@@ -59,30 +59,31 @@
             tableLayoutPanel1.Controls.Add(labelDonViTinh, 4, 0);
             tableLayoutPanel1.Controls.Add(labelSTT, 0, 0);
             tableLayoutPanel1.Controls.Add(labelMaHangHoa, 2, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(1091, 51);
+            tableLayoutPanel1.Size = new Size(1295, 51);
             tableLayoutPanel1.TabIndex = 10;
             // 
             // label3
             // 
             label3.Dock = DockStyle.Fill;
-            label3.Location = new Point(182, 0);
+            label3.Location = new Point(215, 0);
             label3.Name = "label3";
-            label3.Size = new Size(257, 51);
+            label3.Size = new Size(307, 51);
             label3.TabIndex = 16;
             label3.Text = "Tên hàng";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
+            label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Dock = DockStyle.Fill;
-            label2.Location = new Point(738, 0);
+            label2.Location = new Point(877, 0);
             label2.Name = "label2";
-            label2.Size = new Size(58, 51);
+            label2.Size = new Size(70, 51);
             label2.TabIndex = 14;
             label2.Text = "Thực tế";
             label2.TextAlign = ContentAlignment.MiddleCenter;
@@ -91,9 +92,9 @@
             // 
             labelTonKho.AutoSize = true;
             labelTonKho.Dock = DockStyle.Fill;
-            labelTonKho.Location = new Point(597, 0);
+            labelTonKho.Location = new Point(709, 0);
             labelTonKho.Name = "labelTonKho";
-            labelTonKho.Size = new Size(135, 51);
+            labelTonKho.Size = new Size(162, 51);
             labelTonKho.TabIndex = 12;
             labelTonKho.Text = "Tồn kho";
             labelTonKho.TextAlign = ContentAlignment.MiddleCenter;
@@ -102,9 +103,9 @@
             // 
             labelLech.AutoSize = true;
             labelLech.Dock = DockStyle.Fill;
-            labelLech.Location = new Point(802, 0);
+            labelLech.Location = new Point(953, 0);
             labelLech.Name = "labelLech";
-            labelLech.Size = new Size(100, 51);
+            labelLech.Size = new Size(120, 51);
             labelLech.TabIndex = 11;
             labelLech.Text = "SL lệch";
             labelLech.TextAlign = ContentAlignment.MiddleCenter;
@@ -112,12 +113,12 @@
             // labelDonViTinh
             // 
             labelDonViTinh.Dock = DockStyle.Fill;
-            labelDonViTinh.Location = new Point(445, 0);
+            labelDonViTinh.Location = new Point(528, 0);
             labelDonViTinh.Name = "labelDonViTinh";
-            labelDonViTinh.Size = new Size(146, 51);
+            labelDonViTinh.Size = new Size(175, 51);
             labelDonViTinh.TabIndex = 7;
             labelDonViTinh.Text = "ĐVT";
-            labelDonViTinh.TextAlign = ContentAlignment.MiddleCenter;
+            labelDonViTinh.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // labelSTT
             // 
@@ -125,7 +126,7 @@
             labelSTT.Dock = DockStyle.Fill;
             labelSTT.Location = new Point(3, 0);
             labelSTT.Name = "labelSTT";
-            labelSTT.Size = new Size(50, 51);
+            labelSTT.Size = new Size(60, 51);
             labelSTT.TabIndex = 3;
             labelSTT.Text = "STT";
             labelSTT.TextAlign = ContentAlignment.MiddleCenter;
@@ -133,9 +134,9 @@
             // labelMaHangHoa
             // 
             labelMaHangHoa.Dock = DockStyle.Fill;
-            labelMaHangHoa.Location = new Point(99, 0);
+            labelMaHangHoa.Location = new Point(117, 0);
             labelMaHangHoa.Name = "labelMaHangHoa";
-            labelMaHangHoa.Size = new Size(77, 51);
+            labelMaHangHoa.Size = new Size(92, 51);
             labelMaHangHoa.TabIndex = 4;
             labelMaHangHoa.Text = "Mã hàng ";
             labelMaHangHoa.TextAlign = ContentAlignment.MiddleCenter;

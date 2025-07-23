@@ -346,9 +346,9 @@ namespace QL_Nha_thuoc.HangHoa
             if (kq)
             {
                 //tao ma phieu kiem kho moi 
-                string makiemkho = PhieuKiemKho.SinhMaPhieuMoi();
+                string makiemkho = ClassPhieuKiemKho.SinhMaPhieuMoi();
                 //them phieu kiem kho
-                PhieuKiemKho phieuKiemKho = new PhieuKiemKho
+                ClassPhieuKiemKho phieuKiemKho = new ClassPhieuKiemKho
                 {
                     MaPhieuKiemKho = makiemkho,
                     NgayKiemKho = DateTime.Now,
@@ -356,7 +356,7 @@ namespace QL_Nha_thuoc.HangHoa
                     GhiChu = "Cập nhật tồn kho hàng hóa",
                     TrangThaiPhieuKiem = "Đã cân bằng kho"
                 };
-                PhieuKiemKho.ThemPhieuKiemKho(phieuKiemKho);
+                ClassPhieuKiemKho.ThemPhieuKiemKho(phieuKiemKho);
                 //tao chi tiet phieu kiem kho
                 ClassChiTietPhieuKiemKho chiTietPhieuKiemKho = new ClassChiTietPhieuKiemKho
                 {

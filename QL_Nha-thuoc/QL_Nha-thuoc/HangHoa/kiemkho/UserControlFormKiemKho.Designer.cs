@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tableLayoutPanel1 = new TableLayoutPanel();
+            splitContainer1 = new SplitContainer();
             flowLayoutPanelKiemKho = new FlowLayoutPanel();
             panel2 = new Panel();
             textBoxTongThucTe = new TextBox();
@@ -42,33 +42,38 @@
             label3 = new Label();
             label2 = new Label();
             comboBoxTaiKhoan = new ComboBox();
-            tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // splitContainer1
             // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 416F));
-            tableLayoutPanel1.Controls.Add(flowLayoutPanelKiemKho, 0, 0);
-            tableLayoutPanel1.Controls.Add(panel2, 1, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(1368, 553);
-            tableLayoutPanel1.TabIndex = 0;
+            splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.Location = new Point(0, 0);
+            splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            splitContainer1.Panel1.Controls.Add(flowLayoutPanelKiemKho);
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.Controls.Add(panel2);
+            splitContainer1.Size = new Size(1368, 553);
+            splitContainer1.SplitterDistance = 956;
+            splitContainer1.TabIndex = 0;
             // 
             // flowLayoutPanelKiemKho
             // 
             flowLayoutPanelKiemKho.Dock = DockStyle.Fill;
             flowLayoutPanelKiemKho.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanelKiemKho.Location = new Point(3, 3);
+            flowLayoutPanelKiemKho.Location = new Point(0, 0);
             flowLayoutPanelKiemKho.Name = "flowLayoutPanelKiemKho";
-            flowLayoutPanelKiemKho.Size = new Size(946, 547);
-            flowLayoutPanelKiemKho.TabIndex = 3;
+            flowLayoutPanelKiemKho.Size = new Size(956, 553);
+            flowLayoutPanelKiemKho.TabIndex = 4;
             // 
             // panel2
             // 
@@ -85,10 +90,10 @@
             panel2.Controls.Add(label2);
             panel2.Controls.Add(comboBoxTaiKhoan);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(955, 3);
+            panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(410, 547);
-            panel2.TabIndex = 2;
+            panel2.Size = new Size(408, 553);
+            panel2.TabIndex = 6;
             // 
             // textBoxTongThucTe
             // 
@@ -121,6 +126,7 @@
             buttonHoanThanh.Size = new Size(128, 125);
             buttonHoanThanh.TabIndex = 7;
             buttonHoanThanh.Text = "Hoan thanh";
+            buttonHoanThanh.Click += buttonHoanThanh_Click;
             // 
             // buttonLuuTam
             // 
@@ -129,7 +135,6 @@
             buttonLuuTam.Size = new Size(125, 125);
             buttonLuuTam.TabIndex = 6;
             buttonLuuTam.Text = "Luu tam";
-            buttonLuuTam.Click += buttonLuuTam_Click;
             // 
             // labelTime
             // 
@@ -189,10 +194,13 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(splitContainer1);
             Name = "UserControlFormKiemKho";
             Size = new Size(1368, 553);
-            tableLayoutPanel1.ResumeLayout(false);
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ResumeLayout(false);
@@ -200,7 +208,8 @@
 
         #endregion
 
-        private TableLayoutPanel tableLayoutPanel1;
+        private SplitContainer splitContainer1;
+        public FlowLayoutPanel flowLayoutPanelKiemKho;
         private Panel panel2;
         private TextBox textBoxTongThucTe;
         private TextBox textBoxTrangThai;
@@ -213,6 +222,5 @@
         private Label label3;
         private Label label2;
         private ComboBox comboBoxTaiKhoan;
-        public FlowLayoutPanel flowLayoutPanelKiemKho;
     }
 }

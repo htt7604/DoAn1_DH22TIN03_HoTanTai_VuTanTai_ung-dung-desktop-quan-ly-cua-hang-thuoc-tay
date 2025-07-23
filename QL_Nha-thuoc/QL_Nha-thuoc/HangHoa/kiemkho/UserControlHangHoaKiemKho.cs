@@ -13,7 +13,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             InitializeComponent();
         }
         public string MaHangHoa { get; private set; }
-        public string TenHangHoa => textBoxTenHang.Text.Trim();
+        public string TenHangHoa => labelTenHangHoa.Text.Trim();
         public string DonViTinh => labelDonViTinh.Text.Trim();
         public int SoLuongHeThong => int.Parse(labelTonKho.Text.Trim());
         public void SetData(model.ClassHangHoa thongtin)
@@ -21,10 +21,14 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             MaHangHoa = thongtin.MaHangHoa;
 
             labelMaHangHoa.Text = thongtin.MaHangHoa;
-            textBoxTenHang.Text = thongtin.TenHangHoa;
+            labelTenHangHoa.Text = thongtin.TenHangHoa;
             labelTonKho.Text = thongtin.SoLuongTon.ToString();
 
             labelDonViTinh.Text = $"ĐVT: {thongtin.DonViTinh}";
+        }
+        public void SetSTT(int stt)
+        {
+            labelSTT.Text = stt.ToString();
         }
 
         public int SoLuongThucTe { get; private set; }
@@ -62,14 +66,32 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
 
 
 
+
         private void buttonXoa_Click(object sender, EventArgs e)
         {
-            // Xóa UserControl này khỏi danh sách kiểm kho
-            if (this.Parent != null)
+            if (this.Parent is FlowLayoutPanel panel)
             {
-                this.Parent.Controls.Remove(this);
-            }
+                // Xóa chính UserControl này khỏi FlowLayoutPanel
+                panel.Controls.Remove(this);
 
+                // Duyệt lại toàn bộ các UserControl còn lại để cập nhật STT
+                int stt = 1;
+                foreach (Control ctrl in panel.Controls)
+                {
+                    if (ctrl is UserControlHangHoaKiemKho item)
+                    {
+                        item.SetSTT(stt);
+                        stt++;
+                    }
+                }
+            }
         }
+
+
+
+
+
+
+
     }
 }

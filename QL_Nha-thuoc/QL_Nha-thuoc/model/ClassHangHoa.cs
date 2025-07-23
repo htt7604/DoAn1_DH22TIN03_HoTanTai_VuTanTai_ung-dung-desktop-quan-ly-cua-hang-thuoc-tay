@@ -45,12 +45,12 @@ namespace QL_Nha_thuoc.model
         public string MaHangSX { get; set; }
         public string TenHangSanXuat { get; set; }
 
-        public DateTime? ThoiGianTao {  get; set; }
+        public DateTime? ThoiGianTao { get; set; }
 
         // Constructor đầy đủ
-        public ClassHangHoa(string maHangHoa,string maThuoc, string tenHangHoa, string donViTinh, int soLuongTon, decimal giaNhap, decimal giaBan,
+        public ClassHangHoa(string maHangHoa, string maThuoc, string tenHangHoa, string donViTinh, int soLuongTon, decimal giaNhap, decimal giaBan,
                           string nhaCungCap, string noiSanXuat, DateTime? hanSuDung, string maLoai, string tenLoai,
-                          string maVach, string ghiChu, string hinhAnh,string maHangSX,string tinhTrang,DateTime? thoiGianTao)
+                          string maVach, string ghiChu, string hinhAnh, string maHangSX, string tinhTrang, DateTime? thoiGianTao)
         {
             MaHangHoa = maHangHoa;
             MaThuoc = maThuoc;
@@ -76,8 +76,8 @@ namespace QL_Nha_thuoc.model
         // Constructor rỗng
         public ClassHangHoa() { }
 
-         public static List<ClassHangHoa> LayThongTinHH(string maHH)
-         {
+        public static List<ClassHangHoa> LayThongTinHH(string maHH)
+        {
             var danhSach = new List<ClassHangHoa>();
 
             using (SqlConnection conn = DBHelperHH.GetConnection())
@@ -115,7 +115,9 @@ namespace QL_Nha_thuoc.model
             left join NHOM_HANG NH on HH.MA_NHOM_HH=NH.MA_NHOM_HH
             LEFT JOIN LOAI_HANG LHH ON NH.MA_LOAI_HH = LHH.MA_LOAI_HH
             left join HANG_SAN_XUAT HSX on HH.MA_HANG_SX=HSX.MA_HANG_SX
-            WHERE HH.MA_HANG_HOA = @maHH";
+            WHERE HH.MA_HANG_HOA = @maHH
+            AND HH.MA_HANG_HOA NOT LIKE '%_DELETED'
+              ";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@maHH", "%" + maHH + "%");
@@ -150,7 +152,7 @@ namespace QL_Nha_thuoc.model
                             QuyCachDongGoi = reader["QUY_CACH_DONG_GOI"]?.ToString(),
                             TenHangSanXuat = reader["TEN_HANG_SAN_XUAT"]?.ToString(),
                             MaHangSX = reader["MA_HANG_SX"]?.ToString(),
-                            TinhTrang= reader["TINH_TRANG_HH"]?.ToString() // Thêm thuộc tính Tình trạng hàng hóa
+                            TinhTrang = reader["TINH_TRANG_HH"]?.ToString() // Thêm thuộc tính Tình trạng hàng hóa
 
                         };
 
@@ -206,7 +208,8 @@ namespace QL_Nha_thuoc.model
          LEFT JOIN CHI_TIET_PHIEU_NHAP CTPN ON CTPN.MA_HANG_HOA=HH.MA_HANG_HOA
          LEFT JOIN PHIEU_NHAP_HANG PN ON PN.MA_PHIEU_NHAP=CTPN.MA_PHIEU_NHAP
          LEFT JOIN NHA_CUNG_CAP NCC ON NCC.MA_NHA_CUNG_CAP=PN.MA_NHA_CUNG_CAP
-        WHERE HH.MA_HANG_HOA = @maHH";
+ WHERE HH.MA_HANG_HOA = @maHH
+            AND HH.MA_HANG_HOA NOT LIKE '%_DELETED' ";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@maHH", maHH);
@@ -235,7 +238,7 @@ namespace QL_Nha_thuoc.model
                             QuyCachDongGoi = reader["QUY_CACH_DONG_GOI"]?.ToString(),
                             MaHangSX = reader["MA_HANG_SX"]?.ToString(),
                             TenHangSanXuat = reader["TEN_HANG_SX"]?.ToString(),
-                            TinhTrang= reader["TINH_TRANG_HH"]?.ToString(), // Thêm thuộc tính Tình trạng hàng hóa
+                            TinhTrang = reader["TINH_TRANG_HH"]?.ToString(), // Thêm thuộc tính Tình trạng hàng hóa
 
                         };
                     }
@@ -531,8 +534,9 @@ namespace QL_Nha_thuoc.model
             LEFT JOIN LOAI_HANG LHH ON NH.MA_LOAI_HH = LHH.MA_LOAI_HH
             LEFT JOIN HANG_SAN_XUAT HSX ON HH.MA_HANG_SX = HSX.MA_HANG_SX
             WHERE 
-                HH.MA_HANG_HOA LIKE @tuKhoa OR
-                HH.TEN_HANG_HOA LIKE @tuKhoa
+    (HH.MA_HANG_HOA LIKE @tuKhoa OR HH.TEN_HANG_HOA LIKE @tuKhoa)
+    AND HH.MA_HANG_HOA NOT LIKE '%_DELETED'
+
         )
         SELECT * FROM HangHoaCTE WHERE RN = 1";
 
@@ -619,7 +623,10 @@ namespace QL_Nha_thuoc.model
         LEFT JOIN NHOM_HANG NH ON HH.MA_NHOM_HH = NH.MA_NHOM_HH
         LEFT JOIN LOAI_HANG LH ON NH.MA_LOAI_HH = LH.MA_LOAI_HH
         LEFT JOIN HANG_SAN_XUAT HSX ON HH.MA_HANG_SX = HSX.MA_HANG_SX
-        WHERE HH.MA_HANG_HOA = @maHH AND DVT.MA_DON_VI_TINH = @maDVT";
+        WHERE HH.MA_HANG_HOA = @maHH 
+          AND DVT.MA_DON_VI_TINH = @maDVT
+          AND HH.MA_HANG_HOA NOT LIKE '%_DELETED'";
+
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@maHH", maHH);
@@ -665,10 +672,63 @@ namespace QL_Nha_thuoc.model
 
 
 
+        public static bool XoaHangHoa(string maHH, string maNN)
+        {
+            bool daCapNhat = false;
+                // Lấy thông tin hàng hóa trước khi bị xóa
+                var thongTinHang = ClassHangHoa.LayThongTinMotHangHoa(maHH);
+                if (thongTinHang == null)
+                    return false;
+
+                // Tạo mã phiếu kiểm kho mới
+                string maPhieuKiem = ClassPhieuKiemKho.SinhMaPhieuMoi();
+
+            // Thêm phiếu kiểm kho
+            ClassPhieuKiemKho phieuKiemKho = new ClassPhieuKiemKho
+            {
+                    MaPhieuKiemKho = maPhieuKiem,
+                    NgayKiemKho = DateTime.Now,
+                    MaNhanVien = Session.TaiKhoanDangNhap.MaNhanVien,
+                    GhiChu = $"Tự động cân bằng do xóa hàng hóa: {thongTinHang.TenHangHoa}",
+                    TrangThaiPhieuKiem = "Đã cân bằng kho"
+                };
+
+                bool themPhieu = ClassPhieuKiemKho.ThemPhieuKiemKho(phieuKiemKho);
+
+                if (themPhieu)
+                {
+                    ClassChiTietPhieuKiemKho chiTiet = new ClassChiTietPhieuKiemKho
+                    {
+                        MaPhieuKiemKho = maPhieuKiem,
+                        MaHangHoa = maHH,
+                        TenHangHoa = thongTinHang.TenHangHoa,
+                        SoLuongHeThong = thongTinHang.SoLuongTon,
+                        SoLuongThucTe = 0
+                    };
+
+                    bool themChiTiet = ClassChiTietPhieuKiemKho.ThemChiTietPhieuKiemKho(chiTiet);
+
+                    if (themChiTiet)
+                    {
+                        MessageBox.Show("Đã tạo phiếu kiểm kho để ghi nhận việc xóa hàng hóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            
+            using (SqlConnection conn = DBHelperHH.GetConnection())
+            {
+                string query = "UPDATE HANG_HOA SET MA_HANG_HOA = MA_HANG_HOA + '_DELETED' WHERE MA_HANG_HOA = @maHH";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@maHH", maHH);
+                conn.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+                daCapNhat = rowsAffected > 0;
+            }
+            return daCapNhat;
+        }
+
+
+
 
     }
-
-
-
 
 }

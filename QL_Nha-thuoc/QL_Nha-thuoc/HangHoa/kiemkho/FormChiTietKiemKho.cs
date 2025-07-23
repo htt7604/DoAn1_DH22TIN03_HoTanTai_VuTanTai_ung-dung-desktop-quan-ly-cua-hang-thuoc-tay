@@ -54,19 +54,19 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             }
 
             // Load chi tiết phiếu vào DataGridView
-            List<ChiTietPhieuKiemKho> chiTietList = ChiTietPhieuKiemKho.LayChiTietPhieuKiemKho(maPhieuKiem);
+            List<ClassChiTietPhieuKiemKho> chiTietList = ClassChiTietPhieuKiemKho.LayDanhSachChiTietPhieuKiemKho(maPhieuKiem);
 
             var table = new DataTable();
             table.Columns.Add("Mã hàng hóa");
-            table.Columns.Add("Số lượng hệ thống", typeof(int));
             table.Columns.Add("Tên hàng hóa", typeof(string));
+            table.Columns.Add("Số lượng hệ thống", typeof(int));
             table.Columns.Add("Số lượng thực tế", typeof(int));
             table.Columns.Add("Chênh lệch", typeof(int));
 
             foreach (var ct in chiTietList)
             {
                 int chenhLech = ct.SoLuongThucTe - ct.SoLuongHeThong;
-                table.Rows.Add(ct.MaHangHoa, ct.SoLuongHeThong, ct.TenHangHoa, ct.SoLuongThucTe, chenhLech);
+                table.Rows.Add(ct.MaHangHoa, ct.TenHangHoa, ct.SoLuongHeThong, ct.SoLuongThucTe, chenhLech);
             }
 
             dataGridViewdsTTPhieuKiemKho.DataSource = table;

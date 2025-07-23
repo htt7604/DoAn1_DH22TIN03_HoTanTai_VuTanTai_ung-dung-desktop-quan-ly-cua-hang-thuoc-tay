@@ -630,16 +630,16 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                     if(tonKhohientai != tonKhoStr)
                     {
                         //tao ma phieu kiem kho moi 
-                        string makiemkho = PhieuKiemKho.SinhMaPhieuMoi();
+                        string makiemkho = ClassPhieuKiemKho.SinhMaPhieuMoi();
                         //them phieu kiem kho
-                        PhieuKiemKho phieuKiemKho = new PhieuKiemKho
+                        ClassPhieuKiemKho phieuKiemKho = new ClassPhieuKiemKho
                         {
                             MaPhieuKiemKho = makiemkho,
                             NgayKiemKho = DateTime.Now,
                             MaNhanVien =Session.TaiKhoanDangNhap.MaNhanVien, // Cần thay đổi theo mã nhân viên thực tế
                             GhiChu = "Cập nhật tồn kho hàng hóa"
                         };
-                        PhieuKiemKho.ThemPhieuKiemKho(phieuKiemKho);
+                        ClassPhieuKiemKho.ThemPhieuKiemKho(phieuKiemKho);
                         //tao chi tiet phieu kiem kho
                         ClassChiTietPhieuKiemKho chiTietPhieuKiemKho = new ClassChiTietPhieuKiemKho
                         {

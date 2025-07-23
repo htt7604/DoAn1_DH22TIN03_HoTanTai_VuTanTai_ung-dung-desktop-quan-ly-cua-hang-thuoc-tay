@@ -223,7 +223,7 @@
             dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dataGridViewdsPhieuKiemKho.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewdsPhieuKiemKho.Dock = DockStyle.Fill;
             dataGridViewdsPhieuKiemKho.Location = new Point(251, 57);

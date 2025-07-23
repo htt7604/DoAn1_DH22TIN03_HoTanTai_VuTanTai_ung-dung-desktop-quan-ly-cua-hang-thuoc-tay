@@ -254,7 +254,7 @@ namespace QL_Nha_thuoc.model
             }
         }
 
-        public static bool XoaGiaBanTheoMaHangHoa(string maHH,string maDVT)
+        public static bool XoaGiaBanTheoMaHangHoaVaDVT(string maHH,string maDVT)
         {
             if (string.IsNullOrEmpty(maHH))
                 return false;
@@ -272,6 +272,20 @@ namespace QL_Nha_thuoc.model
             }
         }
 
+        //hma xoa them ma hang hoa
+        public static bool XoaGiaBanTheoMaHangHoa(string maHH)
+        {
+            if (string.IsNullOrEmpty(maHH))
+                return false;
+            using (SqlConnection conn = DBHelperHH.GetConnection())
+            {
+                conn.Open();
+                string query = "DELETE FROM GIA_HANG_HOA WHERE MA_HANG_HOA = @maHH";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@maHH", maHH);
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
 
         //lay danh sach don vi tinh cua ma hang hoa
         public static List<ClassDonViTinh> LayDanhSachDonViTinhTheoMaHangHoa(string maHangHoa)

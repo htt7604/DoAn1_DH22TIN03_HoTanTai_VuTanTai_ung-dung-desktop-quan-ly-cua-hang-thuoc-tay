@@ -145,7 +145,7 @@ namespace QL_Nha_thuoc.DoiTac
             }
 
             // Xác nhận xóa
-            DialogResult result = MessageBox.Show(
+            DialogResult result = MessageBox.Show(  
                 $"Bạn có chắc chắn muốn xóa {soDongCanXoa} nhà cung cấp đã chọn?",
                 "Xác nhận xóa",
                 MessageBoxButtons.YesNo,

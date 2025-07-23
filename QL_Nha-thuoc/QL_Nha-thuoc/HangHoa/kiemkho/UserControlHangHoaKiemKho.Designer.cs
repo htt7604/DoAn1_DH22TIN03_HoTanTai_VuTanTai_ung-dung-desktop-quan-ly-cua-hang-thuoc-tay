@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             tableLayoutPanel1 = new TableLayoutPanel();
+            labelTenHangHoa = new Label();
             labelTonKho = new Label();
             labelLech = new Label();
             labelDonViTinh = new Label();
             labelSTT = new Label();
             labelMaHangHoa = new Label();
             buttonXoa = new Button();
-            textBoxTenHang = new TextBox();
             numericUpDown1 = new NumericUpDown();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
@@ -54,13 +54,13 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5.87188625F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.786477F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.63701F));
+            tableLayoutPanel1.Controls.Add(labelTenHangHoa, 3, 0);
             tableLayoutPanel1.Controls.Add(labelTonKho, 5, 0);
             tableLayoutPanel1.Controls.Add(labelLech, 7, 0);
             tableLayoutPanel1.Controls.Add(labelDonViTinh, 4, 0);
             tableLayoutPanel1.Controls.Add(labelSTT, 0, 0);
             tableLayoutPanel1.Controls.Add(labelMaHangHoa, 2, 0);
             tableLayoutPanel1.Controls.Add(buttonXoa, 1, 0);
-            tableLayoutPanel1.Controls.Add(textBoxTenHang, 3, 0);
             tableLayoutPanel1.Controls.Add(numericUpDown1, 6, 0);
             tableLayoutPanel1.Dock = DockStyle.Top;
             tableLayoutPanel1.Location = new Point(0, 0);
@@ -69,6 +69,16 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Size = new Size(1124, 49);
             tableLayoutPanel1.TabIndex = 9;
+            // 
+            // labelTenHangHoa
+            // 
+            labelTenHangHoa.Dock = DockStyle.Fill;
+            labelTenHangHoa.Location = new Point(186, 0);
+            labelTenHangHoa.Name = "labelTenHangHoa";
+            labelTenHangHoa.Size = new Size(265, 49);
+            labelTenHangHoa.TabIndex = 13;
+            labelTenHangHoa.Text = "ten hang";
+            labelTenHangHoa.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // labelTonKho
             // 
@@ -134,20 +144,6 @@
             buttonXoa.UseVisualStyleBackColor = true;
             buttonXoa.Click += buttonXoa_Click;
             // 
-            // textBoxTenHang
-            // 
-            textBoxTenHang.BackColor = SystemColors.Window;
-            textBoxTenHang.BorderStyle = BorderStyle.None;
-            textBoxTenHang.Dock = DockStyle.Fill;
-            textBoxTenHang.Font = new Font("Segoe UI", 10F);
-            textBoxTenHang.Location = new Point(186, 3);
-            textBoxTenHang.Multiline = true;
-            textBoxTenHang.Name = "textBoxTenHang";
-            textBoxTenHang.ReadOnly = true;
-            textBoxTenHang.Size = new Size(265, 43);
-            textBoxTenHang.TabIndex = 6;
-            textBoxTenHang.Text = "TenHang";
-            // 
             // numericUpDown1
             // 
             numericUpDown1.Dock = DockStyle.Fill;
@@ -180,9 +176,9 @@
         private Label labelSTT;
         private Label labelMaHangHoa;
         private Button buttonXoa;
-        private TextBox textBoxTenHang;
         private NumericUpDown numericUpDown1;
         private Label labelTonKho;
         private Label labelLech;
+        private Label labelTenHangHoa;
     }
 }

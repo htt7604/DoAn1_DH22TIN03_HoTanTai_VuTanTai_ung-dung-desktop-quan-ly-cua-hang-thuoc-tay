@@ -72,6 +72,31 @@ namespace QL_Nha_thuoc
         //ham load form
         private void DanhMuc_Load(object sender, EventArgs e)
         {
+            // Tạo cột checkbox đầu tiên
+            DataGridViewCheckBoxColumn colCheck = new DataGridViewCheckBoxColumn();
+            colCheck.Name = "";
+            colCheck.Width = 50;
+
+            // Custom header có checkbox
+            var header = new DatagridViewCheckBoxHeaderCell();
+            colCheck.HeaderCell = header;
+
+            dataGridViewdsDMHH.Columns.Insert(0, colCheck);
+
+            // Gắn sự kiện khi click vào header checkbox
+            header.OnCheckAllChanged += (isChecked) =>
+            {
+                dataGridViewdsDMHH.EndEdit(); // <<== Dừng edit dòng hiện tại (có thể đang chọn)
+
+                foreach (DataGridViewRow row in dataGridViewdsDMHH.Rows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        row.Cells[""].Value = isChecked;
+                    }
+                }
+            };
+
             LoadCheckBoxTuSQL();
             radioButtonTatCa.Checked = true; // Mặc định chọn "Tất cả"
             panelLoaiHang.Visible = false; // ẩn panel loại hàng khi load form
@@ -225,7 +250,7 @@ namespace QL_Nha_thuoc
          JOIN NHOM_HANG NH  ON NH.MA_NHOM_HH = HH.MA_NHOM_HH 
          JOIN LOAI_HANG LH ON LH.MA_LOAI_HH = NH.MA_LOAI_HH 
          JOIN GIA_HANG_HOA GHH ON HH.MA_HANG_HOA = GHH.MA_HANG_HOA
-         WHERE 1=1 ");
+         WHERE  HH.MA_HANG_HOA NOT LIKE '%_DELETED'  ");
 
             parameters = new Dictionary<string, object>();
 
@@ -302,6 +327,8 @@ namespace QL_Nha_thuoc
                     dataGridViewdsDMHH.Columns["TON_KHO"].HeaderText = "Tồn kho";
                     dataGridViewdsDMHH.Columns["THOI_GIAN_TAO"].HeaderText = "Ngày tạo";
 
+                    //them su kien click vao checkbox cua datagitview
+
                 }
                 catch (Exception ex)
                 {
@@ -353,7 +380,7 @@ namespace QL_Nha_thuoc
                     {
                         //// Mở form chi tiết hàng hóa                      
                         // Truyền tham chiếu this vào form chi tiết
-                        var formChiTiet = new ChitietHangHoa(maHH,maDVT);
+                        var formChiTiet = new ChitietHangHoa(maHH, maDVT);
                         formChiTiet.FormClosed += (s, args) => Getthongtinhanghoa(); // Load lại danh sách khi form chi tiết đóng
                         formChiTiet.ShowDialog();
                     }
@@ -366,7 +393,7 @@ namespace QL_Nha_thuoc
                     if (!string.IsNullOrEmpty(maHH))
                     {
                         // Mở form chi tiết hàng hóa
-                        FormChiTietThuoc formChiTietthuoc = new FormChiTietThuoc(maHH,maDVT);
+                        FormChiTietThuoc formChiTietthuoc = new FormChiTietThuoc(maHH, maDVT);
                         formChiTietthuoc.FormClosed += (s, args) => Getthongtinhanghoa(); // Load lại danh sách khi form chi tiết đóng
                         formChiTietthuoc.ShowDialog(); // Mở modal                  
                     }
@@ -517,7 +544,7 @@ namespace QL_Nha_thuoc
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string query = "SELECT HH.MA_HANG_HOA, HH.TEN_HANG_HOA, GBHH.GIA_BAN_HH, HH.HINH_ANH_HH, HH.TON_KHO FROM HANG_HOA HH JOIN GIA_HANG_HOA GBHH ON HH.MA_HANG_HOA = GBHH.MA_HANG_HOA  WHERE TEN_HANG_HOA LIKE @keyword";
+                string query = "SELECT HH.MA_HANG_HOA, HH.TEN_HANG_HOA, GBHH.GIA_BAN_HH, HH.HINH_ANH_HH, HH.TON_KHO FROM HANG_HOA HH JOIN GIA_HANG_HOA GBHH ON HH.MA_HANG_HOA = GBHH.MA_HANG_HOA  WHERE HH.MA_HANG_HOA NOT LIKE '%_DELETED' AND  HH.TEN_HANG_HOA LIKE @keyword";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
@@ -578,7 +605,7 @@ namespace QL_Nha_thuoc
             foreach (var thuoc in ds)
             {
                 var uc = new UC_ItemThuoc();
-                uc.SetData(thuoc.Ten, thuoc.Ma, thuoc.Gia, thuoc.hinhanhhh,thuoc.SoLuongTon);
+                uc.SetData(thuoc.Ten, thuoc.Ma, thuoc.Gia, thuoc.hinhanhhh, thuoc.SoLuongTon);
                 uc.Width = panelKetQuaTimKiem.Width;
                 uc.Location = new Point(0, y);
                 y += uc.Height + 10;
@@ -598,5 +625,139 @@ namespace QL_Nha_thuoc
             }
 
         }
+
+        private void buttonTuyChon_Click(object sender, EventArgs e)
+        {
+            panelTuyChon.Visible = !panelTuyChon.Visible; // Hiển thị hoặc ẩn panel tùy chọn
+        }
+
+
+        private void CapNhatSoLuongDaChon()
+        {
+            int soLuongChon = 0;
+
+            foreach (DataGridViewRow row in dataGridViewdsDMHH.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells[0].Value))
+                {
+                    soLuongChon++;
+                }
+            }
+
+            if (soLuongChon > 0)
+            {
+                labelSoX.Text = $"Đã chọn {soLuongChon}";
+                labelSoX.Visible = true;
+                buttonXoa.Visible = true;
+                buttonX.Visible = true;
+                buttonTuyChon.Visible = true; // Hiển thị nút tùy chọn
+            }
+            else
+            {
+                labelSoX.Text = "";
+                labelSoX.Visible = false;
+                buttonXoa.Visible = false;
+                buttonX.Visible = false;
+                buttonTuyChon.Visible = false; // Ẩn nút tùy chọn
+                panelTuyChon.Visible = false; // Ẩn panel tùy chọn
+            }
+        }
+        private void dataGridViewdsDMHH_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0) // Cột checkbox
+            {
+                bool isChecked = Convert.ToBoolean(dataGridViewdsDMHH.Rows[e.RowIndex].Cells[0].Value);
+                //string maHH = dataGridViewdsDMHH.Rows[e.RowIndex].Cells["Mã hàng hóa"].Value?.ToString();
+
+                CapNhatSoLuongDaChon();
+            }
+        }
+
+        private void checkBoxChonTatCa_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void dataGridViewdsDMHH_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewdsDMHH.IsCurrentCellDirty)
+            {
+                dataGridViewdsDMHH.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+        private void buttonX_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridViewdsDMHH.Rows)
+            {
+                row.Cells[0].Value = false; // Bỏ tích checkbox ở cột đầu tiên
+            }
+
+            // Ẩn các thành phần liên quan đến việc chọn
+            labelSoX.Text = "";
+            labelSoX.Visible = false;
+            buttonXoa.Visible = false;
+            buttonX.Visible = false;
+            buttonTuyChon.Visible = false; // Ẩn nút tùy chọn
+            panelTuyChon.Visible = false; // Ẩn panel tùy chọn
+        }
+
+        private void buttonXoa_Click(object sender, EventArgs e)
+        {
+            bool coDongDuocChon = false;
+
+            // Kiểm tra xem có hàng nào được chọn (checkbox) không
+            foreach (DataGridViewRow row in dataGridViewdsDMHH.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells[""].Value) == true)
+                {
+                    coDongDuocChon = true;
+                    break;
+                }
+            }
+
+            if (!coDongDuocChon)
+            {
+                MessageBox.Show("Vui lòng chọn ít nhất một hàng để xóa.");
+                return;
+            }
+
+            // Xác nhận xóa
+            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa các hàng đã chọn không?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                // Duyệt ngược để tránh lỗi khi xóa dòng trong DataGridView
+                for (int i = dataGridViewdsDMHH.Rows.Count - 1; i >= 0; i--)
+                {
+                    DataGridViewRow row = dataGridViewdsDMHH.Rows[i];
+
+                    if (Convert.ToBoolean(row.Cells[""].Value) == true)
+                    {
+                        string maHangHoa = row.Cells["MA_HANG_HOA"].Value?.ToString();
+                        if (!string.IsNullOrEmpty(maHangHoa))
+                        {
+                            ClassHangHoa.XoaHangHoa(maHangHoa,Session.TaiKhoanDangNhap.MaNhanVien); // Xóa trong DB
+                        }
+
+                        dataGridViewdsDMHH.Rows.RemoveAt(i); // Xóa trong giao diện
+                    }
+                }
+
+                // Cập nhật lại danh sách hàng hóa
+                Getthongtinhanghoa();
+                labelSoX.Text = "";
+                labelSoX.Visible = false;
+                buttonXoa.Visible = false;
+                buttonX.Visible = false;
+                buttonTuyChon.Visible = false; // Ẩn nút tùy chọn
+                panelTuyChon.Visible = false; // Ẩn panel tùy chọn
+            }
+        }
+
+        private void buttonNhapHang_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
