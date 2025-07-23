@@ -45,11 +45,12 @@ namespace QL_Nha_thuoc.model
         public string MaHangSX { get; set; }
         public string TenHangSanXuat { get; set; }
 
+        public DateTime? ThoiGianTao { get; set; }
 
         // Constructor đầy đủ
-        public ClassHangHoa(string maHangHoa,string maThuoc, string tenHangHoa, string donViTinh, int soLuongTon, decimal giaNhap, decimal giaBan,
+        public ClassHangHoa(string maHangHoa, string maThuoc, string tenHangHoa, string donViTinh, int soLuongTon, decimal giaNhap, decimal giaBan,
                           string nhaCungCap, string noiSanXuat, DateTime? hanSuDung, string maLoai, string tenLoai,
-                          string maVach, string ghiChu, string hinhAnh,string maHangSX,string tinhTrang)
+                          string maVach, string ghiChu, string hinhAnh, string maHangSX, string tinhTrang, DateTime? thoiGianTao)
         {
             MaHangHoa = maHangHoa;
             MaThuoc = maThuoc;
@@ -67,14 +68,16 @@ namespace QL_Nha_thuoc.model
             GhiChu = ghiChu;
             HinhAnh = hinhAnh;
             MaHangSX = maHangSX;
-            TinhTrang = tinhTrang; // Thêm thuộc tính Tình trạng hàng hóa
+            TinhTrang = tinhTrang;
+            ThoiGianTao = thoiGianTao;
+            // Thêm thuộc tính Tình trạng hàng hóa
         }
 
         // Constructor rỗng
         public ClassHangHoa() { }
 
-         public static List<ClassHangHoa> LayThongTinHH(string maHH)
-         {
+        public static List<ClassHangHoa> LayThongTinHH(string maHH)
+        {
             var danhSach = new List<ClassHangHoa>();
 
             using (SqlConnection conn = DBHelperHH.GetConnection())
@@ -112,7 +115,9 @@ namespace QL_Nha_thuoc.model
             left join NHOM_HANG NH on HH.MA_NHOM_HH=NH.MA_NHOM_HH
             LEFT JOIN LOAI_HANG LHH ON NH.MA_LOAI_HH = LHH.MA_LOAI_HH
             left join HANG_SAN_XUAT HSX on HH.MA_HANG_SX=HSX.MA_HANG_SX
-            WHERE HH.MA_HANG_HOA = @maHH";
+            WHERE HH.MA_HANG_HOA = @maHH
+            AND HH.MA_HANG_HOA NOT LIKE '%_DELETED'
+              ";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@maHH", "%" + maHH + "%");
@@ -147,7 +152,7 @@ namespace QL_Nha_thuoc.model
                             QuyCachDongGoi = reader["QUY_CACH_DONG_GOI"]?.ToString(),
                             TenHangSanXuat = reader["TEN_HANG_SAN_XUAT"]?.ToString(),
                             MaHangSX = reader["MA_HANG_SX"]?.ToString(),
-                            TinhTrang= reader["TINH_TRANG_HH"]?.ToString() // Thêm thuộc tính Tình trạng hàng hóa
+                            TinhTrang = reader["TINH_TRANG_HH"]?.ToString() // Thêm thuộc tính Tình trạng hàng hóa
 
                         };
 
@@ -169,20 +174,21 @@ namespace QL_Nha_thuoc.model
             using (SqlConnection conn = DBHelperHH.GetConnection())
             {
                 string query = @"
-                SELECT 
+                 SELECT 
                 HH.MA_HANG_HOA,
                 HH.MA_THUOC,
                 HH.TEN_HANG_HOA,
+                NH.MA_LOAI_HH,
                 DVT.MA_DON_VI_TINH,
                 DVT.TEN_DON_VI_TINH,
                 HH.TON_KHO,
-                GBHH.GIA_VON_HH,
-                GBHH.GIA_BAN_HH,
+                GHH.GIA_VON_HH,
+                GHH.GIA_BAN_HH,
                 NCC.MA_NHA_CUNG_CAP,
                 NCC.TEN_NHA_CUNG_CAP,
                 HH.NGAY_HET_HAN_HH,
-                LHH.MA_LOAI_HH,
-                LHH.TEN_LOAI_HH,
+                LH.MA_LOAI_HH,
+                LH.TEN_LOAI_HH,
                 HH.MA_VACH,
                 HH.GHI_CHU_HH,
                 HH.HINH_ANH_HH,
@@ -193,16 +199,17 @@ namespace QL_Nha_thuoc.model
                 HH.MA_HANG_SX,
                 HH.TINH_TRANG_HH,
                 HSX.TEN_HANG_SX
-
-            FROM HANG_HOA HH
-            LEFT JOIN GIA_HANG_HOA GBHH ON HH.MA_HANG_HOA = GBHH.MA_HANG_HOA
-            LEFT JOIN DON_VI_TINH DVT ON GBHH.MA_DON_VI_TINH = DVT.MA_DON_VI_TINH
-             LEFT JOIN PHIEU_NHAP_HANG PNH on HH.MA_HANG_HOA=PNH.MA_HANG_HOA
-            LEFT JOIN NHA_CUNG_CAP NCC ON PNH.MA_NHA_CUNG_CAP=NCC.MA_NHA_CUNG_CAP
-            left join NHOM_HANG NH on HH.MA_NHOM_HH=NH.MA_NHOM_HH
-            LEFT JOIN LOAI_HANG LHH ON NH.MA_LOAI_HH = LHH.MA_LOAI_HH
-            left join HANG_SAN_XUAT HSX on HH.MA_HANG_SX=HSX.MA_HANG_SX
-            WHERE HH.MA_HANG_HOA = @maHH";
+        FROM HANG_HOA HH
+         JOIN NHOM_HANG NH ON HH.MA_NHOM_HH = NH.MA_NHOM_HH
+         JOIN LOAI_HANG LH ON NH.MA_LOAI_HH = LH.MA_LOAI_HH
+         LEFT JOIN HANG_SAN_XUAT HSX ON HH.MA_HANG_SX = HSX.MA_HANG_SX
+         LEFT JOIN GIA_HANG_HOA GHH ON GHH.MA_HANG_HOA = HH.MA_HANG_HOA
+         LEFT JOIN DON_VI_TINH DVT ON GHH.MA_DON_VI_TINH = DVT.MA_DON_VI_TINH
+         LEFT JOIN CHI_TIET_PHIEU_NHAP CTPN ON CTPN.MA_HANG_HOA=HH.MA_HANG_HOA
+         LEFT JOIN PHIEU_NHAP_HANG PN ON PN.MA_PHIEU_NHAP=CTPN.MA_PHIEU_NHAP
+         LEFT JOIN NHA_CUNG_CAP NCC ON NCC.MA_NHA_CUNG_CAP=PN.MA_NHA_CUNG_CAP
+ WHERE HH.MA_HANG_HOA = @maHH
+            AND HH.MA_HANG_HOA NOT LIKE '%_DELETED' ";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@maHH", maHH);
@@ -217,6 +224,7 @@ namespace QL_Nha_thuoc.model
                         {
                             MaHangHoa = reader["MA_HANG_HOA"].ToString(),
                             MaThuoc = reader["MA_THUOC"]?.ToString(),
+                            MaLoaiHangHoa = reader["MA_LOAI_HH"]?.ToString(),
                             TenHangHoa = reader["TEN_HANG_HOA"].ToString(),
                             DonViTinh = reader["TEN_DON_VI_TINH"]?.ToString(),
                             SoLuongTon = reader["TON_KHO"] != DBNull.Value ? Convert.ToInt32(reader["TON_KHO"]) : 0,
@@ -230,7 +238,7 @@ namespace QL_Nha_thuoc.model
                             QuyCachDongGoi = reader["QUY_CACH_DONG_GOI"]?.ToString(),
                             MaHangSX = reader["MA_HANG_SX"]?.ToString(),
                             TenHangSanXuat = reader["TEN_HANG_SX"]?.ToString(),
-                            TinhTrang= reader["TINH_TRANG_HH"]?.ToString(), // Thêm thuộc tính Tình trạng hàng hóa
+                            TinhTrang = reader["TINH_TRANG_HH"]?.ToString(), // Thêm thuộc tính Tình trạng hàng hóa
 
                         };
                     }
@@ -418,13 +426,13 @@ namespace QL_Nha_thuoc.model
                         MA_HANG_HOA, HINH_ANH_HH, TEN_HANG_HOA, MA_VACH, QUY_CACH_DONG_GOI, 
                         GHI_CHU_HH, MA_THUOC,
                         HOAT_CHAT, HAM_LUONG, NGAY_HET_HAN_HH, 
-                        SO_DANG_KY_THUOC, TON_KHO, MA_NHOM_HH, MA_HANG_SX, TINH_TRANG_HH
+                        SO_DANG_KY_THUOC, TON_KHO, MA_NHOM_HH, MA_HANG_SX, TINH_TRANG_HH,THOI_GIAN_TAO
                     )
                     VALUES (
                         @maHH, @hinhAnh, @tenHH, @maVach, @quyCach, 
                         @ghiChu, @maThuoc,
                         @hoatChat, @hamLuong, @hanSD,
-                        @soDK, @tonKho, @maNhom, @maHangSX, @tinhTrang
+                        @soDK, @tonKho, @maNhom, @maHangSX, @tinhTrang,@thoigiantao
                     )";
 
                     using (SqlCommand cmd = new SqlCommand(insertHH, conn, transaction))
@@ -449,6 +457,7 @@ namespace QL_Nha_thuoc.model
                         cmd.Parameters.AddWithValue("@maNhom", (object)hangHoa.MaNhomHang ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@maHangSX", hangHoa.MaHangSX);
                         cmd.Parameters.AddWithValue("@tinhTrang", (object)hangHoa.TinhTrang ?? DBNull.Value); // Thêm tham số Tình trạng hàng hóa
+                        cmd.Parameters.AddWithValue("@thoigiantao", DateTime.Now);
                         cmd.ExecuteNonQuery();
                     }
 
@@ -482,13 +491,244 @@ namespace QL_Nha_thuoc.model
             }
         }
 
+        public static List<ClassHangHoa> TimKiemHangHoa(string tuKhoa)
+        {
+            var danhSach = new List<ClassHangHoa>();
+
+            using (SqlConnection conn = DBHelperHH.GetConnection())
+            {
+                string query = @"
+        WITH HangHoaCTE AS (
+            SELECT 
+                HH.MA_HANG_HOA,
+                HH.MA_THUOC,
+                HH.TEN_HANG_HOA,
+                DVT.MA_DON_VI_TINH,
+                DVT.TEN_DON_VI_TINH,
+                HH.TON_KHO,
+                GBHH.GIA_VON_HH,
+                GBHH.GIA_BAN_HH,
+                NCC.MA_NHA_CUNG_CAP,
+                NCC.TEN_NHA_CUNG_CAP,
+                HH.NGAY_HET_HAN_HH,
+                LHH.MA_LOAI_HH,
+                LHH.TEN_LOAI_HH,
+                HH.MA_VACH,
+                HH.GHI_CHU_HH,
+                HH.HINH_ANH_HH,
+                HH.HOAT_CHAT,
+                HH.HAM_LUONG,
+                HH.SO_DANG_KY_THUOC,
+                HH.QUY_CACH_DONG_GOI,
+                HH.TINH_TRANG_HH,
+                HSX.MA_HANG_SX,
+                HSX.TEN_HANG_SX,
+                ROW_NUMBER() OVER (PARTITION BY HH.MA_HANG_HOA ORDER BY PNH.NGAY_NHAP DESC) AS RN
+            FROM HANG_HOA HH
+            LEFT JOIN GIA_HANG_HOA GBHH ON HH.MA_HANG_HOA = GBHH.MA_HANG_HOA
+            LEFT JOIN DON_VI_TINH DVT ON GBHH.MA_DON_VI_TINH = DVT.MA_DON_VI_TINH
+            LEFT JOIN CHI_TIET_PHIEU_NHAP CTPN ON HH.MA_HANG_HOA = CTPN.MA_HANG_HOA
+            LEFT JOIN PHIEU_NHAP_HANG PNH ON CTPN.MA_PHIEU_NHAP = PNH.MA_PHIEU_NHAP
+            LEFT JOIN NHA_CUNG_CAP NCC ON PNH.MA_NHA_CUNG_CAP = NCC.MA_NHA_CUNG_CAP
+            LEFT JOIN NHOM_HANG NH ON HH.MA_NHOM_HH = NH.MA_NHOM_HH
+            LEFT JOIN LOAI_HANG LHH ON NH.MA_LOAI_HH = LHH.MA_LOAI_HH
+            LEFT JOIN HANG_SAN_XUAT HSX ON HH.MA_HANG_SX = HSX.MA_HANG_SX
+            WHERE 
+    (HH.MA_HANG_HOA LIKE @tuKhoa OR HH.TEN_HANG_HOA LIKE @tuKhoa)
+    AND HH.MA_HANG_HOA NOT LIKE '%_DELETED'
+
+        )
+        SELECT * FROM HangHoaCTE WHERE RN = 1";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@tuKhoa", "%" + tuKhoa + "%");
+
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var hh = new ClassHangHoa
+                        {
+                            MaHangHoa = reader["MA_HANG_HOA"].ToString(),
+                            MaThuoc = reader["MA_THUOC"]?.ToString(),
+                            TenHangHoa = reader["TEN_HANG_HOA"].ToString(),
+                            DonViTinh = reader["TEN_DON_VI_TINH"]?.ToString(),
+                            MaDonViTinh = reader["MA_DON_VI_TINH"]?.ToString(),
+                            SoLuongTon = reader["TON_KHO"] != DBNull.Value ? Convert.ToInt32(reader["TON_KHO"]) : 0,
+                            GiaVon = reader["GIA_VON_HH"] != DBNull.Value ? Convert.ToDecimal(reader["GIA_VON_HH"]) : 0,
+                            GiaBan = reader["GIA_BAN_HH"] != DBNull.Value ? Convert.ToDecimal(reader["GIA_BAN_HH"]) : 0,
+                            MaNhaCungCap = reader["MA_NHA_CUNG_CAP"]?.ToString(),
+                            NhaCungCap = reader["TEN_NHA_CUNG_CAP"]?.ToString(),
+                            HanSuDung = reader["NGAY_HET_HAN_HH"] != DBNull.Value ? Convert.ToDateTime(reader["NGAY_HET_HAN_HH"]) : (DateTime?)null,
+                            MaLoaiHangHoa = reader["MA_LOAI_HH"]?.ToString(),
+                            TenLoaiHangHoa = reader["TEN_LOAI_HH"]?.ToString(),
+                            MaVach = reader["MA_VACH"]?.ToString(),
+                            GhiChu = reader["GHI_CHU_HH"]?.ToString(),
+                            HinhAnh = reader["HINH_ANH_HH"]?.ToString(),
+                            HoatChatChinh = reader["HOAT_CHAT"]?.ToString(),
+                            HamLuong = reader["HAM_LUONG"]?.ToString(),
+                            SoDangKy = reader["SO_DANG_KY_THUOC"]?.ToString(),
+                            QuyCachDongGoi = reader["QUY_CACH_DONG_GOI"]?.ToString(),
+                            TinhTrang = reader["TINH_TRANG_HH"]?.ToString(),
+                            MaHangSX = reader["MA_HANG_SX"]?.ToString(),
+                            TenHangSanXuat = reader["TEN_HANG_SX"]?.ToString()
+                        };
+
+                        danhSach.Add(hh);
+                    }
+                }
+            }
+
+            return danhSach;
+        }
+
+        public static ClassHangHoa LayThongTinTheoMaVaDonViTinh(string maHH, string maDVT)
+        {
+            ClassHangHoa hh = null;
+
+            using (SqlConnection conn = DBHelperHH.GetConnection())
+            {
+                string query = @"
+        SELECT 
+            HH.MA_HANG_HOA,
+            HH.MA_THUOC,
+            HH.TEN_HANG_HOA,
+            DVT.MA_DON_VI_TINH,
+            DVT.TEN_DON_VI_TINH,
+            HH.TON_KHO,
+            GBHH.GIA_VON_HH,
+            GBHH.GIA_BAN_HH,
+            NCC.MA_NHA_CUNG_CAP,
+            NCC.TEN_NHA_CUNG_CAP,
+            HH.NGAY_HET_HAN_HH,
+            LH.MA_LOAI_HH,
+            LH.TEN_LOAI_HH,
+            HH.MA_VACH,
+            HH.GHI_CHU_HH,
+            HH.HINH_ANH_HH,
+            HH.HOAT_CHAT,
+            HH.HAM_LUONG,
+            HH.SO_DANG_KY_THUOC,
+            HH.QUY_CACH_DONG_GOI,
+            HH.TINH_TRANG_HH,
+            HSX.MA_HANG_SX,
+            HSX.TEN_HANG_SX
+        FROM HANG_HOA HH
+        LEFT JOIN GIA_HANG_HOA GBHH ON HH.MA_HANG_HOA = GBHH.MA_HANG_HOA
+        LEFT JOIN DON_VI_TINH DVT ON GBHH.MA_DON_VI_TINH = DVT.MA_DON_VI_TINH
+        LEFT JOIN CHI_TIET_PHIEU_NHAP CTPN ON HH.MA_HANG_HOA = CTPN.MA_HANG_HOA
+        LEFT JOIN PHIEU_NHAP_HANG PNH ON CTPN.MA_PHIEU_NHAP = PNH.MA_PHIEU_NHAP
+        LEFT JOIN NHA_CUNG_CAP NCC ON PNH.MA_NHA_CUNG_CAP = NCC.MA_NHA_CUNG_CAP
+        LEFT JOIN NHOM_HANG NH ON HH.MA_NHOM_HH = NH.MA_NHOM_HH
+        LEFT JOIN LOAI_HANG LH ON NH.MA_LOAI_HH = LH.MA_LOAI_HH
+        LEFT JOIN HANG_SAN_XUAT HSX ON HH.MA_HANG_SX = HSX.MA_HANG_SX
+        WHERE HH.MA_HANG_HOA = @maHH 
+          AND DVT.MA_DON_VI_TINH = @maDVT
+          AND HH.MA_HANG_HOA NOT LIKE '%_DELETED'";
+
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@maHH", maHH);
+                cmd.Parameters.AddWithValue("@maDVT", maDVT);
+
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        hh = new ClassHangHoa
+                        {
+                            MaHangHoa = reader["MA_HANG_HOA"].ToString(),
+                            MaThuoc = reader["MA_THUOC"]?.ToString(),
+                            TenHangHoa = reader["TEN_HANG_HOA"]?.ToString(),
+                            MaDonViTinh = reader["MA_DON_VI_TINH"]?.ToString(),
+                            DonViTinh = reader["TEN_DON_VI_TINH"]?.ToString(),
+                            SoLuongTon = reader["TON_KHO"] != DBNull.Value ? Convert.ToInt32(reader["TON_KHO"]) : 0,
+                            GiaVon = reader["GIA_VON_HH"] != DBNull.Value ? Convert.ToDecimal(reader["GIA_VON_HH"]) : 0,
+                            GiaBan = reader["GIA_BAN_HH"] != DBNull.Value ? Convert.ToDecimal(reader["GIA_BAN_HH"]) : 0,
+                            MaNhaCungCap = reader["MA_NHA_CUNG_CAP"]?.ToString(),
+                            NhaCungCap = reader["TEN_NHA_CUNG_CAP"]?.ToString(),
+                            HanSuDung = reader["NGAY_HET_HAN_HH"] != DBNull.Value ? Convert.ToDateTime(reader["NGAY_HET_HAN_HH"]) : (DateTime?)null,
+                            MaLoaiHangHoa = reader["MA_LOAI_HH"]?.ToString(),
+                            TenLoaiHangHoa = reader["TEN_LOAI_HH"]?.ToString(),
+                            MaVach = reader["MA_VACH"]?.ToString(),
+                            GhiChu = reader["GHI_CHU_HH"]?.ToString(),
+                            HinhAnh = reader["HINH_ANH_HH"]?.ToString(),
+                            HoatChatChinh = reader["HOAT_CHAT"]?.ToString(),
+                            HamLuong = reader["HAM_LUONG"]?.ToString(),
+                            SoDangKy = reader["SO_DANG_KY_THUOC"]?.ToString(),
+                            QuyCachDongGoi = reader["QUY_CACH_DONG_GOI"]?.ToString(),
+                            TinhTrang = reader["TINH_TRANG_HH"]?.ToString(),
+                            MaHangSX = reader["MA_HANG_SX"]?.ToString(),
+                            TenHangSanXuat = reader["TEN_HANG_SX"]?.ToString()
+                        };
+                    }
+                }
+            }
+
+            return hh;
+        }
+
+
+
+        public static bool XoaHangHoa(string maHH, string maNN)
+        {
+            bool daCapNhat = false;
+                // Lấy thông tin hàng hóa trước khi bị xóa
+                var thongTinHang = ClassHangHoa.LayThongTinMotHangHoa(maHH);
+                if (thongTinHang == null)
+                    return false;
+
+                // Tạo mã phiếu kiểm kho mới
+                string maPhieuKiem = ClassPhieuKiemKho.SinhMaPhieuMoi();
+
+            // Thêm phiếu kiểm kho
+            ClassPhieuKiemKho phieuKiemKho = new ClassPhieuKiemKho
+            {
+                    MaPhieuKiemKho = maPhieuKiem,
+                    NgayKiemKho = DateTime.Now,
+                    MaNhanVien = Session.TaiKhoanDangNhap.MaNhanVien,
+                    GhiChu = $"Tự động cân bằng do xóa hàng hóa: {thongTinHang.TenHangHoa}",
+                    TrangThaiPhieuKiem = "Đã cân bằng kho"
+                };
+
+                bool themPhieu = ClassPhieuKiemKho.ThemPhieuKiemKho(phieuKiemKho);
+
+                if (themPhieu)
+                {
+                    ClassChiTietPhieuKiemKho chiTiet = new ClassChiTietPhieuKiemKho
+                    {
+                        MaPhieuKiemKho = maPhieuKiem,
+                        MaHangHoa = maHH,
+                        TenHangHoa = thongTinHang.TenHangHoa,
+                        SoLuongHeThong = thongTinHang.SoLuongTon,
+                        SoLuongThucTe = 0
+                    };
+
+                    bool themChiTiet = ClassChiTietPhieuKiemKho.ThemChiTietPhieuKiemKho(chiTiet);
+
+                    if (themChiTiet)
+                    {
+                        MessageBox.Show("Đã tạo phiếu kiểm kho để ghi nhận việc xóa hàng hóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            
+            using (SqlConnection conn = DBHelperHH.GetConnection())
+            {
+                string query = "UPDATE HANG_HOA SET MA_HANG_HOA = MA_HANG_HOA + '_DELETED' WHERE MA_HANG_HOA = @maHH";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@maHH", maHH);
+                conn.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+                daCapNhat = rowsAffected > 0;
+            }
+            return daCapNhat;
+        }
 
 
 
 
     }
-
-
-
 
 }

@@ -65,16 +65,18 @@
             // 
             // groupBox2
             // 
+            groupBox2.BackColor = SystemColors.Window;
             groupBox2.Controls.Add(comboBoxNhomHang);
             groupBox2.Location = new Point(12, 140);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(199, 125);
             groupBox2.TabIndex = 5;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Nhom hang";
+            groupBox2.Text = "Nhóm hàng ";
             // 
             // comboBoxNhomHang
             // 
+            comboBoxNhomHang.BackColor = SystemColors.Menu;
             comboBoxNhomHang.FormattingEnabled = true;
             comboBoxNhomHang.Location = new Point(22, 53);
             comboBoxNhomHang.Name = "comboBoxNhomHang";
@@ -84,6 +86,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.BackColor = SystemColors.Window;
             groupBox1.Controls.Add(comboBoxLoc);
             groupBox1.Controls.Add(comboBoxLoaiGia);
             groupBox1.Location = new Point(13, 311);
@@ -95,6 +98,7 @@
             // 
             // comboBoxLoc
             // 
+            comboBoxLoc.BackColor = SystemColors.Menu;
             comboBoxLoc.FormattingEnabled = true;
             comboBoxLoc.Location = new Point(5, 41);
             comboBoxLoc.Name = "comboBoxLoc";
@@ -104,6 +108,7 @@
             // 
             // comboBoxLoaiGia
             // 
+            comboBoxLoaiGia.BackColor = SystemColors.Menu;
             comboBoxLoaiGia.FormattingEnabled = true;
             comboBoxLoaiGia.Location = new Point(62, 41);
             comboBoxLoaiGia.Name = "comboBoxLoaiGia";
@@ -117,9 +122,9 @@
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label1.Location = new Point(47, 32);
             label1.Name = "label1";
-            label1.Size = new Size(137, 28);
+            label1.Size = new Size(131, 28);
             label1.TabIndex = 0;
-            label1.Text = "Thiet Lap Gia";
+            label1.Text = "Thiết lập giá";
             // 
             // flowLayoutPanelThietLapGia
             // 
@@ -139,7 +144,7 @@
             ClientSize = new Size(1382, 652);
             Controls.Add(splitContainer1);
             Name = "FormThietLapGia";
-            Text = "FormThietLapGia";
+            Text = "Thiết Lập Giá";
             Load += FormThietLapGia_Load;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();

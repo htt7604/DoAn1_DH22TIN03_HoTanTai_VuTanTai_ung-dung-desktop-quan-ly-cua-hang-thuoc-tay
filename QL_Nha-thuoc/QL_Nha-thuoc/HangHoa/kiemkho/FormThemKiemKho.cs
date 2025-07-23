@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using QL_Nha_thuoc.BanHang;
+using QL_Nha_thuoc.GiaoDich.NhapHang;
 using QL_Nha_thuoc.HangHoa;
 using QL_Nha_thuoc.model;
 using System;
@@ -15,9 +16,12 @@ using static QL_Nha_thuoc.DanhMuc;
 
 namespace QL_Nha_thuoc.HangHoa.kiemkho
 {
-    public partial class FormThemKiemKho : Form
+    public partial class FormThemKiemKho : Form , ICoTheReload
     {
         private string maPhieuKiemKho;
+
+        // Sự kiện để thông báo da dong 
+        public event Action FormDaDong;
 
         public FormThemKiemKho(string maPhieu)
         {
@@ -89,17 +93,18 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             {
                 var currentTab = tabControlPhieuKiem.SelectedTab;
 
-                // Tìm UserControlFormHoaDon trong TabPage hiện tại
                 var ucFormKiemKho = currentTab.Controls.OfType<UserControlFormKiemKho>().FirstOrDefault();
 
                 if (ucFormKiemKho != null)
                 {
-                    ucFormKiemKho.ThemHang(thongtin); // Gọi tới hàm đã định nghĩa trong UC
-                    ucFormKiemKho.Dock = DockStyle.Fill; // Đảm bảo UserControl chiếm toàn bộ không gian của TabPage
+                    ucFormKiemKho.ThemHang(thongtin); // Thêm hàng
+                    int sttMoi = ucFormKiemKho.CapNhatSTT(); // Cập nhật STT sau khi thêm
                 }
-
             }
         }
+
+
+
         private void textBoxTimHH_TextChanged(object sender, EventArgs e)
         {
             panelKetQuaTimKiem.BringToFront();
@@ -149,6 +154,8 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
         {
             if (tabControlPhieuKiem.TabPages.Count > 0)
             {
+
+                // Tạo một TabPage mới và thêm vào tabControlPhieuKiem
                 var currentTab = tabControlPhieuKiem.TabPages[0];
 
                 var userControlKiemKho = new UserControlFormKiemKho(maPhieuKiemKho);
@@ -157,6 +164,8 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                 currentTab.Controls.Clear();
                 currentTab.Controls.Add(userControlKiemKho);
                 userControlKiemKho.Dock = DockStyle.Fill; // Đảm bảo UserControl chiếm toàn bộ không gian của TabPage
+
+
             }
         }
 
@@ -194,7 +203,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                     {
                         ucFormKiemKho.CapNhatTongSoLuongThucTe(); // cập nhật tổng số lượng
 
-                        var phieu = new PhieuKiemKho
+                        var phieu = new ClassPhieuKiemKho
                         {
                             MaPhieuKiemKho = ucFormKiemKho.MaKiemKho,
                             MaNhanVien = Session.TaiKhoanDangNhap.MaNhanVien,
@@ -203,10 +212,11 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                             NgayKiemKho = DateTime.Now
                         };
 
-                        bool ketQua = PhieuKiemKho.CapNhatPhieuKiemKho(phieu);
+                        bool ketQua = ClassPhieuKiemKho.CapNhatPhieuKiemKho(phieu);
                         if (ketQua)
                         {
                             MessageBox.Show("Đã lưu phiếu kiểm kho tạm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FormDaDong?.Invoke();
                             this.Close(); // Đóng form sau khi lưu thành công
                         }
                         else
@@ -226,12 +236,13 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                         string maPhieu = ucFormKiemKho.MaKiemKho;
                         bool xoachitiet =  ClassChiTietPhieuKiemKho.XoaChiTietPhieuKiemKho(maPhieu); // Xóa chi tiết phiếu kiểm kho
                         // Gọi hàm xóa phiếu kiểm kho trong database
-                        bool xoaThanhCong = PhieuKiemKho.XoaPhieuKiemKho(maPhieu);
+                        bool xoaThanhCong = ClassPhieuKiemKho.XoaPhieuKiemKho(maPhieu);
 
                         if (xoaThanhCong&&xoachitiet)
                         {
                             MessageBox.Show("Đã hủy và xóa phiếu kiểm kho.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             tabControlPhieuKiem.TabPages.Remove(currentTab); // Xóa tab
+                            FormDaDong?.Invoke();
                             this.Close(); // Đóng form
                         }
                         else
@@ -246,7 +257,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
         private void buttonThemHangHoa_Click(object sender, EventArgs e)
         {
             //mo form them hang hoa
-            FormThemHanghoa formThemHangHoa = new FormThemHanghoa(maPhieuKiemKho);
+            FormThemHanghoa formThemHangHoa = new FormThemHanghoa(maPhieuKiemKho,this);
             formThemHangHoa.FormClosed += (s, args) =>
             {
                 // Khi form ThemHangHoa đóng, cập nhật lại danh sách hàng hóa trong tab hiện tại
@@ -264,6 +275,10 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
         }
 
 
+        public void ReloadSauKhiThayDoi()
+        {
+            //load 
+        }
 
 
 

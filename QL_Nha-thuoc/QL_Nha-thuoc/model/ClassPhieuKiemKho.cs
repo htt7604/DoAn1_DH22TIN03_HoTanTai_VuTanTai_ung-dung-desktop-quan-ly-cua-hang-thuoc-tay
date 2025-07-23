@@ -12,201 +12,7 @@ namespace QL_Nha_thuoc.model
             return new SqlConnection(connectionString);
         }
     }
-
-    public class ChiTietPhieuKiemKho
-    {
-        public string MaKiemKho { get; set; }
-        public string MaHangHoa { get; set; }
-        public string TenHangHoa { get; set; }
-        public int SoLuongThucTe { get; set; }
-        public int SoLuongHeThong { get; set; }
-        public string DonViTinh { get; set; }
-        public string GhiChu { get; set; }
-
-        // Constructor đầy đủ
-        public ChiTietPhieuKiemKho(string maKiemKho, string maHangHoa, string tenHangHoa, int soLuongThucTe, int soLuongHeThong, string ghiChu,string donViTinh)
-        {
-            MaKiemKho = maKiemKho;
-            MaHangHoa = maHangHoa;
-            TenHangHoa = tenHangHoa;
-            SoLuongThucTe = soLuongThucTe;
-            SoLuongHeThong = soLuongHeThong;
-            GhiChu = ghiChu;
-            DonViTinh = donViTinh; // Thêm thuộc tính đơn vị tính
-        }
-
-        // Constructor rút gọn khi chưa có mã kiểm kho và ghi chú
-        public ChiTietPhieuKiemKho(string maHangHoa, string tenHangHoa, int soLuongHeThong, string donViTinh)
-        {
-            MaHangHoa = maHangHoa;
-            TenHangHoa = tenHangHoa;
-            SoLuongHeThong = soLuongHeThong;
-            SoLuongThucTe = soLuongHeThong; // mặc định ban đầu = số lượng hệ thống
-            DonViTinh = donViTinh;
-            GhiChu = "";
-        }
-
-        // Constructor rỗng (bắt buộc nếu cần dùng trong deserialization hoặc EF)
-        public ChiTietPhieuKiemKho() { }
-
-        // Lấy danh sách chi tiết kiểm kho từ mã kiểm kho
-        public static List<ChiTietPhieuKiemKho> LayChiTietPhieuKiemKho(string maKiemKho)
-        {
-            List<ChiTietPhieuKiemKho> danhSachChiTiet = new List<ChiTietPhieuKiemKho>();
-
-            using (SqlConnection conn = DBHelperPK.GetConnection())
-            {
-                string query = @"
-                SELECT CTPKK.MA_KIEM_KHO, CTPKK.MA_HANG_HOA, HH.TEN_HANG_HOA, 
-                CTPKK.SO_LUONG_THUC_TE, CTPKK.SO_LUONG_HE_THONG, CTPKK.GHI_CHU,DVT.TEN_DON_VI_TINH
-                FROM CHI_TIET_PHIEU_KIEM_KHO CTPKK
-                JOIN HANG_HOA HH ON CTPKK.MA_HANG_HOA = HH.MA_HANG_HOA
-                JOIN GIA_HANG_HOA GBHH ON HH.MA_HANG_HOA = GBHH.MA_HANG_HOA
-                JOIN DON_VI_TINH DVT ON GBHH.MA_DON_VI_TINH = DVT.MA_DON_VI_TINH
-                WHERE CTPKK.MA_KIEM_KHO = @MaKiemKho";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@MaKiemKho", maKiemKho);
-
-                conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    string maPhieu = reader["MA_KIEM_KHO"].ToString();
-                    string maHH = reader["MA_HANG_HOA"].ToString();
-                    string tenHH = reader["TEN_HANG_HOA"]?.ToString() ?? "";
-                    int slThucTe = Convert.ToInt32(reader["SO_LUONG_THUC_TE"]);
-                    int slHeThong = Convert.ToInt32(reader["SO_LUONG_HE_THONG"]);
-                    string ghiChu = reader["GHI_CHU"]?.ToString() ?? "";
-                    string donViTinh = reader["TEN_DON_VI_TINH"]?.ToString() ?? ""; // Lấy tên đơn vị tính nếu có
-
-                    var chiTiet = new ChiTietPhieuKiemKho(maPhieu, maHH, tenHH, slThucTe, slHeThong, ghiChu, donViTinh);
-                    danhSachChiTiet.Add(chiTiet);
-                }
-            }
-
-            return danhSachChiTiet;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //public class PhieuKiemKho
-    //{
-    //    public string MaPhieuKiemKho { get; set; }
-    //    public string TenNhanVien { get; set; }
-    //    public DateTime? NgayKiemKho { get; set; }
-    //    public DateTime? ThoiGianCanBangKho { get; set; }
-    //    public string TrangThaiPhieuKiem { get; set; }  // 👈 Thêm thuộc tính mới
-
-    //    public string GhiChu { get; set; } // 👈 Thêm thuộc tính ghi chú
-
-    //    public PhieuKiemKho(string maPhieuKiemKho, string tenNV)
-    //    {
-    //        MaPhieuKiemKho = maPhieuKiemKho;
-    //        TenNhanVien = tenNV;
-    //    }
-
-    //    public PhieuKiemKho(string maPhieuKiemKho, string tenNV, DateTime ngayKiem, DateTime ngayCanBang, string trangThai,string ghiChu)
-    //    {
-    //        MaPhieuKiemKho = maPhieuKiemKho;
-    //        TenNhanVien = tenNV;
-    //        NgayKiemKho = ngayKiem;
-    //        ThoiGianCanBangKho = ngayCanBang;
-    //        TrangThaiPhieuKiem = trangThai;
-    //        GhiChu = ghiChu; // Khởi tạo ghi chú rỗng
-    //    }
-    //}
-    //public class ClassPhieuKiemKho
-    //{
-    //    public string MaPhieuKiem { get; set; }
-    //    public string MaNhanVien { get; set; }
-    //    public PhieuKiemKho PhieuKiemKho { get; set; }
-
-    //    public ClassPhieuKiemKho(string maPhieuKiem, string maNV, PhieuKiemKho phieuKiemKho)
-    //    {
-    //        MaPhieuKiem = maPhieuKiem;
-    //        MaNhanVien = maNV;
-    //        PhieuKiemKho = phieuKiemKho;
-    //    }
-
-    //    // ✅ Method để lấy thông tin phiếu kiểm kho từ DB theo mã phiếu kiểm
-    //    public static ClassPhieuKiemKho LayPhieuKiemKho(string maPhieuKiem)
-    //    {
-    //        using (SqlConnection conn = DBHelperPK.GetConnection())
-    //        {
-    //            string query = @"SELECT PKK.MA_KIEM_KHO, PKK.MA_NV, PKK.MA_KHO, PKK.NGAY_KIEM_KHO,PKK.GHI_CHU_KIEM_KHO, 
-    //                            PKK.NGAY_CAN_BANG_KHO, PKK.TRANG_THAI_PHIEU_KIEM,
-    //                            NV.HO_TEN_NV
-    //                     FROM PHIEU_KIEM_KHO PKK 
-    //                     JOIN NHAN_VIEN NV ON NV.MA_NV = PKK.MA_NV
-    //                     WHERE MA_KIEM_KHO = @MaPhieuKiem";
-
-    //            SqlCommand cmd = new SqlCommand(query, conn);
-    //            cmd.Parameters.AddWithValue("@MaPhieuKiem", maPhieuKiem);
-
-    //            conn.Open();
-    //            SqlDataReader reader = cmd.ExecuteReader();
-
-    //            if (reader.Read())
-    //            {
-    //                string maNV = reader["MA_NV"].ToString();
-    //                string hoTenNV = reader["HO_TEN_NV"].ToString();
-    //                string trangThai = reader["TRANG_THAI_PHIEU_KIEM"].ToString();
-
-    //                DateTime ngayKiem = reader["NGAY_KIEM_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_KIEM_KHO"]);
-    //                DateTime ngayCanBang = reader["NGAY_CAN_BANG_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_CAN_BANG_KHO"]);
-    //                string ghiChu = reader["GHI_CHU_KIEM_KHO"] == DBNull.Value ? "" : reader["GHI_CHU_KIEM_KHO"].ToString();
-
-    //                var phieuKiemKho = new PhieuKiemKho(maPhieuKiem, hoTenNV, ngayKiem, ngayCanBang, trangThai, ghiChu);
-    //                return new ClassPhieuKiemKho(maPhieuKiem, maNV, phieuKiemKho);
-    //            }
-    //            else
-    //            {
-    //                return null;
-    //            }
-    //        }
-    //    }
-    //    public static string SinhMaPhieuMoi(SqlConnection connection)
-    //    {
-    //        string maMoi = "PKK00001";
-    //        string query = "SELECT TOP 1 MA_KIEM_KHO FROM PHIEU_KIEM_KHO ORDER BY MA_KIEM_KHO DESC";
-
-    //        using (SqlCommand cmd = new SqlCommand(query, connection))
-    //        {
-    //            object result = cmd.ExecuteScalar();
-    //            if (result != null)
-    //            {
-    //                string maCu = result.ToString(); // VD: PKK00015
-    //                if (maCu.StartsWith("PKK") && int.TryParse(maCu.Substring(3), out int so))
-    //                {
-    //                    so++; // Tăng lên 1
-    //                    maMoi = "PKK" + so.ToString("D5"); // VD: PKK00016
-    //                }
-    //            }
-    //        }
-
-    //        return maMoi;
-    //    }
-
-
-
-
-    public class PhieuKiemKho
+    public class ClassPhieuKiemKho
     {
         // 🔹 Các thuộc tính dữ liệu
         public string MaPhieuKiemKho { get; set; }
@@ -214,30 +20,38 @@ namespace QL_Nha_thuoc.model
         public string TenNhanVien { get; set; }
         public DateTime? NgayKiemKho { get; set; }
         public DateTime? ThoiGianCanBangKho { get; set; }
+        public int TongThucTe { get; set; } // Tổng số lượng thực tế
+        public int TongChechLech { get; set; } // Tổng số lượng chênh lệch
+        public int SoLuongLechGiam { get; set; } // Số lượng giảm
+        public int SoLuongLechTang { get; set; } // Số lượng tăng
         public string TrangThaiPhieuKiem { get; set; }
         public string GhiChu { get; set; }
 
         // 🔹 Constructors
-        public PhieuKiemKho() { }
+        public ClassPhieuKiemKho() { }
 
-        public PhieuKiemKho(string maPhieu, string tenNV, DateTime? ngayKiem, DateTime? ngayCanBang, string trangThai, string ghiChu)
+        public ClassPhieuKiemKho(string maPhieu, string tenNV, DateTime? ngayKiem, DateTime? ngayCanBang,int tongThucTe,int tongChechLech,int soLuongLechGiam,int soLuongLechTang, string ghiChu, string trangThai)
         {
             MaPhieuKiemKho = maPhieu;
             TenNhanVien = tenNV;
             NgayKiemKho = ngayKiem;
             ThoiGianCanBangKho = ngayCanBang;
+            TongThucTe = tongThucTe;
+            TongChechLech = tongChechLech;
+            SoLuongLechGiam = soLuongLechGiam;
+            SoLuongLechTang = soLuongLechTang;
             TrangThaiPhieuKiem = trangThai;
             GhiChu = ghiChu;
         }
 
         // 🔹 Lấy phiếu kiểm kho từ DB
-        public static PhieuKiemKho LayPhieuKiemKho(string maPhieuKiem)
+        public static ClassPhieuKiemKho LayPhieuKiemKho(string maPhieuKiem)
         {
             using (SqlConnection conn = DBHelperPK.GetConnection())
             {
-                string query = @"SELECT PKK.MA_KIEM_KHO, PKK.MA_NV, PKK.MA_KHO, PKK.NGAY_KIEM_KHO,PKK.GHI_CHU_KIEM_KHO, 
-                              PKK.NGAY_CAN_BANG_KHO, PKK.TRANG_THAI_PHIEU_KIEM,
-                              NV.HO_TEN_NV
+                string query = @"SELECT PKK.MA_KIEM_KHO,PKK.NGAY_KIEM_KHO,PKK.NGAY_CAN_BANG_KHO,PKK.TONG_THUC_TE,
+                               PKK.TONG_CHECH_LECH,PKK.SO_LUONG_LECH_TANG,PKK.SO_LUONG_LECH_GIAM,pkk.GHI_CHU_KIEM_KHO,pkk.TRANG_THAI_PHIEU_KIEM,
+                              NV.HO_TEN_NV,PKK.MA_NV
                        FROM PHIEU_KIEM_KHO PKK 
                        JOIN NHAN_VIEN NV ON NV.MA_NV = PKK.MA_NV
                        WHERE MA_KIEM_KHO = @MaPhieuKiem";
@@ -256,8 +70,11 @@ namespace QL_Nha_thuoc.model
                     DateTime ngayKiem = reader["NGAY_KIEM_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_KIEM_KHO"]);
                     DateTime ngayCanBang = reader["NGAY_CAN_BANG_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_CAN_BANG_KHO"]);
                     string ghiChu = reader["GHI_CHU_KIEM_KHO"] == DBNull.Value ? "" : reader["GHI_CHU_KIEM_KHO"].ToString();
-                    
-                    return new PhieuKiemKho(maPhieuKiem, hoTenNV, ngayKiem, ngayCanBang, trangThai, ghiChu)
+                    int tongThucTe =reader["TONG_THUC_TE"] == DBNull.Value ? 0 : Convert.ToInt32(reader["TONG_THUC_TE"]);
+                    int tongChechLech = reader["TONG_CHECH_LECH"] == DBNull.Value ? 0 : Convert.ToInt32(reader["TONG_CHECH_LECH"]);
+                    int soLuongLechGiam = reader["SO_LUONG_LECH_GIAM"] == DBNull.Value ? 0 : Convert.ToInt32(reader["SO_LUONG_LECH_GIAM"]);
+                    int soLuongLechTang = reader["SO_LUONG_LECH_TANG"] == DBNull.Value ? 0 : Convert.ToInt32(reader["SO_LUONG_LECH_TANG"]);
+                    return new ClassPhieuKiemKho(maPhieuKiem, hoTenNV, ngayKiem, ngayCanBang,tongThucTe,tongChechLech,soLuongLechGiam,soLuongLechTang,ghiChu, trangThai)
                     {
                         MaNhanVien = maNV
                     };
@@ -268,13 +85,15 @@ namespace QL_Nha_thuoc.model
         }
 
         // 🔹 Sinh mã mới
-        public static string SinhMaPhieuMoi(SqlConnection connection)
+        public static string SinhMaPhieuMoi()
         {
             string maMoi = "PKK00001";
             string query = "SELECT TOP 1 MA_KIEM_KHO FROM PHIEU_KIEM_KHO ORDER BY MA_KIEM_KHO DESC";
 
-            using (SqlCommand cmd = new SqlCommand(query, connection))
+            using (SqlConnection conn = DBHelperPK.GetConnection())
             {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
                 object result = cmd.ExecuteScalar();
                 if (result != null)
                 {
@@ -290,8 +109,31 @@ namespace QL_Nha_thuoc.model
             return maMoi;
         }
 
-        //them
-        public static bool ThemPhieuKiemKho(PhieuKiemKho phieu)
+        //them tu dong 
+        public static string ThemPhieuKiemKhoMoi(string maNV, string maKho = "1")
+        {
+            using (SqlConnection conn = DBHelperPK.GetConnection())
+            {
+                conn.Open();
+                string maPhieu = SinhMaPhieuMoi();
+
+                string query = @"INSERT INTO PHIEU_KIEM_KHO (MA_KIEM_KHO, MA_KHO, MA_NV, NGAY_KIEM_KHO, TRANG_THAI_PHIEU_KIEM)
+                             VALUES (@MaPhieu, @MaKho, @MaNV, @NgayKiem, N'Phiếu tạm')";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@MaPhieu", maPhieu);
+                cmd.Parameters.AddWithValue("@MaKho", maKho);
+                cmd.Parameters.AddWithValue("@MaNV", maNV);
+                cmd.Parameters.AddWithValue("@NgayKiem", DateTime.Now);
+
+                cmd.ExecuteNonQuery();
+
+                return maPhieu;
+            }
+        }
+
+        //them phiếu kiểm kho mới
+        public static bool ThemPhieuKiemKho(ClassPhieuKiemKho phieu)
         {
             using (SqlConnection conn = DBHelperPK.GetConnection())
             {
@@ -328,7 +170,7 @@ namespace QL_Nha_thuoc.model
         }
 
         // 🔹 Lưu phiếu kiểm kho mới vào DB
-        public static bool CapNhatPhieuKiemKho(PhieuKiemKho phieu)
+        public static bool CapNhatPhieuKiemKho(ClassPhieuKiemKho phieu)
         {
             using (SqlConnection conn = DBHelperPK.GetConnection())
             {

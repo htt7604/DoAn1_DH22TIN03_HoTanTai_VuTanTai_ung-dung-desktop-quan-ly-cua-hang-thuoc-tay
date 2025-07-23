@@ -44,8 +44,9 @@
             // labelSDT
             // 
             labelSDT.AutoSize = true;
-            labelSDT.Location = new Point(165, 15);
+            labelSDT.Location = new Point(250, 15);
             labelSDT.Name = "labelSDT";
+            labelSDT.RightToLeft = RightToLeft.Yes;
             labelSDT.Size = new Size(50, 20);
             labelSDT.TabIndex = 1;
             labelSDT.Text = "label1";
@@ -54,10 +55,11 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
             Controls.Add(labelSDT);
             Controls.Add(labelTenNCC);
             Name = "UserControlNhaCungCap";
-            Size = new Size(306, 47);
+            Size = new Size(303, 50);
             ResumeLayout(false);
             PerformLayout();
         }

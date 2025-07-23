@@ -24,6 +24,9 @@ namespace QL_Nha_thuoc.BanHang
         public event EventHandler? DonViThayDoi;
 
         public NumericUpDown SoLuongControl => numericUpDown1;
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public decimal SoLuongTon { get; set; }
 
         public string maHangHoa;
@@ -86,6 +89,8 @@ namespace QL_Nha_thuoc.BanHang
 
 
         //truyen gia tri 
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public decimal GiaBan
         {
             get
@@ -100,11 +105,15 @@ namespace QL_Nha_thuoc.BanHang
         }
 
 
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int SoLuong
         {
             get => (int)numericUpDown1.Value;
             set => numericUpDown1.Value = value;
         }
+
 
 
 

@@ -1,21 +1,47 @@
 ﻿using Microsoft.Data.SqlClient;
 using QL_Nha_thuoc.HangHoa.Them;
 using QL_Nha_thuoc.model;
+
 using System;
 using System.Data;
 using System.Diagnostics;
 using System.Windows.Forms;
 using static QL_Nha_thuoc.DanhMuc;
+using static QL_Nha_thuoc.GiaoDich.NhapHang.FormThemNhapHang;
 
 namespace QL_Nha_thuoc.HangHoa
 {
     public partial class FormThemHanghoa : Form
     {
-        public FormThemHanghoa(string loai)
+        private ICoTheReload _formChaInterface;
+        private Action _onReloadCallback;
+
+        public FormThemHanghoa(string loai, ICoTheReload formCha)
         {
             InitializeComponent();
             this.Text = "Thêm " + loai;
+            _formChaInterface = formCha;
+            this.FormClosed += FormThemHanghoa_FormClosed;
         }
+
+        public FormThemHanghoa(string loai, Action onReload)
+        {
+            InitializeComponent();
+            this.Text = "Thêm " + loai;
+            _onReloadCallback = onReload;
+            this.FormClosed += FormThemHanghoa_FormClosed;
+        }
+
+        private void FormThemHanghoa_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _formChaInterface?.ReloadSauKhiThayDoi();
+            _onReloadCallback?.Invoke();
+        }
+
+
+
+
+
 
         // Load dữ liệu vào combobox Loại hàng
         private void LoadDataToComboBoxLoaiHanghoa()
@@ -145,6 +171,10 @@ namespace QL_Nha_thuoc.HangHoa
             LoadDataToComboBoxLoaiHanghoa();
             LoadDataToComboboxHangSX();
             LoadDataToComboboxDonViTinh();
+            textBoxMaHH.Text = ClassHangHoa.TaoMaHangHoaTuDong();
+            textBoxGiaBan.Text = "0";
+            textBoxGiaVon.Text = "0";
+            comboBoxDonViTinh.Text = "Chọn đơn vị tính";
         }
 
         private void buttonBoQua_Click(object sender, EventArgs e)
@@ -259,6 +289,11 @@ namespace QL_Nha_thuoc.HangHoa
 
             // 2. Kiểm tra và chuyển đổi số liệu giá bán - giá vốn
             decimal giaBan = 0, giaVon = 0;
+            if (string.IsNullOrWhiteSpace(textBoxTenHangHoa.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tên hàng hóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (!decimal.TryParse(textBoxGiaBan.Text.Trim(), out giaBan) || giaBan < 0)
             {
                 MessageBox.Show("Giá bán không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -278,6 +313,11 @@ namespace QL_Nha_thuoc.HangHoa
             if (comboBoxNhomHang.SelectedIndex == -1)
             {
                 MessageBox.Show("Vui lòng chọn nhóm hàng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (comboBoxHangSX.SelectedIndex == -1)
+            {
+                MessageBox.Show("Vui lòng chọn hãng sản xuất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             //tao hang hoa moi 
@@ -300,9 +340,35 @@ namespace QL_Nha_thuoc.HangHoa
             // 4. Gọi hàm thêm thuốc vào CSDL
             bool kq = ClassHangHoa.ThemHangHoaMoi(hangHoa);
 
-            // 5. Thông báo kết quả
+            //tao phieu kiem kho cho hang hoa moi
+
+            // 5. Thông báo kết quả va them kiem kho
             if (kq)
             {
+                //tao ma phieu kiem kho moi 
+                string makiemkho = ClassPhieuKiemKho.SinhMaPhieuMoi();
+                //them phieu kiem kho
+                ClassPhieuKiemKho phieuKiemKho = new ClassPhieuKiemKho
+                {
+                    MaPhieuKiemKho = makiemkho,
+                    NgayKiemKho = DateTime.Now,
+                    MaNhanVien = Session.TaiKhoanDangNhap.MaNhanVien, // Cần thay đổi theo mã nhân viên thực tế
+                    GhiChu = "Cập nhật tồn kho hàng hóa",
+                    TrangThaiPhieuKiem = "Đã cân bằng kho"
+                };
+                ClassPhieuKiemKho.ThemPhieuKiemKho(phieuKiemKho);
+                //tao chi tiet phieu kiem kho
+                ClassChiTietPhieuKiemKho chiTietPhieuKiemKho = new ClassChiTietPhieuKiemKho
+                {
+                    MaPhieuKiemKho = makiemkho,
+                    MaHangHoa = maHH,
+                    TenHangHoa = textBoxTenHangHoa.Text,
+                    SoLuongHeThong = 0,
+                    SoLuongThucTe = 0,
+
+                };
+                ClassChiTietPhieuKiemKho.ThemChiTietPhieuKiemKho(chiTietPhieuKiemKho);
+                MessageBox.Show("Tạo phiếu kiểm kho với mã: " + makiemkho, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show("Thêm hang hoa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close(); // Đóng form
 
@@ -334,7 +400,21 @@ namespace QL_Nha_thuoc.HangHoa
             }
 
         }
+
+        private void buttonThemNhomHang_Click(object sender, EventArgs e)
+        {
+            //mo form them nhom hang
+            var formThem = new FormThemNhomHangHoa();
+            formThem.StartPosition = FormStartPosition.CenterParent;
+            formThem.ShowDialog();
+
+            // sau khi form them nhom hang dong, load lai danh sach nhom hang
+            LoadDataToComboBoxNhomHanghoa();
+        }
+
+
         //khi kich nut luu. thi kiem tra / tao ma hang/ them /them don gia
+
 
 
 

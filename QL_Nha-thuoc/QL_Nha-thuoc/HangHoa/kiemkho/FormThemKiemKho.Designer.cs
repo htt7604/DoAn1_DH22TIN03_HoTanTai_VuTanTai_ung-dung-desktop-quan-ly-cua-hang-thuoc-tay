@@ -77,7 +77,7 @@
             panelKetQuaTimKiem.AutoScroll = true;
             panelKetQuaTimKiem.Location = new Point(178, 3);
             panelKetQuaTimKiem.Name = "panelKetQuaTimKiem";
-            panelKetQuaTimKiem.Size = new Size(428, 197);
+            panelKetQuaTimKiem.Size = new Size(428, 355);
             panelKetQuaTimKiem.TabIndex = 0;
             panelKetQuaTimKiem.Visible = false;
             // 
@@ -181,7 +181,7 @@
             // 
             // tableLayoutPanel5
             // 
-            tableLayoutPanel5.BackColor = SystemColors.Window;
+            tableLayoutPanel5.BackColor = SystemColors.Control;
             tableLayoutPanel5.ColumnCount = 2;
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.6F));
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 86.4F));
@@ -206,6 +206,7 @@
             // 
             // textBoxTimHH
             // 
+            textBoxTimHH.BackColor = SystemColors.Control;
             textBoxTimHH.BorderStyle = BorderStyle.None;
             textBoxTimHH.Font = new Font("Segoe UI", 11F);
             textBoxTimHH.Location = new Point(61, 3);
@@ -230,22 +231,24 @@
             // 
             // buttonTroLai
             // 
+            buttonTroLai.BackColor = SystemColors.Control;
             buttonTroLai.Location = new Point(3, 3);
             buttonTroLai.Name = "buttonTroLai";
             buttonTroLai.Size = new Size(36, 42);
             buttonTroLai.TabIndex = 2;
             buttonTroLai.Text = "<-";
-            buttonTroLai.UseVisualStyleBackColor = true;
+            buttonTroLai.UseVisualStyleBackColor = false;
             buttonTroLai.Click += buttonTroLai_Click;
             // 
             // FormThemKiemKho
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Window;
             ClientSize = new Size(1382, 652);
             Controls.Add(tableLayoutPanel1);
             Name = "FormThemKiemKho";
-            Text = "FormThemKiemKho";
+            Text = "Thêm kiểm kho";
             Load += FormThemKiemKho_Load;
             SizeChanged += tabControlPhieuKiem_SizeChanged;
             tableLayoutPanel1.ResumeLayout(false);

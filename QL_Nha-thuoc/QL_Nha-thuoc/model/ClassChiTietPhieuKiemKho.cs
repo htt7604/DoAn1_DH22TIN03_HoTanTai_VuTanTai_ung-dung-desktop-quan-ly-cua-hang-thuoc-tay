@@ -70,7 +70,7 @@ namespace QL_Nha_thuoc.model
         }
 
         // Thêm 1 chi tiết phiếu kiểm kho
-        public static void ThemChiTietPhieuKiemKho(ClassChiTietPhieuKiemKho chiTiet)
+        public static bool ThemChiTietPhieuKiemKho(ClassChiTietPhieuKiemKho chiTiet)
         {
             CSDL csdl = new CSDL();
             using (SqlConnection conn = csdl.GetConnection())
@@ -87,7 +87,8 @@ namespace QL_Nha_thuoc.model
                 cmd.Parameters.AddWithValue("@SoLuongHeThong", chiTiet.SoLuongHeThong);
                 cmd.Parameters.AddWithValue("@SoLuongThucTe", chiTiet.SoLuongThucTe);
                 cmd.Parameters.AddWithValue("@GhiChu", chiTiet.GhiChu ?? "");
-                cmd.ExecuteNonQuery();
+                int rowsAffected = cmd.ExecuteNonQuery();
+                 return rowsAffected > 0;
             }
         }
 

@@ -45,7 +45,7 @@ namespace QL_Nha_thuoc.model
             using (SqlConnection conn = DBHelperHH.GetConnection())
             {
                 conn.Open();
-                string query = "SELECT GHH.MA_HANG_HOA, GHH.MA_DON_VI_TINH, GHH.GIA_VON_HH, GHH.GIA_BAN_HH, HH.TEN_HANG_HOA " +
+                string query = "SELECT GHH.MA_HANG_HOA, GHH.MA_DON_VI_TINH, GHH.GIA_VON_HH, GHH.GIA_BAN_HH, HH.TEN_HANG_HOA,DVT.TEN_DON_VI_TINH " +
                                "FROM GIA_HANG_HOA GHH " +
                                "JOIN HANG_HOA HH ON HH.MA_HANG_HOA = GHH.MA_HANG_HOA " +
                                "JOIN DON_VI_TINH DVT ON DVT.MA_DON_VI_TINH = GHH.MA_DON_VI_TINH";
@@ -59,6 +59,7 @@ namespace QL_Nha_thuoc.model
                         {
                             MaHangHoa = reader["MA_HANG_HOA"].ToString(),
                             MaDonViTinh = reader["MA_DON_VI_TINH"].ToString(),
+                            TenDonViTinh = reader[ "TEN_DON_VI_TINH" ].ToString(),
                             GiaVon = Convert.ToDecimal(reader["GIA_VON_HH"]),
                             GiaBan = Convert.ToDecimal(reader["GIA_BAN_HH"]),
                             TenHangHoa = reader["TEN_HANG_HOA"].ToString(),
@@ -253,7 +254,7 @@ namespace QL_Nha_thuoc.model
             }
         }
 
-        public static bool XoaGiaBanTheoMaHangHoa(string maHH,string maDVT)
+        public static bool XoaGiaBanTheoMaHangHoaVaDVT(string maHH,string maDVT)
         {
             if (string.IsNullOrEmpty(maHH))
                 return false;
@@ -271,6 +272,20 @@ namespace QL_Nha_thuoc.model
             }
         }
 
+        //hma xoa them ma hang hoa
+        public static bool XoaGiaBanTheoMaHangHoa(string maHH)
+        {
+            if (string.IsNullOrEmpty(maHH))
+                return false;
+            using (SqlConnection conn = DBHelperHH.GetConnection())
+            {
+                conn.Open();
+                string query = "DELETE FROM GIA_HANG_HOA WHERE MA_HANG_HOA = @maHH";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@maHH", maHH);
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
 
         //lay danh sach don vi tinh cua ma hang hoa
         public static List<ClassDonViTinh> LayDanhSachDonViTinhTheoMaHangHoa(string maHangHoa)

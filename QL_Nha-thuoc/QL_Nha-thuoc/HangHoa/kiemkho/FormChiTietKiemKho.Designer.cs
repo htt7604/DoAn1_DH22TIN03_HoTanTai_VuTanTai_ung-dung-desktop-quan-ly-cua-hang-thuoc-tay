@@ -107,38 +107,38 @@
             // labelTongChenhLech
             // 
             labelTongChenhLech.AutoSize = true;
-            labelTongChenhLech.Location = new Point(107, 123);
+            labelTongChenhLech.Location = new Point(118, 123);
             labelTongChenhLech.Name = "labelTongChenhLech";
-            labelTongChenhLech.Size = new Size(127, 20);
+            labelTongChenhLech.Size = new Size(116, 20);
             labelTongChenhLech.TabIndex = 6;
-            labelTongChenhLech.Text = "Tong chenh lech:  ";
+            labelTongChenhLech.Text = "Tổng chêch lệch";
             // 
             // labelTongLechTang
             // 
             labelTongLechTang.AutoSize = true;
-            labelTongLechTang.Location = new Point(116, 41);
+            labelTongLechTang.Location = new Point(126, 41);
             labelTongLechTang.Name = "labelTongLechTang";
-            labelTongLechTang.Size = new Size(118, 20);
+            labelTongLechTang.Size = new Size(108, 20);
             labelTongLechTang.TabIndex = 4;
-            labelTongLechTang.Text = "Tong lech tang:  ";
+            labelTongLechTang.Text = "Tổng lệch tăng";
             // 
             // labelTongLechGiam
             // 
             labelTongLechGiam.AutoSize = true;
-            labelTongLechGiam.Location = new Point(112, 82);
+            labelTongLechGiam.Location = new Point(122, 82);
             labelTongLechGiam.Name = "labelTongLechGiam";
-            labelTongLechGiam.Size = new Size(122, 20);
+            labelTongLechGiam.Size = new Size(112, 20);
             labelTongLechGiam.TabIndex = 5;
-            labelTongLechGiam.Text = "Tong lech giam:  ";
+            labelTongLechGiam.Text = "Tổng lệch giảm";
             // 
             // labelTongThucTe
             // 
             labelTongThucTe.AutoSize = true;
-            labelTongThucTe.Location = new Point(132, 0);
+            labelTongThucTe.Location = new Point(141, 0);
             labelTongThucTe.Name = "labelTongThucTe";
-            labelTongThucTe.Size = new Size(102, 20);
+            labelTongThucTe.Size = new Size(93, 20);
             labelTongThucTe.TabIndex = 3;
-            labelTongThucTe.Text = "Tong thuc te:  ";
+            labelTongThucTe.Text = "Tổng thực tế";
             // 
             // buttonHuyBo
             // 
@@ -146,7 +146,7 @@
             buttonHuyBo.Name = "buttonHuyBo";
             buttonHuyBo.Size = new Size(94, 29);
             buttonHuyBo.TabIndex = 1;
-            buttonHuyBo.Text = "Huy bo";
+            buttonHuyBo.Text = "Hủy bỏ";
             buttonHuyBo.UseVisualStyleBackColor = true;
             buttonHuyBo.Click += buttonHuyBo_Click;
             // 
@@ -156,7 +156,7 @@
             buttonLuu.Name = "buttonLuu";
             buttonLuu.Size = new Size(94, 29);
             buttonLuu.TabIndex = 0;
-            buttonLuu.Text = "Luu";
+            buttonLuu.Text = "Lưu";
             buttonLuu.UseVisualStyleBackColor = true;
             buttonLuu.Click += buttonLuu_Click;
             // 
@@ -230,7 +230,7 @@
             label5.Name = "label5";
             label5.Size = new Size(74, 20);
             label5.TabIndex = 5;
-            label5.Text = "Thoi gian:";
+            label5.Text = "Thời gian:";
             // 
             // label4
             // 
@@ -239,7 +239,7 @@
             label4.Name = "label4";
             label4.Size = new Size(112, 20);
             label4.TabIndex = 4;
-            label4.Text = "Ngay can bang:";
+            label4.Text = "Ngày cân bằng:";
             // 
             // label3
             // 
@@ -248,16 +248,16 @@
             label3.Name = "label3";
             label3.Size = new Size(78, 20);
             label3.TabIndex = 3;
-            label3.Text = "Trang thai:";
+            label3.Text = "Trạng thái:";
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Location = new Point(351, 73);
             label2.Name = "label2";
-            label2.Size = new Size(79, 20);
+            label2.Size = new Size(80, 20);
             label2.TabIndex = 2;
-            label2.Text = "Nguoi tao:";
+            label2.Text = "Người tạo:";
             // 
             // textBoxMaKiemKho
             // 
@@ -275,7 +275,7 @@
             label1.Name = "label1";
             label1.Size = new Size(97, 20);
             label1.TabIndex = 0;
-            label1.Text = "Ma kiem kho:";
+            label1.Text = "Mã kiểm kho:";
             // 
             // dataGridViewdsTTPhieuKiemKho
             // 
@@ -295,7 +295,8 @@
             ClientSize = new Size(1114, 796);
             Controls.Add(tableLayoutPanel1);
             Name = "FormChiTietKiemKho";
-            Text = "FormChiTietKiemKho";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Chi tiết phiếu kiểm";
             Load += FormChiTietKiemKho_Load_1;
             tableLayoutPanel1.ResumeLayout(false);
             panel3.ResumeLayout(false);

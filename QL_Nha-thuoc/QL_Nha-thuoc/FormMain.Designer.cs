@@ -56,8 +56,8 @@
             nhàCungToolStripMenuItem = new ToolStripMenuItem();
             nhânViênToolStripMenuItem = new ToolStripMenuItem();
             tàiChínhToolStripMenuItem = new ToolStripMenuItem();
-            bánHàngToolStripMenuItem = new ToolStripMenuItem();
             toolStripTextBoxTaiKhoan = new ToolStripTextBox();
+            bánHàngToolStripMenuItem = new ToolStripMenuItem();
             panelMain = new Panel();
             panelNoiDung.SuspendLayout();
             menuStrip1.SuspendLayout();
@@ -77,7 +77,7 @@
             menuStrip1.AutoSize = false;
             menuStrip1.BackColor = SystemColors.MenuHighlight;
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1, toolStripMenuItem2, toolStripMenuItem3, toolStripMenuItem4, toolStripMenuItem5, toolStripMenuItem6, bánHàngToolStripMenuItem, toolStripTextBoxTaiKhoan });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1, toolStripMenuItem2, toolStripMenuItem3, toolStripMenuItem4, toolStripMenuItem5, toolStripMenuItem6, toolStripTextBoxTaiKhoan, bánHàngToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(0);
@@ -216,6 +216,7 @@
             nhàCungCấpToolStripMenuItem.Name = "nhàCungCấpToolStripMenuItem";
             nhàCungCấpToolStripMenuItem.Size = new Size(228, 32);
             nhàCungCấpToolStripMenuItem.Text = "Nhà cung cấp";
+            nhàCungCấpToolStripMenuItem.Click += nhàCungCấpToolStripMenuItem_Click;
             // 
             // bácSĩToolStripMenuItem
             // 
@@ -319,8 +320,20 @@
             tàiChínhToolStripMenuItem.Size = new Size(212, 32);
             tàiChínhToolStripMenuItem.Text = "Tài chính";
             // 
+            // toolStripTextBoxTaiKhoan
+            // 
+            toolStripTextBoxTaiKhoan.Alignment = ToolStripItemAlignment.Right;
+            toolStripTextBoxTaiKhoan.BackColor = SystemColors.MenuHighlight;
+            toolStripTextBoxTaiKhoan.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            toolStripTextBoxTaiKhoan.ForeColor = SystemColors.Menu;
+            toolStripTextBoxTaiKhoan.Name = "toolStripTextBoxTaiKhoan";
+            toolStripTextBoxTaiKhoan.ReadOnly = true;
+            toolStripTextBoxTaiKhoan.Size = new Size(100, 50);
+            toolStripTextBoxTaiKhoan.TextBoxTextAlign = HorizontalAlignment.Center;
+            // 
             // bánHàngToolStripMenuItem
             // 
+            bánHàngToolStripMenuItem.Alignment = ToolStripItemAlignment.Right;
             bánHàngToolStripMenuItem.BackColor = SystemColors.HotTrack;
             bánHàngToolStripMenuItem.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             bánHàngToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
@@ -330,17 +343,6 @@
             bánHàngToolStripMenuItem.Size = new Size(135, 50);
             bánHàngToolStripMenuItem.Text = "Bán hàng";
             bánHàngToolStripMenuItem.Click += bánHàngToolStripMenuItem_Click;
-            // 
-            // toolStripTextBoxTaiKhoan
-            // 
-            toolStripTextBoxTaiKhoan.BackColor = SystemColors.MenuHighlight;
-            toolStripTextBoxTaiKhoan.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            toolStripTextBoxTaiKhoan.ForeColor = SystemColors.Window;
-            toolStripTextBoxTaiKhoan.Margin = new Padding(200, 0, 1, 0);
-            toolStripTextBoxTaiKhoan.Name = "toolStripTextBoxTaiKhoan";
-            toolStripTextBoxTaiKhoan.ReadOnly = true;
-            toolStripTextBoxTaiKhoan.Size = new Size(200, 50);
-            toolStripTextBoxTaiKhoan.TextBoxTextAlign = HorizontalAlignment.Center;
             // 
             // panelMain
             // 

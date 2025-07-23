@@ -43,18 +43,19 @@
             buttonLuu.Name = "buttonLuu";
             buttonLuu.Size = new Size(94, 29);
             buttonLuu.TabIndex = 0;
-            buttonLuu.Text = "Luu";
+            buttonLuu.Text = "Lưu";
             buttonLuu.UseVisualStyleBackColor = true;
             buttonLuu.Click += buttonLuu_Click;
             // 
             // buttonBoQua
             // 
-            buttonBoQua.Location = new Point(462, 141);
+            buttonBoQua.Location = new Point(452, 141);
             buttonBoQua.Name = "buttonBoQua";
             buttonBoQua.Size = new Size(94, 29);
             buttonBoQua.TabIndex = 1;
-            buttonBoQua.Text = "Bo qua";
+            buttonBoQua.Text = "Bỏ qua";
             buttonBoQua.UseVisualStyleBackColor = true;
+            buttonBoQua.Click += buttonBoQua_Click;
             // 
             // comboBoxLoaiHang
             // 
@@ -73,7 +74,7 @@
             label1.Name = "label1";
             label1.Size = new Size(178, 28);
             label1.TabIndex = 3;
-            label1.Text = "Them nhom hang";
+            label1.Text = "Thêm nhóm hàng";
             // 
             // textBoxTenNhom
             // 
@@ -89,7 +90,7 @@
             label2.Name = "label2";
             label2.Size = new Size(74, 20);
             label2.TabIndex = 5;
-            label2.Text = "Ten nhom";
+            label2.Text = "Tên nhóm";
             // 
             // label3
             // 
@@ -98,7 +99,7 @@
             label3.Name = "label3";
             label3.Size = new Size(37, 20);
             label3.TabIndex = 6;
-            label3.Text = "Loai";
+            label3.Text = "Loại";
             // 
             // FormThemNhomHangHoa
             // 
@@ -113,7 +114,7 @@
             Controls.Add(buttonBoQua);
             Controls.Add(buttonLuu);
             Name = "FormThemNhomHangHoa";
-            Text = "FormThemNhomHangHoa";
+            Text = "Thêm nhóm hàng hóa";
             ResumeLayout(false);
             PerformLayout();
         }

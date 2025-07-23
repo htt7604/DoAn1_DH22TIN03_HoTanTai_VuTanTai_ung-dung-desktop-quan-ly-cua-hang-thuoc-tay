@@ -274,6 +274,8 @@ namespace QL_Nha_thuoc.HangHoa
 
         public List<ClassGiaBanHH> danhSachGiaBan = new List<ClassGiaBanHH>();
 
+
+
         public void FormThietLapGia_Load(object sender, EventArgs e)
         {
             loadcombobox_nhomhh();

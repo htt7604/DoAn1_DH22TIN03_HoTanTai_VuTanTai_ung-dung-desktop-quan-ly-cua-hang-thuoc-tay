@@ -17,9 +17,11 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
         {
             InitializeComponent();
         }
-        public void setdata(string maHH)
+        public void setdata(ClassNhaCungCap nhaCungCap)
         {
-            
+            labelTenNCC.Text=nhaCungCap.TenNhaCungCap;
+            labelSDT.Text = nhaCungCap.DienThoai;
+
         }
     }
 }

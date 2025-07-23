@@ -102,6 +102,7 @@
             dataGridViewdsThuoc.Location = new Point(0, 57);
             dataGridViewdsThuoc.MultiSelect = false;
             dataGridViewdsThuoc.Name = "dataGridViewdsThuoc";
+            dataGridViewdsThuoc.RowHeadersVisible = false;
             dataGridViewdsThuoc.RowHeadersWidth = 51;
             dataGridViewdsThuoc.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewdsThuoc.Size = new Size(1200, 595);

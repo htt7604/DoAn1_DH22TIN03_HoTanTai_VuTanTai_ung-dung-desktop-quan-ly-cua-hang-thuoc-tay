@@ -47,7 +47,7 @@
             labelHienThi.Name = "labelHienThi";
             labelHienThi.Size = new Size(133, 20);
             labelHienThi.TabIndex = 0;
-            labelHienThi.Text = "Gia moi [ 00000 ]=";
+            labelHienThi.Text = "Giá mới [ 00000 ]=";
             // 
             // comboBoxLoaiGia
             // 
@@ -114,7 +114,7 @@
             buttonDongY.Name = "buttonDongY";
             buttonDongY.Size = new Size(74, 29);
             buttonDongY.TabIndex = 8;
-            buttonDongY.Text = "Dong y";
+            buttonDongY.Text = "Đồng ý";
             buttonDongY.UseVisualStyleBackColor = true;
             buttonDongY.Click += buttonDongY_Click;
             // 
@@ -124,7 +124,7 @@
             buttonBoQua.Name = "buttonBoQua";
             buttonBoQua.Size = new Size(90, 29);
             buttonBoQua.TabIndex = 9;
-            buttonBoQua.Text = "Bo qua";
+            buttonBoQua.Text = "Bỏ quan";
             buttonBoQua.UseVisualStyleBackColor = true;
             buttonBoQua.Click += buttonBoQua_Click;
             // 
@@ -133,9 +133,9 @@
             checkBoxApDungAll.AutoSize = true;
             checkBoxApDungAll.Location = new Point(33, 138);
             checkBoxApDungAll.Name = "checkBoxApDungAll";
-            checkBoxApDungAll.Size = new Size(330, 24);
+            checkBoxApDungAll.Size = new Size(304, 24);
             checkBoxApDungAll.TabIndex = 10;
-            checkBoxApDungAll.Text = "Áp dụng cong thức cho tất cả các hàng hóa ?\r\n";
+            checkBoxApDungAll.Text = "Áp dụng công thức cho tất cả hàng hóa ?";
             checkBoxApDungAll.UseVisualStyleBackColor = true;
             // 
             // FormSuaGiaBanitem
@@ -156,7 +156,7 @@
             MaximizeBox = false;
             Name = "FormSuaGiaBanitem";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "FormSuaGiaBanitem";
+            Text = "Sửa giá";
             Load += FormSuaGiaBanitem_Load;
             Click += FormSuaGiaBanitem_Click;
             ResumeLayout(false);

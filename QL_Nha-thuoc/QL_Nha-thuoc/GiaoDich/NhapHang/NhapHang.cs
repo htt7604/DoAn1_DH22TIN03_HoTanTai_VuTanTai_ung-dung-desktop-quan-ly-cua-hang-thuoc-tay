@@ -1,23 +1,31 @@
 ﻿using Microsoft.Data.SqlClient;
+using QL_Nha_thuoc.GiaoDich.NhapHang;
 using QL_Nha_thuoc.model;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using static QL_Nha_thuoc.DanhMucThuoc;
+using static QL_Nha_thuoc.model.ClassChiTietPhieuNhap;
+using QL_Nha_thuoc.model;
+
 
 namespace QL_Nha_thuoc
 {
     public partial class NhapHang : Form
     {
-        public NhapHang()
+        private FormMain _formMain; // biến để giữ tham chiếu FormMain
+
+        public NhapHang(FormMain formMain)
         {
             InitializeComponent();
+            _formMain = formMain;
+
             LoadDanhSachPhieuNhapHang();
             LoadThuocTinhKiemKhoComboBox();
 
-            // Gắn sự kiện KeyDown nếu chưa gắn trong designer
             textBoxTimHH.KeyDown += textBoxTimHH_KeyDown;
         }
+
 
         private void LoadDanhSachPhieuNhapHang()
         {
@@ -162,7 +170,33 @@ namespace QL_Nha_thuoc
 
         private void buttonThemNhapHang_Click(object sender, EventArgs e)
         {
-
+            FormThemNhapHang formThemNhapHang = new FormThemNhapHang();
+            _formMain.LoadFormVaoPanel(formThemNhapHang); // dùng biến đã truyền
         }
+
+        private void dataGridViewdsNhapHang_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Open the form for detailed receipt
+            if (e.RowIndex >= 0 && e.RowIndex < dataGridViewdsNhapHang.Rows.Count)
+            {
+                DataGridViewRow row = dataGridViewdsNhapHang.Rows[e.RowIndex];
+                string maPhieuNhap = row.Cells["MaPhieuNhap"].Value.ToString();
+                FormChiTietPhieuNhap formChiTietPhieuNhap = new FormChiTietPhieuNhap(); 
+                PhieuNhapHang phieuNhapHang = PhieuNhapHang.TimPhieuNhapTheoMa(maPhieuNhap);
+                if (phieuNhapHang != null)
+                {
+                    formChiTietPhieuNhap.SetData(phieuNhapHang);
+                    formChiTietPhieuNhap.ShowDialog(); // Hiển thị form chi tiết phiếu nhập
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy phiếu nhập với mã: " + maPhieuNhap);
+                }
+            }
+        }
+
+
+
+
     }
 }

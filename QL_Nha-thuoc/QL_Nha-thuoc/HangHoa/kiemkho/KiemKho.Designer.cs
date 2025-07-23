@@ -223,13 +223,14 @@
             dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dataGridViewdsPhieuKiemKho.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewdsPhieuKiemKho.Dock = DockStyle.Fill;
             dataGridViewdsPhieuKiemKho.Location = new Point(251, 57);
             dataGridViewdsPhieuKiemKho.MultiSelect = false;
             dataGridViewdsPhieuKiemKho.Name = "dataGridViewdsPhieuKiemKho";
             dataGridViewdsPhieuKiemKho.ReadOnly = true;
+            dataGridViewdsPhieuKiemKho.RowHeadersVisible = false;
             dataGridViewdsPhieuKiemKho.RowHeadersWidth = 51;
             dataGridViewdsPhieuKiemKho.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewdsPhieuKiemKho.Size = new Size(1131, 595);

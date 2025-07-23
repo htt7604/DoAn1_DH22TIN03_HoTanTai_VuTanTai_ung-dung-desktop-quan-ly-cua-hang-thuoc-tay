@@ -53,7 +53,5 @@ namespace QL_Nha_thuoc.model
         }
 
 
-        //lay tat ca don vi tinh 
-
     }
 }

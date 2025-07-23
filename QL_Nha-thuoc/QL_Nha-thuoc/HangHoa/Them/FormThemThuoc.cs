@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using QL_Nha_thuoc.HangHoa.Them;
 using QL_Nha_thuoc.model;
+using QL_Nha_thuoc.Usercontrol;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,10 +16,32 @@ namespace QL_Nha_thuoc.HangHoa
 {
     public partial class FormThemThuoc : Form
     {
-        public FormThemThuoc(string loai)
+
+        private ICoTheReload _formChaInterface;
+        private Action _onReloadCallback;
+
+        public FormThemThuoc(string loai, ICoTheReload formCha)
         {
             InitializeComponent();
+            this.Text = "Thêm " + loai;
+            _formChaInterface = formCha;
+            this.FormClosed += FormThemThuoc_FormClosed;
         }
+
+        public FormThemThuoc(string loai, Action onReload)
+        {
+            InitializeComponent();
+            this.Text = "Thêm " + loai;
+            _onReloadCallback = onReload;
+            this.FormClosed += FormThemThuoc_FormClosed;
+        }
+        private void FormThemThuoc_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _formChaInterface?.ReloadSauKhiThayDoi();
+            _onReloadCallback?.Invoke();
+        }
+
+
 
         //load comboBoxDonViTinh
         private void LoadComboBoxDonViTinh()
@@ -143,17 +166,23 @@ namespace QL_Nha_thuoc.HangHoa
             LoadDataToComboBoxLoaiHanghoa();
             LoadComboBoxDonViTinh();
             LoadComboBoxHangSanXuat();
+            textBoxMaHH.Text = ClassHangHoa.TaoMaHangHoaTuDong(); // Tạo mã hàng hóa tự động khi mở form
+            textBoxGiaBan.Text= "0"; // Mặc định giá bán là 0
+            textBoxGiaVon.Text = "0"; // Mặc định giá vốn là 0
         }
 
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public string MaHangSXThem { get; set; }
         private void textBoxTenThuoc_TextChanged(object sender, EventArgs e)
         {
+
             //them cac usercontrolitemthemthuoc vao flowlayoutpanelListThuoc
             string keyword = textBoxTenThuoc.Text.Trim();
 
             // Xóa hết các item cũ trước khi hiển thị cái mới
             flowLayoutPanelListThuoc.Controls.Clear();
-
+            //add usercontrolthuoctinhitemthemthuoc vao flowlayoutpanelListThuoc
+            flowLayoutPanelListThuoc.Controls.Add(new Usercontrolthuoctinhitemthemthuoc());
             // Lấy danh sách thuốc theo từ khóa
             List<ClassThuoc> danhSach = ClassThuoc.LayDanhSachThuoc(keyword);
 
@@ -249,6 +278,30 @@ namespace QL_Nha_thuoc.HangHoa
             // 5. Thông báo kết quả
             if (kq)
             {
+                //tao ma phieu kiem kho moi 
+                string makiemkho = ClassPhieuKiemKho.SinhMaPhieuMoi();
+                //them phieu kiem kho
+                ClassPhieuKiemKho phieuKiemKho = new ClassPhieuKiemKho
+                {
+                    MaPhieuKiemKho = makiemkho,
+                    NgayKiemKho = DateTime.Now,
+                    MaNhanVien = Session.TaiKhoanDangNhap.MaNhanVien, // Cần thay đổi theo mã nhân viên thực tế
+                    GhiChu = "Cập nhật tồn kho hàng hóa",
+                    TrangThaiPhieuKiem = "Đã cân bằng kho"
+                };
+                ClassPhieuKiemKho.ThemPhieuKiemKho(phieuKiemKho);
+                //tao chi tiet phieu kiem kho
+                ClassChiTietPhieuKiemKho chiTietPhieuKiemKho = new ClassChiTietPhieuKiemKho
+                {
+                    MaPhieuKiemKho = makiemkho,
+                    MaHangHoa = textBoxMaHH.Text,
+                    TenHangHoa = labeltieude.Text,
+                    SoLuongHeThong = 0,
+                    SoLuongThucTe = 0,
+
+                };
+                ClassChiTietPhieuKiemKho.ThemChiTietPhieuKiemKho(chiTietPhieuKiemKho);
+                MessageBox.Show("Tạo phiếu kiểm kho với mã: " + makiemkho, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show("Thêm thuốc thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close(); // Đóng form
 
@@ -273,12 +326,26 @@ namespace QL_Nha_thuoc.HangHoa
             comboBoxDonViTinh.SelectedIndex = -1;
             comboBoxNhomHang.SelectedIndex = -1;
             flowLayoutPanelListThuoc.Visible = false; // Ẩn danh sách thuốc
-            textBoxTenHH.Clear(); // Xóa tên hàng hóa nếu có
+            textBoxTenThuoc.Clear(); // Xóa tên hàng hóa nếu có
         }
 
+        private void buttonThemNhomHang_Click(object sender, EventArgs e)
+        {
+            //moform them nhom hang
+            FormThemNhomHangHoa formThemNhomHang = new FormThemNhomHangHoa();
+            formThemNhomHang.ShowDialog(); // Hiển thị form ThemNhomHangHoa
+            formThemNhomHang.FormClosed += (s, args) =>
+            {
+                // Sau khi form ThemNhomHang đóng, load lại dữ liệu nhóm hàng
+                LoadDataToComboBoxNhomHanghoa();
+            };
+        }
 
+        private void buttonDong_Click(object sender, EventArgs e)
+        {
+            //dong form
+            this.Close();
 
-
-
+        }
     }
 }
