@@ -50,6 +50,7 @@
             textBoxMaKiemKho = new TextBox();
             label1 = new Label();
             dataGridViewdsTTPhieuKiemKho = new DataGridView();
+            buttonIn = new Button();
             tableLayoutPanel1.SuspendLayout();
             panel3.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -76,6 +77,7 @@
             // 
             // panel3
             // 
+            panel3.Controls.Add(buttonIn);
             panel3.Controls.Add(tableLayoutPanel2);
             panel3.Controls.Add(buttonHuyBo);
             panel3.Controls.Add(buttonLuu);
@@ -288,6 +290,16 @@
             dataGridViewdsTTPhieuKiemKho.Size = new Size(1108, 384);
             dataGridViewdsTTPhieuKiemKho.TabIndex = 3;
             // 
+            // buttonIn
+            // 
+            buttonIn.Location = new Point(689, 187);
+            buttonIn.Name = "buttonIn";
+            buttonIn.Size = new Size(94, 29);
+            buttonIn.TabIndex = 8;
+            buttonIn.Text = "In";
+            buttonIn.UseVisualStyleBackColor = true;
+            buttonIn.Click += buttonIn_Click;
+            // 
             // FormChiTietKiemKho
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -297,6 +309,7 @@
             Name = "FormChiTietKiemKho";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Chi tiết phiếu kiểm";
+            FormClosed += FormChiTietKiemKho_FormClosed;
             Load += FormChiTietKiemKho_Load_1;
             tableLayoutPanel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
@@ -332,5 +345,6 @@
         private Label labelTongThucTe;
         private DataGridView dataGridViewdsTTPhieuKiemKho;
         private TableLayoutPanel tableLayoutPanel2;
+        private Button buttonIn;
     }
 }

@@ -23,7 +23,40 @@ namespace QL_Nha_thuoc
             LoadThuocTinhKiemKhoComboBox();
             LoadDanhSachPhieuKiemKho();
         }
+        private void KiemKho_Load(object sender, EventArgs e)
+        {
+            // Tạo cột checkbox đầu tiên
+            DataGridViewCheckBoxColumn colCheck = new DataGridViewCheckBoxColumn();
+            colCheck.Name = "Tất cả";
+            colCheck.Width = 50;
 
+            // Custom header có checkbox
+            var header = new DatagridViewCheckBoxHeaderCell();
+            colCheck.HeaderCell = header;
+
+            dataGridViewdsPhieuKiemKho.Columns.Insert(0, colCheck);
+
+            // Gắn sự kiện khi click vào header checkbox
+            header.OnCheckAllChanged += (isChecked) =>
+            {
+                dataGridViewdsPhieuKiemKho.EndEdit(); // <<== Dừng edit dòng hiện tại (có thể đang chọn)
+
+                foreach (DataGridViewRow row in dataGridViewdsPhieuKiemKho.Rows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        row.Cells["Tất cả"].Value = isChecked;
+                    }
+                }
+            };
+
+            // Gán sự kiện để xử lý checkbox
+            dataGridViewdsPhieuKiemKho.CellValueChanged += dataGridViewdsPhieuKiemKho_CellValueChanged;
+            dataGridViewdsPhieuKiemKho.CurrentCellDirtyStateChanged += dataGridViewdsPhieuKiemKho_CurrentCellDirtyStateChanged;
+
+
+            buttonGopPhieu.Visible = false; // Ẩn nút gộp phiếu ban đầu
+        }
 
 
 
@@ -197,10 +230,18 @@ namespace QL_Nha_thuoc
             if (e.RowIndex >= 0 && e.RowIndex < dataGridViewdsPhieuKiemKho.Rows.Count)
             {
                 DataGridViewRow row = dataGridViewdsPhieuKiemKho.Rows[e.RowIndex];
-                string maPhieuKiem = row.Cells["MaPhieuKiemKho"].Value.ToString(); // ✅ sửa lại đúng tên thuộc tính
+                string maPhieuKiem = row.Cells["MaPhieuKiemKho"].Value.ToString();
+
                 FormChiTietKiemKho chiTietForm = new FormChiTietKiemKho(maPhieuKiem);
-                chiTietForm.ShowDialog();
+                // GÁN SỰ KIỆN TRƯỚC KHI SHOW
+                chiTietForm.FormDong += () =>
+                {
+                    LoadDanhSachPhieuKiemKho(); // Cập nhật lại danh sách phiếu
+                };
+
+                chiTietForm.ShowDialog(); // Gọi sau khi gán sự kiện
             }
+
         }
 
 
@@ -229,7 +270,174 @@ namespace QL_Nha_thuoc
         }
 
 
+        private void CapNhatSoLuongDaChon()
+        {
+            int soLuongChon = 0;
+            int soLuongPhieuTam = 0; // Đếm phiếu tạm đã được chọn
+
+            foreach (DataGridViewRow row in dataGridViewdsPhieuKiemKho.Rows)
+            {
+                bool isChecked = false;
+
+                if (row.Cells["Tất cả"].Value != null)
+                    isChecked = Convert.ToBoolean(row.Cells["Tất cả"].Value);
+
+                if (isChecked)
+                {
+                    soLuongChon++;
+
+                    // Chỉ đếm phiếu tạm nếu nó đang được chọn
+                    string trangThai = row.Cells["TrangThaiPhieuKiem"].Value?.ToString();
+                    if (trangThai == "Phiếu tạm")
+                    {
+                        soLuongPhieuTam++;
+                    }
+                }
+            }
+
+            if (soLuongChon > 0)
+            {
+                labelSoX.Text = $"Đã chọn {soLuongChon} ({soLuongPhieuTam} phiếu tạm)";
+                labelSoX.Visible = true;
+                buttonX.Visible = true;
+                buttonGopPhieu.Visible = true;
+            }
+            else
+            {
+                labelSoX.Text = "";
+                labelSoX.Visible = false;
+                buttonX.Visible = false;
+                buttonGopPhieu.Visible = false;
+            }
+        }
+
+        private void buttonX_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridViewdsPhieuKiemKho.Rows)
+            {
+                row.Cells[0].Value = false; // Bỏ tích checkbox ở cột đầu tiên
+            }
+
+            // Ẩn các thành phần liên quan đến việc chọn
+            labelSoX.Text = "";
+            labelSoX.Visible = false;
+            buttonX.Visible = false;
+            buttonGopPhieu.Visible = false; // Ẩn nút
+        }
+
+        private void dataGridViewdsPhieuKiemKho_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0) // Cột checkbox
+            {
+                bool isChecked = Convert.ToBoolean(dataGridViewdsPhieuKiemKho.Rows[e.RowIndex].Cells[0].Value);
+                //string maHH = dataGridViewdsDMHH.Rows[e.RowIndex].Cells["Mã hàng hóa"].Value?.ToString();
+
+                CapNhatSoLuongDaChon();
+            }
+        }
+
+        private void dataGridViewdsPhieuKiemKho_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewdsPhieuKiemKho.IsCurrentCellDirty)
+            {
+                dataGridViewdsPhieuKiemKho.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+        private void buttonGopPhieu_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<string> danhSachMaPhieuTam = new List<string>();
+
+                // 1. Lấy danh sách phiếu tạm được chọn
+                foreach (DataGridViewRow row in dataGridViewdsPhieuKiemKho.Rows)
+                {
+                    if (row.Cells["Tất cả"].Value != null && Convert.ToBoolean(row.Cells["Tất cả"].Value))
+                    {
+                        string trangThai = row.Cells["TrangThaiPhieuKiem"].Value?.ToString();
+                        if (trangThai == "Phiếu tạm")
+                        {
+                            string maPhieu = row.Cells["MaPhieuKiemKho"].Value?.ToString();
+                            if (!string.IsNullOrEmpty(maPhieu))
+                                danhSachMaPhieuTam.Add(maPhieu);
+                        }
+                    }
+                }
+
+                if (danhSachMaPhieuTam.Count < 2)
+                {
+                    MessageBox.Show("Vui lòng chọn ít nhất 2 phiếu tạm để gộp!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // 2. Tạo phiếu kiểm kho mới
+                string maNV = Session.TaiKhoanDangNhap.MaNhanVien;
+                string maPhieuMoi = ClassPhieuKiemKho.ThemPhieuKiemKhoMoi(maNV);
+
+                string ghiChu = "Gộp các phiếu kiểm kho: " + string.Join(", ", danhSachMaPhieuTam);
+                ClassPhieuKiemKho.CapNhatGhiChu(maPhieuMoi, ghiChu);
+
+                // 3. Tổng hợp chi tiết từ các phiếu
+                var tongHopChiTiet = new Dictionary<string, ClassChiTietPhieuKiemKho>();
+
+                foreach (var maPhieu in danhSachMaPhieuTam)
+                {
+                    var chiTiets = ClassChiTietPhieuKiemKho.LayDanhSachChiTietPhieuKiemKho(maPhieu);
+
+                    foreach (var chiTiet in chiTiets)
+                    {
+                        if (tongHopChiTiet.ContainsKey(chiTiet.MaHangHoa))
+                        {
+                            tongHopChiTiet[chiTiet.MaHangHoa].SoLuongThucTe += chiTiet.SoLuongThucTe;
+                        }
+                        else
+                        {
+                            // Tạo bản sao và gán mã phiếu mới
+                            var moi = new ClassChiTietPhieuKiemKho
+                            {
+                                MaPhieuKiemKho = maPhieuMoi,
+                                MaHangHoa = chiTiet.MaHangHoa,
+                                TenHangHoa = chiTiet.TenHangHoa,
+                                SoLuongHeThong = chiTiet.SoLuongHeThong,
+                                SoLuongThucTe = chiTiet.SoLuongThucTe,
+                                GhiChu = ""
+                            };
+                            tongHopChiTiet.Add(moi.MaHangHoa, moi);
+                        }
+                    }
+                }
+
+                // 4. Lưu các chi tiết gộp vào phiếu mới
+                foreach (var chiTiet in tongHopChiTiet.Values)
+                {
+                    ClassChiTietPhieuKiemKho.ThemChiTietPhieuKiemKho(chiTiet);
+                }
+
+                // 5. Xoá các phiếu cũ và chi tiết của chúng
+                foreach (var maPhieu in danhSachMaPhieuTam)
+                {
+                    ClassChiTietPhieuKiemKho.XoaChiTietPhieuKiemKho(maPhieu);
+                    ClassPhieuKiemKho.XoaPhieuKiemKho(maPhieu);
+                }
+
+                MessageBox.Show("Gộp phiếu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // 6. Refresh lại danh sách
+                LoadDanhSachPhieuKiemKho(); // bạn cần đảm bảo có hàm này
+
+                buttonX.PerformClick(); // Bỏ chọn
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi gộp phiếu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            // Nếu checkbox được chọn, hiển thị phieu kiem kho 
+        }
     }
 }

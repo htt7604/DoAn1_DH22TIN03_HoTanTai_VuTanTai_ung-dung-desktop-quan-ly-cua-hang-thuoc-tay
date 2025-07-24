@@ -108,7 +108,6 @@ namespace QL_Nha_thuoc.model
 
             return maMoi;
         }
-
         //them tu dong 
         public static string ThemPhieuKiemKhoMoi(string maNV, string maKho = "1")
         {
@@ -168,6 +167,22 @@ namespace QL_Nha_thuoc.model
                 return cmd.ExecuteNonQuery() > 0;
             }
         }
+
+
+        //cap nhat ghi chu 
+        public static void CapNhatGhiChu(string maPhieu, string ghiChu)
+        {
+            using (SqlConnection conn = DBHelperPK.GetConnection())
+            {
+                string query = "UPDATE PHIEU_KIEM_KHO SET GHI_CHU_KIEM_KHO = @GhiChu WHERE MA_KIEM_KHO = @MaPhieu";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@GhiChu", ghiChu);
+                cmd.Parameters.AddWithValue("@MaPhieu", maPhieu);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
 
         // 🔹 Lưu phiếu kiểm kho mới vào DB
         public static bool CapNhatPhieuKiemKho(ClassPhieuKiemKho phieu)

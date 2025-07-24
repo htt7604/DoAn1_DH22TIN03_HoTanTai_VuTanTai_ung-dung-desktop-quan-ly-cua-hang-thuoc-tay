@@ -218,9 +218,9 @@ namespace QL_Nha_thuoc.HangHoa
 
         private void loadComboBoxLocVaLoaiGia()
         {
-            comboBoxLoaiGia.Items.Add("--Gia so sanh---");
-            comboBoxLoaiGia.Items.Add("Gia von");
-            comboBoxLoaiGia.SelectedItem = "Gia von";
+            comboBoxLoaiGia.Items.Add("--Giá so sánh---");
+            comboBoxLoaiGia.Items.Add("Giá vốn");
+            comboBoxLoaiGia.SelectedItem = "Giá vốn";
             comboBoxLoc.Items.Add("-");
             comboBoxLoc.Items.Add("<");
             comboBoxLoc.Items.Add(">");
@@ -281,7 +281,7 @@ namespace QL_Nha_thuoc.HangHoa
             loadcombobox_nhomhh();
 
             comboBoxLoc.SelectedItem = "-"; // Chọn mặc định là "-"
-            comboBoxLoaiGia.SelectedItem = "---Gia so sanh---"; // Chọn mặc định là "Gia von"
+            comboBoxLoaiGia.SelectedItem = "---Giá so sánh---"; // Chọn mặc định là "Gia von"
 
             danhSachGiaBan = ClassGiaBanHH.LayDanhSachToanboGiaBan();
 

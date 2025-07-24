@@ -31,8 +31,8 @@
             splitContainer1 = new SplitContainer();
             flowLayoutPanelKiemKho = new FlowLayoutPanel();
             panel2 = new Panel();
-            textBoxTongThucTe = new TextBox();
-            textBoxTrangThai = new TextBox();
+            labelTongThucTe = new Label();
+            labelTrangThai = new Label();
             textBoxMaKiemKho = new TextBox();
             buttonHoanThanh = new Button();
             buttonLuuTam = new Button();
@@ -62,7 +62,7 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(panel2);
-            splitContainer1.Size = new Size(1368, 553);
+            splitContainer1.Size = new Size(1368, 582);
             splitContainer1.SplitterDistance = 956;
             splitContainer1.TabIndex = 0;
             // 
@@ -72,14 +72,14 @@
             flowLayoutPanelKiemKho.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanelKiemKho.Location = new Point(0, 0);
             flowLayoutPanelKiemKho.Name = "flowLayoutPanelKiemKho";
-            flowLayoutPanelKiemKho.Size = new Size(956, 553);
+            flowLayoutPanelKiemKho.Size = new Size(956, 582);
             flowLayoutPanelKiemKho.TabIndex = 4;
             // 
             // panel2
             // 
             panel2.BackColor = SystemColors.Window;
-            panel2.Controls.Add(textBoxTongThucTe);
-            panel2.Controls.Add(textBoxTrangThai);
+            panel2.Controls.Add(labelTongThucTe);
+            panel2.Controls.Add(labelTrangThai);
             panel2.Controls.Add(textBoxMaKiemKho);
             panel2.Controls.Add(buttonHoanThanh);
             panel2.Controls.Add(buttonLuuTam);
@@ -92,24 +92,28 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(408, 553);
+            panel2.Size = new Size(408, 582);
             panel2.TabIndex = 6;
             // 
-            // textBoxTongThucTe
+            // labelTongThucTe
             // 
-            textBoxTongThucTe.Location = new Point(184, 284);
-            textBoxTongThucTe.Name = "textBoxTongThucTe";
-            textBoxTongThucTe.ReadOnly = true;
-            textBoxTongThucTe.Size = new Size(147, 27);
-            textBoxTongThucTe.TabIndex = 10;
+            labelTongThucTe.AutoSize = true;
+            labelTongThucTe.Font = new Font("Segoe UI", 12F);
+            labelTongThucTe.Location = new Point(184, 284);
+            labelTongThucTe.Name = "labelTongThucTe";
+            labelTongThucTe.Size = new Size(65, 28);
+            labelTongThucTe.TabIndex = 12;
+            labelTongThucTe.Text = "label1";
             // 
-            // textBoxTrangThai
+            // labelTrangThai
             // 
-            textBoxTrangThai.Location = new Point(184, 203);
-            textBoxTrangThai.Name = "textBoxTrangThai";
-            textBoxTrangThai.ReadOnly = true;
-            textBoxTrangThai.Size = new Size(147, 27);
-            textBoxTrangThai.TabIndex = 9;
+            labelTrangThai.AutoSize = true;
+            labelTrangThai.Font = new Font("Segoe UI", 12F);
+            labelTrangThai.Location = new Point(184, 211);
+            labelTrangThai.Name = "labelTrangThai";
+            labelTrangThai.Size = new Size(65, 28);
+            labelTrangThai.TabIndex = 11;
+            labelTrangThai.Text = "label1";
             // 
             // textBoxMaKiemKho
             // 
@@ -135,22 +139,25 @@
             buttonLuuTam.Size = new Size(125, 125);
             buttonLuuTam.TabIndex = 6;
             buttonLuuTam.Text = "Luu tam";
+            buttonLuuTam.Click += buttonLuuTam_Click;
             // 
             // labelTime
             // 
             labelTime.AutoSize = true;
             labelTime.Font = new Font("Segoe UI", 10F);
-            labelTime.Location = new Point(228, 18);
+            labelTime.Location = new Point(337, 22);
             labelTime.Name = "labelTime";
+            labelTime.RightToLeft = RightToLeft.Yes;
             labelTime.Size = new Size(47, 23);
             labelTime.TabIndex = 5;
             labelTime.Text = "Time";
+            labelTime.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // textBoxGhiChu
             // 
-            textBoxGhiChu.Location = new Point(19, 354);
+            textBoxGhiChu.Location = new Point(19, 338);
             textBoxGhiChu.Name = "textBoxGhiChu";
-            textBoxGhiChu.Size = new Size(325, 27);
+            textBoxGhiChu.Size = new Size(365, 27);
             textBoxGhiChu.TabIndex = 4;
             // 
             // label4
@@ -159,19 +166,19 @@
             label4.Font = new Font("Segoe UI", 12F);
             label4.Location = new Point(19, 284);
             label4.Name = "label4";
-            label4.Size = new Size(149, 28);
+            label4.Size = new Size(148, 28);
             label4.TabIndex = 0;
-            label4.Text = "Tong SL thuc te:";
+            label4.Text = "Tổng SL thực tế";
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(19, 203);
+            label3.Location = new Point(19, 211);
             label3.Name = "label3";
-            label3.Size = new Size(102, 28);
+            label3.Size = new Size(98, 28);
             label3.TabIndex = 1;
-            label3.Text = "Trang thai:";
+            label3.Text = "Trạng thái";
             // 
             // label2
             // 
@@ -181,7 +188,7 @@
             label2.Name = "label2";
             label2.Size = new Size(125, 28);
             label2.TabIndex = 2;
-            label2.Text = "Ma kiem kho";
+            label2.Text = "Mã kiểm kho";
             // 
             // comboBoxTaiKhoan
             // 
@@ -196,7 +203,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(splitContainer1);
             Name = "UserControlFormKiemKho";
-            Size = new Size(1368, 553);
+            Size = new Size(1368, 582);
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
@@ -211,8 +218,6 @@
         private SplitContainer splitContainer1;
         public FlowLayoutPanel flowLayoutPanelKiemKho;
         private Panel panel2;
-        private TextBox textBoxTongThucTe;
-        private TextBox textBoxTrangThai;
         private TextBox textBoxMaKiemKho;
         private Button buttonHoanThanh;
         private Button buttonLuuTam;
@@ -222,5 +227,7 @@
         private Label label3;
         private Label label2;
         private ComboBox comboBoxTaiKhoan;
+        private Label labelTongThucTe;
+        private Label labelTrangThai;
     }
 }

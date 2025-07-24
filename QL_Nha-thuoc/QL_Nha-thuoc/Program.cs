@@ -5,6 +5,7 @@ using QL_Nha_thuoc.GiaoDich.NhapHang;
 using QL_Nha_thuoc.HangHoa;
 using QL_Nha_thuoc.HangHoa.ThietLapGia;
 using QL_Nha_thuoc.NhanVien;
+using QuestPDF.Infrastructure;
 
 namespace QL_Nha_thuoc
 {
@@ -16,6 +17,7 @@ namespace QL_Nha_thuoc
         [STAThread]
         static void Main()
         {
+            QuestPDF.Settings.License = LicenseType.Community;
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();

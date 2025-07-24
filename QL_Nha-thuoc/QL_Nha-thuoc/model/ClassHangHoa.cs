@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using static QL_Nha_thuoc.model.ClassHangSanXuat;
 namespace QL_Nha_thuoc.model
 {
     public class DBHelperHH
@@ -488,6 +489,18 @@ namespace QL_Nha_thuoc.model
                     MessageBox.Show("Lỗi khi thêm hàng hóa: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
+            }
+        }
+        public static void CapNhatTonKho(string maHangHoa, int soLuongMoi)
+        {
+            using (SqlConnection conn = DBHelperHH.GetConnection())
+            {
+                conn.Open();
+                string query = "UPDATE HANG_HOA SET TON_KHO = @SoLuong WHERE MA_HANG_HOA = @MaHangHoa";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@SoLuong", soLuongMoi);
+                cmd.Parameters.AddWithValue("@MaHangHoa", maHangHoa);
+                cmd.ExecuteNonQuery();
             }
         }
 

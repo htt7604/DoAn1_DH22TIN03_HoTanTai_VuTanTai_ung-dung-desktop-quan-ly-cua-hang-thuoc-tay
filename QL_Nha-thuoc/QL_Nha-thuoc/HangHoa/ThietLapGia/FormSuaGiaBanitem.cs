@@ -51,7 +51,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
 
         private void loadcomboBoxLoaiGia()
         {
-            var loaiGiaList = new List<string> { "Gia von", "Gia ban" };
+            var loaiGiaList = new List<string> { "Giá vốn", "Giá bán" };
             comboBoxLoaiGia.DataSource = loaiGiaList;
             comboBoxLoaiGia.DropDownStyle = ComboBoxStyle.DropDownList;
         }
@@ -164,7 +164,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
             if (string.IsNullOrEmpty(cachtinh)) return;
 
             // Chọn giá gốc (giaCu) tương ứng
-            decimal giadetinh = cachtinh == "Gia von" ? hanghoa.GiaVon : hanghoa.GiaBan;
+            decimal giadetinh = cachtinh == "Giá vốn" ? hanghoa.GiaVon : hanghoa.GiaBan;
 
             // Tính giá mới
             giaMoi = phepTinh == "+"
@@ -202,7 +202,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
                 foreach (var hh in danhSach)
                 {
                     // Chọn giá gốc (giaCu) tương ứng
-                    decimal giadetinh = cachtinh == "Gia von" ? hh.GiaVon : hh.GiaBan;
+                    decimal giadetinh = cachtinh == "Giá vốn" ? hh.GiaVon : hh.GiaBan;
 
                     decimal giaMoiHH = phepTinh == "+"
                         ? giadetinh + (donVi == "VND" ? soThayDoiGia : giadetinh * soThayDoiGia / 100)
@@ -227,7 +227,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
                 return;
             }
             // Cập nhật cho 1 sản phẩm
-            decimal giaHienTai = cachtinh == "Gia von" ? hanghoa.GiaVon : hanghoa.GiaBan;
+            decimal giaHienTai = cachtinh == "Giá vốn" ? hanghoa.GiaVon : hanghoa.GiaBan;
             decimal giaMoi = phepTinh == "+"
                 ? giaHienTai + (donVi == "VND" ? soThayDoiGia : giaHienTai * soThayDoiGia / 100)
                 : giaHienTai - (donVi == "VND" ? soThayDoiGia : giaHienTai * soThayDoiGia / 100);

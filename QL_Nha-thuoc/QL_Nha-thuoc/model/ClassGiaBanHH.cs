@@ -48,7 +48,8 @@ namespace QL_Nha_thuoc.model
                 string query = "SELECT GHH.MA_HANG_HOA, GHH.MA_DON_VI_TINH, GHH.GIA_VON_HH, GHH.GIA_BAN_HH, HH.TEN_HANG_HOA,DVT.TEN_DON_VI_TINH " +
                                "FROM GIA_HANG_HOA GHH " +
                                "JOIN HANG_HOA HH ON HH.MA_HANG_HOA = GHH.MA_HANG_HOA " +
-                               "JOIN DON_VI_TINH DVT ON DVT.MA_DON_VI_TINH = GHH.MA_DON_VI_TINH";
+                               "JOIN DON_VI_TINH DVT ON DVT.MA_DON_VI_TINH = GHH.MA_DON_VI_TINH"+
+                               " WHERE HH.MA_HANG_HOA NOT LIKE '%_DELETED' ";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -82,7 +83,7 @@ namespace QL_Nha_thuoc.model
             using (SqlConnection conn = DBHelperHH.GetConnection())
             {
                 conn.Open();
-                string query = "SELECT MA_HANG_HOA, MA_DON_VI_TINH, GIA_VON_HH, GIA_BAN_HH FROM GIA_HANG_HOA WHERE MA_HANG_HOA = @maHH and MA_DON_VI_TINH = @maDVT";
+                string query = "SELECT MA_HANG_HOA, MA_DON_VI_TINH, GIA_VON_HH, GIA_BAN_HH FROM GIA_HANG_HOA WHERE MA_HANG_HOA = @maHH and MA_DON_VI_TINH = @maDVT AND MA_HANG_HOA NOT LIKE '%_DELETED' ";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@maHH", maHangHoa);
@@ -112,7 +113,7 @@ namespace QL_Nha_thuoc.model
             using (SqlConnection conn = DBHelperHH.GetConnection())
             {
                 conn.Open();
-                string query = "SELECT MA_HANG_HOA, MA_DON_VI_TINH, GIA_VON_HH, GIA_BAN_HH FROM GIA_HANG_HOA";
+                string query = "SELECT MA_HANG_HOA, MA_DON_VI_TINH, GIA_VON_HH, GIA_BAN_HH FROM GIA_HANG_HOA AND MA_HANG_HOA NOT LIKE '%_DELETED' ";
 
                 if (!string.IsNullOrEmpty(maHangHoa))
                     query += " WHERE MA_HANG_HOA = @maHH";
@@ -149,7 +150,7 @@ namespace QL_Nha_thuoc.model
                     SELECT GHH.MA_HANG_HOA, GHH.MA_DON_VI_TINH, GHH.GIA_VON_HH, GHH.GIA_BAN_HH, HH.TEN_HANG_HOA 
                     FROM GIA_HANG_HOA GHH 
                     JOIN HANG_HOA HH ON HH.MA_HANG_HOA = GHH.MA_HANG_HOA 
-                    WHERE HH.MA_NHOM_HH = @maNhomHangHoa";
+                    WHERE HH.MA_NHOM_HH = @maNhomHangHoa AND GHH.MA_HANG_HOA NOT LIKE '%_DELETED'";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@maNhomHangHoa", maNhomHangHoa);
@@ -239,7 +240,7 @@ namespace QL_Nha_thuoc.model
                 string query = @"
                     UPDATE GIA_HANG_HOA 
                     SET GIA_VON_HH = @giaVon, GIA_BAN_HH = @giaBan, TI_LE_LOI = @tiLeLoi
-                    WHERE MA_HANG_HOA = @maHH AND MA_DON_VI_TINH = @maDVT";
+                    WHERE (MA_HANG_HOA = @maHH AND MA_DON_VI_TINH = @maDVT)";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {

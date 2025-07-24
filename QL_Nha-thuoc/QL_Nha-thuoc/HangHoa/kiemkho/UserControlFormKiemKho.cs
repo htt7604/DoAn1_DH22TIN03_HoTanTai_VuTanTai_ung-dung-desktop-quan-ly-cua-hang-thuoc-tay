@@ -30,7 +30,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                 .OfType<UserControlHangHoaKiemKho>()
                 .Sum(ctrl => ctrl.SoLuongThucTe);
 
-            textBoxTongThucTe.Text = tong.ToString();
+            labelTongThucTe.Text = tong.ToString();
         }
 
         public int CapNhatSTT()
@@ -100,7 +100,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                 MessageBox.Show("No record found for the given MaKiemKho.");
                 return;
             }
-            textBoxTrangThai.Text = phieukiemkho.TrangThaiPhieuKiem;
+            labelTrangThai.Text = phieukiemkho.TrangThaiPhieuKiem;
             textBoxGhiChu.Text = phieukiemkho.GhiChu;
             textBoxMaKiemKho.Text = phieukiemkho.MaPhieuKiemKho;
             labelTime.Text = phieukiemkho.NgayKiemKho.Value.ToString("dd/MM/yyyy HH:mm:ss");
@@ -114,9 +114,17 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
         }
         private void buttonLuuTam_Click(object sender, EventArgs e)
         {
+            var danhSachHangHoa = flowLayoutPanelKiemKho.Controls.OfType<UserControlHangHoaKiemKho>().ToList();
+
+            if (danhSachHangHoa.Count == 0)
+            {
+                MessageBox.Show("Không có hàng hóa nào trong phiếu kiểm kho để lưu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             List<ClassChiTietPhieuKiemKho> danhSachChiTiet = new List<ClassChiTietPhieuKiemKho>();
 
-            foreach (UserControlHangHoaKiemKho item in flowLayoutPanelKiemKho.Controls.OfType<UserControlHangHoaKiemKho>())
+            foreach (var item in danhSachHangHoa)
             {
                 ClassChiTietPhieuKiemKho chiTiet = new ClassChiTietPhieuKiemKho
                 {
@@ -130,23 +138,17 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                 danhSachChiTiet.Add(chiTiet);
             }
 
-            // Lưu tạm vào cơ sở dữ liệu
             foreach (var chiTiet in danhSachChiTiet)
             {
                 try
                 {
-                    // Nếu dữ liệu đã tồn tại thì cập nhật, ngược lại thì thêm mới
                     var danhSachCu = ClassChiTietPhieuKiemKho.LayDanhSachChiTietPhieuKiemKho(MaKiemKho);
                     bool daTonTai = danhSachCu.Any(x => x.MaHangHoa == chiTiet.MaHangHoa);
 
                     if (daTonTai)
-                    {
                         ClassChiTietPhieuKiemKho.CapNhatChiTietPhieuKiemKho(chiTiet);
-                    }
                     else
-                    {
                         ClassChiTietPhieuKiemKho.ThemChiTietPhieuKiemKho(chiTiet);
-                    }
                 }
                 catch (Exception ex)
                 {
@@ -157,13 +159,26 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             MessageBox.Show("Lưu tạm phiếu kiểm kho thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+
         private void buttonHoanThanh_Click(object sender, EventArgs e)
         {
-            //tao chi tiet phieu kiem kho 
-            List<ClassChiTietPhieuKiemKho> danhSachChiTiet = new List<ClassChiTietPhieuKiemKho>();
-            foreach (UserControlHangHoaKiemKho item in flowLayoutPanelKiemKho.Controls.OfType<UserControlHangHoaKiemKho>())
+            var danhSachHangHoa = flowLayoutPanelKiemKho.Controls.OfType<UserControlHangHoaKiemKho>().ToList();
+
+            if (danhSachHangHoa.Count == 0)
             {
-                ClassChiTietPhieuKiemKho chiTiet = new ClassChiTietPhieuKiemKho
+                MessageBox.Show("Không thể hoàn thành vì không có hàng hóa trong phiếu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            List<ClassChiTietPhieuKiemKho> danhSachChiTiet = new List<ClassChiTietPhieuKiemKho>();
+
+            int tongChenhLech = 0;
+            int soLuongLechTang = 0;
+            int soLuongLechGiam = 0;
+
+            foreach (var item in danhSachHangHoa)
+            {
+                var chiTiet = new ClassChiTietPhieuKiemKho
                 {
                     MaPhieuKiemKho = MaKiemKho,
                     MaHangHoa = item.MaHangHoa,
@@ -172,43 +187,82 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                     SoLuongThucTe = item.SoLuongThucTe,
                     GhiChu = textBoxGhiChu.Text.Trim()
                 };
+
                 danhSachChiTiet.Add(chiTiet);
+
+                tongChenhLech += Math.Abs(chiTiet.ChenhLech);
+
+                if (chiTiet.ChenhLech > 0)
+                    soLuongLechTang++;
+                else if (chiTiet.ChenhLech < 0)
+                    soLuongLechGiam++;
             }
-            // Lưu chi tiết phiếu kiểm kho vào cơ sở dữ liệu
+
+            // Cập nhật hoặc thêm chi tiết kiểm kho
             foreach (var chiTiet in danhSachChiTiet)
             {
                 try
                 {
-                    // Nếu dữ liệu đã tồn tại thì cập nhật, ngược lại thì thêm mới
                     var danhSachCu = ClassChiTietPhieuKiemKho.LayDanhSachChiTietPhieuKiemKho(MaKiemKho);
                     bool daTonTai = danhSachCu.Any(x => x.MaHangHoa == chiTiet.MaHangHoa);
+
                     if (daTonTai)
-                    {
                         ClassChiTietPhieuKiemKho.CapNhatChiTietPhieuKiemKho(chiTiet);
-                    }
                     else
-                    {
                         ClassChiTietPhieuKiemKho.ThemChiTietPhieuKiemKho(chiTiet);
-                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Lỗi khi lưu hàng hóa {chiTiet.MaHangHoa}: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            //cập nhật phiếu kiểm kho
+
+            // Cập nhật thông tin phiếu kiểm kho
             ClassPhieuKiemKho phieukiemkho = new ClassPhieuKiemKho
             {
                 MaPhieuKiemKho = MaKiemKho,
+                MaNhanVien = Session.TaiKhoanDangNhap.MaNhanVien,
                 TenNhanVien = comboBoxTaiKhoan.Text.Trim(),
                 NgayKiemKho = DateTime.Now,
                 ThoiGianCanBangKho = DateTime.Now,
-                TongThucTe = int.Parse(textBoxTongThucTe.Text.Trim()),
+                TongThucTe = danhSachChiTiet.Sum(x => x.SoLuongThucTe),
                 GhiChu = textBoxGhiChu.Text.Trim(),
                 TrangThaiPhieuKiem = "Đã cân bằng kho",
-                TongChechLech = danhSachChiTiet.Sum(x => x.ChenhLech), // Cần tính toán lại
+                TongChechLech = tongChenhLech,
+                // Nếu class ClassPhieuKiemKho chưa có 2 dòng dưới, bạn có thể bỏ hoặc thêm vào class.
+                SoLuongLechTang = soLuongLechTang,
+                SoLuongLechGiam = soLuongLechGiam
             };
+
+            try
+            {
+                ClassPhieuKiemKho.CapNhatPhieuKiemKho(phieukiemkho);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi cập nhật phiếu kiểm kho: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Cập nhật tồn kho thực tế
+            foreach (var item in danhSachChiTiet)
+            {
+                try
+                {
+                    ClassHangHoa.CapNhatTonKho(item.MaHangHoa, item.SoLuongThucTe);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi cập nhật tồn kho cho {item.MaHangHoa}: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            MessageBox.Show("Hoàn thành phiếu kiểm kho thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+
+
+
 
 
 

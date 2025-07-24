@@ -368,6 +368,7 @@ namespace QL_Nha_thuoc
                 // Lấy dòng vừa click
                 DataGridViewRow selectedRow = dataGridViewdsDMHH.Rows[e.RowIndex];
                 string maHH = selectedRow.Cells["MA_HANG_HOA"].Value?.ToString();
+
                 // Lấy giá trị MA_LOAI_HH từ dòng
                 //string maLoaiHH = selectedRow.Cells["MA_LOAI_HH"].Value?.ToString();
                 ClassHangHoa hanghoa = ClassHangHoa.LayThongTinMotHangHoa(maHH);
@@ -673,10 +674,6 @@ namespace QL_Nha_thuoc
             }
         }
 
-        private void checkBoxChonTatCa_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
         private void dataGridViewdsDMHH_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             if (dataGridViewdsDMHH.IsCurrentCellDirty)
