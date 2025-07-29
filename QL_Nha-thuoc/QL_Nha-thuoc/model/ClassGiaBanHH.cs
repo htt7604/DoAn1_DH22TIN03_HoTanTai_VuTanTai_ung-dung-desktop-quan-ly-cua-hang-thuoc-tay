@@ -5,36 +5,52 @@ using System.Data.SqlClient;
 using Microsoft.Data.SqlClient; // Sử dụng Microsoft.Data.SqlClient thay vì System.Data.SqlClient
 namespace QL_Nha_thuoc.model
 {
-    public class DBHelperGiaBanHH
-    {
-        private static string connectionString = @"Data Source=WIN_BYTAI;Initial Catalog=QL_NhaThuoc;Integrated Security=True;Trust Server Certificate=True";
-        public static SqlConnection GetConnection()
-        {
-            return new SqlConnection(connectionString);
-        }
-    }
     public class ClassGiaBanHH
     {
+        public string MaGiaHH { get; set; }
         public string MaHangHoa { get; set; }
-        public string MaDonViTinh { get; set; }
+        public string MaBangGia { get; set; }
         public decimal GiaVon { get; set; }
         public decimal GiaBan { get; set; }
-        public decimal TiLeLoi { get; set; }
-        public string TenHangHoa { get; set; } // Thuộc tính mới để lưu tên hàng hóa
-        public string TenDonViTinh { get; set; } // Thuộc tính mới để lưu tên đơn vị tính
 
-        // Constructor tùy chọn
-        public ClassGiaBanHH() { }
+        public bool LaPhanTram { get; set; }  // <-- kiểu bool
+        public bool TangGiam { get; set; }    // <-- kiểu bool
+        public decimal GiaTriTangGiam { get; set; } // Tỷ lệ lợi nhuận, có thể là phần trăm hoặc giá trị tuyệt đối
 
-        public ClassGiaBanHH(string maHH, string maDVT, decimal giaVon, decimal giaBan, decimal tiLeLoi)
+        public string TenHangHoa { get; set; }
+        public string TenDonViTinh { get; set; }
+        public string MaDonViTinh { get; set; }
+
+        // Constructor đầy đủ
+        public ClassGiaBanHH(string maGiaHH, string maHH, string maBangGia, string maDVT,
+                             decimal giaVon, decimal giaBan, bool laPhanTram,
+                             bool tangGiam, decimal giaTriTangGiam,
+                             string tenHH, string tenDVT, DateTime tuNgay, DateTime denNgay)
+        {
+            MaGiaHH = maGiaHH;
+            MaHangHoa = maHH;
+            MaBangGia = maBangGia;
+            MaDonViTinh = maDVT;
+            GiaVon = giaVon;
+            GiaBan = giaBan;
+            LaPhanTram = laPhanTram;
+            TangGiam = tangGiam;
+            GiaTriTangGiam = giaTriTangGiam;
+            TenHangHoa = tenHH;
+            TenDonViTinh = tenDVT;
+        }
+
+        // Constructor rút gọn (nếu cần tạo nhanh chỉ với thông tin chính)
+        public ClassGiaBanHH(string maHH, string maDVT, decimal giaVon, decimal giaBan, decimal giaTriTangGiam)
         {
             MaHangHoa = maHH;
             MaDonViTinh = maDVT;
             GiaVon = giaVon;
             GiaBan = giaBan;
-            TiLeLoi = tiLeLoi;
+            GiaTriTangGiam = giaTriTangGiam;
         }
 
+        public ClassGiaBanHH() { } // Constructor rỗng
         /// Lấy danh sách giá bán hàng hóa từ CSDL
 
         //ham lay toan bo danh sach gia ban hang hoa
@@ -42,14 +58,14 @@ namespace QL_Nha_thuoc.model
         {
             List<ClassGiaBanHH> danhSach = new List<ClassGiaBanHH>();
 
-            using (SqlConnection conn = DBHelperHH.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
                 string query = "SELECT GHH.MA_HANG_HOA, GHH.MA_DON_VI_TINH, GHH.GIA_VON_HH, GHH.GIA_BAN_HH, HH.TEN_HANG_HOA,DVT.TEN_DON_VI_TINH " +
                                "FROM GIA_HANG_HOA GHH " +
                                "JOIN HANG_HOA HH ON HH.MA_HANG_HOA = GHH.MA_HANG_HOA " +
                                "JOIN DON_VI_TINH DVT ON DVT.MA_DON_VI_TINH = GHH.MA_DON_VI_TINH"+
-                               " WHERE HH.MA_HANG_HOA NOT LIKE '%_DELETED' ";
+                               " WHERE HH.MA_HANG_HOA NOT LIKE '%_DELETED' AND MA_GIA_HH NOT LIKE '%_DELETED'";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -63,7 +79,7 @@ namespace QL_Nha_thuoc.model
                             TenDonViTinh = reader[ "TEN_DON_VI_TINH" ].ToString(),
                             GiaVon = Convert.ToDecimal(reader["GIA_VON_HH"]),
                             GiaBan = Convert.ToDecimal(reader["GIA_BAN_HH"]),
-                            TenHangHoa = reader["TEN_HANG_HOA"].ToString(),
+                            TenHangHoa = reader["TEN_HANG_HOA"].ToString()
                         };
                         danhSach.Add(gia);
                     }
@@ -80,10 +96,10 @@ namespace QL_Nha_thuoc.model
             if (string.IsNullOrEmpty(maHangHoa))
                 return null;
 
-            using (SqlConnection conn = DBHelperHH.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
-                string query = "SELECT MA_HANG_HOA, MA_DON_VI_TINH, GIA_VON_HH, GIA_BAN_HH FROM GIA_HANG_HOA WHERE MA_HANG_HOA = @maHH and MA_DON_VI_TINH = @maDVT AND MA_HANG_HOA NOT LIKE '%_DELETED' ";
+                string query = "SELECT MA_HANG_HOA, MA_DON_VI_TINH, GIA_VON_HH, GIA_BAN_HH FROM GIA_HANG_HOA WHERE MA_HANG_HOA = @maHH and MA_DON_VI_TINH = @maDVT AND MA_HANG_HOA NOT LIKE '%_DELETED' AND MA_GIA_HH NOT LIKE '%_DELETED' ";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@maHH", maHangHoa);
@@ -110,10 +126,10 @@ namespace QL_Nha_thuoc.model
         {
             List<ClassGiaBanHH> danhSach = new List<ClassGiaBanHH>();
 
-            using (SqlConnection conn = DBHelperHH.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
-                string query = "SELECT MA_HANG_HOA, MA_DON_VI_TINH, GIA_VON_HH, GIA_BAN_HH FROM GIA_HANG_HOA AND MA_HANG_HOA NOT LIKE '%_DELETED' ";
+                string query = "SELECT MA_HANG_HOA, MA_DON_VI_TINH, GIA_VON_HH, GIA_BAN_HH FROM GIA_HANG_HOA AND MA_HANG_HOA NOT LIKE '%_DELETED' AND MA_GIA_HH NOT LIKE '%_DELETED' ";
 
                 if (!string.IsNullOrEmpty(maHangHoa))
                     query += " WHERE MA_HANG_HOA = @maHH";
@@ -140,20 +156,67 @@ namespace QL_Nha_thuoc.model
         }
 
         //lay theo manhom hang hoa
-        public static List<ClassGiaBanHH> LayDanhSachGiaBanTheoMaNhom(string maNhomHangHoa)
+        public static List<ClassGiaBanHH> LayDanhSachGiaBanTheoMaNhom_BangGia(string maNhomHangHoa, string maBangGia)
         {
             List<ClassGiaBanHH> danhSach = new List<ClassGiaBanHH>();
-            using (SqlConnection conn = DBHelperHH.GetConnection())
+
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
+
                 string query = @"
-                    SELECT GHH.MA_HANG_HOA, GHH.MA_DON_VI_TINH, GHH.GIA_VON_HH, GHH.GIA_BAN_HH, HH.TEN_HANG_HOA 
-                    FROM GIA_HANG_HOA GHH 
-                    JOIN HANG_HOA HH ON HH.MA_HANG_HOA = GHH.MA_HANG_HOA 
-                    WHERE HH.MA_NHOM_HH = @maNhomHangHoa AND GHH.MA_HANG_HOA NOT LIKE '%_DELETED'";
+            SELECT GHH.MA_HANG_HOA, GHH.MA_DON_VI_TINH, GHH.GIA_VON_HH, GHH.GIA_BAN_HH, HH.TEN_HANG_HOA
+            FROM GIA_HANG_HOA GHH 
+            JOIN HANG_HOA HH ON HH.MA_HANG_HOA = GHH.MA_HANG_HOA 
+            WHERE HH.MA_NHOM_HH = @maNhomHangHoa
+              AND GHH.MA_BANG_GIA = @maBangGia
+              AND GHH.MA_HANG_HOA NOT LIKE '%_DELETED'
+              AND GHH.MA_GIA_HH NOT LIKE '%_DELETED'";
+
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@maNhomHangHoa", maNhomHangHoa);
+                    cmd.Parameters.AddWithValue("@maBangGia", maBangGia);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var gia = new ClassGiaBanHH
+                            {
+                                MaHangHoa = reader["MA_HANG_HOA"].ToString(),
+                                MaDonViTinh = reader["MA_DON_VI_TINH"].ToString(),
+                                GiaVon = Convert.ToDecimal(reader["GIA_VON_HH"]),
+                                GiaBan = Convert.ToDecimal(reader["GIA_BAN_HH"]),
+                                TenHangHoa = reader["TEN_HANG_HOA"].ToString()
+                            };
+                            danhSach.Add(gia);
+                        }
+                    }
+                }
+            }
+
+            return danhSach;
+        }
+
+
+        public static List<ClassGiaBanHH> LayDanhSachGiaBanTheoBangGia(string maBangGia)
+        {
+            List<ClassGiaBanHH> danhSach = new List<ClassGiaBanHH>();
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                conn.Open();
+                string query = @"
+            SELECT GHH.MA_HANG_HOA, GHH.MA_DON_VI_TINH, GHH.GIA_VON_HH, GHH.GIA_BAN_HH, HH.TEN_HANG_HOA
+            FROM GIA_HANG_HOA GHH 
+            JOIN HANG_HOA HH ON HH.MA_HANG_HOA = GHH.MA_HANG_HOA 
+            WHERE GHH.MA_BANG_GIA = @maBangGia
+              AND GHH.MA_HANG_HOA NOT LIKE '%_DELETED'
+              AND GHH.MA_GIA_HH NOT LIKE '%_DELETED'";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@maBangGia", maBangGia);
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
@@ -173,6 +236,9 @@ namespace QL_Nha_thuoc.model
             }
             return danhSach;
         }
+
+
+
         //ham loc theo gia 
         public static List<ClassGiaBanHH> LocGiaBanTheoKhoangGia(List<ClassGiaBanHH> danhSach, string loc, string loaiGia)
         {
@@ -195,38 +261,67 @@ namespace QL_Nha_thuoc.model
 
 
 
+        public static string TaoMaGiaBanTuDong()
+        {
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                string query = @"
+        SELECT TOP 1 MA_GIA_HH
+        FROM GIA_HANG_HOA
+        WHERE MA_GIA_HH LIKE 'GB%' AND MA_GIA_HH NOT LIKE '%_DELETED'
+        ORDER BY 
+            TRY_CAST(SUBSTRING(MA_GIA_HH, 3, LEN(MA_GIA_HH)) AS INT) DESC";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
+
+                object result = cmd.ExecuteScalar();
+                int soThuTu = 1;
+
+                if (result != null)
+                {
+                    string maCu = result.ToString(); // VD: GB0015
+                    if (maCu.Length > 2 && int.TryParse(maCu.Substring(2), out int so))
+                    {
+                        soThuTu = so + 1;
+                    }
+                }
+
+                return "GB" + soThuTu.ToString("D5"); // VD: GB0016
+            }
+        }
+
 
         /// <summary>
         /// Thêm giá bán mới cho hàng hóa
         /// </summary>
-        public static bool ThemGiaBan(ClassGiaBanHH gia, SqlConnection conn, SqlTransaction transaction)
+        public static bool ThemGiaBan(ClassGiaBanHH giaBan, SqlConnection conn, SqlTransaction tran)
         {
-            decimal? tiLeLoi = null;
-
-            if (gia.GiaVon > 0 && gia.GiaBan > 0)
-            {
-                tiLeLoi = ((gia.GiaBan - gia.GiaVon) / gia.GiaVon) * 100;
-            }
-
             string query = @"
-        INSERT INTO GIA_HANG_HOA (
-            MA_HANG_HOA, MA_DON_VI_TINH, GIA_VON_HH, GIA_BAN_HH, TI_LE_LOI
-        )
-        VALUES (
-            @maHH, @maDVT, @giaVon, @giaBan, @tiLeLoi
-        )";
+        INSERT INTO GIA_HANG_HOA 
+        (MA_GIA_HH, MA_BANG_GIA, MA_HANG_HOA, GIA_BAN_HH, GIA_VON_HH, MA_DON_VI_TINH, LA_PHAN_TRAM, TANG_GIAM, GIA_TRI_TANG_GIAM)
+        VALUES 
+        (@maGiaHH, @maBangGia, @mahh, @giaban, @giavon, @madvt, @laphantram, @tanggiam, @giatri)";
 
-            using (SqlCommand cmd = new SqlCommand(query, conn, transaction))
+            using (SqlCommand cmd = new SqlCommand(query, conn, tran))
             {
-                cmd.Parameters.AddWithValue("@maHH", gia.MaHangHoa);
-                cmd.Parameters.AddWithValue("@maDVT", gia.MaDonViTinh);
-                cmd.Parameters.AddWithValue("@giaVon", gia.GiaVon);
-                cmd.Parameters.AddWithValue("@giaBan", gia.GiaBan);
-                cmd.Parameters.AddWithValue("@tiLeLoi", (object)tiLeLoi ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@maGiaHH", TaoMaGiaBanTuDong());
+                cmd.Parameters.AddWithValue("@maBangGia", giaBan.MaBangGia ?? "BG001");
+                cmd.Parameters.AddWithValue("@mahh", giaBan.MaHangHoa);
+                cmd.Parameters.AddWithValue("@giaban", giaBan.GiaBan);
+                cmd.Parameters.AddWithValue("@giavon", giaBan.GiaVon);
+                cmd.Parameters.AddWithValue("@madvt", giaBan.MaDonViTinh);
+                cmd.Parameters.AddWithValue("@laphantram", giaBan.LaPhanTram);
+                cmd.Parameters.AddWithValue("@tanggiam", giaBan.TangGiam);
+                cmd.Parameters.AddWithValue("@giatri", giaBan.GiaTriTangGiam);
 
                 return cmd.ExecuteNonQuery() > 0;
             }
         }
+
+
+
+
 
 
         /// <summary>
@@ -234,13 +329,20 @@ namespace QL_Nha_thuoc.model
         /// </summary>
         public static bool CapNhatGiaBan(ClassGiaBanHH gia)
         {
-            using (SqlConnection conn = DBHelperHH.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
                 string query = @"
-                    UPDATE GIA_HANG_HOA 
-                    SET GIA_VON_HH = @giaVon, GIA_BAN_HH = @giaBan, TI_LE_LOI = @tiLeLoi
-                    WHERE (MA_HANG_HOA = @maHH AND MA_DON_VI_TINH = @maDVT)";
+            UPDATE GIA_HANG_HOA 
+            SET 
+                GIA_VON_HH = @giaVon, 
+                GIA_BAN_HH = @giaBan, 
+                LA_PHAN_TRAM = @laPhanTram,
+                TANG_GIAM = @tangGiam,
+                GIA_TRI_TANG_GIAM = @giaTriTangGiam
+            WHERE 
+                MA_HANG_HOA = @maHH 
+                AND MA_DON_VI_TINH = @maDVT AND MA_GIA_HH NOT LIKE '%_DELETED'";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -248,60 +350,77 @@ namespace QL_Nha_thuoc.model
                     cmd.Parameters.AddWithValue("@maDVT", gia.MaDonViTinh);
                     cmd.Parameters.AddWithValue("@giaVon", gia.GiaVon);
                     cmd.Parameters.AddWithValue("@giaBan", gia.GiaBan);
-                    cmd.Parameters.AddWithValue("@tiLeLoi",(gia.GiaBan-gia.GiaVon)/100);
+                    cmd.Parameters.AddWithValue("@laPhanTram", gia.LaPhanTram);
+                    cmd.Parameters.AddWithValue("@tangGiam", gia.TangGiam);
+                    cmd.Parameters.AddWithValue("@giaTriTangGiam", gia.GiaTriTangGiam);
 
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
         }
 
-        public static bool XoaGiaBanTheoMaHangHoaVaDVT(string maHH,string maDVT)
+
+        public static bool XoaGiaBanTheoMaHangHoaVaDVT(string maHH, string maDVT)
         {
-            if (string.IsNullOrEmpty(maHH))
+            if (string.IsNullOrEmpty(maHH) || string.IsNullOrEmpty(maDVT))
                 return false;
 
-            using (SqlConnection conn = DBHelperHH.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
-                string query = "DELETE FROM GIA_HANG_HOA WHERE MA_HANG_HOA = @maHH  and MA_DON_VI_TINH= @maDVT";
 
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@maHH", maHH);
-                cmd.Parameters.AddWithValue("@maDVT", maDVT);
+                string query = @"
+            UPDATE GIA_HANG_HOA
+            SET MA_GIA_HH = MA_GIA_HH + '_DELETED'
+            WHERE MA_HANG_HOA = @maHH AND MA_DON_VI_TINH = @maDVT 
+              AND MA_GIA_HH NOT LIKE '%_DELETED'";
 
-                return cmd.ExecuteNonQuery() > 0;
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@maHH", maHH);
+                    cmd.Parameters.AddWithValue("@maDVT", maDVT);
+
+                    return cmd.ExecuteNonQuery() > 0;
+                }
             }
         }
-
-        //hma xoa them ma hang hoa
         public static bool XoaGiaBanTheoMaHangHoa(string maHH)
         {
             if (string.IsNullOrEmpty(maHH))
                 return false;
-            using (SqlConnection conn = DBHelperHH.GetConnection())
+
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
-                string query = "DELETE FROM GIA_HANG_HOA WHERE MA_HANG_HOA = @maHH";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@maHH", maHH);
-                return cmd.ExecuteNonQuery() > 0;
+
+                string query = @"
+            UPDATE GIA_HANG_HOA
+            SET MA_GIA_HH = MA_GIA_HH + '_DELETED'
+            WHERE MA_HANG_HOA = @maHH 
+              AND MA_GIA_HH NOT LIKE '%_DELETED'";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@maHH", maHH);
+                    return cmd.ExecuteNonQuery() > 0;
+                }
             }
         }
+
+
 
         //lay danh sach don vi tinh cua ma hang hoa
         public static List<ClassDonViTinh> LayDanhSachDonViTinhTheoMaHangHoa(string maHangHoa)
         {
             List<ClassDonViTinh> danhSachMaDonViTinh = new List<ClassDonViTinh>();
 
-            string connectionString = @"Data Source=WIN_BYTAI;Initial Catalog=QL_NhaThuoc;Integrated Security=True;Trust Server Certificate=True";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string sql = @"
-            SELECT DISTINCT GHH.MA_DON_VI_TINH, DVT.TEN_DON_VI_TINH 
+            SELECT DISTINCT GHH.MA_DON_VI_TINH, DVT.TEN_DON_VI_TINH
             FROM GIA_HANG_HOA GHH
             JOIN DON_VI_TINH DVT ON GHH.MA_DON_VI_TINH = DVT.MA_DON_VI_TINH
-            WHERE GHH.MA_HANG_HOA = @maHangHoa";
+            WHERE  MA_GIA_HH NOT LIKE '%_DELETED' AND GHH.MA_HANG_HOA = @maHangHoa ";
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {

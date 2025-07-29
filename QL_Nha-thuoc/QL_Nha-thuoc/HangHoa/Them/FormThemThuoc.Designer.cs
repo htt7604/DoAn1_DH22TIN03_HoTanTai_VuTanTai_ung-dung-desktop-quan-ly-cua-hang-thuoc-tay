@@ -68,6 +68,8 @@
             buttonXoaTT = new Button();
             labeltieude = new Label();
             buttonThemNhomHang = new Button();
+            buttonThemAnh = new Button();
+            buttonThemDuongDung = new Button();
             flowLayoutPanelListThuoc = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHangHoa).BeginInit();
             groupBox1.SuspendLayout();
@@ -431,14 +433,35 @@
             buttonThemNhomHang.UseVisualStyleBackColor = true;
             buttonThemNhomHang.Click += buttonThemNhomHang_Click;
             // 
+            // buttonThemAnh
+            // 
+            buttonThemAnh.Location = new Point(103, 423);
+            buttonThemAnh.Name = "buttonThemAnh";
+            buttonThemAnh.Size = new Size(142, 47);
+            buttonThemAnh.TabIndex = 113;
+            buttonThemAnh.Text = "Thêm ảnh";
+            buttonThemAnh.UseVisualStyleBackColor = true;
+            buttonThemAnh.Click += buttonThemAnh_Click;
+            // 
+            // buttonThemDuongDung
+            // 
+            buttonThemDuongDung.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            buttonThemDuongDung.Location = new Point(698, 412);
+            buttonThemDuongDung.Name = "buttonThemDuongDung";
+            buttonThemDuongDung.Size = new Size(30, 30);
+            buttonThemDuongDung.TabIndex = 114;
+            buttonThemDuongDung.Text = "+";
+            buttonThemDuongDung.UseVisualStyleBackColor = true;
+            buttonThemDuongDung.Click += buttonThemDuongDung_Click;
+            // 
             // flowLayoutPanelListThuoc
             // 
             flowLayoutPanelListThuoc.AutoScroll = true;
             flowLayoutPanelListThuoc.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanelListThuoc.Location = new Point(376, 221);
+            flowLayoutPanelListThuoc.Location = new Point(386, 225);
             flowLayoutPanelListThuoc.Name = "flowLayoutPanelListThuoc";
             flowLayoutPanelListThuoc.Size = new Size(929, 321);
-            flowLayoutPanelListThuoc.TabIndex = 112;
+            flowLayoutPanelListThuoc.TabIndex = 115;
             flowLayoutPanelListThuoc.Visible = false;
             flowLayoutPanelListThuoc.WrapContents = false;
             // 
@@ -448,6 +471,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1345, 853);
             Controls.Add(flowLayoutPanelListThuoc);
+            Controls.Add(buttonThemDuongDung);
+            Controls.Add(buttonThemAnh);
             Controls.Add(buttonThemNhomHang);
             Controls.Add(labeltieude);
             Controls.Add(buttonXoaTT);
@@ -529,7 +554,9 @@
         private Button buttonXoaTT;
         private Label label7;
         private Button buttonThemNhomHang;
-        private FlowLayoutPanel flowLayoutPanelListThuoc;
         private Label labeltieude;
+        private Button buttonThemAnh;
+        private Button buttonThemDuongDung;
+        private FlowLayoutPanel flowLayoutPanelListThuoc;
     }
 }

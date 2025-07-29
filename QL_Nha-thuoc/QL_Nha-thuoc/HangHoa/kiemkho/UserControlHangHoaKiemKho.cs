@@ -24,7 +24,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             labelTenHangHoa.Text = thongtin.TenHangHoa;
             labelTonKho.Text = thongtin.SoLuongTon.ToString();
 
-            labelDonViTinh.Text = $"ĐVT: {thongtin.DonViTinh}";
+            labelDonViTinh.Text = $"ĐVT: {thongtin.TenDonViTinh}";
         }
         public void SetSTT(int stt)
         {

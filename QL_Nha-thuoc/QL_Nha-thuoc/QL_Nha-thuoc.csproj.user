@@ -4,6 +4,15 @@
     <Compile Update="BanHang\FormBanHangMain.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="DangNhap\FormTaoMatKhau.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DangNhap\FormTaoTaiKhoan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DangNhap\FormXacThucEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="DoiTac\khachhang\FormChiTietKhachHang.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,7 +97,13 @@
     <Compile Update="HangHoa\kiemkho\UserControlCotKiemKho.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="HangHoa\Them\FormThemDuongDung.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="HangHoa\ThietLapGia\FormSuaGiaBanitem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="HangHoa\ThietLapGia\FormThemBangGia.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="HangHoa\ThietLapGia\FormThietLapGia.cs">
@@ -99,6 +114,9 @@
     </Compile>
     <Compile Update="HangHoa\kiemkho\FormThemKiemKho.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="HangHoa\ThietLapGia\UserControlitemHangHoaTimKiem.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="NhanVien\FormThemNhanVien.cs">
       <SubType>Form</SubType>

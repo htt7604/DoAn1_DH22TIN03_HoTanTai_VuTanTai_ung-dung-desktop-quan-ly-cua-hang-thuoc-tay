@@ -18,18 +18,11 @@ namespace QL_Nha_thuoc.model
         public string MaSoThue { get; set; }
         public string TrangThai { get; set; }
 
-        // Chuỗi kết nối đến cơ sở dữ liệu
-        private static string connectionString = @"Data Source=WIN_BYTAI;Initial Catalog=QL_NhaThuoc;Integrated Security=True;Trust Server Certificate=True";
-        public static SqlConnection GetConnection()
-        {
-            return new SqlConnection(connectionString);
-        }
-
         public static List<ClassNhaCungCap> LayDanhSachNhaCungCap()
         {
             List<ClassNhaCungCap> danhSach = new List<ClassNhaCungCap>();
 
-            using (SqlConnection conn = GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
                 string query = @"
@@ -71,7 +64,7 @@ namespace QL_Nha_thuoc.model
         public static List<ClassNhaCungCap> LayDanhSachNhaCungCapTheoTen(string tenNhaCungCap)
         {
             List<ClassNhaCungCap> danhSach = new List<ClassNhaCungCap>();
-            using (SqlConnection conn = GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
                 string query = @"
@@ -110,7 +103,7 @@ namespace QL_Nha_thuoc.model
         public static List<ClassNhaCungCap> LayDanhSachNhaCungCapTheoLoai(string loaiTimKiem, string giaTriTimKiem)
         {
             List<ClassNhaCungCap> danhSach = new List<ClassNhaCungCap>();
-            using (SqlConnection conn = GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
                 string query = @"
@@ -167,7 +160,7 @@ namespace QL_Nha_thuoc.model
         // Mã nhà cung cấp tự động
         public static string MaNhaCungCapTuDong()
         {
-            using (SqlConnection conn = GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
                 string query = @"
@@ -199,7 +192,7 @@ namespace QL_Nha_thuoc.model
         // Thêm nhà cung cấp
         public static void ThemNhaCungCap(ClassNhaCungCap ncc)
         {
-            using (SqlConnection conn = GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
                 string query = @"INSERT INTO NHA_CUNG_CAP 
@@ -229,7 +222,7 @@ namespace QL_Nha_thuoc.model
         {
             string maNCCMoi = maNCC + "-Deleted";
 
-            using (SqlConnection conn = GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
 
@@ -256,7 +249,7 @@ namespace QL_Nha_thuoc.model
 
         public static void SuaNhaCungCap(ClassNhaCungCap ncc)
         {
-            using (SqlConnection conn = GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
                 string query = @"

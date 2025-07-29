@@ -33,9 +33,9 @@ namespace QL_Nha_thuoc.model
         {
             List<ClassChiTietPhieuKiemKho> danhSach = new List<ClassChiTietPhieuKiemKho>();
             CSDL csdl = new CSDL();
-            using (SqlConnection conn = csdl.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
-                conn.Open(); 
+                conn.Open();
                 string query = @"
                     SELECT 
                         CT.MA_KIEM_KHO, 
@@ -73,7 +73,7 @@ namespace QL_Nha_thuoc.model
         public static bool ThemChiTietPhieuKiemKho(ClassChiTietPhieuKiemKho chiTiet)
         {
             CSDL csdl = new CSDL();
-            using (SqlConnection conn = csdl.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
                 string query = @"
@@ -96,7 +96,7 @@ namespace QL_Nha_thuoc.model
         public static void CapNhatChiTietPhieuKiemKho(ClassChiTietPhieuKiemKho chiTiet)
         {
             CSDL csdl = new CSDL();
-            using (SqlConnection conn = csdl.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
                 string query = @"
@@ -124,7 +124,7 @@ namespace QL_Nha_thuoc.model
             try
             {
                 CSDL csdl = new CSDL();
-                using (SqlConnection conn = csdl.GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = @"

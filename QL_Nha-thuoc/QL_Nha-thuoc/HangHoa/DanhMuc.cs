@@ -30,7 +30,7 @@ namespace QL_Nha_thuoc
             List<string> loaiHangList = new List<string>();
 
             CSDL cSDL = new CSDL();
-            SqlConnection conn = cSDL.GetConnection(); // Lấy chuỗi kết nối từ lớp CSDL
+            SqlConnection conn = CSDL.GetConnection(); // Lấy chuỗi kết nối từ lớp CSDL
             string query = "SELECT TEN_LOAI_HH FROM LOAI_HANG";
 
             using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -148,7 +148,7 @@ namespace QL_Nha_thuoc
             }
 
             CSDL cSDL = new CSDL();
-            SqlConnection conn = cSDL.GetConnection();
+            SqlConnection conn = CSDL.GetConnection();
 
             string inClause = string.Join(",", loaiHangDuocChon.Select((s, i) => $"@loai{i}"));
             string query = $@"
@@ -301,7 +301,7 @@ namespace QL_Nha_thuoc
             var (loaiHangDuocChon, nhomHang, trangThai) = LayThongTinLoc();
 
             CSDL cSDL = new CSDL();
-            SqlConnection conn = cSDL.GetConnection();
+            SqlConnection conn = CSDL.GetConnection();
 
             Dictionary<string, object> parameters;
             string query = TaoCauTruyVanLoc(loaiHangDuocChon, nhomHang, trangThai, out parameters);
@@ -416,7 +416,7 @@ namespace QL_Nha_thuoc
             List<string> loaiHangList = new List<string>();
 
             CSDL cSDL = new CSDL();
-            SqlConnection conn = cSDL.GetConnection();
+            SqlConnection conn = CSDL.GetConnection();
             string query = "SELECT TEN_LOAI_HH FROM LOAI_HANG";
 
             using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -540,7 +540,7 @@ namespace QL_Nha_thuoc
             var ketQua = new List<Thuoc>();
 
             CSDL cSDL = new CSDL();
-            string connectionString = cSDL.GetConnection().ConnectionString;
+            string connectionString = CSDL.GetConnection().ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -589,20 +589,6 @@ namespace QL_Nha_thuoc
 
             panelKetQuaTimKiem.Controls.Clear();
             int y = 0;
-
-            //foreach (var thuoc in ds)
-            //{
-            //    var uc = new UC_ItemThuoc(); // UserControl như mình hướng dẫn ở trên
-            //    uc.SetData(thuoc.Ten, thuoc.Ma, thuoc.Gia,thuoc.hinhanhhh);
-            //    uc.Width = panelKetQuaTimKiem.Width;
-            //    uc.Location = new Point(0, y);
-            //    y += uc.Height + 10;
-            //    panelKetQuaTimKiem.Controls.Add(uc);
-            //}
-
-            //panelKetQuaTimKiem.Visible = ds.Count > 0;
-
-
             foreach (var thuoc in ds)
             {
                 var uc = new UC_ItemThuoc();
@@ -732,7 +718,7 @@ namespace QL_Nha_thuoc
                         string maHangHoa = row.Cells["MA_HANG_HOA"].Value?.ToString();
                         if (!string.IsNullOrEmpty(maHangHoa))
                         {
-                            ClassHangHoa.XoaHangHoa(maHangHoa,Session.TaiKhoanDangNhap.MaNhanVien); // Xóa trong DB
+                            ClassHangHoa.XoaHangHoa(maHangHoa, Session.TaiKhoanDangNhap.MaNhanVien); // Xóa trong DB
                         }
 
                         dataGridViewdsDMHH.Rows.RemoveAt(i); // Xóa trong giao diện
@@ -748,7 +734,11 @@ namespace QL_Nha_thuoc
                 buttonTuyChon.Visible = false; // Ẩn nút tùy chọn
                 panelTuyChon.Visible = false; // Ẩn panel tùy chọn
             }
-        }
+            else
+            {
+                panelTuyChon.Visible = false; // Ẩn panel tùy chọn nếu không xóa
+            }
+            }
 
         private void buttonNhapHang_Click(object sender, EventArgs e)
         {

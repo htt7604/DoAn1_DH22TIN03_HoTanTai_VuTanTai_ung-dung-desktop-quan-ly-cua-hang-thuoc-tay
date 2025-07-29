@@ -45,8 +45,6 @@
             labelGia = new Label();
             textBoxGiaVon = new TextBox();
             buttonBoQua = new Button();
-            label10 = new Label();
-            textBoxTrongLuong = new TextBox();
             comboBoxHangSX = new ComboBox();
             comboBoxLoaiHang = new ComboBox();
             comboBoxNhomHang = new ComboBox();
@@ -59,15 +57,16 @@
             labelDonViTinh = new Label();
             label7 = new Label();
             textBoxTenHangHoa = new TextBox();
-            flowLayoutPanelListHangHoa = new FlowLayoutPanel();
             label8 = new Label();
+            buttonThemAnhHH = new Button();
+            flowLayoutPanelListHangHoa = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHangHoa).BeginInit();
             groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // textBoxGhiChu
             // 
-            textBoxGhiChu.Location = new Point(1144, 238);
+            textBoxGhiChu.Location = new Point(1144, 215);
             textBoxGhiChu.Multiline = true;
             textBoxGhiChu.Name = "textBoxGhiChu";
             textBoxGhiChu.Size = new Size(200, 108);
@@ -76,7 +75,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(1039, 238);
+            label9.Location = new Point(1041, 233);
             label9.Name = "label9";
             label9.Size = new Size(61, 20);
             label9.TabIndex = 60;
@@ -85,7 +84,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(378, 378);
+            label6.Location = new Point(365, 378);
             label6.Name = "label6";
             label6.Size = new Size(106, 20);
             label6.TabIndex = 55;
@@ -93,7 +92,7 @@
             // 
             // textBoxQuyCachDongGoi
             // 
-            textBoxQuyCachDongGoi.Location = new Point(518, 483);
+            textBoxQuyCachDongGoi.Location = new Point(518, 423);
             textBoxQuyCachDongGoi.Name = "textBoxQuyCachDongGoi";
             textBoxQuyCachDongGoi.Size = new Size(386, 27);
             textBoxQuyCachDongGoi.TabIndex = 54;
@@ -101,7 +100,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(340, 490);
+            label5.Location = new Point(365, 430);
             label5.Name = "label5";
             label5.Size = new Size(137, 20);
             label5.TabIndex = 53;
@@ -110,7 +109,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(400, 268);
+            label4.Location = new Point(365, 273);
             label4.Name = "label4";
             label4.Size = new Size(77, 20);
             label4.TabIndex = 52;
@@ -142,7 +141,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(393, 326);
+            label2.Location = new Point(365, 326);
             label2.Name = "label2";
             label2.Size = new Size(90, 20);
             label2.TabIndex = 46;
@@ -151,7 +150,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(413, 160);
+            label1.Location = new Point(370, 163);
             label1.Name = "label1";
             label1.Size = new Size(64, 20);
             label1.TabIndex = 45;
@@ -170,7 +169,7 @@
             // labelMaHH
             // 
             labelMaHH.AutoSize = true;
-            labelMaHH.Location = new Point(407, 108);
+            labelMaHH.Location = new Point(372, 112);
             labelMaHH.Name = "labelMaHH";
             labelMaHH.Size = new Size(70, 20);
             labelMaHH.TabIndex = 34;
@@ -187,7 +186,7 @@
             // labelGia
             // 
             labelGia.AutoSize = true;
-            labelGia.Location = new Point(1038, 163);
+            labelGia.Location = new Point(1040, 163);
             labelGia.Name = "labelGia";
             labelGia.Size = new Size(62, 20);
             labelGia.TabIndex = 39;
@@ -195,7 +194,7 @@
             // 
             // textBoxGiaVon
             // 
-            textBoxGiaVon.Location = new Point(1144, 160);
+            textBoxGiaVon.Location = new Point(1144, 156);
             textBoxGiaVon.Name = "textBoxGiaVon";
             textBoxGiaVon.Size = new Size(200, 27);
             textBoxGiaVon.TabIndex = 40;
@@ -208,22 +207,6 @@
             buttonBoQua.TabIndex = 41;
             buttonBoQua.Text = "Bỏ qua";
             buttonBoQua.Click += buttonBoQua_Click;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Location = new Point(384, 430);
-            label10.Name = "label10";
-            label10.Size = new Size(93, 20);
-            label10.TabIndex = 66;
-            label10.Text = "Trọng lượng:";
-            // 
-            // textBoxTrongLuong
-            // 
-            textBoxTrongLuong.Location = new Point(518, 423);
-            textBoxTrongLuong.Name = "textBoxTrongLuong";
-            textBoxTrongLuong.Size = new Size(386, 27);
-            textBoxTrongLuong.TabIndex = 67;
             // 
             // comboBoxHangSX
             // 
@@ -329,7 +312,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(405, 215);
+            label7.Location = new Point(370, 215);
             label7.Name = "label7";
             label7.Size = new Size(72, 20);
             label7.TabIndex = 111;
@@ -343,15 +326,6 @@
             textBoxTenHangHoa.TabIndex = 112;
             textBoxTenHangHoa.TextChanged += textBoxTenHangHoa_TextChanged;
             // 
-            // flowLayoutPanelListHangHoa
-            // 
-            flowLayoutPanelListHangHoa.AutoScroll = true;
-            flowLayoutPanelListHangHoa.Location = new Point(518, 238);
-            flowLayoutPanelListHangHoa.Name = "flowLayoutPanelListHangHoa";
-            flowLayoutPanelListHangHoa.Size = new Size(386, 275);
-            flowLayoutPanelListHangHoa.TabIndex = 113;
-            flowLayoutPanelListHangHoa.Visible = false;
-            // 
             // label8
             // 
             label8.AutoSize = true;
@@ -363,13 +337,33 @@
             label8.TabIndex = 111;
             label8.Text = "Thêm hàng hóa";
             // 
+            // buttonThemAnhHH
+            // 
+            buttonThemAnhHH.Location = new Point(106, 470);
+            buttonThemAnhHH.Name = "buttonThemAnhHH";
+            buttonThemAnhHH.Size = new Size(94, 29);
+            buttonThemAnhHH.TabIndex = 114;
+            buttonThemAnhHH.Text = "Thêm ảnh";
+            buttonThemAnhHH.UseVisualStyleBackColor = true;
+            buttonThemAnhHH.Click += buttonThemAnhHH_Click;
+            // 
+            // flowLayoutPanelListHangHoa
+            // 
+            flowLayoutPanelListHangHoa.AutoScroll = true;
+            flowLayoutPanelListHangHoa.Location = new Point(518, 248);
+            flowLayoutPanelListHangHoa.Name = "flowLayoutPanelListHangHoa";
+            flowLayoutPanelListHangHoa.Size = new Size(386, 275);
+            flowLayoutPanelListHangHoa.TabIndex = 115;
+            flowLayoutPanelListHangHoa.Visible = false;
+            // 
             // FormThemHanghoa
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1359, 705);
-            Controls.Add(label8);
             Controls.Add(flowLayoutPanelListHangHoa);
+            Controls.Add(buttonThemAnhHH);
+            Controls.Add(label8);
             Controls.Add(textBoxTenHangHoa);
             Controls.Add(label7);
             Controls.Add(groupBox2);
@@ -380,8 +374,6 @@
             Controls.Add(comboBoxNhomHang);
             Controls.Add(comboBoxLoaiHang);
             Controls.Add(comboBoxHangSX);
-            Controls.Add(textBoxTrongLuong);
-            Controls.Add(label10);
             Controls.Add(textBoxGhiChu);
             Controls.Add(label9);
             Controls.Add(label6);
@@ -432,8 +424,6 @@
         private Label labelGia;
         private TextBox textBoxGiaVon;
         private Button buttonBoQua;
-        private Label label10;
-        private TextBox textBoxTrongLuong;
         private ComboBox comboBoxHangSX;
         private ComboBox comboBoxLoaiHang;
         private ComboBox comboBoxNhomHang;
@@ -445,7 +435,8 @@
         private Label labelDonViTinh;
         private Label label7;
         private TextBox textBoxTenHangHoa;
-        private FlowLayoutPanel flowLayoutPanelListHangHoa;
         private Label label8;
+        private Button buttonThemAnhHH;
+        private FlowLayoutPanel flowLayoutPanelListHangHoa;
     }
 }

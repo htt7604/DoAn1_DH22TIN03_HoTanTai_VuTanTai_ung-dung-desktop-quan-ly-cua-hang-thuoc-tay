@@ -32,7 +32,7 @@ namespace QL_Nha_thuoc.HangHoa
             try
             {
                 // thêm dữ liệu như đã làm trước
-                using (var conn = new CSDL().GetConnection())
+                using (var conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "INSERT INTO HANG_SAN_XUAT (TEN_HANG_SX) VALUES (@tenhangSX)";

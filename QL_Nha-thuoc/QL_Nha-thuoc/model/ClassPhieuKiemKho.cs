@@ -4,14 +4,6 @@ using Microsoft.Data.SqlClient; // Sử dụng Microsoft.Data.SqlClient thay vì
 namespace QL_Nha_thuoc.model
 {
 
-    public class DBHelperPK
-    {
-        private static string connectionString = @"Data Source=WIN_BYTAI;Initial Catalog=QL_NhaThuoc;Integrated Security=True;Trust Server Certificate=True";
-        public static SqlConnection GetConnection()
-        {
-            return new SqlConnection(connectionString);
-        }
-    }
     public class ClassPhieuKiemKho
     {
         // 🔹 Các thuộc tính dữ liệu
@@ -47,7 +39,7 @@ namespace QL_Nha_thuoc.model
         // 🔹 Lấy phiếu kiểm kho từ DB
         public static ClassPhieuKiemKho LayPhieuKiemKho(string maPhieuKiem)
         {
-            using (SqlConnection conn = DBHelperPK.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = @"SELECT PKK.MA_KIEM_KHO,PKK.NGAY_KIEM_KHO,PKK.NGAY_CAN_BANG_KHO,PKK.TONG_THUC_TE,
                                PKK.TONG_CHECH_LECH,PKK.SO_LUONG_LECH_TANG,PKK.SO_LUONG_LECH_GIAM,pkk.GHI_CHU_KIEM_KHO,pkk.TRANG_THAI_PHIEU_KIEM,
@@ -90,7 +82,7 @@ namespace QL_Nha_thuoc.model
             string maMoi = "PKK00001";
             string query = "SELECT TOP 1 MA_KIEM_KHO FROM PHIEU_KIEM_KHO ORDER BY MA_KIEM_KHO DESC";
 
-            using (SqlConnection conn = DBHelperPK.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
                 conn.Open();
@@ -111,7 +103,7 @@ namespace QL_Nha_thuoc.model
         //them tu dong 
         public static string ThemPhieuKiemKhoMoi(string maNV, string maKho = "1")
         {
-            using (SqlConnection conn = DBHelperPK.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
                 string maPhieu = SinhMaPhieuMoi();
@@ -134,7 +126,7 @@ namespace QL_Nha_thuoc.model
         //them phiếu kiểm kho mới
         public static bool ThemPhieuKiemKho(ClassPhieuKiemKho phieu)
         {
-            using (SqlConnection conn = DBHelperPK.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = @"
             INSERT INTO PHIEU_KIEM_KHO (
@@ -172,7 +164,7 @@ namespace QL_Nha_thuoc.model
         //cap nhat ghi chu 
         public static void CapNhatGhiChu(string maPhieu, string ghiChu)
         {
-            using (SqlConnection conn = DBHelperPK.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = "UPDATE PHIEU_KIEM_KHO SET GHI_CHU_KIEM_KHO = @GhiChu WHERE MA_KIEM_KHO = @MaPhieu";
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -187,7 +179,7 @@ namespace QL_Nha_thuoc.model
         // 🔹 Lưu phiếu kiểm kho mới vào DB
         public static bool CapNhatPhieuKiemKho(ClassPhieuKiemKho phieu)
         {
-            using (SqlConnection conn = DBHelperPK.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = @"
             UPDATE PHIEU_KIEM_KHO
@@ -218,7 +210,7 @@ namespace QL_Nha_thuoc.model
         //ham xoa phiếu kiểm kho
         public static bool XoaPhieuKiemKho(string maPhieuKiemKho)
         {
-            using (SqlConnection conn = DBHelperPK.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = "DELETE FROM PHIEU_KIEM_KHO WHERE MA_KIEM_KHO = @MaKiemKho";
                 SqlCommand cmd = new SqlCommand(query, conn);

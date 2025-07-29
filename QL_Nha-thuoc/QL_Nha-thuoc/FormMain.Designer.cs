@@ -241,7 +241,7 @@
             danhSáchNhânViênToolStripMenuItem.BackColor = SystemColors.MenuHighlight;
             danhSáchNhânViênToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
             danhSáchNhânViênToolStripMenuItem.Name = "danhSáchNhânViênToolStripMenuItem";
-            danhSáchNhânViênToolStripMenuItem.Size = new Size(295, 32);
+            danhSáchNhânViênToolStripMenuItem.Size = new Size(376, 32);
             danhSáchNhânViênToolStripMenuItem.Text = "Danh sách nhân viên";
             danhSáchNhânViênToolStripMenuItem.Click += danhSáchNhânViênToolStripMenuItem_Click;
             // 
@@ -250,7 +250,7 @@
             thiếtLậpNhânViênToolStripMenuItem.BackColor = SystemColors.MenuHighlight;
             thiếtLậpNhânViênToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
             thiếtLậpNhânViênToolStripMenuItem.Name = "thiếtLậpNhânViênToolStripMenuItem";
-            thiếtLậpNhânViênToolStripMenuItem.Size = new Size(295, 32);
+            thiếtLậpNhânViênToolStripMenuItem.Size = new Size(376, 32);
             thiếtLậpNhânViênToolStripMenuItem.Text = "Thiết Lập nhân viên";
             thiếtLậpNhânViênToolStripMenuItem.Click += thiếtLậpNhânViênToolStripMenuItem_Click;
             // 

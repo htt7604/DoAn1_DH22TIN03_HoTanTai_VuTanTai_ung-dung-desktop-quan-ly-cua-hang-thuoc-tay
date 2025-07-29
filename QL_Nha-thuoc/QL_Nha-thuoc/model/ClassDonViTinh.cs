@@ -17,8 +17,7 @@ namespace QL_Nha_thuoc.model
         {
             List<ClassDonViTinh> danhSach = new List<ClassDonViTinh>();
 
-            string connectionString = @"Data Source=WIN_BYTAI;Initial Catalog=QL_NhaThuoc;Integrated Security=True;Trust Server Certificate=True";
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
                 string sql = "SELECT MA_DON_VI_TINH, TEN_DON_VI_TINH FROM DON_VI_TINH";

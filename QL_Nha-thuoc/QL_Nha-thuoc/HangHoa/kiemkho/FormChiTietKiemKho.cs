@@ -121,7 +121,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                 return;
             }
 
-            using (SqlConnection conn = DBHelperPK.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 try
                 {

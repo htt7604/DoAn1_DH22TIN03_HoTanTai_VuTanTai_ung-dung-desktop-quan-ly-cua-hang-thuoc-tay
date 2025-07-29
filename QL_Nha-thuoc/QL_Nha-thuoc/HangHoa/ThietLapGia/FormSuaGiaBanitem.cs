@@ -177,14 +177,12 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
 
         private void buttonDongY_Click(object sender, EventArgs e)
         {
-            // Kiểm tra đầu vào
             if (!decimal.TryParse(textBoxSoNhap.Text, out decimal soThayDoiGia) || soThayDoiGia <= 0)
             {
-                //MessageBox.Show("Giá trị thay đổi không hợp lệ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //return;
+                MessageBox.Show("Giá trị thay đổi không hợp lệ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-            // Xác định loại giá được chỉnh: "Gia von" hay "Gia ban"
             string cachtinh = comboBoxLoaiGia.SelectedItem?.ToString();
             if (string.IsNullOrEmpty(cachtinh))
             {
@@ -192,64 +190,62 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
                 return;
             }
 
-            // Nếu checkbox áp dụng toàn bộ được check
+            // Áp dụng toàn bộ
             if (checkBoxApDungAll.Checked)
             {
-
                 var danhSach = formThietLapGia.danhMucLoc;
                 int soThanhCong = 0;
 
                 foreach (var hh in danhSach)
                 {
-                    // Chọn giá gốc (giaCu) tương ứng
-                    decimal giadetinh = cachtinh == "Giá vốn" ? hh.GiaVon : hh.GiaBan;
+                    decimal giaGoc = cachtinh == "Giá vốn" ? hh.GiaVon : hh.GiaBan;
 
                     decimal giaMoiHH = phepTinh == "+"
-                        ? giadetinh + (donVi == "VND" ? soThayDoiGia : giadetinh * soThayDoiGia / 100)
-                        : giadetinh - (donVi == "VND" ? soThayDoiGia : giadetinh * soThayDoiGia / 100);
+                        ? giaGoc + (donVi == "VND" ? soThayDoiGia : giaGoc * soThayDoiGia / 100)
+                        : giaGoc - (donVi == "VND" ? soThayDoiGia : giaGoc * soThayDoiGia / 100);
 
-                    hh.GiaBan = giaMoiHH; // Cập nhật giá bán mới
+                    hh.GiaBan = giaMoiHH;
+                    hh.MaBangGia = "BG001"; // giả sử có mã bảng giá mặc định
+
+                    // Gán thông tin tăng/giảm
+                    hh.LaPhanTram = donVi == "%";
+                    hh.TangGiam = phepTinh == "+";
+                    hh.GiaTriTangGiam = soThayDoiGia;
 
                     if (ClassGiaBanHH.CapNhatGiaBan(hh))
                         soThanhCong++;
-
-
                 }
 
                 MessageBox.Show($"Đã cập nhật giá cho {soThanhCong} sản phẩm!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                // Lấy lại dữ liệu mới và cập nhật UserControl
-                var giaBanMoi = ClassGiaBanHH.LayGiaBanTheoMavamaDVT(_maHangHoa, _maDonViTinh);
-                if (giaBanMoi != null)
-                {
-                    formThietLapGia.FormThietLapGia_Load(sender, e); // Gọi lại để cập nhật giao diện
-                }
+                formThietLapGia.FormThietLapGia_Load(sender, e); // refresh lại
                 this.Close();
                 return;
             }
+
             // Cập nhật cho 1 sản phẩm
             decimal giaHienTai = cachtinh == "Giá vốn" ? hanghoa.GiaVon : hanghoa.GiaBan;
             decimal giaMoi = phepTinh == "+"
                 ? giaHienTai + (donVi == "VND" ? soThayDoiGia : giaHienTai * soThayDoiGia / 100)
                 : giaHienTai - (donVi == "VND" ? soThayDoiGia : giaHienTai * soThayDoiGia / 100);
 
-            // Gán lại vào đúng thuộc tính
-            hanghoa.GiaBan = giaMoi; // Cập nhật giá bán mới
-
+            hanghoa.GiaBan = giaMoi;
             hanghoa.MaHangHoa = _maHangHoa;
 
-            // Cập nhật vào CSDL
+            // Gán lại các thuộc tính mới
+            hanghoa.LaPhanTram = donVi == "%";
+            hanghoa.TangGiam = phepTinh == "+";
+            hanghoa.GiaTriTangGiam = soThayDoiGia;
+
             bool kq = ClassGiaBanHH.CapNhatGiaBan(hanghoa);
             if (kq)
             {
                 MessageBox.Show("Cập nhật giá thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Lấy lại dữ liệu mới và cập nhật UserControl
                 var giaBanMoi = ClassGiaBanHH.LayGiaBanTheoMavamaDVT(_maHangHoa, _maDonViTinh);
                 if (giaBanMoi != null)
                 {
-                    formThietLapGia.FormThietLapGia_Load(sender, e); // Gọi lại để cập nhật giao diện
+                    formThietLapGia.FormThietLapGia_Load(sender, e);
                 }
-
                 this.Close();
             }
             else
@@ -257,6 +253,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
                 MessageBox.Show("Cập nhật giá thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void buttonBoQua_Click(object sender, EventArgs e)
         {

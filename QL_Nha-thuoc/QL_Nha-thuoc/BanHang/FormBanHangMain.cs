@@ -27,9 +27,7 @@ namespace QL_Nha_thuoc.BanHang
             var ketQua = new List<Thuoc>();
 
             CSDL cSDL = new CSDL();
-            string connectionString = cSDL.GetConnection().ConnectionString;
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
                 string query = @"

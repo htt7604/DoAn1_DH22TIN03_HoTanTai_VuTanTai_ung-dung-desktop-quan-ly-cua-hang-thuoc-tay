@@ -7,14 +7,6 @@ namespace QL_Nha_thuoc.model
 {
     public class ClassHangSanXuat
     {
-        public class DBHelperHH
-        {
-            private static string connectionString = @"Data Source=WIN_BYTAI;Initial Catalog=QL_NhaThuoc;Integrated Security=True;Trust Server Certificate=True";
-            public static SqlConnection GetConnection()
-            {
-                return new SqlConnection(connectionString);
-            }
-        }
 
 
         public int MaHangSX { get; set; }
@@ -24,7 +16,7 @@ namespace QL_Nha_thuoc.model
         public static List<ClassHangSanXuat> TimHangSXTheoTen(string tenHSX)
         {
             List<ClassHangSanXuat> danhSach = new List<ClassHangSanXuat>();
-            using (SqlConnection conn = DBHelperHH.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = @"
             SELECT MA_HANG_SX, TEN_HANG_SX
@@ -57,7 +49,7 @@ namespace QL_Nha_thuoc.model
         public static List<ClassHangSanXuat> LayTatCaHangSX()
         {
             List<ClassHangSanXuat> danhSach = new List<ClassHangSanXuat>();
-            using (SqlConnection conn = DBHelperHH.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = "SELECT MA_HANG_SX, TEN_HANG_SX FROM HANG_SAN_XUAT";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -83,7 +75,7 @@ namespace QL_Nha_thuoc.model
         // Thêm hãng sản xuất
         public static bool ThemHangSX(ClassHangSanXuat hangSX)
         {
-            using (SqlConnection conn = DBHelperHH.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = "INSERT INTO HANG_SAN_XUAT (TEN_HANG_SX) VALUES (@ten)";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -99,7 +91,7 @@ namespace QL_Nha_thuoc.model
         // Xóa hãng sản xuất theo mã
         public static bool XoaHangSX(int maHangSX)
         {
-            using (SqlConnection conn = DBHelperHH.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = "DELETE FROM HANG_SAN_XUAT WHERE MA_HANG_SX = @ma";
                 using (SqlCommand cmd = new SqlCommand(query, conn))

@@ -40,7 +40,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             var ketQua = new List<Thuoc>();
 
             CSDL cSDL = new CSDL();
-            string connectionString = cSDL.GetConnection().ConnectionString;
+            string connectionString = CSDL.GetConnection().ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

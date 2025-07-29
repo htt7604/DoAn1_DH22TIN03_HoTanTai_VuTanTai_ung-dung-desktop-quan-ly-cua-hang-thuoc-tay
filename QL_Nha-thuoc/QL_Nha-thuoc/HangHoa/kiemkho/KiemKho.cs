@@ -69,18 +69,18 @@ namespace QL_Nha_thuoc
 
         public void LoadDanhSachPhieuKiemKho()
         {
-            using (SqlConnection connection = DBHelperPK.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 try
                 {
-                    connection.Open();
+                    conn.Open();
                     string query = @"SELECT PKK.MA_KIEM_KHO,PKK.NGAY_KIEM_KHO,PKK.NGAY_CAN_BANG_KHO,PKK.TONG_THUC_TE,
                                PKK.TONG_CHECH_LECH,PKK.SO_LUONG_LECH_TANG,PKK.SO_LUONG_LECH_GIAM,pkk.GHI_CHU_KIEM_KHO,pkk.TRANG_THAI_PHIEU_KIEM,
                               NV.HO_TEN_NV,PKK.MA_NV
                        FROM PHIEU_KIEM_KHO PKK 
                        JOIN NHAN_VIEN NV ON NV.MA_NV = PKK.MA_NV";
 
-                    SqlCommand cmd = new SqlCommand(query, connection);
+                    SqlCommand cmd = new SqlCommand(query, conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     List<ClassPhieuKiemKho> danhSachPhieu = new List<ClassPhieuKiemKho>();
@@ -164,11 +164,11 @@ namespace QL_Nha_thuoc
 
         private void TimKiemPhieuKiemKho(string cotTimKiem, string giaTriTimKiem)
         {
-            using (SqlConnection connection = DBHelperPK.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 try
                 {
-                    connection.Open();
+                    conn.Open();
 
                     string query = $@"SELECT PKK.MA_KIEM_KHO,PKK.NGAY_KIEM_KHO,PKK.NGAY_CAN_BANG_KHO,PKK.TONG_THUC_TE,
                                PKK.TONG_CHECH_LECH,PKK.SO_LUONG_LECH_TANG,PKK.SO_LUONG_LECH_GIAM,pkk.GHI_CHU_KIEM_KHO,pkk.TRANG_THAI_PHIEU_KIEM,
@@ -177,7 +177,7 @@ namespace QL_Nha_thuoc
                        JOIN NHAN_VIEN NV ON NV.MA_NV = PKK.MA_NV
                               WHERE {cotTimKiem} LIKE @GiaTriTimKiem";
 
-                    SqlCommand cmd = new SqlCommand(query, connection);
+                    SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@GiaTriTimKiem", $"%{giaTriTimKiem}%");
 
                     SqlDataReader reader = cmd.ExecuteReader();

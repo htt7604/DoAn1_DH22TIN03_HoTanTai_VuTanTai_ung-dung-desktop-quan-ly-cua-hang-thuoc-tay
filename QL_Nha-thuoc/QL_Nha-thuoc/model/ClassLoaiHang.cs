@@ -13,7 +13,7 @@ namespace QL_Nha_thuoc.model
         {
             List<string> loaiHangList = new List<string>();
             CSDL cSDL = new CSDL();
-            SqlConnection conn = cSDL.GetConnection();
+            SqlConnection conn = CSDL.GetConnection();
             string query = "SELECT TEN_LOAI_HH FROM LOAI_HANG";
 
             using (SqlCommand cmd = new SqlCommand(query, conn))

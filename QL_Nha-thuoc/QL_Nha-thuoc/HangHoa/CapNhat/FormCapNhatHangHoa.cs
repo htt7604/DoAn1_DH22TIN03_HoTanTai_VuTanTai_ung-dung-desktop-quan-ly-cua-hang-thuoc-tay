@@ -33,7 +33,7 @@ namespace QL_Nha_thuoc.HangHoa
         {
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT TEN_LOAI_HH, MA_LOAI_HH FROM LOAI_HANG";
@@ -62,7 +62,7 @@ namespace QL_Nha_thuoc.HangHoa
             {
                 string maLoai = selectedRow["MA_LOAI_HH"].ToString();
 
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = @"SELECT MA_NHOM_HH, TEN_NHOM 
@@ -101,7 +101,7 @@ namespace QL_Nha_thuoc.HangHoa
 
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT TEN_HANG_SX, MA_HANG_SX FROM HANG_SAN_XUAT";
@@ -128,7 +128,7 @@ namespace QL_Nha_thuoc.HangHoa
         {
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT TEN_DON_VI_TINH, MA_DON_VI_TINH FROM DON_VI_TINH";
@@ -156,16 +156,17 @@ namespace QL_Nha_thuoc.HangHoa
         private void LoadDataToForm(string maHangHoa)
         {
             CSDL cSDL = new CSDL();
-            SqlConnection conn = cSDL.GetConnection();
+            SqlConnection conn = CSDL.GetConnection();
             string query = @"
         SELECT HH.MA_HANG_HOA, HH.TEN_HANG_HOA, GHH.GIA_BAN_HH, 
                NH.TEN_NHOM, LH.TEN_LOAI_HH, HH.HINH_ANH_HH, HH.MA_VACH, GHH.GIA_VON_HH, 
-               HH.DUONG_DUNG_CHO_THUOC, HH.QUY_CACH_DONG_GOI, HH.GHI_CHU_HH,HSX.TEN_HANG_SX, HH.MA_HANG_SX,HH.TON_KHO,
+               DDT.MA_DUONG_DUNG, HH.QUY_CACH_DONG_GOI, HH.GHI_CHU_HH,HSX.TEN_HANG_SX, HH.MA_HANG_SX,HH.TON_KHO,
                NCC.TEN_NHA_CUNG_CAP, HH.NGAY_HET_HAN_HH, DVT.TEN_DON_VI_TINH,HH.MA_NHOM_HH, NH.MA_LOAI_HH,HH.QUY_CACH_DONG_GOI,DVT.MA_DON_VI_TINH,DVT.TEN_DON_VI_TINH,
                GHH.Ti_LE_LOI
         FROM HANG_HOA HH
          JOIN NHOM_HANG NH ON HH.MA_NHOM_HH = NH.MA_NHOM_HH
          JOIN LOAI_HANG LH ON NH.MA_LOAI_HH = LH.MA_LOAI_HH
+        LEFT JOIN DUONG_DUNG_THUOC DDT ON HH.MA_DUONG_DUNG=DDT.MA_DUONG_DUNG
          LEFT JOIN HANG_SAN_XUAT HSX ON HH.MA_HANG_SX = HSX.MA_HANG_SX
          LEFT JOIN GIA_HANG_HOA GHH ON GHH.MA_HANG_HOA = HH.MA_HANG_HOA
          LEFT JOIN DON_VI_TINH DVT ON GHH.MA_DON_VI_TINH = DVT.MA_DON_VI_TINH
@@ -424,12 +425,12 @@ namespace QL_Nha_thuoc.HangHoa
                     File.Copy(duongDanAnhTam, duongDanLuu, true);
                 }
 
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
 
                     StringBuilder query = new StringBuilder();
-                    query.Append("UPDATE HANG_HOA SET TEN_HANG_HOA = @tenHH, MA_VACH = @maVach, MA_NHOM_HH = @maNhom, MA_HANG_SX = @maHangSX, DUONG_DUNG_CHO_THUOC = NULL, QUY_CACH_DONG_GOI = @quyCach, GHI_CHU_HH = @ghiChu,TON_KHO=@tonKho");
+                    query.Append("UPDATE HANG_HOA SET TEN_HANG_HOA = @tenHH, MA_VACH = @maVach, MA_NHOM_HH = @maNhom, MA_HANG_SX = @maHangSX, MA_DUONG_DUNG = NULL, QUY_CACH_DONG_GOI = @quyCach, GHI_CHU_HH = @ghiChu,TON_KHO=@tonKho");
 
                     if (!string.IsNullOrEmpty(tenAnhLuu))
                     {
@@ -622,7 +623,7 @@ namespace QL_Nha_thuoc.HangHoa
 
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
 

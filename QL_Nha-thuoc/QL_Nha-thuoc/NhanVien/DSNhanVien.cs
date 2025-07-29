@@ -17,7 +17,7 @@ namespace QL_Nha_thuoc
         public DSNhanVien()
         {
             InitializeComponent();
-            TaiChucvu(new CSDL().GetConnection()); // Initialize the ComboBox with positions
+            TaiChucvu(CSDL.GetConnection()); // Initialize the ComboBox with positions
 
         }
         private void TaiChucvu(SqlConnection conn)
@@ -52,7 +52,7 @@ namespace QL_Nha_thuoc
 
             // Tạo đối tượng kết nối
             CSDL csdl = new CSDL(); // Instantiate the CSDL class
-            using (SqlConnection conn = csdl.GetConnection()) // Use the GetConnection method
+            using (SqlConnection conn = CSDL.GetConnection()) // Use the GetConnection method
             {
                 try
                 {
@@ -96,7 +96,7 @@ namespace QL_Nha_thuoc
             {
                 string chucvu = selectedRow["MA_CHUC_VU"].ToString();
                 CSDL csdl = new CSDL(); // Instantiate the CSDL class
-                using (SqlConnection conn = csdl.GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT MA_VI_TRI,TEN_VI_TRI FROM VI_TRI_NHAN_VIEN join CHUC_VU on CHUC_VU.MA_CHUC_VU = VI_TRI_NHAN_VIEN.MA_CHUC_VU where VI_TRI_NHAN_VIEN.MA_CHUC_VU= @chucvu";

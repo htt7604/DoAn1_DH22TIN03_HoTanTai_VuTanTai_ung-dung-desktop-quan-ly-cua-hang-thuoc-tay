@@ -38,7 +38,6 @@
             label12 = new Label();
             textBoxHoatChat = new TextBox();
             label11 = new Label();
-            textBoxDuongDung = new TextBox();
             label10 = new Label();
             dateTimePickerNgayHetHan = new DateTimePicker();
             textBoxGhiChu = new TextBox();
@@ -79,6 +78,7 @@
             buttonThemNhomHang = new Button();
             label20 = new Label();
             textBoxTonKho = new TextBox();
+            comboBoxDuongDung = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHangHoa).BeginInit();
             SuspendLayout();
             // 
@@ -162,13 +162,6 @@
             label11.Size = new Size(77, 20);
             label11.TabIndex = 108;
             label11.Text = "Hoat chat:";
-            // 
-            // textBoxDuongDung
-            // 
-            textBoxDuongDung.Location = new Point(501, 610);
-            textBoxDuongDung.Name = "textBoxDuongDung";
-            textBoxDuongDung.Size = new Size(200, 27);
-            textBoxDuongDung.TabIndex = 106;
             // 
             // label10
             // 
@@ -515,11 +508,20 @@
             textBoxTonKho.Size = new Size(200, 27);
             textBoxTonKho.TabIndex = 132;
             // 
+            // comboBoxDuongDung
+            // 
+            comboBoxDuongDung.FormattingEnabled = true;
+            comboBoxDuongDung.Location = new Point(501, 610);
+            comboBoxDuongDung.Name = "comboBoxDuongDung";
+            comboBoxDuongDung.Size = new Size(200, 28);
+            comboBoxDuongDung.TabIndex = 134;
+            // 
             // FormCapNhatThuoc
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1373, 777);
+            Controls.Add(comboBoxDuongDung);
             Controls.Add(label20);
             Controls.Add(textBoxTonKho);
             Controls.Add(buttonThemNhomHang);
@@ -545,7 +547,6 @@
             Controls.Add(label12);
             Controls.Add(textBoxHoatChat);
             Controls.Add(label11);
-            Controls.Add(textBoxDuongDung);
             Controls.Add(label10);
             Controls.Add(dateTimePickerNgayHetHan);
             Controls.Add(textBoxGhiChu);
@@ -591,7 +592,6 @@
         private Label label12;
         private TextBox textBoxHoatChat;
         private Label label11;
-        private TextBox textBoxDuongDung;
         private Label label10;
         private DateTimePicker dateTimePickerNgayHetHan;
         private TextBox textBoxGhiChu;
@@ -632,5 +632,6 @@
         private Button buttonThemNhomHang;
         private Label label20;
         private TextBox textBoxTonKho;
+        private ComboBox comboBoxDuongDung;
     }
 }

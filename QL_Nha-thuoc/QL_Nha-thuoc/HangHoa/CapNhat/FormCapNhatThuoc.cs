@@ -30,7 +30,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
         {
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT TEN_LOAI_HH, MA_LOAI_HH FROM LOAI_HANG";
@@ -59,7 +59,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
             {
                 string maLoai = selectedRow["MA_LOAI_HH"].ToString();
 
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = @"SELECT MA_NHOM_HH, TEN_NHOM 
@@ -98,7 +98,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
 
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT TEN_HANG_SX, MA_HANG_SX FROM HANG_SAN_XUAT";
@@ -125,7 +125,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
         {
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT TEN_DON_VI_TINH, MA_DON_VI_TINH FROM DON_VI_TINH";
@@ -151,7 +151,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
         {
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT TEN_NHA_CUNG_CAP, MA_NHA_CUNG_CAP FROM NHA_CUNG_CAP";
@@ -172,29 +172,42 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                 MessageBox.Show("Lỗi khi load nhà cung cấp: " + ex.Message);
             }
         }
+        //load combobox duong dung 
+        private void LoadComboBoxDuongDung()
+        {
+            //tao 1 DataTable
+            DataTable dt = new DataTable();
+            dt = ClassDuongDungThuoc.LayDanhSachDuongDung();
+            //set datasource cho combobox
+            comboBoxDuongDung.DataSource = dt;
+            comboBoxDuongDung.DisplayMember = "TEN_DUONG_DUNG"; // Hiển thị tên đường dùng
+            comboBoxDuongDung.ValueMember = "MA_DUONG_DUNG"; // Lưu mã đường dùng
+            comboBoxDuongDung.SelectedIndex = -1; // Không chọn mặc định
+        }
 
 
         //load toan do du lieu cua hang hoa co maHangHoa
         private void LoadDataToForm(string maHangHoa)
         {
             CSDL cSDL = new CSDL();
-            SqlConnection conn = cSDL.GetConnection();
+            SqlConnection conn = CSDL.GetConnection();
             string query = @"
-        SELECT HH.MA_HANG_HOA, HH.TEN_HANG_HOA,HH.TEN_VIET_TAT,HH.TRONG_LUONG_HH,HH.SO_DANG_KY_THUOC,HH.MA_THUOC,HH.HAM_LUONG,HH.TON_KHO,
-               HH.HOAT_CHAT, GHH.GIA_BAN_HH,NH.MA_LOAI_HH, HH.MA_NHOM_HH,
-               NH.TEN_NHOM, LH.TEN_LOAI_HH, HH.HINH_ANH_HH, HH.MA_VACH, GHH.GIA_VON_HH, 
-               HSX.MA_HANG_SX,HSX.TEN_HANG_SX, HH.DUONG_DUNG_CHO_THUOC, HH.QUY_CACH_DONG_GOI, HH.GHI_CHU_HH, 
-               NCC.TEN_NHA_CUNG_CAP, HH.NGAY_HET_HAN_HH, DVT.TEN_DON_VI_TINH,HH.TINH_TRANG_HH,DVT.MA_DON_VI_TINH,GHH.TI_LE_LOI,NCC.MA_NHA_CUNG_CAP
-        FROM HANG_HOA HH
-         JOIN NHOM_HANG NH ON HH.MA_NHOM_HH = NH.MA_NHOM_HH
-         JOIN LOAI_HANG LH ON NH.MA_LOAI_HH = LH.MA_LOAI_HH
-         LEFT JOIN HANG_SAN_XUAT HSX ON HH.MA_HANG_SX = HSX.MA_HANG_SX
-         LEFT JOIN GIA_HANG_HOA GHH ON GHH.MA_HANG_HOA = HH.MA_HANG_HOA
-         LEFT JOIN DON_VI_TINH DVT ON GHH.MA_DON_VI_TINH = DVT.MA_DON_VI_TINH
-         LEFT JOIN CHI_TIET_PHIEU_NHAP CTPN ON CTPN.MA_HANG_HOA=HH.MA_HANG_HOA
-         LEFT JOIN PHIEU_NHAP_HANG PN ON PN.MA_PHIEU_NHAP=CTPN.MA_PHIEU_NHAP
-         LEFT JOIN NHA_CUNG_CAP NCC ON NCC.MA_NHA_CUNG_CAP=PN.MA_NHA_CUNG_CAP
-        WHERE HH.MA_HANG_HOA = @maHH";
+       SELECT HH.MA_HANG_HOA, HH.TEN_HANG_HOA,HH.TEN_VIET_TAT,HH.TRONG_LUONG_HH,HH.SO_DANG_KY_THUOC,HH.MA_THUOC,HH.HAM_LUONG,HH.TON_KHO,
+        HH.HOAT_CHAT, GHH.GIA_BAN_HH,NH.MA_LOAI_HH, HH.MA_NHOM_HH,
+        NH.TEN_NHOM, LH.TEN_LOAI_HH, HH.HINH_ANH_HH, HH.MA_VACH, GHH.GIA_VON_HH, 
+        HSX.MA_HANG_SX,HSX.TEN_HANG_SX, HH.MA_DUONG_DUNG,DDT.TEN_DUONG_DUNG, HH.QUY_CACH_DONG_GOI, HH.GHI_CHU_HH, 
+        NCC.TEN_NHA_CUNG_CAP, HH.NGAY_HET_HAN_HH, DVT.TEN_DON_VI_TINH,HH.TINH_TRANG_HH,DVT.MA_DON_VI_TINH,GHH.TI_LE_LOI,NCC.MA_NHA_CUNG_CAP
+         FROM HANG_HOA HH
+          JOIN NHOM_HANG NH ON HH.MA_NHOM_HH = NH.MA_NHOM_HH
+          JOIN LOAI_HANG LH ON NH.MA_LOAI_HH = LH.MA_LOAI_HH
+          LEFT JOIN DUONG_DUNG_THUOC DDT ON DDT.MA_DUONG_DUNG=HH.MA_DUONG_DUNG
+          LEFT JOIN HANG_SAN_XUAT HSX ON HH.MA_HANG_SX = HSX.MA_HANG_SX
+          LEFT JOIN GIA_HANG_HOA GHH ON GHH.MA_HANG_HOA = HH.MA_HANG_HOA
+          LEFT JOIN DON_VI_TINH DVT ON GHH.MA_DON_VI_TINH = DVT.MA_DON_VI_TINH
+          LEFT JOIN CHI_TIET_PHIEU_NHAP CTPN ON CTPN.MA_HANG_HOA=HH.MA_HANG_HOA
+          LEFT JOIN PHIEU_NHAP_HANG PN ON PN.MA_PHIEU_NHAP=CTPN.MA_PHIEU_NHAP
+          LEFT JOIN NHA_CUNG_CAP NCC ON NCC.MA_NHA_CUNG_CAP=PN.MA_NHA_CUNG_CAP
+         WHERE HH.MA_HANG_HOA = @maHH";
 
             try
             {
@@ -216,7 +229,6 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                             textBoxGiaVon.Text = reader["GIA_VON_HH"]?.ToString() ?? "0"; // Nếu cần hiển thị giá nhập
                             textBoxGiaBan.Text = reader["GIA_BAN_HH"]?.ToString() ?? "0"; // Tránh lỗi nếu giá bán là null
                             textBoxTrongLuong.Text = reader["TRONG_LUONG_HH"]?.ToString() ?? "0"; // Tránh lỗi nếu trọng lượng là null
-                            textBoxDuongDung.Text = reader["DUONG_DUNG_CHO_THUOC"]?.ToString() ?? string.Empty; // Nếu có trường đường dùng
                             textBoxSoDangKy.Text = reader["SO_DANG_KY_THUOC"]?.ToString() ?? string.Empty; // Nếu có trường số đăng ký thuốc
                             textBoxMaThuoc.Text = reader["MA_THUOC"]?.ToString() ?? string.Empty; // Nếu có trường mã thuốc
                             textBoxHamLuong.Text = reader["HAM_LUONG"]?.ToString() ?? string.Empty; // Nếu có trường hàm lượng
@@ -293,7 +305,16 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                             {
                                 comboBoxNhaCungCap.SelectedIndex = -1;
                             }
-
+                            LoadComboBoxDuongDung();
+                            string maDuongDung = reader["MA_DUONG_DUNG"]?.ToString().Trim();
+                            if (!string.IsNullOrEmpty(maDuongDung))
+                            {
+                                comboBoxDuongDung.SelectedValue = maDuongDung;
+                            }
+                            else
+                            {
+                                comboBoxDuongDung.SelectedIndex = -1;
+                            }
 
                             // Xử lý hình ảnh
                             string tenHinh = reader["HINH_ANH_HH"]?.ToString().Trim();
@@ -348,7 +369,6 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
         // Load dữ liệu khi form khởi tạo
         private void FormCapNhatHanghoa_Load(object sender, EventArgs e)
         {
-
             textBoxMaHH.ReadOnly = true; // Mã hàng hóa không cho phép sửa
             comboBoxLoaiHang.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxHangSX.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -426,7 +446,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
             string soDangKy = textBoxSoDangKy.Text.Trim();
             string hoatChat = textBoxHoatChat.Text.Trim();
             string hamLuong = textBoxHamLuong.Text.Trim();
-            string duongDung = textBoxDuongDung.Text.Trim();
+            string maDuongDung = comboBoxDuongDung.SelectedValue.ToString();// Giả sử bạn có combobox này
             string quyCach = textBoxQuyCachDongGoi.Text.Trim();
             string ghiChu = textBoxGhiChu.Text.Trim();
             string maVach = textBoxMaVach.Text.Trim();
@@ -467,7 +487,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
 
 
             CSDL csdl = new CSDL();
-            using (SqlConnection conn = csdl.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 try
                 {
@@ -499,7 +519,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                             updateHH.AppendLine(" SO_DANG_KY_THUOC = @soDK,");
                             updateHH.AppendLine(" HOAT_CHAT = @hoatChat,");
                             updateHH.AppendLine(" HAM_LUONG = @hamLuong,");
-                            updateHH.AppendLine(" DUONG_DUNG_CHO_THUOC = @duongDung,");
+                            updateHH.AppendLine(" MA_DUONG_DUNG = @maduongDung,");
                             updateHH.AppendLine(" QUY_CACH_DONG_GOI = @quyCach,");
                             updateHH.AppendLine(" GHI_CHU_HH = @ghiChu,");
                             updateHH.AppendLine(" MA_NHOM_HH = @maNhom,");
@@ -520,7 +540,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                                 cmdUpdateHH.Parameters.AddWithValue("@soDK", soDangKy);
                                 cmdUpdateHH.Parameters.AddWithValue("@hoatChat", hoatChat);
                                 cmdUpdateHH.Parameters.AddWithValue("@hamLuong", hamLuong);
-                                cmdUpdateHH.Parameters.AddWithValue("@duongDung", duongDung);
+                                cmdUpdateHH.Parameters.AddWithValue("@maduongDung", maDuongDung);
                                 cmdUpdateHH.Parameters.AddWithValue("@quyCach", quyCach);
                                 cmdUpdateHH.Parameters.AddWithValue("@ghiChu", ghiChu);
                                 cmdUpdateHH.Parameters.AddWithValue("@maNhom", (object)maNhom ?? DBNull.Value);
@@ -541,8 +561,8 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                             // Thêm mới hàng hóa
                             string insertHH = @"
                         INSERT INTO HANG_HOA (MA_HANG_HOA, TEN_HANG_HOA, TEN_VIET_TAT, MA_THUOC, SO_DANG_KY_THUOC, HOAT_CHAT, HAM_LUONG,
-                            DUONG_DUNG_CHO_THUOC, QUY_CACH_DONG_GOI, GHI_CHU_HH, MA_NHOM_HH, MA_VACH, NGAY_HET_HAN_HH, MA_HANG_SX, TRONG_LUONG_HH, HINH_ANH_HH, TON_KHO)
-                        VALUES (@maHH, @tenHH, @tenVT, @maThuoc, @soDK, @hoatChat, @hamLuong, @duongDung, @quyCach,
+                            MA_DUONG_DUNG, QUY_CACH_DONG_GOI, GHI_CHU_HH, MA_NHOM_HH, MA_VACH, NGAY_HET_HAN_HH, MA_HANG_SX, TRONG_LUONG_HH, HINH_ANH_HH, TON_KHO)
+                        VALUES (@maHH, @tenHH, @tenVT, @maThuoc, @soDK, @hoatChat, @hamLuong, @maduongDung, @quyCach,
                             @ghiChu, @maNhom, @maVach, @ngayHetHan, @maHangSX, @trongLuong, @tenAnh,@tonKho)";
 
                             using (SqlCommand cmdInsertHH = new SqlCommand(insertHH, conn))
@@ -554,7 +574,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                                 cmdInsertHH.Parameters.AddWithValue("@soDK", soDangKy);
                                 cmdInsertHH.Parameters.AddWithValue("@hoatChat", hoatChat);
                                 cmdInsertHH.Parameters.AddWithValue("@hamLuong", hamLuong);
-                                cmdInsertHH.Parameters.AddWithValue("@duongDung", duongDung);
+                                cmdInsertHH.Parameters.AddWithValue("@maduongDung", maDuongDung);
                                 cmdInsertHH.Parameters.AddWithValue("@quyCach", quyCach);
                                 cmdInsertHH.Parameters.AddWithValue("@ghiChu", ghiChu);
                                 cmdInsertHH.Parameters.AddWithValue("@maNhom", (object)maNhom ?? DBNull.Value);
