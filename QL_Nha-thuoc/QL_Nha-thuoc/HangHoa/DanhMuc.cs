@@ -528,16 +528,16 @@ namespace QL_Nha_thuoc
         {
             public string Ma { get; set; }
             public string Ten { get; set; }
-            public float Gia { get; set; }
+            public decimal Gia { get; set; }
             public string hinhanhhh { get; set; }
             public int SoLuongTon { get; set; }  // Thêm dòng này
         }
 
 
         //tim thuoc
-        List<Thuoc> TimThuocTuCSDL(string keyword)
+        List<ClassHangHoa> TimThuocTuCSDL(string keyword)
         {
-            var ketQua = new List<Thuoc>();
+            var ketQua = new List<ClassHangHoa>();
 
             CSDL cSDL = new CSDL();
             string connectionString = CSDL.GetConnection().ConnectionString;
@@ -554,12 +554,12 @@ namespace QL_Nha_thuoc
                     {
                         while (reader.Read())
                         {
-                            var t = new Thuoc
+                            var t = new ClassHangHoa
                             {
-                                Ma = reader["MA_HANG_HOA"].ToString(),
-                                Ten = reader["TEN_HANG_HOA"].ToString(),
-                                Gia = Convert.ToInt32(reader["GIA_BAN_HH"]),
-                                hinhanhhh = reader["HINH_ANH_HH"].ToString(),
+                                MaHangHoa = reader["MA_HANG_HOA"].ToString(),
+                                TenHangHoa = reader["TEN_HANG_HOA"].ToString(),
+                                GiaBan = Convert.ToInt32(reader["GIA_BAN_HH"]),
+                                HinhAnh = reader["HINH_ANH_HH"].ToString(),
                                 SoLuongTon = Convert.ToInt32(reader["TON_KHO"])
                             };
                             ketQua.Add(t);
@@ -589,10 +589,10 @@ namespace QL_Nha_thuoc
 
             panelKetQuaTimKiem.Controls.Clear();
             int y = 0;
-            foreach (var thuoc in ds)
+            foreach (var hangHoa in ds)
             {
                 var uc = new UC_ItemThuoc();
-                uc.SetData(thuoc.Ten, thuoc.Ma, thuoc.Gia, thuoc.hinhanhhh, thuoc.SoLuongTon);
+                uc.SetData(hangHoa);
                 uc.Width = panelKetQuaTimKiem.Width;
                 uc.Location = new Point(0, y);
                 y += uc.Height + 10;

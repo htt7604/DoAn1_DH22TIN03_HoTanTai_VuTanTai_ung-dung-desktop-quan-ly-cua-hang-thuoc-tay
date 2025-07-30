@@ -28,20 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridViewdsHD = new DataGridView();
-            panel2 = new Panel();
-            panel4 = new Panel();
-            pictureBox1 = new PictureBox();
-            textBoxTimNV = new TextBox();
-            buttonThemNV = new Button();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            splitContainer1 = new SplitContainer();
             label1 = new Label();
-            panel1 = new Panel();
             groupBox5 = new GroupBox();
             radioButton5 = new RadioButton();
             radioButton3 = new RadioButton();
             radioButton4 = new RadioButton();
-            groupBox4 = new GroupBox();
-            comboBox1 = new ComboBox();
             groupBox2 = new GroupBox();
             checkBox3 = new CheckBox();
             checkBox2 = new CheckBox();
@@ -51,103 +45,57 @@
             radioButton1 = new RadioButton();
             groupBox3 = new GroupBox();
             comboBox2 = new ComboBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewdsHD).BeginInit();
-            panel2.SuspendLayout();
-            panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel1.SuspendLayout();
+            panel2 = new Panel();
+            panel4 = new Panel();
+            pictureBox1 = new PictureBox();
+            textBoxTimNV = new TextBox();
+            buttonThemHoaDon = new Button();
+            dataGridViewdsHoaDon = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
             groupBox5.SuspendLayout();
-            groupBox4.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox3.SuspendLayout();
+            panel2.SuspendLayout();
+            panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewdsHoaDon).BeginInit();
             SuspendLayout();
             // 
-            // dataGridViewdsHD
+            // splitContainer1
             // 
-            dataGridViewdsHD.BackgroundColor = SystemColors.ButtonFace;
-            dataGridViewdsHD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewdsHD.Dock = DockStyle.Fill;
-            dataGridViewdsHD.Location = new Point(0, 0);
-            dataGridViewdsHD.Name = "dataGridViewdsHD";
-            dataGridViewdsHD.RowHeadersWidth = 51;
-            dataGridViewdsHD.Size = new Size(1262, 1017);
-            dataGridViewdsHD.TabIndex = 1;
+            splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.Location = new Point(0, 0);
+            splitContainer1.Name = "splitContainer1";
             // 
-            // panel2
+            // splitContainer1.Panel1
             // 
-            panel2.Controls.Add(panel4);
-            panel2.Controls.Add(buttonThemNV);
-            panel2.Location = new Point(108, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1154, 64);
-            panel2.TabIndex = 2;
+            splitContainer1.Panel1.Controls.Add(groupBox5);
+            splitContainer1.Panel1.Controls.Add(groupBox2);
+            splitContainer1.Panel1.Controls.Add(groupBox1);
+            splitContainer1.Panel1.Controls.Add(groupBox3);
+            splitContainer1.Panel1.Controls.Add(label1);
             // 
-            // panel4
+            // splitContainer1.Panel2
             // 
-            panel4.BackColor = SystemColors.ButtonHighlight;
-            panel4.Controls.Add(pictureBox1);
-            panel4.Controls.Add(textBoxTimNV);
-            panel4.Location = new Point(45, 11);
-            panel4.Name = "panel4";
-            panel4.Padding = new Padding(5, 2, 5, 2);
-            panel4.Size = new Size(449, 46);
-            panel4.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor = SystemColors.ButtonHighlight;
-            pictureBox1.Image = Properties.Resources.search;
-            pictureBox1.Location = new Point(22, 14);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(40, 25);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 2;
-            pictureBox1.TabStop = false;
-            // 
-            // textBoxTimNV
-            // 
-            textBoxTimNV.BorderStyle = BorderStyle.None;
-            textBoxTimNV.Location = new Point(68, 14);
-            textBoxTimNV.Multiline = true;
-            textBoxTimNV.Name = "textBoxTimNV";
-            textBoxTimNV.PlaceholderText = "Tìm theo mã hóa dơn";
-            textBoxTimNV.Size = new Size(354, 25);
-            textBoxTimNV.TabIndex = 1;
-            textBoxTimNV.Tag = "";
-            // 
-            // buttonThemNV
-            // 
-            buttonThemNV.BackColor = Color.LimeGreen;
-            buttonThemNV.Location = new Point(639, 10);
-            buttonThemNV.Name = "buttonThemNV";
-            buttonThemNV.Size = new Size(130, 40);
-            buttonThemNV.TabIndex = 0;
-            buttonThemNV.Text = "+ Thêm mới";
-            buttonThemNV.UseVisualStyleBackColor = false;
+            splitContainer1.Panel2.Controls.Add(dataGridViewdsHoaDon);
+            splitContainer1.Panel2.Controls.Add(panel2);
+            splitContainer1.Size = new Size(1262, 1017);
+            splitContainer1.SplitterDistance = 249;
+            splitContainer1.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label1.Location = new Point(12, 25);
+            label1.Location = new Point(66, 25);
             label1.Name = "label1";
             label1.Size = new Size(90, 25);
-            label1.TabIndex = 3;
+            label1.TabIndex = 16;
             label1.Text = "Hóa đơn";
-            // 
-            // panel1
-            // 
-            panel1.AutoScroll = true;
-            panel1.Controls.Add(groupBox5);
-            panel1.Controls.Add(groupBox4);
-            panel1.Controls.Add(groupBox2);
-            panel1.Controls.Add(groupBox1);
-            panel1.Controls.Add(groupBox3);
-            panel1.Location = new Point(0, 70);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(229, 947);
-            panel1.TabIndex = 4;
             // 
             // groupBox5
             // 
@@ -156,10 +104,10 @@
             groupBox5.Controls.Add(radioButton3);
             groupBox5.Controls.Add(radioButton4);
             groupBox5.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox5.Location = new Point(2, 324);
+            groupBox5.Location = new Point(14, 415);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new Size(229, 177);
-            groupBox5.TabIndex = 7;
+            groupBox5.TabIndex = 20;
             groupBox5.TabStop = false;
             groupBox5.Text = "Hình thức";
             // 
@@ -199,26 +147,6 @@
             radioButton4.Text = "Tất cả";
             radioButton4.UseVisualStyleBackColor = true;
             // 
-            // groupBox4
-            // 
-            groupBox4.BackColor = SystemColors.ButtonHighlight;
-            groupBox4.Controls.Add(comboBox1);
-            groupBox4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox4.Location = new Point(2, 669);
-            groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(229, 101);
-            groupBox4.TabIndex = 3;
-            groupBox4.TabStop = false;
-            groupBox4.Text = "Người bán";
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(19, 48);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 28);
-            comboBox1.TabIndex = 1;
-            // 
             // groupBox2
             // 
             groupBox2.BackColor = SystemColors.ButtonHighlight;
@@ -226,10 +154,10 @@
             groupBox2.Controls.Add(checkBox2);
             groupBox2.Controls.Add(checkBox1);
             groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox2.Location = new Point(3, 163);
+            groupBox2.Location = new Point(15, 254);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(228, 120);
-            groupBox2.TabIndex = 6;
+            groupBox2.TabIndex = 19;
             groupBox2.TabStop = false;
             groupBox2.Text = "Trạng thái";
             // 
@@ -272,10 +200,10 @@
             groupBox1.Controls.Add(radioButton2);
             groupBox1.Controls.Add(radioButton1);
             groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox1.Location = new Point(0, 3);
+            groupBox1.Location = new Point(12, 94);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(229, 123);
-            groupBox1.TabIndex = 3;
+            groupBox1.TabIndex = 18;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thời gian";
             // 
@@ -308,10 +236,10 @@
             groupBox3.BackColor = SystemColors.ButtonHighlight;
             groupBox3.Controls.Add(comboBox2);
             groupBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox3.Location = new Point(0, 536);
+            groupBox3.Location = new Point(12, 627);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(231, 101);
-            groupBox3.TabIndex = 2;
+            groupBox3.TabIndex = 17;
             groupBox3.TabStop = false;
             groupBox3.Text = "Người tạo";
             // 
@@ -323,60 +251,141 @@
             comboBox2.Size = new Size(151, 28);
             comboBox2.TabIndex = 1;
             // 
+            // panel2
+            // 
+            panel2.Controls.Add(panel4);
+            panel2.Controls.Add(buttonThemHoaDon);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1009, 64);
+            panel2.TabIndex = 13;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = SystemColors.ButtonHighlight;
+            panel4.Controls.Add(pictureBox1);
+            panel4.Controls.Add(textBoxTimNV);
+            panel4.Location = new Point(23, 10);
+            panel4.Name = "panel4";
+            panel4.Padding = new Padding(5, 2, 5, 2);
+            panel4.Size = new Size(357, 40);
+            panel4.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = SystemColors.ButtonHighlight;
+            pictureBox1.Image = Properties.Resources.search;
+            pictureBox1.Location = new Point(8, 5);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(40, 25);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 2;
+            pictureBox1.TabStop = false;
+            // 
+            // textBoxTimNV
+            // 
+            textBoxTimNV.BorderStyle = BorderStyle.None;
+            textBoxTimNV.Location = new Point(71, 5);
+            textBoxTimNV.Multiline = true;
+            textBoxTimNV.Name = "textBoxTimNV";
+            textBoxTimNV.PlaceholderText = "Tìm theo mã hóa dơn";
+            textBoxTimNV.Size = new Size(354, 25);
+            textBoxTimNV.TabIndex = 1;
+            textBoxTimNV.Tag = "";
+            // 
+            // buttonThemHoaDon
+            // 
+            buttonThemHoaDon.BackColor = Color.LimeGreen;
+            buttonThemHoaDon.Location = new Point(639, 10);
+            buttonThemHoaDon.Name = "buttonThemHoaDon";
+            buttonThemHoaDon.Size = new Size(130, 40);
+            buttonThemHoaDon.TabIndex = 0;
+            buttonThemHoaDon.Text = "+ Thêm mới";
+            buttonThemHoaDon.UseVisualStyleBackColor = false;
+            buttonThemHoaDon.Click += buttonThemHoaDon_Click;
+            // 
+            // dataGridViewdsHoaDon
+            // 
+            dataGridViewdsHoaDon.BackgroundColor = SystemColors.Window;
+            dataGridViewdsHoaDon.BorderStyle = BorderStyle.None;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridViewdsHoaDon.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewdsHoaDon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dataGridViewdsHoaDon.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewdsHoaDon.Dock = DockStyle.Fill;
+            dataGridViewdsHoaDon.Location = new Point(0, 64);
+            dataGridViewdsHoaDon.MultiSelect = false;
+            dataGridViewdsHoaDon.Name = "dataGridViewdsHoaDon";
+            dataGridViewdsHoaDon.RowHeadersWidth = 51;
+            dataGridViewdsHoaDon.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewdsHoaDon.Size = new Size(1009, 953);
+            dataGridViewdsHoaDon.TabIndex = 44;
+            // 
             // HoaDon
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1262, 1017);
-            Controls.Add(panel1);
-            Controls.Add(label1);
-            Controls.Add(panel2);
-            Controls.Add(dataGridViewdsHD);
-            FormBorderStyle = FormBorderStyle.None;
+            Controls.Add(splitContainer1);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "HoaDon";
             Text = "FormHoaDon";
-            ((System.ComponentModel.ISupportInitialize)dataGridViewdsHD).EndInit();
-            panel2.ResumeLayout(false);
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel1.ResumeLayout(false);
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel1.PerformLayout();
+            splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
             groupBox5.ResumeLayout(false);
             groupBox5.PerformLayout();
-            groupBox4.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox3.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewdsHoaDon).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridViewdsHD;
-        private Panel panel2;
-        private Panel panel4;
-        private PictureBox pictureBox1;
-        private TextBox textBoxTimNV;
-        private Button buttonThemNV;
+        private SplitContainer splitContainer1;
         private Label label1;
-        private Panel panel1;
-        private GroupBox groupBox3;
-        private ComboBox comboBox2;
-        private GroupBox groupBox1;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
-        private GroupBox groupBox2;
-        private CheckBox checkBox3;
-        private CheckBox checkBox2;
-        private CheckBox checkBox1;
-        private GroupBox groupBox4;
-        private ComboBox comboBox1;
         private GroupBox groupBox5;
         private RadioButton radioButton5;
         private RadioButton radioButton3;
         private RadioButton radioButton4;
+        private GroupBox groupBox2;
+        private CheckBox checkBox3;
+        private CheckBox checkBox2;
+        private CheckBox checkBox1;
+        private GroupBox groupBox1;
+        private RadioButton radioButton2;
+        private RadioButton radioButton1;
+        private GroupBox groupBox3;
+        private ComboBox comboBox2;
+        private Panel panel2;
+        private Panel panel4;
+        private PictureBox pictureBox1;
+        private TextBox textBoxTimNV;
+        private Button buttonThemHoaDon;
+        private DataGridView dataGridViewdsHoaDon;
     }
 }

@@ -196,7 +196,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
         HH.HOAT_CHAT, GHH.GIA_BAN_HH,NH.MA_LOAI_HH, HH.MA_NHOM_HH,
         NH.TEN_NHOM, LH.TEN_LOAI_HH, HH.HINH_ANH_HH, HH.MA_VACH, GHH.GIA_VON_HH, 
         HSX.MA_HANG_SX,HSX.TEN_HANG_SX, HH.MA_DUONG_DUNG,DDT.TEN_DUONG_DUNG, HH.QUY_CACH_DONG_GOI, HH.GHI_CHU_HH, 
-        NCC.TEN_NHA_CUNG_CAP, HH.NGAY_HET_HAN_HH, DVT.TEN_DON_VI_TINH,HH.TINH_TRANG_HH,DVT.MA_DON_VI_TINH,GHH.TI_LE_LOI,NCC.MA_NHA_CUNG_CAP
+        NCC.TEN_NHA_CUNG_CAP, HH.NGAY_HET_HAN_HH, DVT.TEN_DON_VI_TINH,HH.TINH_TRANG_HH,DVT.MA_DON_VI_TINH,NCC.MA_NHA_CUNG_CAP
          FROM HANG_HOA HH
           JOIN NHOM_HANG NH ON HH.MA_NHOM_HH = NH.MA_NHOM_HH
           JOIN LOAI_HANG LH ON NH.MA_LOAI_HH = LH.MA_LOAI_HH
@@ -233,7 +233,6 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                             textBoxMaThuoc.Text = reader["MA_THUOC"]?.ToString() ?? string.Empty; // Nếu có trường mã thuốc
                             textBoxHamLuong.Text = reader["HAM_LUONG"]?.ToString() ?? string.Empty; // Nếu có trường hàm lượng
                             textBoxHoatChat.Text = reader["HOAT_CHAT"]?.ToString() ?? string.Empty; // Nếu có trường hoạt chất
-                            textBoxTiLeLoiNhuan.Text = reader["TI_LE_LOI"]?.ToString() ?? "0"; // Nếu có trường tỷ lệ lợi nhuận, nếu không thì mặc định là 0
                             textBoxQuyCachDongGoi.Text = reader["QUY_CACH_DONG_GOI"]?.ToString() ?? string.Empty;
                             textBoxGhiChu.Text = reader["GHI_CHU_HH"]?.ToString() ?? string.Empty; // Nếu có trường ghi chú
                             textBoxTonKho.Text = reader["TON_KHO"]?.ToString() ?? "0"; // Nếu có trường tồn kho, nếu không thì mặc định là 0
@@ -453,7 +452,6 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
             string giaVonStr = textBoxGiaVon.Text.Trim();
             string giaBanStr = textBoxGiaBan.Text.Trim();
             string trongLuongStr = textBoxTrongLuong.Text.Trim();
-            string tiLeLoiStr = textBoxTiLeLoiNhuan.Text.Trim();
             string tonKhoStr = textBoxTonKho.Text.Trim();
             DateTime ngayHetHan = dateTimePickerNgayHetHan.Value;
 
@@ -602,7 +600,6 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                             UPDATE GIA_HANG_HOA SET
                                 GIA_VON_HH = @giaVon,
                                 GIA_BAN_HH = @giaBan,
-                                TI_LE_LOI = @tiLeLoi,
                                 MA_DON_VI_TINH = @maDVT
                             WHERE MA_HANG_HOA = @maHH";
 
@@ -616,7 +613,6 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                                 }
                                 cmdUpdateGia.Parameters.AddWithValue("@giaVon", coGiaVon ? giaVon : 0);
                                 cmdUpdateGia.Parameters.AddWithValue("@giaBan", coGiaBan ? giaBan : 0);
-                                cmdUpdateGia.Parameters.AddWithValue("@tiLeLoi", tiLeLoi);
                                 cmdUpdateGia.Parameters.AddWithValue("@maDVT", coDonViTinh ? (object)maDonViTinh : DBNull.Value);
                                 cmdUpdateGia.Parameters.AddWithValue("@maHH", maHH);
 
@@ -626,7 +622,7 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                         else
                         {
                             string insertGia = @"
-                            INSERT INTO GIA_HANG_HOA (MA_HANG_HOA, GIA_VON_HH, GIA_BAN_HH, MA_DON_VI_TINH, TI_LE_LOI)
+                            INSERT INTO GIA_HANG_HOA (MA_HANG_HOA, GIA_VON_HH, GIA_BAN_HH, MA_DON_VI_TINH)
                             VALUES (@maHH, @giaVon, @giaBan, @maDVT, @tiLeLoi)";
 
                             using (SqlCommand cmdInsertGia = new SqlCommand(insertGia, conn))
@@ -640,7 +636,6 @@ namespace QL_Nha_thuoc.HangHoa.CapNhat
                                 cmdInsertGia.Parameters.AddWithValue("@giaVon", coGiaVon ? giaVon : 0);
                                 cmdInsertGia.Parameters.AddWithValue("@giaBan", coGiaBan ? giaBan : 0);
                                 cmdInsertGia.Parameters.AddWithValue("@maDVT", coDonViTinh ? (object)maDonViTinh : DBNull.Value);
-                                cmdInsertGia.Parameters.AddWithValue("@tiLeLoi", tiLeLoi);
 
                                 cmdInsertGia.ExecuteNonQuery();
                             }

@@ -335,6 +335,7 @@ namespace QL_Nha_thuoc.model
                             TinhTrang = reader["TINH_TRANG_HH"]?.ToString(), // Thêm thuộc tính Tình trạng hàng hóa
                             GhiChu=reader["GHI_CHU_HH"]?.ToString(),
                             MaVach= reader["MA_VACH"]?.ToString()
+                            
                         };
                     }
                 }
@@ -342,177 +343,7 @@ namespace QL_Nha_thuoc.model
 
             return hh;
         }
-
-
-        //ham tao ma hang hoa tu dong
-        public static string TaoMaHangHoaTuDong()
-        {
-            using (SqlConnection conn = CSDL.GetConnection())
-            {
-                string query = @"
-            SELECT TOP 1 MA_HANG_HOA
-            FROM HANG_HOA
-            WHERE MA_HANG_HOA LIKE 'HH%'
-            ORDER BY 
-                TRY_CAST(SUBSTRING(MA_HANG_HOA, 3, LEN(MA_HANG_HOA)) AS INT) DESC";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-                conn.Open();
-
-                object result = cmd.ExecuteScalar();
-
-                int soThuTu = 1; // Mặc định nếu chưa có mã nào
-
-                if (result != null)
-                {
-                    string maCu = result.ToString(); // VD: "HH0025"
-                    if (maCu.Length > 2 && int.TryParse(maCu.Substring(2), out int so))
-                    {
-                        soThuTu = so + 1;
-                    }
-                }
-
-                return "HH" + soThuTu.ToString("D4"); // VD: HH0026
-            }
-        }
-
-      
-
-
-
-        //ham lay thong tin cua danh sahc hang hoa trong dnah muc hang hoa 
-        public static List<ClassHangHoa> LayThongTinHHfromDanhMuc(string tenHH)
-        {
-            var danhSach = new List<ClassHangHoa>();
-
-            using (SqlConnection conn = CSDL.GetConnection())
-            {
-                string query = @"
-                select DMHH.TEN_HANG_HOA, DMHH.MA_VACH_HANG_HOA,DMHH.HINH_ANH_HANG_HOA  from DANH_MUC_HANG_HOA DMHH
-                WHERE  TEN_HANG_HOA LIKE @teHH";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@teHH", "%" + tenHH + "%");
-
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var hh = new ClassHangHoa
-                        {
-                            TenHangHoa = reader["TEN_HANG_HOA"].ToString(),
-                            MaVach = reader["MA_VACH_HANG_HOA"]?.ToString(),
-                            HinhAnh = reader["HINH_ANH_HANG_HOA"]?.ToString() // Nếu có cột HINH_ANH_HH trong bảng DANH_MUC_HANG_HOA
-
-                        };
-
-                        danhSach.Add(hh);
-                    }
-                }
-            }
-
-            return danhSach;
-        }
-
-
-
-        //ham them hang hoa 
-        public static bool ThemHangHoaMoi(ClassHangHoa hangHoa)
-        {
-            using (SqlConnection conn = CSDL.GetConnection())
-            {
-                conn.Open();
-                SqlTransaction transaction = conn.BeginTransaction();
-
-                try
-                {
-                    string query = @"
-                INSERT INTO HANG_HOA (
-                    MA_HANG_HOA, HINH_ANH_HH, TEN_HANG_HOA, MA_VACH, QUY_CACH_DONG_GOI, 
-                    GHI_CHU_HH,
-                    HOAT_CHAT, HAM_LUONG, NGAY_HET_HAN_HH, 
-                    SO_DANG_KY_THUOC, TON_KHO, MA_NHOM_HH, MA_HANG_SX, TINH_TRANG_HH, THOI_GIAN_TAO
-                )
-                VALUES (
-                    @maHH, @hinhAnh, @tenHH, @maVach, @quyCach, 
-                    @ghiChu,
-                    @hoatChat, @hamLuong, @hanSD,
-                    @soDK, @tonKho, @maNhom, @maHangSX, @tinhTrang, @thoigiantao
-                )";
-
-                    int rowsAffected = 0;
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn, transaction)) // gán transaction
-                    {
-                        cmd.Parameters.AddWithValue("@maHH", hangHoa.MaHangHoa);
-                        cmd.Parameters.AddWithValue("@hinhAnh", (object)hangHoa.HinhAnh ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@tenHH", hangHoa.TenHangHoa);
-                        cmd.Parameters.AddWithValue("@maVach", (object)hangHoa.MaVach ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@quyCach", (object)hangHoa.QuyCachDongGoi ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@ghiChu", (object)hangHoa.GhiChu ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@hoatChat", (object)hangHoa.HoatChatChinh ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@hamLuong", (object)hangHoa.HamLuong ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@hanSD", (object)hangHoa.HanSuDung ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@soDK", (object)hangHoa.SoDangKy ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@tonKho", hangHoa.SoLuongTon);
-                        cmd.Parameters.AddWithValue("@maNhom", (object)hangHoa.MaNhomHang ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@maHangSX", hangHoa.MaHangSX);
-                        cmd.Parameters.AddWithValue("@tinhTrang", (object)hangHoa.TinhTrang ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@thoigiantao", DateTime.Now);
-
-                        // Thực hiện lệnh và lấy số dòng ảnh hưởng
-                        rowsAffected = cmd.ExecuteNonQuery();
-                    }
-
-                    // Nếu thêm hàng hóa thành công thì mới thêm giá bán
-                    if (rowsAffected > 0)
-                    {
-
-                        ClassGiaBanHH giaBan = new ClassGiaBanHH
-                        {
-                            MaHangHoa = hangHoa.MaHangHoa,
-                            MaBangGia="BG001", // Giả sử bạn có một bảng giá mặc định
-                            GiaVon = hangHoa.GiaVon,
-                            GiaBan = hangHoa.GiaBan,
-                            MaDonViTinh = hangHoa.MaDonViTinh
-                        };
-
-                        // ✅ Gọi đúng với đủ tham số:
-                        if (!ClassGiaBanHH.ThemGiaBan(giaBan, conn, transaction))
-                            throw new Exception("Lỗi khi thêm giá bán hàng hóa.");
-                    }
-                    else
-                    {
-                        throw new Exception("Không thêm được hàng hóa vào cơ sở dữ liệu.");
-                    }
-
-                    transaction.Commit();
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    MessageBox.Show("Lỗi khi thêm hàng hóa: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-        }
-
-        public static void CapNhatTonKho(string maHangHoa, int soLuongMoi)
-        {
-            using (SqlConnection conn = CSDL.GetConnection())
-            {
-                conn.Open();
-                string query = "UPDATE HANG_HOA SET TON_KHO = @SoLuong WHERE MA_HANG_HOA = @MaHangHoa";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@SoLuong", soLuongMoi);
-                cmd.Parameters.AddWithValue("@MaHangHoa", maHangHoa);
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        public static List<ClassHangHoa> TimKiemHangHoa(string tuKhoa)
+        public static List<ClassHangHoa> TimKiemHangHoaTheoTuKhoa(string tuKhoa)
         {
             var danhSach = new List<ClassHangHoa>();
 
@@ -692,6 +523,177 @@ namespace QL_Nha_thuoc.model
             return hh;
         }
 
+
+      
+      
+
+
+
+        //ham lay thong tin cua danh sahc hang hoa trong dnah muc hang hoa 
+        public static List<ClassHangHoa> LayThongTinHHfromDanhMuc(string tenHH)
+        {
+            var danhSach = new List<ClassHangHoa>();
+
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                string query = @"
+                select DMHH.TEN_HANG_HOA, DMHH.MA_VACH_HANG_HOA,DMHH.HINH_ANH_HANG_HOA  from DANH_MUC_HANG_HOA DMHH
+                WHERE  TEN_HANG_HOA LIKE @teHH";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@teHH", "%" + tenHH + "%");
+
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var hh = new ClassHangHoa
+                        {
+                            TenHangHoa = reader["TEN_HANG_HOA"].ToString(),
+                            MaVach = reader["MA_VACH_HANG_HOA"]?.ToString(),
+                            HinhAnh = reader["HINH_ANH_HANG_HOA"]?.ToString() // Nếu có cột HINH_ANH_HH trong bảng DANH_MUC_HANG_HOA
+
+                        };
+
+                        danhSach.Add(hh);
+                    }
+                }
+            }
+
+            return danhSach;
+        }
+
+
+
+        //ham tao ma hang hoa tu dong
+        public static string TaoMaHangHoaTuDong()
+        {
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                string query = @"
+            SELECT TOP 1 MA_HANG_HOA
+            FROM HANG_HOA
+            WHERE MA_HANG_HOA LIKE 'HH%'
+            ORDER BY 
+                TRY_CAST(SUBSTRING(MA_HANG_HOA, 3, LEN(MA_HANG_HOA)) AS INT) DESC";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
+
+                object result = cmd.ExecuteScalar();
+
+                int soThuTu = 1; // Mặc định nếu chưa có mã nào
+
+                if (result != null)
+                {
+                    string maCu = result.ToString(); // VD: "HH0025"
+                    if (maCu.Length > 2 && int.TryParse(maCu.Substring(2), out int so))
+                    {
+                        soThuTu = so + 1;
+                    }
+                }
+
+                return "HH" + soThuTu.ToString("D4"); // VD: HH0026
+            }
+        }
+
+        //ham them hang hoa 
+        public static bool ThemHangHoaMoi(ClassHangHoa hangHoa)
+        {
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                conn.Open();
+                SqlTransaction transaction = conn.BeginTransaction();
+
+                try
+                {
+                    string query = @"
+                INSERT INTO HANG_HOA (
+                    MA_HANG_HOA, HINH_ANH_HH, TEN_HANG_HOA, MA_VACH, QUY_CACH_DONG_GOI, 
+                    GHI_CHU_HH,
+                    HOAT_CHAT, HAM_LUONG, NGAY_HET_HAN_HH, 
+                    SO_DANG_KY_THUOC, TON_KHO, MA_NHOM_HH, MA_HANG_SX, TINH_TRANG_HH, THOI_GIAN_TAO
+                )
+                VALUES (
+                    @maHH, @hinhAnh, @tenHH, @maVach, @quyCach, 
+                    @ghiChu,
+                    @hoatChat, @hamLuong, @hanSD,
+                    @soDK, @tonKho, @maNhom, @maHangSX, @tinhTrang, @thoigiantao
+                )";
+
+                    int rowsAffected = 0;
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn, transaction)) // gán transaction
+                    {
+                        cmd.Parameters.AddWithValue("@maHH", hangHoa.MaHangHoa);
+                        cmd.Parameters.AddWithValue("@hinhAnh", (object)hangHoa.HinhAnh ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@tenHH", hangHoa.TenHangHoa);
+                        cmd.Parameters.AddWithValue("@maVach", (object)hangHoa.MaVach ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@quyCach", (object)hangHoa.QuyCachDongGoi ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@ghiChu", (object)hangHoa.GhiChu ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@hoatChat", (object)hangHoa.HoatChatChinh ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@hamLuong", (object)hangHoa.HamLuong ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@hanSD", (object)hangHoa.HanSuDung ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@soDK", (object)hangHoa.SoDangKy ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@tonKho", hangHoa.SoLuongTon);
+                        cmd.Parameters.AddWithValue("@maNhom", (object)hangHoa.MaNhomHang ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@maHangSX", hangHoa.MaHangSX);
+                        cmd.Parameters.AddWithValue("@tinhTrang", (object)hangHoa.TinhTrang ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@thoigiantao", DateTime.Now);
+
+                        // Thực hiện lệnh và lấy số dòng ảnh hưởng
+                        rowsAffected = cmd.ExecuteNonQuery();
+                    }
+
+                    // Nếu thêm hàng hóa thành công thì mới thêm giá bán
+                    if (rowsAffected > 0)
+                    {
+
+                        ClassGiaBanHH giaBan = new ClassGiaBanHH
+                        {
+                            MaHangHoa = hangHoa.MaHangHoa,
+                            MaBangGia="BG001", // Giả sử bạn có một bảng giá mặc định
+                            GiaVon = hangHoa.GiaVon,
+                            GiaBan = hangHoa.GiaBan,
+                            MaDonViTinh = hangHoa.MaDonViTinh
+                        };
+
+                        // ✅ Gọi đúng với đủ tham số:
+                        if (!ClassGiaBanHH.ThemGiaBan(giaBan, conn, transaction))
+                            throw new Exception("Lỗi khi thêm giá bán hàng hóa.");
+                    }
+                    else
+                    {
+                        throw new Exception("Không thêm được hàng hóa vào cơ sở dữ liệu.");
+                    }
+
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show("Lỗi khi thêm hàng hóa: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+        }
+
+        public static void CapNhatTonKho(string maHangHoa, int soLuongMoi)
+        {
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                conn.Open();
+                string query = "UPDATE HANG_HOA SET TON_KHO = @SoLuong WHERE MA_HANG_HOA = @MaHangHoa";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@SoLuong", soLuongMoi);
+                cmd.Parameters.AddWithValue("@MaHangHoa", maHangHoa);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+  
 
 
         public static bool XoaHangHoa(string maHH, string maNN)

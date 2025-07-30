@@ -57,9 +57,6 @@
             labelDonViTinh = new Label();
             comboBoxDonViTinh = new ComboBox();
             buttonChonAnh = new Button();
-            textBoxTiLeLoiNhuan = new TextBox();
-            label7 = new Label();
-            label8 = new Label();
             textBoxTonKho = new TextBox();
             label11 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHangHoa).BeginInit();
@@ -145,17 +142,17 @@
             // 
             // textBoxGhiChu
             // 
-            textBoxGhiChu.Location = new Point(1027, 380);
+            textBoxGhiChu.Location = new Point(1027, 317);
             textBoxGhiChu.Multiline = true;
             textBoxGhiChu.Name = "textBoxGhiChu";
             textBoxGhiChu.ScrollBars = ScrollBars.Vertical;
-            textBoxGhiChu.Size = new Size(200, 108);
+            textBoxGhiChu.Size = new Size(200, 164);
             textBoxGhiChu.TabIndex = 93;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(851, 383);
+            label9.Location = new Point(853, 320);
             label9.Name = "label9";
             label9.Size = new Size(61, 20);
             label9.TabIndex = 92;
@@ -204,7 +201,7 @@
             // 
             // textBoxGiaBan
             // 
-            textBoxGiaBan.Location = new Point(1027, 320);
+            textBoxGiaBan.Location = new Point(1027, 263);
             textBoxGiaBan.Name = "textBoxGiaBan";
             textBoxGiaBan.Size = new Size(200, 27);
             textBoxGiaBan.TabIndex = 86;
@@ -212,7 +209,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(851, 327);
+            label3.Location = new Point(851, 270);
             label3.Name = "label3";
             label3.Size = new Size(63, 20);
             label3.TabIndex = 85;
@@ -276,7 +273,7 @@
             // labelGia
             // 
             labelGia.AutoSize = true;
-            labelGia.Location = new Point(850, 232);
+            labelGia.Location = new Point(850, 211);
             labelGia.Name = "labelGia";
             labelGia.Size = new Size(62, 20);
             labelGia.TabIndex = 79;
@@ -284,7 +281,7 @@
             // 
             // textBoxGiaVon
             // 
-            textBoxGiaVon.Location = new Point(1027, 225);
+            textBoxGiaVon.Location = new Point(1027, 208);
             textBoxGiaVon.Name = "textBoxGiaVon";
             textBoxGiaVon.Size = new Size(200, 27);
             textBoxGiaVon.TabIndex = 80;
@@ -301,7 +298,7 @@
             // labelDonViTinh
             // 
             labelDonViTinh.AutoSize = true;
-            labelDonViTinh.Location = new Point(848, 170);
+            labelDonViTinh.Location = new Point(850, 164);
             labelDonViTinh.Name = "labelDonViTinh";
             labelDonViTinh.Size = new Size(84, 20);
             labelDonViTinh.TabIndex = 103;
@@ -310,7 +307,7 @@
             // comboBoxDonViTinh
             // 
             comboBoxDonViTinh.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxDonViTinh.Location = new Point(1027, 167);
+            comboBoxDonViTinh.Location = new Point(1027, 156);
             comboBoxDonViTinh.Name = "comboBoxDonViTinh";
             comboBoxDonViTinh.Size = new Size(200, 28);
             comboBoxDonViTinh.TabIndex = 104;
@@ -323,32 +320,6 @@
             buttonChonAnh.TabIndex = 105;
             buttonChonAnh.Text = "Chon anh";
             buttonChonAnh.Click += buttonChonAnh_Click;
-            // 
-            // textBoxTiLeLoiNhuan
-            // 
-            textBoxTiLeLoiNhuan.Location = new Point(1027, 274);
-            textBoxTiLeLoiNhuan.Name = "textBoxTiLeLoiNhuan";
-            textBoxTiLeLoiNhuan.ReadOnly = true;
-            textBoxTiLeLoiNhuan.Size = new Size(200, 27);
-            textBoxTiLeLoiNhuan.TabIndex = 106;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(852, 277);
-            label7.Name = "label7";
-            label7.Size = new Size(102, 20);
-            label7.TabIndex = 107;
-            label7.Text = "Tỉ lệ lợi nhuận";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(1233, 281);
-            label8.Name = "label8";
-            label8.Size = new Size(21, 20);
-            label8.TabIndex = 108;
-            label8.Text = "%";
             // 
             // textBoxTonKho
             // 
@@ -373,9 +344,6 @@
             ClientSize = new Size(1361, 775);
             Controls.Add(label11);
             Controls.Add(textBoxTonKho);
-            Controls.Add(label8);
-            Controls.Add(label7);
-            Controls.Add(textBoxTiLeLoiNhuan);
             Controls.Add(buttonChonAnh);
             Controls.Add(comboBoxDonViTinh);
             Controls.Add(labelDonViTinh);
@@ -445,9 +413,6 @@
         private Label labelDonViTinh;
         private ComboBox comboBoxDonViTinh;
         private Button buttonChonAnh;
-        private TextBox textBoxTiLeLoiNhuan;
-        private Label label7;
-        private Label label8;
         private TextBox textBoxTonKho;
         private Label label11;
     }
