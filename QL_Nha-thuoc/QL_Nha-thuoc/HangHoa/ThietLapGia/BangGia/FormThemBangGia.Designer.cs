@@ -34,8 +34,6 @@
             tabPageThongTin = new TabPage();
             dateTimePickerDenNgay = new DateTimePicker();
             dateTimePickerTuNgay = new DateTimePicker();
-            buttonBoQua = new Button();
-            buttonLuu = new Button();
             radioButtonChuaApDung = new RadioButton();
             radioButtonApDung = new RadioButton();
             label5 = new Label();
@@ -44,8 +42,6 @@
             label2 = new Label();
             textBoxTenBangGia = new TextBox();
             tabPageThietLap = new TabPage();
-            button1 = new Button();
-            button2 = new Button();
             radioButtonKhongChoPhep = new RadioButton();
             radioButtonChonPhep = new RadioButton();
             label6 = new Label();
@@ -56,10 +52,14 @@
             buttonCong = new Button();
             comboBoxLoaiGia = new ComboBox();
             labelHienThi = new Label();
+            buttonBoQua = new Button();
+            buttonLuu = new Button();
+            panel2 = new Panel();
             panel1.SuspendLayout();
             tabControlThemBangGia.SuspendLayout();
             tabPageThongTin.SuspendLayout();
             tabPageThietLap.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -91,15 +91,13 @@
             tabControlThemBangGia.Location = new Point(0, 50);
             tabControlThemBangGia.Name = "tabControlThemBangGia";
             tabControlThemBangGia.SelectedIndex = 0;
-            tabControlThemBangGia.Size = new Size(886, 306);
+            tabControlThemBangGia.Size = new Size(886, 370);
             tabControlThemBangGia.TabIndex = 2;
             // 
             // tabPageThongTin
             // 
             tabPageThongTin.Controls.Add(dateTimePickerDenNgay);
             tabPageThongTin.Controls.Add(dateTimePickerTuNgay);
-            tabPageThongTin.Controls.Add(buttonBoQua);
-            tabPageThongTin.Controls.Add(buttonLuu);
             tabPageThongTin.Controls.Add(radioButtonChuaApDung);
             tabPageThongTin.Controls.Add(radioButtonApDung);
             tabPageThongTin.Controls.Add(label5);
@@ -111,7 +109,7 @@
             tabPageThongTin.Location = new Point(4, 32);
             tabPageThongTin.Name = "tabPageThongTin";
             tabPageThongTin.Padding = new Padding(3);
-            tabPageThongTin.Size = new Size(878, 270);
+            tabPageThongTin.Size = new Size(878, 334);
             tabPageThongTin.TabIndex = 0;
             tabPageThongTin.Text = "Thông tin";
             tabPageThongTin.UseVisualStyleBackColor = true;
@@ -137,26 +135,6 @@
             dateTimePickerTuNgay.Size = new Size(242, 30);
             dateTimePickerTuNgay.TabIndex = 133;
             dateTimePickerTuNgay.Value = new DateTime(2025, 6, 16, 0, 0, 0, 0);
-            // 
-            // buttonBoQua
-            // 
-            buttonBoQua.Font = new Font("Segoe UI", 10F);
-            buttonBoQua.Location = new Point(722, 233);
-            buttonBoQua.Name = "buttonBoQua";
-            buttonBoQua.Size = new Size(94, 29);
-            buttonBoQua.TabIndex = 9;
-            buttonBoQua.Text = "Bỏ qua";
-            buttonBoQua.UseVisualStyleBackColor = true;
-            // 
-            // buttonLuu
-            // 
-            buttonLuu.Font = new Font("Segoe UI", 10F);
-            buttonLuu.Location = new Point(590, 233);
-            buttonLuu.Name = "buttonLuu";
-            buttonLuu.Size = new Size(94, 29);
-            buttonLuu.TabIndex = 8;
-            buttonLuu.Text = "Lưu";
-            buttonLuu.UseVisualStyleBackColor = true;
             // 
             // radioButtonChuaApDung
             // 
@@ -232,8 +210,6 @@
             // 
             // tabPageThietLap
             // 
-            tabPageThietLap.Controls.Add(button1);
-            tabPageThietLap.Controls.Add(button2);
             tabPageThietLap.Controls.Add(radioButtonKhongChoPhep);
             tabPageThietLap.Controls.Add(radioButtonChonPhep);
             tabPageThietLap.Controls.Add(label6);
@@ -248,30 +224,10 @@
             tabPageThietLap.Location = new Point(4, 32);
             tabPageThietLap.Name = "tabPageThietLap";
             tabPageThietLap.Padding = new Padding(3);
-            tabPageThietLap.Size = new Size(878, 270);
+            tabPageThietLap.Size = new Size(878, 334);
             tabPageThietLap.TabIndex = 1;
             tabPageThietLap.Text = "Thiết lập";
             tabPageThietLap.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            button1.Font = new Font("Segoe UI", 10F);
-            button1.Location = new Point(742, 239);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 19;
-            button1.Text = "Bỏ qua";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Font = new Font("Segoe UI", 10F);
-            button2.Location = new Point(610, 239);
-            button2.Name = "button2";
-            button2.Size = new Size(94, 29);
-            button2.TabIndex = 18;
-            button2.Text = "Lưu";
-            button2.UseVisualStyleBackColor = true;
             // 
             // radioButtonKhongChoPhep
             // 
@@ -336,6 +292,7 @@
             textBoxSoNhap.Name = "textBoxSoNhap";
             textBoxSoNhap.Size = new Size(136, 30);
             textBoxSoNhap.TabIndex = 12;
+            textBoxSoNhap.TextChanged += textBoxSoNhap_TextChanged;
             // 
             // buttonTru
             // 
@@ -379,11 +336,44 @@
             labelHienThi.TabIndex = 8;
             labelHienThi.Text = "Giá bán =";
             // 
+            // buttonBoQua
+            // 
+            buttonBoQua.Font = new Font("Segoe UI", 10F);
+            buttonBoQua.Location = new Point(731, 8);
+            buttonBoQua.Name = "buttonBoQua";
+            buttonBoQua.Size = new Size(94, 43);
+            buttonBoQua.TabIndex = 9;
+            buttonBoQua.Text = "Bỏ qua";
+            buttonBoQua.UseVisualStyleBackColor = true;
+            buttonBoQua.Click += buttonBoQua_Click;
+            // 
+            // buttonLuu
+            // 
+            buttonLuu.Font = new Font("Segoe UI", 10F);
+            buttonLuu.Location = new Point(622, 6);
+            buttonLuu.Name = "buttonLuu";
+            buttonLuu.Size = new Size(94, 45);
+            buttonLuu.TabIndex = 8;
+            buttonLuu.Text = "Lưu";
+            buttonLuu.UseVisualStyleBackColor = true;
+            buttonLuu.Click += buttonLuu_Click;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(buttonLuu);
+            panel2.Controls.Add(buttonBoQua);
+            panel2.Dock = DockStyle.Bottom;
+            panel2.Location = new Point(0, 362);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(886, 58);
+            panel2.TabIndex = 3;
+            // 
             // FormThemBangGia
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(886, 356);
+            ClientSize = new Size(886, 420);
+            Controls.Add(panel2);
             Controls.Add(tabControlThemBangGia);
             Controls.Add(panel1);
             Name = "FormThemBangGia";
@@ -397,6 +387,7 @@
             tabPageThongTin.PerformLayout();
             tabPageThietLap.ResumeLayout(false);
             tabPageThietLap.PerformLayout();
+            panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -426,9 +417,8 @@
         private Label label6;
         private RadioButton radioButtonKhongChoPhep;
         private RadioButton radioButtonChonPhep;
-        private Button button1;
-        private Button button2;
         private DateTimePicker dateTimePickerDenNgay;
         private DateTimePicker dateTimePickerTuNgay;
+        private Panel panel2;
     }
 }

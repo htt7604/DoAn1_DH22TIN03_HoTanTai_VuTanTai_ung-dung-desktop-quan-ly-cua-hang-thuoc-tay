@@ -54,6 +54,8 @@ namespace QL_Nha_thuoc.BanHang
             textBoxDonGia.TextChanged += Input_TextChanged;
             textBoxGiamGia.TextChanged += Input_TextChanged;
             textBoxGiaBan.TextChanged += GiaBan_TextChanged;
+            //mac dinh chon VND
+            buttonVND.BackColor = Color.LightGreen;
         }
 
         private void FormGiamGiaHHHoaDonPopup_Load(object sender, EventArgs e)

@@ -73,7 +73,7 @@ namespace QL_Nha_thuoc.DangNhap
         }
         private void GuiEmail(string toEmail, string otp)
         {
-            string fromEmail = _email;        // Thay bằng email của bạn
+            string fromEmail = "hotantai0902@gmail.com";        // Thay bằng email của bạn
             string appPassword = "cqrj erhj imrp eqdh";         // Thay bằng app password (16 ký tự)
 
             try

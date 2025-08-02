@@ -50,6 +50,7 @@
             buttonPhanTram.TabIndex = 9;
             buttonPhanTram.Text = "%";
             buttonPhanTram.UseVisualStyleBackColor = true;
+            buttonPhanTram.Click += buttonPhanTram_Click;
             // 
             // buttonVND
             // 
@@ -59,6 +60,7 @@
             buttonVND.TabIndex = 8;
             buttonVND.Text = "VND";
             buttonVND.UseVisualStyleBackColor = true;
+            buttonVND.Click += buttonVND_Click;
             // 
             // label6
             // 

@@ -22,6 +22,31 @@ namespace QL_Nha_thuoc.BanHang
         {
             InitializeComponent();
         }
+
+        //load combobox bang gia 
+        private void LoadComBoBoxBangGia()
+        {
+            // Lấy danh sách bảng giá đang áp dụng
+            List<ClassBangGia> classBangGias = ClassBangGia.LayTatCaBangGiaDangApDUng();
+
+            // Gán vào ComboBox
+            comboBoxBangGia.DataSource = classBangGias;
+            comboBoxBangGia.DisplayMember = "TEN_BANG_GIA";  // Tên hiển thị
+            comboBoxBangGia.ValueMember = "MA_BANG_GIA";      // Giá trị thực sự
+
+            // Nếu có ít nhất 1 bảng giá, chọn mặc định dòng đầu tiên
+            if (classBangGias.Count > 0)
+            {
+                comboBoxBangGia.SelectedIndex = 0;
+            }
+            else
+            {
+                comboBoxBangGia.Text = "Không có bảng giá";
+            }
+        }
+
+
+
         private void FormBanHangMain_Load(object sender, EventArgs e)
         {
             //load labeltentaiKhoan

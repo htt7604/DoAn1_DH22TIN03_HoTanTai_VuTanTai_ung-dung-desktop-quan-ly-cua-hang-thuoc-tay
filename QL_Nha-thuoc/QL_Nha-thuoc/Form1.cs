@@ -33,5 +33,23 @@ namespace QL_Nha_thuoc
                 MessageBox.Show("Lỗi khi xuất báo cáo:\n" + ex.Message);
             }
         }
+        List<string> allItems = new List<string> { "Paracetamol", "Aspirin", "Vitamin C", "Ibuprofen" };
+
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            string text = comboBox1.Text;
+
+            var filtered = allItems.Where(x => x.IndexOf(text, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+
+            comboBox1.Items.Clear();
+            comboBox1.Items.AddRange(filtered.ToArray());
+
+            comboBox1.SelectionStart = comboBox1.Text.Length;
+            comboBox1.SelectionLength = 0;
+
+            comboBox1.DroppedDown = true;
+            Cursor.Current = Cursors.Default;
+        }
+
     }
 }

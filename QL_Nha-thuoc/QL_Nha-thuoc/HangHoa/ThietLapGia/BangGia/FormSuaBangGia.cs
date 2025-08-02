@@ -10,17 +10,17 @@ using System.Windows.Forms;
 
 namespace QL_Nha_thuoc.HangHoa.ThietLapGia
 {
-    public partial class FormThemBangGia : Form
+    public partial class FormSuaBangGia : Form
     {
-        public FormThemBangGia()
+        public FormSuaBangGia()
         {
             InitializeComponent();
         }
-
-        private void FormThemBangGia_Load(object sender, EventArgs e)
+        private void loadcomboBoxLoaiGia()
         {
-            radioButtonApDung.Checked = true;
-            radioButtonChonPhep.Checked = true;
+            var loaiGiaList = new List<string> { "Giá vốn", "Giá bán" };
+            comboBoxLoaiGia.DataSource = loaiGiaList;
+            comboBoxLoaiGia.DropDownStyle = ComboBoxStyle.DropDownList;
         }
         public string phepTinh;
         private void buttonCong_Click(object sender, EventArgs e)
@@ -65,9 +65,5 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
             buttonPhanTram.BackColor = Color.LightGreen;
             textBoxSoNhap.Clear();
         }
-
-
-
-
     }
 }

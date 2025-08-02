@@ -42,6 +42,7 @@
             tableLayoutPanel5 = new TableLayoutPanel();
             pictureBox1 = new PictureBox();
             textBoxTimHH = new TextBox();
+            comboBoxBangGia = new ComboBox();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             tabControlHoaDon.SuspendLayout();
@@ -140,7 +141,7 @@
             // 
             // buttonXoaHoaDon
             // 
-            buttonXoaHoaDon.Location = new Point(842, 9);
+            buttonXoaHoaDon.Location = new Point(1017, 6);
             buttonXoaHoaDon.Name = "buttonXoaHoaDon";
             buttonXoaHoaDon.Size = new Size(151, 45);
             buttonXoaHoaDon.TabIndex = 39;
@@ -150,7 +151,7 @@
             // 
             // buttonThemHoaDon
             // 
-            buttonThemHoaDon.Location = new Point(649, 9);
+            buttonThemHoaDon.Location = new Point(826, 9);
             buttonThemHoaDon.Name = "buttonThemHoaDon";
             buttonThemHoaDon.Size = new Size(151, 45);
             buttonThemHoaDon.TabIndex = 38;
@@ -160,10 +161,11 @@
             // 
             // panel
             // 
+            panel.Controls.Add(comboBoxBangGia);
             panel.Controls.Add(tableLayoutPanel5);
             panel.Location = new Point(4, 3);
             panel.Name = "panel";
-            panel.Size = new Size(593, 55);
+            panel.Size = new Size(718, 55);
             panel.TabIndex = 37;
             // 
             // tableLayoutPanel5
@@ -206,6 +208,14 @@
             textBoxTimHH.Tag = "";
             textBoxTimHH.TextChanged += textBoxTimHH_TextChanged;
             // 
+            // comboBoxBangGia
+            // 
+            comboBoxBangGia.FormattingEnabled = true;
+            comboBoxBangGia.Location = new Point(489, 15);
+            comboBoxBangGia.Name = "comboBoxBangGia";
+            comboBoxBangGia.Size = new Size(151, 28);
+            comboBoxBangGia.TabIndex = 9;
+            // 
             // FormBanHangMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -245,5 +255,6 @@
         private Button buttonXoaHoaDon;
         private Label labelTenTaiKhoan;
         private Button buttonHienCongCu;
+        private ComboBox comboBoxBangGia;
     }
 }

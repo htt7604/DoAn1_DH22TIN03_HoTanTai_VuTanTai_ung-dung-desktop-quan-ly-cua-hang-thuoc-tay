@@ -30,6 +30,7 @@
         {
             splitContainer1 = new SplitContainer();
             groupBox3 = new GroupBox();
+            buttonSuaBangGia = new Button();
             buttonThemBangGia = new Button();
             comboBoxBangGia = new ComboBox();
             groupBox2 = new GroupBox();
@@ -82,14 +83,26 @@
             // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(buttonSuaBangGia);
             groupBox3.Controls.Add(buttonThemBangGia);
             groupBox3.Controls.Add(comboBoxBangGia);
             groupBox3.Location = new Point(12, 91);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(204, 125);
+            groupBox3.Size = new Size(219, 125);
             groupBox3.TabIndex = 6;
             groupBox3.TabStop = false;
             groupBox3.Text = "Bảng giá";
+            // 
+            // buttonSuaBangGia
+            // 
+            buttonSuaBangGia.Location = new Point(163, 63);
+            buttonSuaBangGia.Name = "buttonSuaBangGia";
+            buttonSuaBangGia.Size = new Size(49, 29);
+            buttonSuaBangGia.TabIndex = 4;
+            buttonSuaBangGia.Text = "Sửa";
+            buttonSuaBangGia.UseVisualStyleBackColor = true;
+            buttonSuaBangGia.Visible = false;
+            buttonSuaBangGia.Click += buttonSuaBangGia_Click;
             // 
             // buttonThemBangGia
             // 
@@ -308,5 +321,6 @@
         private Panel panelKetQuaTimKiem;
         private Label labelDVT;
         private ComboBox comboBoxDonViTinh;
+        private Button buttonSuaBangGia;
     }
 }

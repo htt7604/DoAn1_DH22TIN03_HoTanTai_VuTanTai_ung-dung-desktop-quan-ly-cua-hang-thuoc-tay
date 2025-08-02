@@ -31,6 +31,7 @@
             splitContainer1 = new SplitContainer();
             flowLayoutPanelTTHH = new FlowLayoutPanel();
             flowLayoutPanelDanhSachKhachHang = new FlowLayoutPanel();
+            panelThanhToanQR = new Panel();
             labelPhanTramGiam = new Label();
             label2 = new Label();
             textBoxKhachCanTra = new TextBox();
@@ -40,8 +41,8 @@
             radioButtonChuyenKhoan = new RadioButton();
             radioButtonTienMat = new RadioButton();
             buttonThanhToan = new Button();
-            label5 = new Label();
-            label4 = new Label();
+            labelTienThuaTraKhach = new Label();
+            labelKhachThanhToan = new Label();
             labelTienHang = new Label();
             labelThoiGian = new Label();
             panel = new Panel();
@@ -74,6 +75,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(panelThanhToanQR);
             splitContainer1.Panel2.Controls.Add(labelPhanTramGiam);
             splitContainer1.Panel2.Controls.Add(label2);
             splitContainer1.Panel2.Controls.Add(textBoxKhachCanTra);
@@ -83,8 +85,8 @@
             splitContainer1.Panel2.Controls.Add(radioButtonChuyenKhoan);
             splitContainer1.Panel2.Controls.Add(radioButtonTienMat);
             splitContainer1.Panel2.Controls.Add(buttonThanhToan);
-            splitContainer1.Panel2.Controls.Add(label5);
-            splitContainer1.Panel2.Controls.Add(label4);
+            splitContainer1.Panel2.Controls.Add(labelTienThuaTraKhach);
+            splitContainer1.Panel2.Controls.Add(labelKhachThanhToan);
             splitContainer1.Panel2.Controls.Add(labelTienHang);
             splitContainer1.Panel2.Controls.Add(labelThoiGian);
             splitContainer1.Panel2.Controls.Add(panel);
@@ -120,11 +122,19 @@
             flowLayoutPanelDanhSachKhachHang.Visible = false;
             flowLayoutPanelDanhSachKhachHang.WrapContents = false;
             // 
+            // panelThanhToanQR
+            // 
+            panelThanhToanQR.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelThanhToanQR.Location = new Point(23, 426);
+            panelThanhToanQR.Name = "panelThanhToanQR";
+            panelThanhToanQR.Size = new Size(429, 169);
+            panelThanhToanQR.TabIndex = 68;
+            // 
             // labelPhanTramGiam
             // 
             labelPhanTramGiam.AutoSize = true;
             labelPhanTramGiam.ForeColor = SystemColors.MenuHighlight;
-            labelPhanTramGiam.Location = new Point(157, 227);
+            labelPhanTramGiam.Location = new Point(160, 223);
             labelPhanTramGiam.Name = "labelPhanTramGiam";
             labelPhanTramGiam.Size = new Size(24, 20);
             labelPhanTramGiam.TabIndex = 67;
@@ -145,6 +155,7 @@
             textBoxKhachCanTra.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             textBoxKhachCanTra.Location = new Point(301, 288);
             textBoxKhachCanTra.Name = "textBoxKhachCanTra";
+            textBoxKhachCanTra.ReadOnly = true;
             textBoxKhachCanTra.Size = new Size(151, 27);
             textBoxKhachCanTra.TabIndex = 65;
             // 
@@ -157,6 +168,7 @@
             labelTongTienHang.Size = new Size(50, 20);
             labelTongTienHang.TabIndex = 64;
             labelTongTienHang.Text = "label2";
+            labelTongTienHang.TextChanged += labelTongTienHang_TextChanged;
             // 
             // comboBoxTaiKhoan
             // 
@@ -179,57 +191,59 @@
             // radioButtonChuyenKhoan
             // 
             radioButtonChuyenKhoan.AutoSize = true;
-            radioButtonChuyenKhoan.Font = new Font("Segoe UI", 12F);
-            radioButtonChuyenKhoan.Location = new Point(160, 408);
+            radioButtonChuyenKhoan.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            radioButtonChuyenKhoan.Location = new Point(207, 332);
             radioButtonChuyenKhoan.Name = "radioButtonChuyenKhoan";
-            radioButtonChuyenKhoan.Size = new Size(157, 32);
+            radioButtonChuyenKhoan.Size = new Size(167, 32);
             radioButtonChuyenKhoan.TabIndex = 58;
             radioButtonChuyenKhoan.TabStop = true;
             radioButtonChuyenKhoan.Text = "Chuyển khoản";
             radioButtonChuyenKhoan.UseVisualStyleBackColor = true;
+            radioButtonChuyenKhoan.CheckedChanged += radioButtonChuyenKhoan_CheckedChanged;
             // 
             // radioButtonTienMat
             // 
             radioButtonTienMat.AutoSize = true;
-            radioButtonTienMat.Font = new Font("Segoe UI", 12F);
-            radioButtonTienMat.Location = new Point(23, 408);
+            radioButtonTienMat.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            radioButtonTienMat.Location = new Point(23, 332);
             radioButtonTienMat.Name = "radioButtonTienMat";
-            radioButtonTienMat.Size = new Size(108, 32);
+            radioButtonTienMat.Size = new Size(117, 32);
             radioButtonTienMat.TabIndex = 57;
             radioButtonTienMat.TabStop = true;
             radioButtonTienMat.Text = "Tiền mặt";
             radioButtonTienMat.UseVisualStyleBackColor = true;
+            radioButtonTienMat.CheckedChanged += radioButtonTienMat_CheckedChanged;
             // 
             // buttonThanhToan
             // 
             buttonThanhToan.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            buttonThanhToan.Location = new Point(101, 649);
+            buttonThanhToan.Location = new Point(101, 650);
             buttonThanhToan.Name = "buttonThanhToan";
             buttonThanhToan.Size = new Size(310, 93);
             buttonThanhToan.TabIndex = 56;
             buttonThanhToan.Text = "Thanh Toán";
             buttonThanhToan.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // labelTienThuaTraKhach
             // 
-            label5.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(18, 600);
-            label5.Name = "label5";
-            label5.Size = new Size(178, 28);
-            label5.TabIndex = 55;
-            label5.Text = "Tiền thừa trả khách";
+            labelTienThuaTraKhach.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            labelTienThuaTraKhach.AutoSize = true;
+            labelTienThuaTraKhach.Font = new Font("Segoe UI", 12F);
+            labelTienThuaTraKhach.Location = new Point(15, 601);
+            labelTienThuaTraKhach.Name = "labelTienThuaTraKhach";
+            labelTienThuaTraKhach.Size = new Size(178, 28);
+            labelTienThuaTraKhach.TabIndex = 55;
+            labelTienThuaTraKhach.Text = "Tiền thừa trả khách";
             // 
-            // label4
+            // labelKhachThanhToan
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(23, 361);
-            label4.Name = "label4";
-            label4.Size = new Size(165, 28);
-            label4.TabIndex = 54;
-            label4.Text = "Khách thanh toán";
+            labelKhachThanhToan.AutoSize = true;
+            labelKhachThanhToan.Font = new Font("Segoe UI", 12F);
+            labelKhachThanhToan.Location = new Point(23, 380);
+            labelKhachThanhToan.Name = "labelKhachThanhToan";
+            labelKhachThanhToan.Size = new Size(165, 28);
+            labelKhachThanhToan.TabIndex = 54;
+            labelKhachThanhToan.Text = "Khách thanh toán";
             // 
             // labelTienHang
             // 
@@ -318,16 +332,21 @@
             textBoxTienTraLai.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             textBoxTienTraLai.Location = new Point(301, 601);
             textBoxTienTraLai.Name = "textBoxTienTraLai";
+            textBoxTienTraLai.ReadOnly = true;
             textBoxTienTraLai.Size = new Size(151, 27);
             textBoxTienTraLai.TabIndex = 3;
             // 
             // textBoxSoTienKhachThanhToan
             // 
             textBoxSoTienKhachThanhToan.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBoxSoTienKhachThanhToan.Location = new Point(301, 361);
+            textBoxSoTienKhachThanhToan.Location = new Point(301, 380);
             textBoxSoTienKhachThanhToan.Name = "textBoxSoTienKhachThanhToan";
             textBoxSoTienKhachThanhToan.Size = new Size(151, 27);
             textBoxSoTienKhachThanhToan.TabIndex = 2;
+            textBoxSoTienKhachThanhToan.TextChanged += textBoxSoTienKhachThanhToan_TextChanged;
+            textBoxSoTienKhachThanhToan.Enter += textBoxSoTienKhachThanhToan_Enter;
+            textBoxSoTienKhachThanhToan.KeyPress += textBoxSoTienKhachThanhToan_KeyPress;
+            textBoxSoTienKhachThanhToan.Leave += textBoxSoTienKhachThanhToan_Leave;
             // 
             // textBoxGiamGia
             // 
@@ -374,8 +393,8 @@
         private Button buttonThemKhachHang;
         private Label labelThoiGian;
         private Label labelTienHang;
-        private Label label4;
-        private Label label5;
+        private Label labelKhachThanhToan;
+        private Label labelTienThuaTraKhach;
         private Button buttonThanhToan;
         private Label label1;
         private RadioButton radioButtonChuyenKhoan;
@@ -386,5 +405,6 @@
         private Label label2;
         private TextBox textBoxKhachCanTra;
         private Label labelPhanTramGiam;
+        private Panel panelThanhToanQR;
     }
 }

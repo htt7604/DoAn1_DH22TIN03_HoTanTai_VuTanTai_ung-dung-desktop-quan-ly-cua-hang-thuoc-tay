@@ -33,6 +33,8 @@ namespace QL_Nha_thuoc.HangHoa
             comboBoxBangGia.DataSource = danhSachBangGia;
             comboBoxBangGia.DisplayMember = "TenBangGia";
             comboBoxBangGia.ValueMember = "MaBangGia";
+
+
         }
 
         private void loadComboBoxLocVaLoaiGia()
@@ -168,10 +170,6 @@ namespace QL_Nha_thuoc.HangHoa
         }
 
 
-        private void comboBoxNhomHang_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            loctheogia();
-        }
 
         private void loctheogia()
         {
@@ -230,6 +228,20 @@ namespace QL_Nha_thuoc.HangHoa
 
 
 
+
+
+
+
+
+        private void comboBoxNhomHang_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loctheogia();
+        }
+
+
+
+
+
         private void comboBoxLoaiGia_SelectedIndexChanged(object sender, EventArgs e)
         {
             loctheogia();
@@ -271,28 +283,66 @@ namespace QL_Nha_thuoc.HangHoa
 
         private void comboBoxBangGia_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string bangGiaDuocChon = comboBoxBangGia.SelectedItem?.ToString();
 
-            if (!string.IsNullOrEmpty(bangGiaDuocChon) && bangGiaDuocChon.Trim().Equals("Bảng giá chung", StringComparison.OrdinalIgnoreCase))
+            if (comboBoxBangGia.SelectedItem is ClassBangGia bangGia)
             {
-                // Nếu chọn Bảng giá chung thì ẩn
-                tableLayoutPanelTimKiem.Visible = false;
-                panelKetQuaTimKiem.Visible = false;
-                comboBoxDonViTinh.Visible = false;
-                labelDVT.Visible = false;
+                if (bangGia.TenBangGia.Trim().Equals("Bảng giá chung", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Nếu chọn Bảng giá chung thì ẩn nút sửa
+                    buttonSuaBangGia.Visible = false;
 
-            }
-            else
-            {
-                // Nếu chọn bảng giá khác thì hiện
-                tableLayoutPanelTimKiem.Visible = true;
-                panelKetQuaTimKiem.Visible = false;
-                comboBoxDonViTinh.Visible = true;
-                labelDVT.Visible = true;
-                // Gọi hàm lọc theo giá trị đã chọn
-                loctheogia();
+                    // Ẩn các khu vực tìm kiếm liên quan
+                    tableLayoutPanelTimKiem.Visible = false;
+                    panelKetQuaTimKiem.Visible = false;
+                    comboBoxDonViTinh.Visible = false;
+                    labelDVT.Visible = false;
+                    loctheogia();
+                }
+                else
+                {
+                    // Nếu là bảng giá khác thì hiển thị lại các khu vực liên quan
+                    tableLayoutPanelTimKiem.Visible = true;
+                    panelKetQuaTimKiem.Visible = false;
+                    comboBoxDonViTinh.Visible = true;
+                    labelDVT.Visible = true;
+
+                    // Hiện nút sửa bảng giá
+                    buttonSuaBangGia.Visible = true;
+
+                    // Gọi hàm lọc theo giá trị đã chọn
+                    loctheogia();
+                }
             }
         }
+        private void buttonSuaBangGia_Click(object sender, EventArgs e)
+        {
+            //mo form sua bang gia
+            FormSuaBangGia formSuaBangGia = new FormSuaBangGia();
+            formSuaBangGia.ShowDialog();
+            //truyen bang gia hang hoa vao fomr 
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void ThucHienTimKiem()
         {
@@ -348,8 +398,6 @@ namespace QL_Nha_thuoc.HangHoa
                 ThucHienTimKiem(); // Gọi lại tìm kiếm khi đổi DVT
             }
         }
-
-
 
 
     }
