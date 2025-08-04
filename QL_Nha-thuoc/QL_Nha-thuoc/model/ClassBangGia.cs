@@ -103,11 +103,11 @@ namespace QL_Nha_thuoc.model
                     {
                         string maxMa = result.ToString(); // Ví dụ: BG0021
                         int so = int.Parse(maxMa.Substring(2)); // Lấy phần số sau "BG"
-                        return "BG" + (so + 1).ToString("D4"); // Tăng lên và format 4 chữ số
+                        return "BG" + (so + 1).ToString("D3"); // Tăng lên và format 4 chữ số
                     }
                     else
                     {
-                        return "BG0001"; // Nếu chưa có mã nào
+                        return "BG001"; // Nếu chưa có mã nào
                     }
                 }
             }
@@ -177,15 +177,16 @@ namespace QL_Nha_thuoc.model
 
         public static bool XoaBangGia(string maBangGia)
         {
+            ClassGiaBanHH.XoaGiaBanHHTheoMaBangGia(maBangGia);
             using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
-                string query = "UPDATE BANG_GIA_HH SET TRANG_THAI = N'Đã xóa' WHERE MA_BANG_GIA = @ma";
-
+                string query = "DELETE FROM BANG_GIA_HH WHERE MA_BANG_GIA = @ma";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@ma", maBangGia);
-                    return cmd.ExecuteNonQuery() > 0;
+                    int rows = cmd.ExecuteNonQuery();
+                    return rows > 0;
                 }
             }
         }
@@ -206,14 +207,15 @@ namespace QL_Nha_thuoc.model
                             return new ClassBangGia
                             {
                                 MaBangGia = maBangGia,
-                                TuNgay = Convert.ToDateTime(reader["TU_NGAY"]),
-                                DenNgay = Convert.ToDateTime(reader["DEN_NGAY"]),
-                                TrangThai = reader["TRANG_THAI"].ToString(),
-                                ChoChonNgoaiBangGia = Convert.ToBoolean(reader["CHO_CHON_NGOAI_BANG_GIA"]),
-                                LaPhanTram = Convert.ToBoolean(reader["LA_PHAN_TRAM"]),
-                                TangGiam = Convert.ToBoolean(reader["TANG_GIAM"]),
-                                GiaTriTangGiam = Convert.ToDecimal(reader["GIA_TRI_TANG_GIAM"]),
-                                DungGiaVon = Convert.ToBoolean(reader["DUNG_GIA_VON"])
+                                TenBangGia = reader["TEN_BANG_GIA"]?.ToString(),
+                                TuNgay = reader["TU_NGAY"] != DBNull.Value ? Convert.ToDateTime(reader["TU_NGAY"]) : DateTime.MinValue,
+                                DenNgay = reader["DEN_NGAY"] != DBNull.Value ? Convert.ToDateTime(reader["DEN_NGAY"]) : DateTime.MaxValue,
+                                TrangThai = reader["TRANG_THAI"]?.ToString(),
+                                ChoChonNgoaiBangGia = reader["CHO_CHON_NGOAI_BANG_GIA"] != DBNull.Value && Convert.ToBoolean(reader["CHO_CHON_NGOAI_BANG_GIA"]),
+                                LaPhanTram = reader["LA_PHAN_TRAM"] != DBNull.Value && Convert.ToBoolean(reader["LA_PHAN_TRAM"]),
+                                TangGiam = reader["TANG_GIAM"] != DBNull.Value && Convert.ToBoolean(reader["TANG_GIAM"]),
+                                GiaTriTangGiam = reader["GIA_TRI_TANG_GIAM"] != DBNull.Value ? Convert.ToDecimal(reader["GIA_TRI_TANG_GIAM"]) : 0,
+                                DungGiaVon = reader["DUNG_GIA_VON"] != DBNull.Value && Convert.ToBoolean(reader["DUNG_GIA_VON"])
                             };
                         }
                     }
@@ -221,6 +223,7 @@ namespace QL_Nha_thuoc.model
             }
             return null;
         }
+
 
 
 

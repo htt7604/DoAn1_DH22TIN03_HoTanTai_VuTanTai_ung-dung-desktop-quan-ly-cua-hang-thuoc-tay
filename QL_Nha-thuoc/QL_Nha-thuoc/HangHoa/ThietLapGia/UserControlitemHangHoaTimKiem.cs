@@ -13,6 +13,9 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
 {
     public partial class UserControlitemHangHoaTimKiem : UserControl
     {
+        // Sự kiện cho phép form ngoài xử lý khi người dùng click vào UserControl
+        public event EventHandler ClickVaoHangHoa;
+
         public UserControlitemHangHoaTimKiem()
         {
             InitializeComponent();
@@ -33,6 +36,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
         public string MaHangHoa { get; private set; }
         public int SoLuongTon { get; private set; }
 
+        private ClassHangHoa _data;
         /// <summary>
         /// Thiết lập dữ liệu hiển thị cho UserControl
         /// </summary>
@@ -40,17 +44,24 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
         {
             labelTenHangHoa.Text = hangHoa.TenHangHoa;
             labelMaHangHoa.Text = hangHoa.MaHangHoa;
+            labelDonViTinh.Text=hangHoa.TenDonViTinh;
             SoLuongTon = SoLuongTon;// Lưu số lượng tồn kho
-            // Đường dẫn thư mục ảnh
+
+            _data = hangHoa;
+        }
+        public ClassHangHoa LayDuLieu()
+        {
+            return _data;
         }
 
 
 
- 
+
 
         private void UserControlitemHangHoa_Click(object sender, EventArgs e)
         {
-            //this.OnClick(e); // Gọi lại sự kiện Click để form ngoài xử lý
+            ClickVaoHangHoa?.Invoke(this, EventArgs.Empty); // Gọi sự kiện nếu có người đăng ký
         }
+
     }
 }

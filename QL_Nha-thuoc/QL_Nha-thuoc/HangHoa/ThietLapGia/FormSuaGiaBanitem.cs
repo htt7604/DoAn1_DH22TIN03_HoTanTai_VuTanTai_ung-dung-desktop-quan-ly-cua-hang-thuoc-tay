@@ -16,6 +16,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
         //dung de luu ma hang hoa va ma don vi tinh
         private string _maHangHoa;
         private string _maDonViTinh;
+        private string _maBangGia;
         private ClassGiaBanHH hanghoa;
         private Form formCha;
         private FormThietLapGia formThietLapGia;
@@ -23,12 +24,15 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
 
         private string phepTinh = "+";
         private string donVi = "VND";
-        public FormSuaGiaBanitem(string maHangHoa, string maDonViTinh, FormThietLapGia ucGoc)
+        public FormSuaGiaBanitem(string maHangHoa, string maDonViTinh,string maBangGia, FormThietLapGia ucGoc)
         {
             InitializeComponent();
             _maHangHoa = maHangHoa;
             _maDonViTinh = maDonViTinh;
-            hanghoa = ClassGiaBanHH.LayGiaBanTheoMavamaDVT(_maHangHoa, _maDonViTinh);
+            _maBangGia = maBangGia;
+
+            hanghoa = ClassGiaBanHH.LayGiaBanTheoMaHH_DVT_BangGia(_maHangHoa, _maDonViTinh,_maBangGia);
+
             giaCu = hanghoa?.GiaBan ?? 0;
             formThietLapGia = ucGoc;
             this.formThietLapGia = formThietLapGia;
@@ -205,13 +209,12 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
                         : giaGoc - (donVi == "VND" ? soThayDoiGia : giaGoc * soThayDoiGia / 100);
 
                     hh.GiaBan = giaMoiHH;
-                    hh.MaBangGia = "BG001"; // giả sử có mã bảng giá mặc định
+                    hh.MaBangGia = _maBangGia; // giả sử có mã bảng giá mặc định
 
                     // Gán thông tin tăng/giảm
                     hh.LaPhanTram = donVi == "%";
                     hh.TangGiam = phepTinh == "+";
                     hh.GiaTriTangGiam = soThayDoiGia;
-
                     if (ClassGiaBanHH.CapNhatGiaBan(hh))
                         soThanhCong++;
                 }
@@ -230,7 +233,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
 
             hanghoa.GiaBan = giaMoi;
             hanghoa.MaHangHoa = _maHangHoa;
-
+            hanghoa.MaBangGia = _maBangGia;
             // Gán lại các thuộc tính mới
             hanghoa.LaPhanTram = donVi == "%";
             hanghoa.TangGiam = phepTinh == "+";

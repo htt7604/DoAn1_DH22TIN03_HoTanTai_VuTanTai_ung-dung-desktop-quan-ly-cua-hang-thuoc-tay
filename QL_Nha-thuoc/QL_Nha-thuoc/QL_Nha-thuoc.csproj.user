@@ -112,8 +112,14 @@
     <Compile Update="HangHoa\Them\FormThemDuongDung.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="HangHoa\ThietLapGia\BangGia\FormSuaBangGia.cs">
+    <Compile Update="HangHoa\ThietLapGia\BangGia\Sua\FormSuaBangGia.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="HangHoa\ThietLapGia\BangGia\Sua\UserControlitemTLSuaBG.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="HangHoa\ThietLapGia\BangGia\Sua\UserControlTTSuaGia.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="HangHoa\ThietLapGia\FormSuaGiaBanitem.cs">
       <SubType>Form</SubType>

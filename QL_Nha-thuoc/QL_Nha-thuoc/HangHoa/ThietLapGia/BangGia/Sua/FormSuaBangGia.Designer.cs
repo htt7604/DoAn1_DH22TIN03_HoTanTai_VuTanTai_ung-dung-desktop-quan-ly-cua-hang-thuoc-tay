@@ -118,7 +118,7 @@
             dateTimePickerDenNgay.CustomFormat = "dd/MM/yyyy";
             dateTimePickerDenNgay.Format = DateTimePickerFormat.Custom;
             dateTimePickerDenNgay.Location = new Point(552, 89);
-            dateTimePickerDenNgay.MaxDate = new DateTime(2025, 6, 16, 14, 59, 0, 0);
+            dateTimePickerDenNgay.MaxDate = new DateTime(2099, 12, 31, 0, 0, 0, 0);
             dateTimePickerDenNgay.Name = "dateTimePickerDenNgay";
             dateTimePickerDenNgay.Size = new Size(259, 27);
             dateTimePickerDenNgay.TabIndex = 145;
@@ -129,7 +129,7 @@
             dateTimePickerTuNgay.CustomFormat = "dd/MM/yyyy";
             dateTimePickerTuNgay.Format = DateTimePickerFormat.Custom;
             dateTimePickerTuNgay.Location = new Point(188, 90);
-            dateTimePickerTuNgay.MaxDate = new DateTime(2025, 6, 16, 14, 59, 0, 0);
+            dateTimePickerTuNgay.MaxDate = new DateTime(2099, 12, 31, 0, 0, 0, 0);
             dateTimePickerTuNgay.Name = "dateTimePickerTuNgay";
             dateTimePickerTuNgay.Size = new Size(242, 27);
             dateTimePickerTuNgay.TabIndex = 144;
@@ -353,6 +353,7 @@
             buttonXoa.TabIndex = 146;
             buttonXoa.Text = "Xóa";
             buttonXoa.UseVisualStyleBackColor = true;
+            buttonXoa.Click += buttonXoa_Click;
             // 
             // buttonBoQua
             // 
@@ -373,6 +374,7 @@
             buttonLuu.TabIndex = 144;
             buttonLuu.Text = "Lưu";
             buttonLuu.UseVisualStyleBackColor = true;
+            buttonLuu.Click += buttonLuu_Click;
             // 
             // FormSuaBangGia
             // 

@@ -37,7 +37,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
         {
             FormThietLapGia formThietLapGia = (FormThietLapGia)this.ParentForm; // Lấy form cha
             maHangHoa = labelMaHangHoa.Text;
-            FormSuaGiaBanitem frm = new FormSuaGiaBanitem(maHangHoa, maDonViTinh, formThietLapGia); // Truyền chính UserControl này vào
+            FormSuaGiaBanitem frm = new FormSuaGiaBanitem(maHangHoa, maDonViTinh,"BG001", formThietLapGia); // Truyền chính UserControl này vào
             frm.ShowDialog(); // Mở form sửa
         }
 

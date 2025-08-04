@@ -2,6 +2,8 @@
 using Microsoft.Data.SqlClient;
 using QL_Nha_thuoc.HangHoa.kiemkho;
 using QL_Nha_thuoc.HangHoa.ThietLapGia;
+using QL_Nha_thuoc.HangHoa.ThietLapGia.BangGia;
+using QL_Nha_thuoc.HangHoa.ThietLapGia.BangGia.Sua;
 using QL_Nha_thuoc.model;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static QL_Nha_thuoc.HangHoa.ThietLapGia.BangGia.Sua.UserControlitemTLSuaBG;
 
 namespace QL_Nha_thuoc.HangHoa
 {
@@ -28,14 +31,19 @@ namespace QL_Nha_thuoc.HangHoa
         //load comboBoxBangGia
         private void LoadComboBoxBangGia()
         {
+            // Xóa sạch dữ liệu cũ
+            comboBoxBangGia.DataSource = null;
+            comboBoxBangGia.Items.Clear(); // (nên có thêm dòng này nếu bạn từng thêm item thủ công)
+
+            // Lấy danh sách bảng giá mới
             var danhSachBangGia = ClassBangGia.LayTatCaBangGia();
 
+            // Gán lại nguồn dữ liệu
             comboBoxBangGia.DataSource = danhSachBangGia;
             comboBoxBangGia.DisplayMember = "TenBangGia";
             comboBoxBangGia.ValueMember = "MaBangGia";
-
-
         }
+
 
         private void loadComboBoxLocVaLoaiGia()
         {
@@ -153,20 +161,21 @@ namespace QL_Nha_thuoc.HangHoa
             comboBoxLoc.SelectedItem = "-";
             comboBoxLoaiGia.SelectedItem = "---Giá so sánh---";
 
-            danhSachGiaBan = ClassGiaBanHH.LayDanhSachToanboGiaBan();
-            danhMucLoc = danhSachGiaBan; // ✅ GÁN VÀO ĐÂY
+            loctheogia();
+            //danhSachGiaBan = ClassGiaBanHH.LayDanhSachToanboGiaBan();
+            //danhMucLoc = danhSachGiaBan; // ✅ GÁN VÀO ĐÂY
 
-            flowLayoutPanelThietLapGia.Controls.Clear();
-            flowLayoutPanelThietLapGia.Controls.Add(new UserControlTTGia());
+            //flowLayoutPanelThietLapGia.Controls.Clear();
+            //flowLayoutPanelThietLapGia.Controls.Add(new UserControlTTGia());
 
-            foreach (var giaBan in danhSachGiaBan)
-            {
-                UserControlitemThietLapGia item = new UserControlitemThietLapGia();
-                item.Setdata(giaBan);
-                flowLayoutPanelThietLapGia.Controls.Add(item);
-            }
+            //foreach (var giaBan in danhSachGiaBan)
+            //{
+            //    UserControlitemThietLapGia item = new UserControlitemThietLapGia();
+            //    item.Setdata(giaBan);
+            //    flowLayoutPanelThietLapGia.Controls.Add(item);
+            //}
 
-            CapNhatKichThuocUserControl();
+            //CapNhatKichThuocUserControl();
         }
 
 
@@ -178,49 +187,83 @@ namespace QL_Nha_thuoc.HangHoa
             string maNhomHangHoa = comboBoxNhomHang.SelectedValue?.ToString() ?? string.Empty;
 
             string maBangGia = comboBoxBangGia.SelectedValue?.ToString() ?? "BG0001";
+            string tenBangGia = comboBoxBangGia.Text?.Trim().ToLower() ?? "";
+
+            bool laBangGiaChung = tenBangGia.Contains("bảng giá chung") || maBangGia == "BG0001";
 
             bool isDefaultGia = string.IsNullOrWhiteSpace(loaiGia) || loaiGia.Contains("so sanh");
             bool isDefaultLoc = string.IsNullOrWhiteSpace(loc) || loc == "-";
 
             List<ClassGiaBanHH> danhSach = new List<ClassGiaBanHH>();
 
+            // ===== XỬ LÝ BẢNG GIÁ CHUNG =====
+            if (laBangGiaChung)
+            {
+                // Luôn dùng BG0001
+                danhSach = isDefaultGia || isDefaultLoc
+                    ? ClassGiaBanHH.LayDanhSachGiaBanTheoBangGia("BG001")
+                    : ClassGiaBanHH.LocGiaBanTheoKhoangGia(
+                        ClassGiaBanHH.LayDanhSachGiaBanTheoBangGia("BG001"),
+                        loc, loaiGia
+                      );
+
+                danhMucLoc = danhSach;
+
+                flowLayoutPanelThietLapGia.Controls.Clear();
+                flowLayoutPanelThietLapGia.Controls.Add(new UserControlTTGia());
+
+                foreach (var giaBan in danhSach)
+                {
+                    var item = new UserControlitemThietLapGia();
+                    item.Setdata(giaBan);
+                    flowLayoutPanelThietLapGia.Controls.Add(item);
+                }
+
+                CapNhatKichThuocUserControl();
+                return;
+            }
+
+            // ===== XỬ LÝ BẢNG GIÁ KHÁC =====
             if (maNhomHangHoa != "ALL")
             {
-                if (isDefaultGia || isDefaultLoc)
-                {
-                    danhSach = ClassGiaBanHH.LayDanhSachGiaBanTheoMaNhom_BangGia(maNhomHangHoa, maBangGia);
-                }
-                else
-                {
-                    var danhSachNhom = ClassGiaBanHH.LayDanhSachGiaBanTheoMaNhom_BangGia(maNhomHangHoa, maBangGia);
-                    danhSach = ClassGiaBanHH.LocGiaBanTheoKhoangGia(danhSachNhom, loc, loaiGia);
-                }
+                danhSach = isDefaultGia || isDefaultLoc
+                    ? ClassGiaBanHH.LayDanhSachGiaBanTheoMaNhom_BangGia(maNhomHangHoa, maBangGia)
+                    : ClassGiaBanHH.LocGiaBanTheoKhoangGia(
+                        ClassGiaBanHH.LayDanhSachGiaBanTheoMaNhom_BangGia(maNhomHangHoa, maBangGia),
+                        loc, loaiGia
+                      );
             }
             else
             {
-                if (isDefaultGia || isDefaultLoc)
-                {
-                    // ✅ Gọi danh sách toàn bộ theo bảng giá
-                    danhSach = ClassGiaBanHH.LayDanhSachGiaBanTheoBangGia(maBangGia);
-                }
-                else
-                {
-                    var tatCa = ClassGiaBanHH.LayDanhSachGiaBanTheoBangGia(maBangGia);
-                    danhSach = ClassGiaBanHH.LocGiaBanTheoKhoangGia(tatCa, loc, loaiGia);
-                }
+                danhSach = isDefaultGia || isDefaultLoc
+                    ? ClassGiaBanHH.LayDanhSachGiaBanTheoBangGia(maBangGia)
+                    : ClassGiaBanHH.LocGiaBanTheoKhoangGia(
+                        ClassGiaBanHH.LayDanhSachGiaBanTheoBangGia(maBangGia),
+                        loc, loaiGia
+                      );
             }
 
-            // ✅ Gán danh sách hiển thị vào biến lưu trữ
             danhMucLoc = danhSach;
 
             flowLayoutPanelThietLapGia.Controls.Clear();
-            flowLayoutPanelThietLapGia.Controls.Add(new UserControlTTGia());
+            var userControlTTSuaGia = new UserControlTTSuaGia();
+            userControlTTSuaGia.Setdata(tenBangGia);
+            flowLayoutPanelThietLapGia.Controls.Add(userControlTTSuaGia);
 
             foreach (var giaBan in danhSach)
             {
-                UserControlitemThietLapGia item = new UserControlitemThietLapGia();
+                var item = new UserControlitemTLSuaBG();
                 item.Setdata(giaBan);
                 flowLayoutPanelThietLapGia.Controls.Add(item);
+
+                item.ClickXoa += (s, e) =>
+                {
+                    if (e is XoaGiaBanEventArgs args)
+                    {
+                        ClassGiaBanHH.XoaGiaBanTheoMaHHVaBangGia(args.MaHangHoa, args.MaBangGia);
+                        loctheogia(); // reload sau khi xoá
+                    }
+                };
             }
 
             CapNhatKichThuocUserControl();
@@ -274,53 +317,78 @@ namespace QL_Nha_thuoc.HangHoa
             //mo form them bang gia
             FormThemBangGia formThemBangGia = new FormThemBangGia();
             formThemBangGia.ShowDialog();
-            formThemBangGia.FormClosed += (s, args) =>
+            formThemBangGia.FormThemBangGiaClosed += (s, args) =>
             {
-                // Sau khi form ThemBangGia đóng, load lại danh sách giá
-                FormThietLapGia_Load(sender, e);
+                LoadComboBoxBangGia();
             };
         }
 
         private void comboBoxBangGia_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             if (comboBoxBangGia.SelectedItem is ClassBangGia bangGia)
             {
-                if (bangGia.TenBangGia.Trim().Equals("Bảng giá chung", StringComparison.OrdinalIgnoreCase))
-                {
-                    // Nếu chọn Bảng giá chung thì ẩn nút sửa
-                    buttonSuaBangGia.Visible = false;
+                bool laBangGiaChung = (bangGia?.TenBangGia?.Trim() ?? "")
+                    .Equals("Bảng giá chung", StringComparison.OrdinalIgnoreCase);
 
-                    // Ẩn các khu vực tìm kiếm liên quan
-                    tableLayoutPanelTimKiem.Visible = false;
-                    panelKetQuaTimKiem.Visible = false;
-                    comboBoxDonViTinh.Visible = false;
-                    labelDVT.Visible = false;
-                    loctheogia();
-                }
-                else
-                {
-                    // Nếu là bảng giá khác thì hiển thị lại các khu vực liên quan
-                    tableLayoutPanelTimKiem.Visible = true;
-                    panelKetQuaTimKiem.Visible = false;
-                    comboBoxDonViTinh.Visible = true;
-                    labelDVT.Visible = true;
+                // Ẩn/hiện các control theo loại bảng giá
+                buttonSuaBangGia.Visible = !laBangGiaChung;
+                tableLayoutPanelTimKiem.Visible = !laBangGiaChung;
+                comboBoxDonViTinh.Visible = !laBangGiaChung;
+                labelDVT.Visible = !laBangGiaChung;
 
-                    // Hiện nút sửa bảng giá
-                    buttonSuaBangGia.Visible = true;
+                // Luôn ẩn kết quả tìm kiếm khi đổi bảng giá
+                panelKetQuaTimKiem.Visible = false;
 
-                    // Gọi hàm lọc theo giá trị đã chọn
-                    loctheogia();
-                }
+                // Gọi lọc dữ liệu
+                loctheogia();
             }
         }
+
+
+
         private void buttonSuaBangGia_Click(object sender, EventArgs e)
         {
-            //mo form sua bang gia
+            if (comboBoxBangGia.SelectedItem == null)
+            {
+                MessageBox.Show("Vui lòng chọn một bảng giá.");
+                return;
+            }
+
+            ClassBangGia bangGiaDuocChon = comboBoxBangGia.SelectedItem as ClassBangGia;
+
+            if (bangGiaDuocChon == null)
+            {
+                MessageBox.Show("Lỗi: không thể đọc thông tin bảng giá.");
+                return;
+            }
+
+            if (bangGiaDuocChon.TenBangGia == "Bảng giá chung")
+            {
+                MessageBox.Show("Không thể sửa Bảng giá chung.");
+                return;
+            }
+
+            // Lấy thông tin bảng giá đầy đủ từ CSDL nếu cần (nếu chưa đầy đủ)
+            ClassBangGia classBangGia = ClassBangGia.LayBangGiaTheoMa(bangGiaDuocChon.MaBangGia);
+
+            if (classBangGia == null)
+            {
+                MessageBox.Show("Không tìm thấy thông tin bảng giá.");
+                return;
+            }
+
+            // Mở form sửa bảng giá và truyền dữ liệu
             FormSuaBangGia formSuaBangGia = new FormSuaBangGia();
+            formSuaBangGia.Setdata(classBangGia);
+            formSuaBangGia.FormSuaBangGiaClosed += (s, args) =>
+            {
+                LoadComboBoxBangGia();
+            };
+
             formSuaBangGia.ShowDialog();
-            //truyen bang gia hang hoa vao fomr 
         }
+
+
 
 
 
@@ -346,6 +414,9 @@ namespace QL_Nha_thuoc.HangHoa
 
         private void ThucHienTimKiem()
         {
+            //luu maBangGia dang chon 
+            string maBangGia = comboBoxBangGia.SelectedValue?.ToString();
+
             string keyword = textBoxTimHH.Text.Trim();
             if (string.IsNullOrWhiteSpace(keyword))
             {
@@ -376,6 +447,66 @@ namespace QL_Nha_thuoc.HangHoa
                 ucHH.Width = panelKetQuaTimKiem.Width;
                 ucHH.Location = new Point(0, y);
                 y += ucHH.Height + 10;
+
+
+                ucHH.ClickVaoHangHoa += (s, e) =>
+                {
+                    var item = s as UserControlitemHangHoaTimKiem;
+                    var data = item.LayDuLieu(); // ClassHangHoa
+
+                    // Tạo đối tượng giá bán
+                    var giaBan = new ClassGiaBanHH
+                    {
+                        MaBangGia = maBangGia,
+                        MaHangHoa = data.MaHangHoa,
+                        GiaBan = data.GiaBan,
+                        GiaVon = data.GiaVon,
+                        MaDonViTinh = data.MaDonViTinh,
+                        TenDonViTinh=data.TenDonViTinh,
+                        LaPhanTram = false,
+                        TangGiam = false,
+                        GiaTriTangGiam = 0
+                    };
+                    using (SqlConnection conn = CSDL.GetConnection())
+                    {
+                        conn.Open();
+                        using (SqlTransaction tran = conn.BeginTransaction())
+                        {
+                            bool daCo = ClassGiaBanHH.DaTonTai(maBangGia, data.MaHangHoa, conn, tran);
+
+                            if (daCo)
+                            {
+                                tran.Rollback();
+                                MessageBox.Show("Hàng hóa này đã có trong bảng giá!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                var kq = ClassGiaBanHH.ThemGiaBan(giaBan, conn, tran);
+                                if (kq)
+                                {
+                                    tran.Commit();
+                                    loctheogia();
+                                    
+
+                                }
+                                else
+                                {
+                                    tran.Rollback();
+                                    MessageBox.Show("Thêm giá bán thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                        }
+                    }
+                    panelKetQuaTimKiem.Visible = false;
+
+                    loctheogia();
+                    panelKetQuaTimKiem.Visible = false;
+                };
+
+
+
+
+
 
                 panelKetQuaTimKiem.Controls.Add(ucHH);
             }

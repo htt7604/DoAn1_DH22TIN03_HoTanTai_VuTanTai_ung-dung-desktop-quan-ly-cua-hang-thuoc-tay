@@ -17,9 +17,12 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
         {
             InitializeComponent();
             loadcomboBoxLoaiGia();
+            //2 datetime mac dinh 1 nam 
+            dateTimePickerTuNgay.Value = DateTime.Now;
+            dateTimePickerDenNgay.Value = DateTime.Now.AddYears(1);
         }
         // Sự kiện cho biết form đã đóng (ví dụ: để form cha cập nhật lại danh sách bảng giá)
-        public event EventHandler? FormClosed;
+        public event EventHandler? FormThemBangGiaClosed;
 
 
         private void loadcomboBoxLoaiGia()
@@ -98,7 +101,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
 
         private void buttonBoQua_Click(object sender, EventArgs e)
         {
-            FormClosed?.Invoke(this, EventArgs.Empty);
+            FormThemBangGiaClosed?.Invoke(this, EventArgs.Empty);
             this.Close();
         }
 
@@ -165,7 +168,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
                 if (result)
                 {
                     MessageBox.Show("Thêm bảng giá thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    FormClosed?.Invoke(this, EventArgs.Empty);
+                    FormThemBangGiaClosed?.Invoke(this, EventArgs.Empty);
                     this.Close();
                 }
                 else
@@ -201,7 +204,14 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
             }
         }
 
-
+        private void dateTimePickerDenNgay_ValueChanged(object sender, EventArgs e)
+        {
+            if (dateTimePickerDenNgay.Value < dateTimePickerTuNgay.Value)
+            {
+                MessageBox.Show("Đến ngày không được nhỏ hơn Từ ngày.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dateTimePickerDenNgay.Value = dateTimePickerTuNgay.Value;
+            }
+        }
 
 
     }

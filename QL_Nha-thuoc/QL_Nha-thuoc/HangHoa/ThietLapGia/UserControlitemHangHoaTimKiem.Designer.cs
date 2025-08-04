@@ -30,6 +30,7 @@
         {
             labelTenHangHoa = new Label();
             labelMaHangHoa = new Label();
+            labelDonViTinh = new Label();
             SuspendLayout();
             // 
             // labelTenHangHoa
@@ -51,13 +52,25 @@
             labelMaHangHoa.TabIndex = 1;
             labelMaHangHoa.Text = "label1";
             // 
-            // UserControlitemHangHoa
+            // labelDonViTinh
+            // 
+            labelDonViTinh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            labelDonViTinh.AutoSize = true;
+            labelDonViTinh.ForeColor = SystemColors.HotTrack;
+            labelDonViTinh.Location = new Point(260, 14);
+            labelDonViTinh.Name = "labelDonViTinh";
+            labelDonViTinh.Size = new Size(50, 20);
+            labelDonViTinh.TabIndex = 2;
+            labelDonViTinh.Text = "label1";
+            // 
+            // UserControlitemHangHoaTimKiem
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(labelDonViTinh);
             Controls.Add(labelMaHangHoa);
             Controls.Add(labelTenHangHoa);
-            Name = "UserControlitemHangHoa";
+            Name = "UserControlitemHangHoaTimKiem";
             Size = new Size(338, 61);
             Click += UserControlitemHangHoa_Click;
             ResumeLayout(false);
@@ -68,5 +81,6 @@
 
         private Label labelTenHangHoa;
         private Label labelMaHangHoa;
+        private Label labelDonViTinh;
     }
 }
