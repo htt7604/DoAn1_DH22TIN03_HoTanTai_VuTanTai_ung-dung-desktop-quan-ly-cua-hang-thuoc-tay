@@ -30,7 +30,7 @@ namespace QL_Nha_thuoc
             List<string> loaiHangList = new List<string>();
 
             CSDL cSDL = new CSDL();
-            SqlConnection conn = cSDL.GetConnection(); // Lấy chuỗi kết nối từ lớp CSDL
+            SqlConnection conn = CSDL.GetConnection(); // Lấy chuỗi kết nối từ lớp CSDL
             string query = "SELECT TEN_LOAI_HH FROM LOAI_HANG";
 
             using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -148,7 +148,7 @@ namespace QL_Nha_thuoc
             }
 
             CSDL cSDL = new CSDL();
-            SqlConnection conn = cSDL.GetConnection();
+            SqlConnection conn = CSDL.GetConnection();
 
             string inClause = string.Join(",", loaiHangDuocChon.Select((s, i) => $"@loai{i}"));
             string query = $@"
@@ -301,7 +301,7 @@ namespace QL_Nha_thuoc
             var (loaiHangDuocChon, nhomHang, trangThai) = LayThongTinLoc();
 
             CSDL cSDL = new CSDL();
-            SqlConnection conn = cSDL.GetConnection();
+            SqlConnection conn = CSDL.GetConnection();
 
             Dictionary<string, object> parameters;
             string query = TaoCauTruyVanLoc(loaiHangDuocChon, nhomHang, trangThai, out parameters);
@@ -368,6 +368,7 @@ namespace QL_Nha_thuoc
                 // Lấy dòng vừa click
                 DataGridViewRow selectedRow = dataGridViewdsDMHH.Rows[e.RowIndex];
                 string maHH = selectedRow.Cells["MA_HANG_HOA"].Value?.ToString();
+
                 // Lấy giá trị MA_LOAI_HH từ dòng
                 //string maLoaiHH = selectedRow.Cells["MA_LOAI_HH"].Value?.ToString();
                 ClassHangHoa hanghoa = ClassHangHoa.LayThongTinMotHangHoa(maHH);
@@ -415,7 +416,7 @@ namespace QL_Nha_thuoc
             List<string> loaiHangList = new List<string>();
 
             CSDL cSDL = new CSDL();
-            SqlConnection conn = cSDL.GetConnection();
+            SqlConnection conn = CSDL.GetConnection();
             string query = "SELECT TEN_LOAI_HH FROM LOAI_HANG";
 
             using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -527,19 +528,19 @@ namespace QL_Nha_thuoc
         {
             public string Ma { get; set; }
             public string Ten { get; set; }
-            public float Gia { get; set; }
+            public decimal Gia { get; set; }
             public string hinhanhhh { get; set; }
             public int SoLuongTon { get; set; }  // Thêm dòng này
         }
 
 
         //tim thuoc
-        List<Thuoc> TimThuocTuCSDL(string keyword)
+        List<ClassHangHoa> TimThuocTuCSDL(string keyword)
         {
-            var ketQua = new List<Thuoc>();
+            var ketQua = new List<ClassHangHoa>();
 
             CSDL cSDL = new CSDL();
-            string connectionString = cSDL.GetConnection().ConnectionString;
+            string connectionString = CSDL.GetConnection().ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -553,12 +554,12 @@ namespace QL_Nha_thuoc
                     {
                         while (reader.Read())
                         {
-                            var t = new Thuoc
+                            var t = new ClassHangHoa
                             {
-                                Ma = reader["MA_HANG_HOA"].ToString(),
-                                Ten = reader["TEN_HANG_HOA"].ToString(),
-                                Gia = Convert.ToInt32(reader["GIA_BAN_HH"]),
-                                hinhanhhh = reader["HINH_ANH_HH"].ToString(),
+                                MaHangHoa = reader["MA_HANG_HOA"].ToString(),
+                                TenHangHoa = reader["TEN_HANG_HOA"].ToString(),
+                                GiaBan = Convert.ToInt32(reader["GIA_BAN_HH"]),
+                                HinhAnh = reader["HINH_ANH_HH"].ToString(),
                                 SoLuongTon = Convert.ToInt32(reader["TON_KHO"])
                             };
                             ketQua.Add(t);
@@ -588,24 +589,10 @@ namespace QL_Nha_thuoc
 
             panelKetQuaTimKiem.Controls.Clear();
             int y = 0;
-
-            //foreach (var thuoc in ds)
-            //{
-            //    var uc = new UC_ItemThuoc(); // UserControl như mình hướng dẫn ở trên
-            //    uc.SetData(thuoc.Ten, thuoc.Ma, thuoc.Gia,thuoc.hinhanhhh);
-            //    uc.Width = panelKetQuaTimKiem.Width;
-            //    uc.Location = new Point(0, y);
-            //    y += uc.Height + 10;
-            //    panelKetQuaTimKiem.Controls.Add(uc);
-            //}
-
-            //panelKetQuaTimKiem.Visible = ds.Count > 0;
-
-
-            foreach (var thuoc in ds)
+            foreach (var hangHoa in ds)
             {
                 var uc = new UC_ItemThuoc();
-                uc.SetData(thuoc.Ten, thuoc.Ma, thuoc.Gia, thuoc.hinhanhhh, thuoc.SoLuongTon);
+                uc.SetData(hangHoa);
                 uc.Width = panelKetQuaTimKiem.Width;
                 uc.Location = new Point(0, y);
                 y += uc.Height + 10;
@@ -673,10 +660,6 @@ namespace QL_Nha_thuoc
             }
         }
 
-        private void checkBoxChonTatCa_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
         private void dataGridViewdsDMHH_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             if (dataGridViewdsDMHH.IsCurrentCellDirty)
@@ -735,7 +718,7 @@ namespace QL_Nha_thuoc
                         string maHangHoa = row.Cells["MA_HANG_HOA"].Value?.ToString();
                         if (!string.IsNullOrEmpty(maHangHoa))
                         {
-                            ClassHangHoa.XoaHangHoa(maHangHoa,Session.TaiKhoanDangNhap.MaNhanVien); // Xóa trong DB
+                            ClassHangHoa.XoaHangHoa(maHangHoa, Session.TaiKhoanDangNhap.MaNhanVien); // Xóa trong DB
                         }
 
                         dataGridViewdsDMHH.Rows.RemoveAt(i); // Xóa trong giao diện
@@ -751,7 +734,11 @@ namespace QL_Nha_thuoc
                 buttonTuyChon.Visible = false; // Ẩn nút tùy chọn
                 panelTuyChon.Visible = false; // Ẩn panel tùy chọn
             }
-        }
+            else
+            {
+                panelTuyChon.Visible = false; // Ẩn panel tùy chọn nếu không xóa
+            }
+            }
 
         private void buttonNhapHang_Click(object sender, EventArgs e)
         {

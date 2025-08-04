@@ -10,11 +10,12 @@ namespace QL_Nha_thuoc.DangNhap
     {
         // Sự kiện để thông báo khi form đăng nhập đã đóng
         public event Action FormDaDong;
-
+        public string trangthai = "login"; // Biến để xác định trạng thái khi mở form xác thực email
         public FormLogin()
         {
             InitializeComponent();
             this.KeyPreview = true;
+
         }
 
         private void FormLogin_KeyDown(object sender, KeyEventArgs e)
@@ -46,43 +47,102 @@ namespace QL_Nha_thuoc.DangNhap
                 return;
             }
 
-            // Lấy thông tin tài khoản từ database
             var taiKhoan = ClassTaiKhoan.LayTaiKhoan(tenTK);
-
-            if (taiKhoan != null && taiKhoan.MatKhau == matKhau)
+            if (taiKhoan == null)
             {
-                if (taiKhoan.VaiTro != vaiTroYeuCau)
+                MessageBox.Show("Tài khoản không tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string matKhauDaBam = BaoMatHelper.BamMatKhau(matKhau);
+            if (taiKhoan.MatKhau != matKhauDaBam)
+            {
+                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!", "Thông báo");
+                return;
+            }
+
+            // Kiểm tra vai trò
+            if (taiKhoan.VaiTro != vaiTroYeuCau)
+            {
+                MessageBox.Show("Bạn không có quyền truy cập với vai trò này.", "Thông báo");
+                return;
+            }
+
+            // Xác thực email nếu chưa xác thực
+            if (!taiKhoan.DaXacThucEmail)
+            {
+                MessageBox.Show("Tài khoản chưa xác thực email. Vui lòng xác thực trước khi tiếp tục.", "Thông báo");
+                var formXacThuc = new FormXacThucEmail(taiKhoan, "xacminhdangnhap");
+                formXacThuc.ShowDialog();
+
+                taiKhoan = ClassTaiKhoan.LayTaiKhoan(tenTK); // reload lại
+                if (!taiKhoan.DaXacThucEmail)
                 {
-                    MessageBox.Show($"Tài khoản không có quyền truy cập với vai trò '{vaiTroYeuCau}'!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Bạn chưa hoàn tất xác thực email!", "Thông báo");
                     return;
                 }
-
-                // ✅ Lưu thông tin đăng nhập
-                Session.TaiKhoanDangNhap = taiKhoan;
-
-                MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Hide();
-
-                // Mở form tương ứng theo vai trò
-                if (vaiTroYeuCau == "Quản lý")
-                {
-                    FormMain formMain = new FormMain();
-                    formMain.ShowDialog();
-                }
-                else if (vaiTroYeuCau == "Bán hàng")
-                {
-                    FormBanHangMain formbanhangmain = new FormBanHangMain();
-                    formbanhangmain.ShowDialog();
-                }
-
-                this.Show();
             }
-            else
+
+            // Bắt buộc đổi mật khẩu nếu là lần đầu
+            if (taiKhoan.LanDauDangNhap)
             {
-                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //thog báo và mở form tạo mật khẩu mới
+                MessageBox.Show("Đây là lần đầu bạn đăng nhập. Vui lòng tạo mật khẩu mới.", "Thông báo");
+                var formTaoMK = new FormTaoMatKhau(tenTK);
+                var result = formTaoMK.ShowDialog();
+                if (result != DialogResult.OK)
+                    return;
+
+                using (var conn = CSDL.GetConnection())
+                {
+                    var cmd = new SqlCommand("UPDATE TAI_KHOAN SET LAN_DAU_DANG_NHAP = 0 WHERE TEN_TAI_KHOAN = @TK", conn);
+                    cmd.Parameters.AddWithValue("@TK", tenTK);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
             }
+
+            // Lưu phiên
+            Session.TaiKhoanDangNhap = taiKhoan;
+
+            MessageBox.Show("Đăng nhập thành công!", "Thông báo");
+            this.Hide();
+            if (vaiTroYeuCau == "Quản lý")
+                new FormMain().ShowDialog();
+            else
+                new FormBanHangMain().ShowDialog();
+            this.Show();
         }
 
+
+
+        private void checkBoxHienThiMatKhau_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxMatKhau.UseSystemPasswordChar = !textBoxMatKhau.UseSystemPasswordChar;
+        }
+
+        private void linkLabelQuenMatKhai_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            trangthai = "quenmatkhau"; // Đặt trạng thái để xác định khi mở form xác thực email
+            //kiem tra co ten tai khoan hay khong 
+            string tenTaiKhoan = textBoxTenDangNhap.Text.Trim();
+            if (string.IsNullOrEmpty(tenTaiKhoan))
+            {
+                MessageBox.Show("Vui lòng nhập tên đăng nhập trước khi lấy lại mật khẩu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            // Lấy thông tin tài khoản
+            var taiKhoan = ClassTaiKhoan.LayTaiKhoan(tenTaiKhoan);
+            if (taiKhoan == null)
+            {
+                MessageBox.Show("Tài khoản không tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            //mo form xac thuc email
+            FormXacThucEmail formXacThuc = new FormXacThucEmail(taiKhoan,trangthai);
+            formXacThuc.ShowDialog();
+
+        }
 
 
 

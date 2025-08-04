@@ -48,7 +48,7 @@ namespace QL_Nha_thuoc.HangHoa
         {
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT TEN_LOAI_HH, MA_LOAI_HH FROM LOAI_HANG";
@@ -77,7 +77,7 @@ namespace QL_Nha_thuoc.HangHoa
             {
                 string maLoai = selectedRow["MA_LOAI_HH"].ToString();
 
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = @"SELECT MA_NHOM_HH, TEN_NHOM 
@@ -116,7 +116,7 @@ namespace QL_Nha_thuoc.HangHoa
 
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT TEN_HANG_SX, MA_HANG_SX FROM HANG_SAN_XUAT";
@@ -142,7 +142,7 @@ namespace QL_Nha_thuoc.HangHoa
         {
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT TEN_DON_VI_TINH, MA_DON_VI_TINH FROM DON_VI_TINH";
@@ -283,7 +283,7 @@ namespace QL_Nha_thuoc.HangHoa
         }
 
         private void buttonLuu_Click(object sender, EventArgs e)
-        {
+       {
             //kiem tra dau vao 
 
 
@@ -326,6 +326,7 @@ namespace QL_Nha_thuoc.HangHoa
             {
                 MaHangHoa = maHH,
                 MaVach = textBoxMaVach.Text,
+                HinhAnh = AnhHangHoaDuocChon, // Lưu đường dẫn ảnh đã chọn
                 MaDonViTinh = comboBoxDonViTinh.SelectedValue.ToString(),
                 TenHangHoa = textBoxTenHangHoa.Text,
                 MaLoaiHangHoa = comboBoxLoaiHang.SelectedValue.ToString(),
@@ -334,6 +335,7 @@ namespace QL_Nha_thuoc.HangHoa
                 QuyCachDongGoi = textBoxQuyCachDongGoi.Text,
                 GhiChu = textBoxGhiChu.Text,
                 TinhTrang = "Đang kinh doanh",
+                
                 GiaBan = giaBan,
                 GiaVon = giaVon
             };
@@ -410,6 +412,32 @@ namespace QL_Nha_thuoc.HangHoa
 
             // sau khi form them nhom hang dong, load lai danh sach nhom hang
             LoadDataToComboBoxNhomHanghoa();
+        }
+        //bien luu tru duong dan anh hang hoa
+        public string AnhHangHoaDuocChon { get; private set; } = string.Empty;
+        private void buttonThemAnhHH_Click(object sender, EventArgs e)
+        {
+            
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
+                openFileDialog.Title = "Chọn ảnh hàng hóa";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Lưu đường dẫn ảnh đã chọn
+                    AnhHangHoaDuocChon = openFileDialog.FileName;
+                    // Hiển thị ảnh trong PictureBox
+                    try
+                    {
+                        pictureBoxHangHoa.Image = Image.FromFile(AnhHangHoaDuocChon);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi tải ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        pictureBoxHangHoa.Image = Properties.Resources._default; // Ảnh mặc định nếu có lỗi
+                    }
+                }
+            }
         }
 
 

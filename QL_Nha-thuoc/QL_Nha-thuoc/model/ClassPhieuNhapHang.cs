@@ -4,14 +4,6 @@ using System.Collections.Generic;
 
 namespace QL_Nha_thuoc.model
 {
-    public class DBHelperPN
-    {
-        private static string connectionString = @"Data Source=WIN_BYTAI;Initial Catalog=QL_NhaThuoc;Integrated Security=True;Trust Server Certificate=True";
-        public static SqlConnection GetConnection()
-        {
-            return new SqlConnection(connectionString);
-        }
-    }
 
     // Đại diện cho bảng PHIEU_NHAP_HANG
     public class PhieuNhapHang
@@ -50,7 +42,7 @@ namespace QL_Nha_thuoc.model
         }
         public static PhieuNhapHang TimPhieuNhapTheoMa(string maPhieuNhap)
         {
-            using (SqlConnection conn = DBHelperPN.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = @"
         SELECT PN.MA_PHIEU_NHAP, PN.NGAY_NHAP, 
@@ -90,7 +82,7 @@ namespace QL_Nha_thuoc.model
         {
             List<PhieuNhapHang> danhSach = new List<PhieuNhapHang>();
 
-            using (SqlConnection conn = DBHelperPN.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = @"
         SELECT PN.MA_PHIEU_NHAP, PN.NGAY_NHAP, 
@@ -136,7 +128,7 @@ namespace QL_Nha_thuoc.model
         {
             List<PhieuNhapHang> danhSach = new List<PhieuNhapHang>();
 
-            using (SqlConnection conn = DBHelperPN.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = @"
         SELECT PN.MA_PHIEU_NHAP, PN.NGAY_NHAP, 
@@ -178,11 +170,11 @@ namespace QL_Nha_thuoc.model
         //tao ma phieu nhap 
         public static string TaoMaPhieuNhapTuDong()
         {
-            using (SqlConnection connection = DBHelperPN.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 try
                 {
-                    connection.Open();
+                    conn.Open();
                     string ngayHienTai = DateTime.Now.ToString("yyyyMMdd");
 
                     string query = @"
@@ -190,7 +182,7 @@ namespace QL_Nha_thuoc.model
                 FROM PHIEU_NHAP_HANG 
                 WHERE CONVERT(VARCHAR, NGAY_NHAP, 112) = @Ngay";
 
-                    SqlCommand cmd = new SqlCommand(query, connection);
+                    SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Ngay", ngayHienTai);
 
                     int soLuongTrongNgay = (int)cmd.ExecuteScalar();

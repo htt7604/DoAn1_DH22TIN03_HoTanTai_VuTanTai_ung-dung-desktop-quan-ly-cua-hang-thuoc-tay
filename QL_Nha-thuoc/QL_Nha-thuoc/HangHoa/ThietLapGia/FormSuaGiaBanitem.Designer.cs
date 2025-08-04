@@ -43,27 +43,30 @@
             // labelHienThi
             // 
             labelHienThi.AutoSize = true;
+            labelHienThi.Font = new Font("Segoe UI", 11F);
             labelHienThi.Location = new Point(14, 53);
             labelHienThi.Name = "labelHienThi";
-            labelHienThi.Size = new Size(133, 20);
+            labelHienThi.Size = new Size(167, 25);
             labelHienThi.TabIndex = 0;
             labelHienThi.Text = "Giá mới [ 00000 ]=";
             // 
             // comboBoxLoaiGia
             // 
             comboBoxLoaiGia.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxLoaiGia.Font = new Font("Segoe UI", 11F);
             comboBoxLoaiGia.FormattingEnabled = true;
-            comboBoxLoaiGia.Location = new Point(230, 49);
+            comboBoxLoaiGia.Location = new Point(213, 49);
             comboBoxLoaiGia.Name = "comboBoxLoaiGia";
-            comboBoxLoaiGia.Size = new Size(151, 28);
+            comboBoxLoaiGia.Size = new Size(168, 33);
             comboBoxLoaiGia.TabIndex = 1;
             comboBoxLoaiGia.SelectedIndexChanged += comboBoxLoaiGia_SelectedIndexChanged;
             // 
             // buttonCong
             // 
+            buttonCong.Font = new Font("Segoe UI", 11F);
             buttonCong.Location = new Point(397, 49);
             buttonCong.Name = "buttonCong";
-            buttonCong.Size = new Size(36, 29);
+            buttonCong.Size = new Size(36, 33);
             buttonCong.TabIndex = 2;
             buttonCong.Text = "+";
             buttonCong.UseVisualStyleBackColor = true;
@@ -71,9 +74,10 @@
             // 
             // buttonTru
             // 
+            buttonTru.Font = new Font("Segoe UI", 11F);
             buttonTru.Location = new Point(439, 49);
             buttonTru.Name = "buttonTru";
-            buttonTru.Size = new Size(34, 29);
+            buttonTru.Size = new Size(34, 33);
             buttonTru.TabIndex = 3;
             buttonTru.Text = "-";
             buttonTru.UseVisualStyleBackColor = true;
@@ -81,18 +85,20 @@
             // 
             // textBoxSoNhap
             // 
-            textBoxSoNhap.Location = new Point(512, 50);
+            textBoxSoNhap.Font = new Font("Segoe UI", 11F);
+            textBoxSoNhap.Location = new Point(501, 50);
             textBoxSoNhap.Name = "textBoxSoNhap";
-            textBoxSoNhap.Size = new Size(125, 27);
+            textBoxSoNhap.Size = new Size(136, 32);
             textBoxSoNhap.TabIndex = 5;
             textBoxSoNhap.TextChanged += textBoxSoNhap_TextChanged;
             textBoxSoNhap.KeyPress += textBoxSoNhap_KeyPress;
             // 
             // buttonVND
             // 
+            buttonVND.Font = new Font("Segoe UI", 11F);
             buttonVND.Location = new Point(654, 50);
             buttonVND.Name = "buttonVND";
-            buttonVND.Size = new Size(54, 29);
+            buttonVND.Size = new Size(54, 32);
             buttonVND.TabIndex = 6;
             buttonVND.Text = "VND";
             buttonVND.UseVisualStyleBackColor = true;
@@ -100,9 +106,10 @@
             // 
             // buttonPhanTram
             // 
+            buttonPhanTram.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             buttonPhanTram.Location = new Point(724, 50);
             buttonPhanTram.Name = "buttonPhanTram";
-            buttonPhanTram.Size = new Size(34, 29);
+            buttonPhanTram.Size = new Size(43, 32);
             buttonPhanTram.TabIndex = 7;
             buttonPhanTram.Text = "%";
             buttonPhanTram.UseVisualStyleBackColor = true;
@@ -110,9 +117,10 @@
             // 
             // buttonDongY
             // 
-            buttonDongY.Location = new Point(634, 198);
+            buttonDongY.Font = new Font("Segoe UI", 11F);
+            buttonDongY.Location = new Point(560, 188);
             buttonDongY.Name = "buttonDongY";
-            buttonDongY.Size = new Size(74, 29);
+            buttonDongY.Size = new Size(129, 39);
             buttonDongY.TabIndex = 8;
             buttonDongY.Text = "Đồng ý";
             buttonDongY.UseVisualStyleBackColor = true;
@@ -120,20 +128,22 @@
             // 
             // buttonBoQua
             // 
-            buttonBoQua.Location = new Point(746, 198);
+            buttonBoQua.Font = new Font("Segoe UI", 11F);
+            buttonBoQua.Location = new Point(746, 188);
             buttonBoQua.Name = "buttonBoQua";
-            buttonBoQua.Size = new Size(90, 29);
+            buttonBoQua.Size = new Size(111, 39);
             buttonBoQua.TabIndex = 9;
-            buttonBoQua.Text = "Bỏ quan";
+            buttonBoQua.Text = "Bỏ qua";
             buttonBoQua.UseVisualStyleBackColor = true;
             buttonBoQua.Click += buttonBoQua_Click;
             // 
             // checkBoxApDungAll
             // 
             checkBoxApDungAll.AutoSize = true;
+            checkBoxApDungAll.Font = new Font("Segoe UI", 11F);
             checkBoxApDungAll.Location = new Point(33, 138);
             checkBoxApDungAll.Name = "checkBoxApDungAll";
-            checkBoxApDungAll.Size = new Size(304, 24);
+            checkBoxApDungAll.Size = new Size(381, 29);
             checkBoxApDungAll.TabIndex = 10;
             checkBoxApDungAll.Text = "Áp dụng công thức cho tất cả hàng hóa ?";
             checkBoxApDungAll.UseVisualStyleBackColor = true;

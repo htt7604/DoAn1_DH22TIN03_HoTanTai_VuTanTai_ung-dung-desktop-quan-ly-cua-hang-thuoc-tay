@@ -156,7 +156,7 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
             if (!string.IsNullOrEmpty(searchText) && searchText.Length >= 1)
             {
                 // Lấy danh sách hàng hóa phù hợp
-                List<ClassHangHoa> danhSachHangHoa = ClassHangHoa.TimKiemHangHoa(searchText);
+                List<ClassHangHoa> danhSachHangHoa = ClassHangHoa.TimKiemHangHoaTheoTuKhoa(searchText);
 
                 // Xóa kết quả cũ
                 panelKetQuaTimKiem.Controls.Clear();
@@ -164,7 +164,7 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
                 foreach (ClassHangHoa hh in danhSachHangHoa)
                 {
                     var userControlHangHoa = new UC_ItemThuoc();
-                    userControlHangHoa.SetData(hh.TenHangHoa, hh.MaHangHoa, (float)hh.GiaBan, hh.HinhAnh, hh.SoLuongTon);
+                    userControlHangHoa.SetData(hh);
                     userControlHangHoa.Dock=DockStyle.Top; // Đặt dock để tự động điều chỉnh chiều rộng
                     // Gắn sự kiện Click để thêm vào danh sách nhập hàng
                     userControlHangHoa.Click += (s, args) =>

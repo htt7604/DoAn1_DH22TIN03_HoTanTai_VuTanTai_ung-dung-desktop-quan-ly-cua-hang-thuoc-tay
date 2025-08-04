@@ -8,13 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QL_Nha_thuoc.DoiTac
+namespace QL_Nha_thuoc.HangHoa.ThietLapGia.BangGia
 {
-    public partial class FormBacSi : Form
+    public partial class UserControlTTSuaGia : UserControl
     {
-        public FormBacSi()
+        public UserControlTTSuaGia()
         {
             InitializeComponent();
+        }
+        public void Setdata(string tenBangGia)
+        {
+            labelTenBangGiaSua.Text = tenBangGia;
         }
     }
 }

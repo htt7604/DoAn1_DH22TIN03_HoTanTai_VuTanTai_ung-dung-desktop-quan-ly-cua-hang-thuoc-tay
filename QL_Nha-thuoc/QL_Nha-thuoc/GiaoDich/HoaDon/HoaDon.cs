@@ -16,5 +16,15 @@ namespace QL_Nha_thuoc
         {
             InitializeComponent();
         }
+
+        private void buttonThemHoaDon_Click(object sender, EventArgs e)
+        {
+            //mo form ban hang  
+            
+        }
+
+
+
+
     }
 }

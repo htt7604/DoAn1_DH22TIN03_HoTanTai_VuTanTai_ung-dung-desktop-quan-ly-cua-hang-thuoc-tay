@@ -24,7 +24,7 @@ namespace QL_Nha_thuoc
         private void LoadDanhSachThuoc()
         {
             CSDL csdl = new CSDL();
-            string connectionString = csdl.GetConnection().ConnectionString;
+            string connectionString = CSDL.GetConnection().ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
@@ -120,7 +120,7 @@ namespace QL_Nha_thuoc
         private void TimKiemThuoc(string cotTimKiem, string giaTriTimKiem)
         {
             CSDL csdl = new CSDL();
-            string connectionString = csdl.GetConnection().ConnectionString;
+            string connectionString = CSDL.GetConnection().ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try

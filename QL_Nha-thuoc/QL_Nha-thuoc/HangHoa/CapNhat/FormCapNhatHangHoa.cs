@@ -33,7 +33,7 @@ namespace QL_Nha_thuoc.HangHoa
         {
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT TEN_LOAI_HH, MA_LOAI_HH FROM LOAI_HANG";
@@ -62,7 +62,7 @@ namespace QL_Nha_thuoc.HangHoa
             {
                 string maLoai = selectedRow["MA_LOAI_HH"].ToString();
 
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = @"SELECT MA_NHOM_HH, TEN_NHOM 
@@ -101,7 +101,7 @@ namespace QL_Nha_thuoc.HangHoa
 
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT TEN_HANG_SX, MA_HANG_SX FROM HANG_SAN_XUAT";
@@ -128,7 +128,7 @@ namespace QL_Nha_thuoc.HangHoa
         {
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT TEN_DON_VI_TINH, MA_DON_VI_TINH FROM DON_VI_TINH";
@@ -156,16 +156,16 @@ namespace QL_Nha_thuoc.HangHoa
         private void LoadDataToForm(string maHangHoa)
         {
             CSDL cSDL = new CSDL();
-            SqlConnection conn = cSDL.GetConnection();
+            SqlConnection conn = CSDL.GetConnection();
             string query = @"
         SELECT HH.MA_HANG_HOA, HH.TEN_HANG_HOA, GHH.GIA_BAN_HH, 
                NH.TEN_NHOM, LH.TEN_LOAI_HH, HH.HINH_ANH_HH, HH.MA_VACH, GHH.GIA_VON_HH, 
-               HH.DUONG_DUNG_CHO_THUOC, HH.QUY_CACH_DONG_GOI, HH.GHI_CHU_HH,HSX.TEN_HANG_SX, HH.MA_HANG_SX,HH.TON_KHO,
-               NCC.TEN_NHA_CUNG_CAP, HH.NGAY_HET_HAN_HH, DVT.TEN_DON_VI_TINH,HH.MA_NHOM_HH, NH.MA_LOAI_HH,HH.QUY_CACH_DONG_GOI,DVT.MA_DON_VI_TINH,DVT.TEN_DON_VI_TINH,
-               GHH.Ti_LE_LOI
+               DDT.MA_DUONG_DUNG, HH.QUY_CACH_DONG_GOI, HH.GHI_CHU_HH,HSX.TEN_HANG_SX, HH.MA_HANG_SX,HH.TON_KHO,
+               NCC.TEN_NHA_CUNG_CAP, HH.NGAY_HET_HAN_HH, DVT.TEN_DON_VI_TINH,HH.MA_NHOM_HH, NH.MA_LOAI_HH,HH.QUY_CACH_DONG_GOI,DVT.MA_DON_VI_TINH,DVT.TEN_DON_VI_TINH
         FROM HANG_HOA HH
          JOIN NHOM_HANG NH ON HH.MA_NHOM_HH = NH.MA_NHOM_HH
          JOIN LOAI_HANG LH ON NH.MA_LOAI_HH = LH.MA_LOAI_HH
+        LEFT JOIN DUONG_DUNG_THUOC DDT ON HH.MA_DUONG_DUNG=DDT.MA_DUONG_DUNG
          LEFT JOIN HANG_SAN_XUAT HSX ON HH.MA_HANG_SX = HSX.MA_HANG_SX
          LEFT JOIN GIA_HANG_HOA GHH ON GHH.MA_HANG_HOA = HH.MA_HANG_HOA
          LEFT JOIN DON_VI_TINH DVT ON GHH.MA_DON_VI_TINH = DVT.MA_DON_VI_TINH
@@ -190,7 +190,6 @@ namespace QL_Nha_thuoc.HangHoa
                             textBoxMaVach.Text = reader["MA_VACH"]?.ToString() ?? string.Empty;
                             textBoxGiaBan.Text = reader["GIA_BAN_HH"]?.ToString() ?? "0";
                             textBoxGiaVon.Text = reader["GIA_VON_HH"]?.ToString() ?? "0";
-                            textBoxTiLeLoiNhuan.Text = reader["Ti_LE_LOI"]?.ToString() ?? "0";
                             textBoxQuyCachDongGoi.Text = reader["QUY_CACH_DONG_GOI"]?.ToString() ?? string.Empty;
                             textBoxGhiChu.Text = reader["GHI_CHU_HH"]?.ToString() ?? string.Empty;
                             textBoxTonKho.Text = reader["TON_KHO"]?.ToString() ?? "0";
@@ -304,7 +303,6 @@ namespace QL_Nha_thuoc.HangHoa
         {
 
             textBoxMaHH.ReadOnly = true; // Mã hàng hóa không cho phép sửa
-            textBoxGiaBan.ReadOnly = true; // Giá bán không cho phép sửa
             comboBoxLoaiHang.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxHangSX.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxNhomHang.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -380,7 +378,6 @@ namespace QL_Nha_thuoc.HangHoa
             string maVach = textBoxMaVach.Text.Trim();
             string giaBan = textBoxGiaBan.Text.Trim();
             string giaVon = textBoxGiaVon.Text.Trim();
-            string tiLeLoi = textBoxTiLeLoiNhuan.Text.Trim();
             string ghiChu = textBoxGhiChu.Text.Trim();
             string quyCach = textBoxQuyCachDongGoi.Text.Trim();
             string tonKhoStr = textBoxTonKho.Text.Trim();
@@ -394,7 +391,6 @@ namespace QL_Nha_thuoc.HangHoa
                 // ==== Kiểm tra logic bổ sung ====
                 bool coGiaBan = !string.IsNullOrWhiteSpace(giaBan) && decimal.TryParse(giaBan, out _);
                 bool coGiaVon = !string.IsNullOrWhiteSpace(giaVon) && decimal.TryParse(giaVon, out _);
-                bool coTiLeLoi = !string.IsNullOrWhiteSpace(tiLeLoi) && decimal.TryParse(tiLeLoi, out _);
                 bool coDonViTinh = !string.IsNullOrEmpty(maDonViTinh);
 
 
@@ -404,13 +400,8 @@ namespace QL_Nha_thuoc.HangHoa
                     return;
                 }
 
-                if (coTiLeLoi && !coGiaVon)
-                {
-                    MessageBox.Show("Vui lòng nhập Giá vốn khi có Tỷ lệ lợi nhuận.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
 
-                if (coGiaVon && coTiLeLoi && !coDonViTinh)
+                if (coGiaVon  && !coDonViTinh)
                 {
                     MessageBox.Show("Vui lòng chọn Đơn vị tính khi có cả Giá vốn và Tỷ lệ lợi nhuận.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -424,12 +415,12 @@ namespace QL_Nha_thuoc.HangHoa
                     File.Copy(duongDanAnhTam, duongDanLuu, true);
                 }
 
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
 
                     StringBuilder query = new StringBuilder();
-                    query.Append("UPDATE HANG_HOA SET TEN_HANG_HOA = @tenHH, MA_VACH = @maVach, MA_NHOM_HH = @maNhom, MA_HANG_SX = @maHangSX, DUONG_DUNG_CHO_THUOC = NULL, QUY_CACH_DONG_GOI = @quyCach, GHI_CHU_HH = @ghiChu,TON_KHO=@tonKho");
+                    query.Append("UPDATE HANG_HOA SET TEN_HANG_HOA = @tenHH, MA_VACH = @maVach, MA_NHOM_HH = @maNhom, MA_HANG_SX = @maHangSX, MA_DUONG_DUNG = NULL, QUY_CACH_DONG_GOI = @quyCach, GHI_CHU_HH = @ghiChu,TON_KHO=@tonKho");
 
                     if (!string.IsNullOrEmpty(tenAnhLuu))
                     {
@@ -467,38 +458,38 @@ namespace QL_Nha_thuoc.HangHoa
 
                             if (count > 0)
                             {
-                                string updateGia = "UPDATE GIA_HANG_HOA SET TI_LE_LOI = @tiLeLoi, GIA_VON_HH = @giaVon, MA_DON_VI_TINH = @maDonViTinh WHERE MA_HANG_HOA = @maHH";
+                                string updateGia = "UPDATE GIA_HANG_HOA SET GIA_BAN_HH = @giaBan, GIA_VON_HH = @giaVon, MA_DON_VI_TINH = @maDonViTinh WHERE MA_HANG_HOA = @maHH";
                                 using (SqlCommand updateCmd = new SqlCommand(updateGia, conn))
                                 {
                                     updateCmd.Parameters.AddWithValue("@maHH", maHH);
-                                    updateCmd.Parameters.AddWithValue("@tiLeLoi", string.IsNullOrEmpty(tiLeLoi) ? 0 : decimal.Parse(tiLeLoi));
                                     updateCmd.Parameters.AddWithValue("@giaVon", string.IsNullOrEmpty(giaVon) ? 0 : decimal.Parse(giaVon));
+                                    updateCmd.Parameters.AddWithValue("@giaBan", string.IsNullOrEmpty(giaBan) ? 0 : decimal.Parse(giaBan));
                                     updateCmd.Parameters.AddWithValue("@maDonViTinh", maDonViTinh);
                                     updateCmd.ExecuteNonQuery();
                                 }
                             }
                             else
                             {
-                                string insertGia = "INSERT INTO GIA_HANG_HOA (MA_HANG_HOA, TI_LE_LOI, GIA_VON_HH, MA_DON_VI_TINH) VALUES (@maHH, @tiLeLoi, @giaVon, @maDonViTinh)";
+                                string insertGia = "INSERT INTO GIA_HANG_HOA (MA_HANG_HOA, GIA_VON_HH,GIA_BAN_HH, MA_DON_VI_TINH) VALUES (@maHH, @giaVon,@giaBan, @maDonViTinh)";
                                 using (SqlCommand insertCmd = new SqlCommand(insertGia, conn))
                                 {
                                     insertCmd.Parameters.AddWithValue("@maHH", maHH);
-                                    insertCmd.Parameters.AddWithValue("@tiLeLoi", string.IsNullOrEmpty(tiLeLoi) ? 0 : decimal.Parse(tiLeLoi));
                                     insertCmd.Parameters.AddWithValue("@giaVon", string.IsNullOrEmpty(giaVon) ? 0 : decimal.Parse(giaVon));
+                                    insertCmd.Parameters.AddWithValue("@giaBan", string.IsNullOrEmpty(giaBan) ? 0 : decimal.Parse(giaBan));
                                     insertCmd.Parameters.AddWithValue("@maDonViTinh", maDonViTinh);
                                     insertCmd.ExecuteNonQuery();
                                 }
                             }
                         }
                     }
-                    else if (string.IsNullOrWhiteSpace(giaVon) && string.IsNullOrWhiteSpace(tiLeLoi))
+                    else if (string.IsNullOrWhiteSpace(giaVon))
                     {
-                        // Nếu không có giá vốn và không có tỷ lệ lợi nhuận, thì xóa bản ghi trong GIA_HANG_HOA
-                        string deleteGia = "DELETE FROM GIA_HANG_HOA WHERE MA_HANG_HOA = @maHH";
-                        using (SqlCommand deleteCmd = new SqlCommand(deleteGia, conn))
+                        // Nếu không có giá vốn và gia ban thi cap nhat gia von gia ban ve 0
+                        string updateGia = "UPDATE GIA_HANG_HOA SET GIA_VON_HH = 0, GIA_BAN_HH = 0 WHERE MA_HANG_HOA = @maHH";
+                        using (SqlCommand updateCmd = new SqlCommand(updateGia, conn))
                         {
-                            deleteCmd.Parameters.AddWithValue("@maHH", maHH);
-                            deleteCmd.ExecuteNonQuery();
+                            updateCmd.Parameters.AddWithValue("@maHH", maHH);
+                            updateCmd.ExecuteNonQuery();
                         }
                     }
 
@@ -622,7 +613,7 @@ namespace QL_Nha_thuoc.HangHoa
 
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
 

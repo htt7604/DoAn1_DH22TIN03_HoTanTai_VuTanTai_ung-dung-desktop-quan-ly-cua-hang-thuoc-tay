@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QL_Nha_thuoc.model;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -33,17 +34,17 @@ namespace QL_Nha_thuoc.HangHoa
         /// <summary>
         /// Thiết lập dữ liệu hiển thị cho UserControl
         /// </summary>
-        public void SetData(string tenThuoc, string ma, float gia, string tenHinhAnh,int SoLuongTon)
+        public void SetData(ClassHangHoa HangHoa)
         {
-            labelTenHH.Text = tenThuoc;
-            labelMaHH.Text = ma;
-            labelGiaBanHH.Text = $"Giá bán: {gia:N0}";
-            MaHangHoa = ma;
-            labelTonHH.Text = "Ton: "+SoLuongTon.ToString();
-            SoLuongTon = SoLuongTon;// Lưu số lượng tồn kho
+            labelTenHH.Text = HangHoa.TenHangHoa;
+            labelMaHH.Text = HangHoa.MaHangHoa;
+            labelGiaBanHH.Text = $"Giá bán: {HangHoa.GiaBan:N0}";
+            MaHangHoa = HangHoa.MaHangHoa;
+            labelTonHH.Text = "Ton: "+HangHoa.SoLuongTon.ToString();
+            SoLuongTon = HangHoa.SoLuongTon;// Lưu số lượng tồn kho
             // Đường dẫn thư mục ảnh
             string thuMucAnh = @"C:\Users\hotan\OneDrive\Tài liệu\GitHub\DoAn1_DH22TIN03_HoTanTai_VuTanTai_ung-dung-desktop-quan-ly-nha-thuoc-Long-Chau\QL_Nha-thuoc\QL_Nha-thuoc\Hinh_anh_hang_hoa";
-
+            string tenHinhAnh = HangHoa.HinhAnh;
             // Nếu có tên hình ảnh
             if (!string.IsNullOrWhiteSpace(tenHinhAnh))
             {

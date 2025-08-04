@@ -483,6 +483,7 @@
             Controls.Add(textBoxGiaVon);
             Controls.Add(buttonDong);
             Name = "FormChiTietThuoc";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "FormChiTietThuoc";
             ((System.ComponentModel.ISupportInitialize)pictureBoxHangHoa).EndInit();
             ResumeLayout(false);

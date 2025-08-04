@@ -23,7 +23,7 @@ namespace QL_Nha_thuoc.model
         {
             List<ClassNhanVien> danhSach = new List<ClassNhanVien>();
 
-            using (SqlConnection conn = DBHelperPK.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = "SELECT * FROM NHAN_VIEN";
                 SqlCommand cmd = new SqlCommand(query, conn);

@@ -24,7 +24,7 @@ namespace QL_Nha_thuoc.HangHoa.Them
         {
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT TEN_LOAI_HH, MA_LOAI_HH FROM LOAI_HANG";
@@ -51,7 +51,7 @@ namespace QL_Nha_thuoc.HangHoa.Them
         {
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
 
@@ -109,7 +109,7 @@ namespace QL_Nha_thuoc.HangHoa.Them
 
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
 

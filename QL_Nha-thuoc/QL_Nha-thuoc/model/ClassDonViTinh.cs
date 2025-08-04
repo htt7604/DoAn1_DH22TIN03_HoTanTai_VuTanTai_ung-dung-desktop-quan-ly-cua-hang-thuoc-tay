@@ -17,8 +17,7 @@ namespace QL_Nha_thuoc.model
         {
             List<ClassDonViTinh> danhSach = new List<ClassDonViTinh>();
 
-            string connectionString = @"Data Source=WIN_BYTAI;Initial Catalog=QL_NhaThuoc;Integrated Security=True;Trust Server Certificate=True";
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
                 string sql = "SELECT MA_DON_VI_TINH, TEN_DON_VI_TINH FROM DON_VI_TINH";
@@ -52,6 +51,38 @@ namespace QL_Nha_thuoc.model
             return danhSach;
         }
 
+        public static ClassDonViTinh LayDonViTinhTheoMa(string maDVT)
+        {
+            if (string.IsNullOrEmpty(maDVT))
+                return null;
 
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                conn.Open();
+                string sql = @"
+            SELECT MA_DON_VI_TINH, TEN_DON_VI_TINH 
+            FROM DON_VI_TINH 
+            WHERE MA_DON_VI_TINH = @maDVT";
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@maDVT", maDVT);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new ClassDonViTinh
+                            {
+                                MaDonViTinh = reader["MA_DON_VI_TINH"].ToString(),
+                                TenDonViTinh = reader["TEN_DON_VI_TINH"].ToString()
+                            };
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
     }
 }

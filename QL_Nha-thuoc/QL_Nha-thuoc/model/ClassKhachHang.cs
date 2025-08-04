@@ -31,12 +31,11 @@ namespace QL_Nha_thuoc.model
         public string ThongTinDayDu => $"{TenKH} ( {DiaChiKH} )";
 
         // ====== CHUỖI KẾT NỐI ======
-            private static string connectionString = @"Data Source=WIN_BYTAI;Initial Catalog=QL_NhaThuoc;Integrated Security=True;Trust Server Certificate=True";
         //ham tao ma khach hang tu dong
         public static string TaoMaKhachHangTuDong()
         {
             string maMoi = "KH001"; // Mặc định nếu không có khách hàng nào
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = "SELECT TOP 1 MA_KH FROM KHACH_HANG WHERE ISNUMERIC(SUBSTRING(MA_KH, 3, LEN(MA_KH))) = 1 ORDER BY CAST(SUBSTRING(MA_KH, 3, LEN(MA_KH)) AS INT) DESC";
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -61,7 +60,7 @@ namespace QL_Nha_thuoc.model
         {
             List<ClassKhachHang> danhSach = new List<ClassKhachHang>();
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = "SELECT * FROM KHACH_HANG KH join NHOM_KH NKH on NKH.MA_NHOM_KH=KH.MA_NHOM_KH join NHAN_VIEN NV on NV.MA_NV=KH.MA_NV ";
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -106,7 +105,7 @@ namespace QL_Nha_thuoc.model
         {
             List<ClassKhachHang> danhSach = new List<ClassKhachHang>();
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = "SELECT * FROM KHACH_HANG KH join NHOM_KH NKH on NKH.MA_NHOM_KH=KH.MA_NHOM_KH join NHAN_VIEN NV on KH.MA_NV=NV.MA_NV WHERE TEN_KH COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%' + @tenKH + '%'";
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -156,7 +155,7 @@ namespace QL_Nha_thuoc.model
         {
             List<ClassKhachHang> danhSach = new List<ClassKhachHang>();
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = "";
 
@@ -212,7 +211,7 @@ namespace QL_Nha_thuoc.model
         public static ClassKhachHang LayThongTinKhachHangTheoMa(string maKH)
         {
             ClassKhachHang kh = null;
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = "SELECT * FROM KHACH_HANG KH join NHOM_KH NKH on NKH.MA_NHOM_KH=KH.MA_NHOM_KH join NHAN_VIEN NV on NV.MA_NV=KH.MA_NV WHERE KH.MA_KH = @maKH";
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -252,7 +251,7 @@ namespace QL_Nha_thuoc.model
         // ====== LƯU THÔNG TIN KHÁCH HÀNG ======
         public static bool ThemKhachHang(ClassKhachHang khachHang)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = @"
         INSERT INTO KHACH_HANG 
@@ -287,7 +286,7 @@ namespace QL_Nha_thuoc.model
         // ====== CẬP NHẬT THÔNG TIN KHÁCH HÀNG ======
         public static bool CapNhatThongTinKhachHang(ClassKhachHang khachHang)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = @"
 UPDATE KHACH_HANG
@@ -334,7 +333,7 @@ WHERE MA_KH = @MaKH";
         // ====== XÓA KHÁCH HÀNG ======
         public static bool XoaKhachHang(int maKH)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = "DELETE FROM KHACH_HANG WHERE MA_KH = @maKH";
                 SqlCommand cmd = new SqlCommand(query, conn);

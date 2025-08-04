@@ -24,7 +24,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             labelTenHangHoa.Text = thongtin.TenHangHoa;
             labelTonKho.Text = thongtin.SoLuongTon.ToString();
 
-            labelDonViTinh.Text = $"ĐVT: {thongtin.DonViTinh}";
+            labelDonViTinh.Text = $"ĐVT: {thongtin.TenDonViTinh}";
         }
         public void SetSTT(int stt)
         {
@@ -40,17 +40,18 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
         {
             SoLuongThucTe = (int)numericUpDown1.Value;
 
-            // Tính lệch như bạn đã làm
-            int soluongLech = int.Parse(labelTonKho.Text) - SoLuongThucTe;
-            if (soluongLech < 0)
+            int soLuongHeThong = int.Parse(labelTonKho.Text);
+            int soLuongLech = SoLuongThucTe - soLuongHeThong; // Thực tế - Hệ thống (có thể âm)
+
+            if (soLuongLech > 0)
             {
-                labelLech.Text = $"{Math.Abs(soluongLech)} (Thiếu)";
-                labelLech.ForeColor = Color.Red;
-            }
-            else if (soluongLech > 0)
-            {
-                labelLech.Text = $"{soluongLech} (Thừa)";
+                labelLech.Text = $"{soLuongLech} (Thừa)";
                 labelLech.ForeColor = Color.Green;
+            }
+            else if (soLuongLech < 0)
+            {
+                labelLech.Text = $"{soLuongLech} (Thiếu)"; // giữ số âm
+                labelLech.ForeColor = Color.Red;
             }
             else
             {
@@ -58,7 +59,6 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                 labelLech.ForeColor = Color.Black;
             }
 
-            // Gọi sự kiện báo về cha
             OnSoLuongThucTeThayDoi?.Invoke(this, EventArgs.Empty);
         }
 

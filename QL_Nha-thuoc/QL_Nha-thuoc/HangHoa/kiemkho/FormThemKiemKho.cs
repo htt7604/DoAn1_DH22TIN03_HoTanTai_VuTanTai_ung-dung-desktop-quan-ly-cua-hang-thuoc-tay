@@ -35,12 +35,12 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             // Thêm control vào panel hoặc layout có sẵn
             tabPageTatCaPhieuKiem.Controls.Add(control); // panelMain là Panel chứa UC
         }
-        List<Thuoc> TimThuocTuCSDL(string keyword)
+        List<ClassHangHoa> TimThuocTuCSDL(string keyword)
         {
-            var ketQua = new List<Thuoc>();
+            var ketQua = new List<ClassHangHoa>();
 
             CSDL cSDL = new CSDL();
-            string connectionString = cSDL.GetConnection().ConnectionString;
+            string connectionString = CSDL.GetConnection().ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -68,12 +68,12 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                     {
                         while (reader.Read())
                         {
-                            var t = new Thuoc
+                            var t = new ClassHangHoa
                             {
-                                Ma = reader["MA_HANG_HOA"].ToString(),
-                                Ten = reader["TEN_HANG_HOA"].ToString(),
-                                Gia = Convert.ToUInt32(reader["GIA_BAN_HH"]),
-                                hinhanhhh = reader["HINH_ANH_HH"].ToString(),
+                                MaHangHoa = reader["MA_HANG_HOA"].ToString(),
+                                TenHangHoa = reader["TEN_HANG_HOA"].ToString(),
+                                GiaBan = Convert.ToUInt32(reader["GIA_BAN_HH"]),
+                                HinhAnh = reader["HINH_ANH_HH"].ToString(),
                                 SoLuongTon = Convert.ToInt32(reader["TON_KHO"])
                             };
 
@@ -118,8 +118,8 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                 return;
             }
 
-            var ds = TimThuocTuCSDL(keyword);
-            if (ds.Count == 0)
+            var dsHangHoa = TimThuocTuCSDL(keyword);
+            if (dsHangHoa.Count == 0)
             {
                 panelKetQuaTimKiem.Visible = false;
                 return;
@@ -128,10 +128,10 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             panelKetQuaTimKiem.Controls.Clear();
             int y = 0;
 
-            foreach (var thuoc in ds)
+            foreach (var hangHoa in dsHangHoa)
             {
                 var uc = new UC_ItemThuoc();
-                uc.SetData(thuoc.Ten, thuoc.Ma, thuoc.Gia, thuoc.hinhanhhh, thuoc.SoLuongTon);
+                uc.SetData(hangHoa);
                 uc.Location = new Point(0, y);
                 uc.Dock = DockStyle.Top;
                 y += uc.Height + 10;
@@ -139,7 +139,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                 uc.Click += (s, e) =>
                 {
                     // Khi người dùng click vào một hàng hóa trong kết quả tìm kiếm
-                    model.ClassHangHoa thongtin = model.ClassHangHoa.LayThongTinMotHangHoa(thuoc.Ma);
+                    model.ClassHangHoa thongtin = model.ClassHangHoa.LayThongTinMotHangHoa(hangHoa.MaHangHoa);
                     ThemHangVaoTabHienTai(thongtin);
                     panelKetQuaTimKiem.Visible = false; // Ẩn panel kết quả tìm kiếm sau khi chọn
                     textBoxTimHH.Text = ""; // Xóa nội dung ô tìm kiếm

@@ -37,7 +37,7 @@ namespace QL_Nha_thuoc.model
         {
             List<ClassChiTietPhieuNhap> danhSach = new List<ClassChiTietPhieuNhap>();
             CSDL csdl = new CSDL();
-            using (SqlConnection conn = csdl.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
                 string query = @"

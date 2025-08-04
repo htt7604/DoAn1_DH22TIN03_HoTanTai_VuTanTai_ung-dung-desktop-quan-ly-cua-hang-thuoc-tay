@@ -1,6 +1,6 @@
-﻿namespace QL_Nha_thuoc.DoiTac
+﻿namespace QL_Nha_thuoc.DangNhap
 {
-    partial class FormBacSi
+    partial class FormTaoTaiKhoan
     {
         /// <summary>
         /// Required designer variable.
@@ -30,14 +30,13 @@
         {
             SuspendLayout();
             // 
-            // FormBacSi
+            // FormTaoTaiKhoan
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1382, 652);
-            FormBorderStyle = FormBorderStyle.None;
-            Name = "FormBacSi";
-            Text = "FormBacSi";
+            ClientSize = new Size(682, 385);
+            Name = "FormTaoTaiKhoan";
+            Text = "FormTaoTaiKhoan";
             ResumeLayout(false);
         }
 

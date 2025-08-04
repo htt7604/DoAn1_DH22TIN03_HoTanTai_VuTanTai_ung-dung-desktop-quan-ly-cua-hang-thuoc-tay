@@ -48,7 +48,7 @@ namespace QL_Nha_thuoc.HangHoa
         {
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT MA_DON_VI_TINH,TEN_DON_VI_TINH FROM DON_VI_TINH";
@@ -60,7 +60,7 @@ namespace QL_Nha_thuoc.HangHoa
                         comboBoxDonViTinh.DataSource = table;
                         comboBoxDonViTinh.DisplayMember = "TEN_DON_VI_TINH";
                         comboBoxDonViTinh.ValueMember = "MA_DON_VI_TINH";
-                        comboBoxDonViTinh.SelectedIndex = -1;
+
                     }
                 }
             }
@@ -74,7 +74,7 @@ namespace QL_Nha_thuoc.HangHoa
         {
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT TEN_LOAI_HH, MA_LOAI_HH FROM LOAI_HANG";
@@ -86,7 +86,7 @@ namespace QL_Nha_thuoc.HangHoa
                         comboBoxLoaiHang.DataSource = table;
                         comboBoxLoaiHang.DisplayMember = "TEN_LOAI_HH";
                         comboBoxLoaiHang.ValueMember = "MA_LOAI_HH";
-                        comboBoxLoaiHang.SelectedValue = 'T';
+
                     }
                 }
             }
@@ -103,7 +103,7 @@ namespace QL_Nha_thuoc.HangHoa
             {
                 string maLoai = selectedRow["MA_LOAI_HH"].ToString();
 
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = @"SELECT MA_NHOM_HH, TEN_NHOM 
@@ -119,7 +119,6 @@ namespace QL_Nha_thuoc.HangHoa
                             comboBoxNhomHang.DataSource = dt;
                             comboBoxNhomHang.DisplayMember = "TEN_NHOM";
                             comboBoxNhomHang.ValueMember = "MA_NHOM_HH";
-                            comboBoxNhomHang.SelectedIndex = -1;
                         }
                     }
                 }
@@ -131,7 +130,7 @@ namespace QL_Nha_thuoc.HangHoa
         {
             try
             {
-                using (SqlConnection conn = new CSDL().GetConnection())
+                using (SqlConnection conn = CSDL.GetConnection())
                 {
                     conn.Open();
                     string query = "SELECT MA_HANG_SX, TEN_HANG_SX FROM HANG_SAN_XUAT";
@@ -143,7 +142,7 @@ namespace QL_Nha_thuoc.HangHoa
                         comboBoxHangSanXuat.DataSource = table;
                         comboBoxHangSanXuat.DisplayMember = "TEN_HANG_SX";
                         comboBoxHangSanXuat.ValueMember = "MA_HANG_SX";
-                        comboBoxHangSanXuat.SelectedIndex = -1;
+
                     }
                 }
             }
@@ -161,18 +160,42 @@ namespace QL_Nha_thuoc.HangHoa
             }
             LoadDataToComboBoxNhomHanghoa();
         }
+        private void LoadComboBoxDuongDung()
+        {
+            DataTable dt = ClassDuongDungThuoc.LayDanhSachDuongDung();
+            ComboBoxHelper.EnableComboBoxFiltering(comboBoxDuongDung, dt, "TEN_DUONG_DUNG", "MA_DUONG_DUNG");
+
+            comboBoxDuongDung.DataSource = dt;
+            comboBoxDuongDung.DisplayMember = "TEN_DUONG_DUNG";
+            comboBoxDuongDung.ValueMember = "MA_DUONG_DUNG";
+
+            // Đừng đặt SelectedIndex = -1 ở đây nữa.
+        }
+
         private void FormThemThuoc_Load(object sender, EventArgs e)
         {
             LoadDataToComboBoxLoaiHanghoa();
             LoadComboBoxDonViTinh();
             LoadComboBoxHangSanXuat();
+            LoadComboBoxDuongDung();
             textBoxMaHH.Text = ClassHangHoa.TaoMaHangHoaTuDong(); // Tạo mã hàng hóa tự động khi mở form
-            textBoxGiaBan.Text= "0"; // Mặc định giá bán là 0
+            textBoxGiaBan.Text = "0"; // Mặc định giá bán là 0
             textBoxGiaVon.Text = "0"; // Mặc định giá vốn là 0
+            comboBoxDuongDung.SelectedIndex = -1; // Đặt giá trị mặc định cho đường dùng là không chọn gì
+            comboBoxHangSanXuat.SelectedIndex = -1;
+            comboBoxDonViTinh.SelectedIndex = -1; // Đặt giá trị mặc định cho đơn vị tính là không chọn gì
+            comboBoxNhomHang.SelectedIndex = -1; // Đặt giá trị mặc định cho nhóm hàng là không chọn gì
+            comboBoxLoaiHang.SelectedValue = 'T';
+            comboBoxDonViTinh.SelectedIndex = -1;
         }
 
         [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public string MaHangSXThem { get; set; }
+
+
+
+        // Xử lý sự kiện khi người dùng nhập vào TextBox tên thuốc
+        public string _TenVietTat;
         private void textBoxTenThuoc_TextChanged(object sender, EventArgs e)
         {
 
@@ -204,8 +227,8 @@ namespace QL_Nha_thuoc.HangHoa
                     textBoxQuyCachDongGoi.Text = selectedThuoc.QuyCachDongGoi;
                     comboBoxHangSanXuat.SelectedValue = selectedThuoc.MaHangSanXuat;
                     comboBoxDonViTinh.SelectedValue = selectedThuoc.MaDonViTinh;
-                    MaHangSXThem = selectedThuoc.MaHangSanXuat; // Lưu mã nhà sản xuất để sử dụng sau này
-
+                    MaHangSXThem = selectedThuoc.MaHangSanXuat;
+                    _TenVietTat = selectedThuoc.TenVietTat; // Lưu tên viết tắt nếu cần
 
 
                     flowLayoutPanelListThuoc.Visible = false; // Ẩn danh sách sau khi chọn
@@ -254,63 +277,69 @@ namespace QL_Nha_thuoc.HangHoa
             }
 
             // 3. Tạo thuốc mới
-            string mahh = ClassHangHoa.TaoMaHangHoaTuDong(); // Tạo mã hàng hóa tự động
-            ClassHangHoa thuoc = new ClassHangHoa
+            string mahh = ClassThuoc.TaoMaHangHoaTuDong(); // Tạo mã hàng hóa tự động
+            ClassThuoc thuoc = new ClassThuoc
             {
                 MaHangHoa = mahh,
-                MaThuoc = textBoxMaThuoc.Text.Trim(),
-                TenHangHoa = textBoxTenThuoc.Text.Trim(),
+                MaThuoc = textBoxMaThuoc.Text.Trim(),              
+                TenThuoc = textBoxTenThuoc.Text.Trim(), // sẽ dùng làm TEN_HANG_HOA
+                TenVietTat = _TenVietTat, // Lưu tên viết tắt nếu cần
+                HinhAnh = _duongDanAnh,
                 SoDangKy = textBoxSoDangKy.Text.Trim(),
                 HoatChatChinh = textBoxHoatChat.Text.Trim(),
                 HamLuong = textBoxHamLuong.Text.Trim(),
                 QuyCachDongGoi = textBoxQuyCachDongGoi.Text.Trim(),
-                MaHangSX = MaHangSXThem, // Biến này phải đảm bảo đã gán từ comboBoxHangSanXuat
-                MaDonViTinh = comboBoxDonViTinh.SelectedValue.ToString(),
+                MaDuongDung = comboBoxDuongDung.SelectedValue.ToString(), // Giả sử bạn có combobox này
+                MaHangSanXuat = MaHangSXThem,
                 MaNhomHang = comboBoxNhomHang.SelectedValue.ToString(),
-                TinhTrang = "Đang kinh doanh", // Mặc định là còn hàng
                 GiaBan = giaBan,
-                GiaVon = giaVon
+                GiaVon = giaVon,
+                GhiChu = textBoxGhiChu.Text.Trim(),
+                MaVach = textBoxMaVach.Text.Trim(),
+                TinhTrang= "Đang kinh doanh", // Mặc định là còn hàng
+                MaDonViTinh=comboBoxDonViTinh.SelectedValue.ToString()
             };
 
             // 4. Gọi hàm thêm thuốc vào CSDL
-            bool kq = ClassHangHoa.ThemThuocMoi(thuoc);
+            bool kq = ClassThuoc.ThemThuocMoi(thuoc);
 
             // 5. Thông báo kết quả
             if (kq)
             {
-                //tao ma phieu kiem kho moi 
+                // Tạo mã phiếu kiểm kho mới và thêm vào CSDL
                 string makiemkho = ClassPhieuKiemKho.SinhMaPhieuMoi();
-                //them phieu kiem kho
+
                 ClassPhieuKiemKho phieuKiemKho = new ClassPhieuKiemKho
                 {
                     MaPhieuKiemKho = makiemkho,
                     NgayKiemKho = DateTime.Now,
-                    MaNhanVien = Session.TaiKhoanDangNhap.MaNhanVien, // Cần thay đổi theo mã nhân viên thực tế
-                    GhiChu = "Cập nhật tồn kho hàng hóa",
+                    MaNhanVien = Session.TaiKhoanDangNhap.MaNhanVien,
+                    GhiChu = "Cập nhật tồn kho hàng hóa khi thêm hàng hóa",
                     TrangThaiPhieuKiem = "Đã cân bằng kho"
                 };
                 ClassPhieuKiemKho.ThemPhieuKiemKho(phieuKiemKho);
-                //tao chi tiet phieu kiem kho
+
                 ClassChiTietPhieuKiemKho chiTietPhieuKiemKho = new ClassChiTietPhieuKiemKho
                 {
                     MaPhieuKiemKho = makiemkho,
-                    MaHangHoa = textBoxMaHH.Text,
-                    TenHangHoa = labeltieude.Text,
+                    MaHangHoa = mahh,
+                    TenHangHoa = thuoc.TenThuoc,
                     SoLuongHeThong = 0,
                     SoLuongThucTe = 0,
-
                 };
                 ClassChiTietPhieuKiemKho.ThemChiTietPhieuKiemKho(chiTietPhieuKiemKho);
+
                 MessageBox.Show("Tạo phiếu kiểm kho với mã: " + makiemkho, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show("Thêm thuốc thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close(); // Đóng form
-
+                this.Close();
             }
+
             else
             {
                 MessageBox.Show("Không thể thêm thuốc. Vui lòng kiểm tra lại thông tin.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
 
 
         private void buttonXoaTT_Click(object sender, EventArgs e)
@@ -347,5 +376,65 @@ namespace QL_Nha_thuoc.HangHoa
             this.Close();
 
         }
+        private string _duongDanAnh = null;
+
+        private void buttonThemAnh_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+
+                try
+                {
+                    // Giải phóng ảnh cũ nếu có
+                    if (pictureBoxHangHoa.Image != null)
+                    {
+                        pictureBoxHangHoa.Image.Dispose();
+                        pictureBoxHangHoa.Image = null;
+                    }
+
+                    // Load ảnh an toàn bằng MemoryStream
+                    using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                    {
+                        byte[] imageData = new byte[fs.Length];
+                        fs.Read(imageData, 0, imageData.Length);
+
+                        using (MemoryStream ms = new MemoryStream(imageData))
+                        {
+                            pictureBoxHangHoa.Image = Image.FromStream(ms);
+                        }
+                    }
+
+                    _duongDanAnh = filePath; // Lưu đường dẫn ảnh
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Không thể tải ảnh. Lỗi: " + ex.Message, "Lỗi ảnh", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void buttonThemDuongDung_Click(object sender, EventArgs e)
+        {
+            FormThemDuongDung formThemDuongDung = new FormThemDuongDung();
+
+            if (formThemDuongDung.ShowDialog() == DialogResult.OK)
+            {
+                string maMoi = formThemDuongDung.MaDuongDungMoi;
+
+                LoadComboBoxDuongDung();
+
+                if (!string.IsNullOrEmpty(maMoi))
+                {
+                    comboBoxDuongDung.SelectedValue = maMoi;
+                }
+            }
+        }
+
+
+
     }
 }

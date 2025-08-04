@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             groupBox2 = new GroupBox();
             checkBox3 = new CheckBox();
-            checkBox2 = new CheckBox();
-            checkBox1 = new CheckBox();
+            checkBoxDaCanBang = new CheckBox();
+            checkBoxPhieuTam = new CheckBox();
             groupBox1 = new GroupBox();
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
@@ -48,6 +48,9 @@
             textBoxTimNV = new TextBox();
             panel1 = new Panel();
             panel2 = new Panel();
+            buttonGopPhieu = new Button();
+            buttonX = new Button();
+            labelSoX = new Label();
             buttonTimKiem = new Button();
             comboBoxLoaiTimKiem = new ComboBox();
             panel5 = new Panel();
@@ -70,8 +73,8 @@
             // 
             groupBox2.BackColor = SystemColors.ButtonHighlight;
             groupBox2.Controls.Add(checkBox3);
-            groupBox2.Controls.Add(checkBox2);
-            groupBox2.Controls.Add(checkBox1);
+            groupBox2.Controls.Add(checkBoxDaCanBang);
+            groupBox2.Controls.Add(checkBoxPhieuTam);
             groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             groupBox2.Location = new Point(3, 271);
             groupBox2.Name = "groupBox2";
@@ -91,27 +94,28 @@
             checkBox3.Text = "Đã hủy";
             checkBox3.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // checkBoxDaCanBang
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Font = new Font("Segoe UI", 9F);
-            checkBox2.Location = new Point(11, 56);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(143, 24);
-            checkBox2.TabIndex = 1;
-            checkBox2.Text = "Đã cân bằng kho";
-            checkBox2.UseVisualStyleBackColor = true;
+            checkBoxDaCanBang.AutoSize = true;
+            checkBoxDaCanBang.Font = new Font("Segoe UI", 9F);
+            checkBoxDaCanBang.Location = new Point(11, 56);
+            checkBoxDaCanBang.Name = "checkBoxDaCanBang";
+            checkBoxDaCanBang.Size = new Size(143, 24);
+            checkBoxDaCanBang.TabIndex = 1;
+            checkBoxDaCanBang.Text = "Đã cân bằng kho";
+            checkBoxDaCanBang.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // checkBoxPhieuTam
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Font = new Font("Segoe UI", 9F);
-            checkBox1.Location = new Point(11, 26);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(97, 24);
-            checkBox1.TabIndex = 0;
-            checkBox1.Text = "Phiếu tạm";
-            checkBox1.UseVisualStyleBackColor = true;
+            checkBoxPhieuTam.AutoSize = true;
+            checkBoxPhieuTam.Font = new Font("Segoe UI", 9F);
+            checkBoxPhieuTam.Location = new Point(11, 26);
+            checkBoxPhieuTam.Name = "checkBoxPhieuTam";
+            checkBoxPhieuTam.Size = new Size(97, 24);
+            checkBoxPhieuTam.TabIndex = 0;
+            checkBoxPhieuTam.Text = "Phiếu tạm";
+            checkBoxPhieuTam.UseVisualStyleBackColor = true;
+            checkBoxPhieuTam.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // groupBox1
             // 
@@ -152,8 +156,9 @@
             // 
             // buttonThemKiemKho
             // 
+            buttonThemKiemKho.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonThemKiemKho.BackColor = Color.LimeGreen;
-            buttonThemKiemKho.Location = new Point(787, 10);
+            buttonThemKiemKho.Location = new Point(989, 9);
             buttonThemKiemKho.Name = "buttonThemKiemKho";
             buttonThemKiemKho.Size = new Size(130, 40);
             buttonThemKiemKho.TabIndex = 0;
@@ -208,34 +213,35 @@
             dataGridViewdsPhieuKiemKho.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewdsPhieuKiemKho.BackgroundColor = SystemColors.Window;
             dataGridViewdsPhieuKiemKho.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridViewdsPhieuKiemKho.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridViewdsPhieuKiemKho.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewdsPhieuKiemKho.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dataGridViewdsPhieuKiemKho.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 11F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dataGridViewdsPhieuKiemKho.DefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewdsPhieuKiemKho.Dock = DockStyle.Fill;
             dataGridViewdsPhieuKiemKho.Location = new Point(251, 57);
             dataGridViewdsPhieuKiemKho.MultiSelect = false;
             dataGridViewdsPhieuKiemKho.Name = "dataGridViewdsPhieuKiemKho";
-            dataGridViewdsPhieuKiemKho.ReadOnly = true;
             dataGridViewdsPhieuKiemKho.RowHeadersVisible = false;
             dataGridViewdsPhieuKiemKho.RowHeadersWidth = 51;
             dataGridViewdsPhieuKiemKho.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewdsPhieuKiemKho.Size = new Size(1131, 595);
             dataGridViewdsPhieuKiemKho.TabIndex = 38;
             dataGridViewdsPhieuKiemKho.CellDoubleClick += dataGridViewdsPhieuKiemKho_CellDoubleClick;
+            dataGridViewdsPhieuKiemKho.CellValueChanged += dataGridViewdsPhieuKiemKho_CellValueChanged;
+            dataGridViewdsPhieuKiemKho.CurrentCellDirtyStateChanged += dataGridViewdsPhieuKiemKho_CurrentCellDirtyStateChanged;
             // 
             // panel4
             // 
@@ -282,6 +288,9 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(buttonGopPhieu);
+            panel2.Controls.Add(buttonX);
+            panel2.Controls.Add(labelSoX);
             panel2.Controls.Add(buttonTimKiem);
             panel2.Controls.Add(buttonThemKiemKho);
             panel2.Controls.Add(comboBoxLoaiTimKiem);
@@ -292,9 +301,49 @@
             panel2.Size = new Size(1131, 57);
             panel2.TabIndex = 6;
             // 
+            // buttonGopPhieu
+            // 
+            buttonGopPhieu.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonGopPhieu.BackColor = Color.LimeGreen;
+            buttonGopPhieu.Location = new Point(853, 9);
+            buttonGopPhieu.Name = "buttonGopPhieu";
+            buttonGopPhieu.Size = new Size(130, 40);
+            buttonGopPhieu.TabIndex = 53;
+            buttonGopPhieu.Text = "Gộp phiếu";
+            buttonGopPhieu.UseVisualStyleBackColor = false;
+            buttonGopPhieu.Click += buttonGopPhieu_Click;
+            // 
+            // buttonX
+            // 
+            buttonX.BackColor = SystemColors.Control;
+            buttonX.FlatAppearance.BorderColor = SystemColors.Control;
+            buttonX.FlatAppearance.BorderSize = 0;
+            buttonX.ForeColor = SystemColors.ControlText;
+            buttonX.Location = new Point(806, 15);
+            buttonX.Name = "buttonX";
+            buttonX.Size = new Size(41, 29);
+            buttonX.TabIndex = 52;
+            buttonX.TabStop = false;
+            buttonX.Text = "X";
+            buttonX.UseVisualStyleBackColor = false;
+            buttonX.Visible = false;
+            buttonX.Click += buttonX_Click;
+            // 
+            // labelSoX
+            // 
+            labelSoX.AutoSize = true;
+            labelSoX.Location = new Point(616, 19);
+            labelSoX.Name = "labelSoX";
+            labelSoX.RightToLeft = RightToLeft.No;
+            labelSoX.Size = new Size(50, 20);
+            labelSoX.TabIndex = 51;
+            labelSoX.Text = "label1";
+            labelSoX.TextAlign = ContentAlignment.MiddleCenter;
+            labelSoX.Visible = false;
+            // 
             // buttonTimKiem
             // 
-            buttonTimKiem.Location = new Point(547, 16);
+            buttonTimKiem.Location = new Point(516, 15);
             buttonTimKiem.Name = "buttonTimKiem";
             buttonTimKiem.Size = new Size(94, 29);
             buttonTimKiem.TabIndex = 4;
@@ -306,7 +355,7 @@
             // 
             comboBoxLoaiTimKiem.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxLoaiTimKiem.FormattingEnabled = true;
-            comboBoxLoaiTimKiem.Location = new Point(371, 16);
+            comboBoxLoaiTimKiem.Location = new Point(359, 16);
             comboBoxLoaiTimKiem.Name = "comboBoxLoaiTimKiem";
             comboBoxLoaiTimKiem.Size = new Size(151, 28);
             comboBoxLoaiTimKiem.TabIndex = 3;
@@ -356,6 +405,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "KiemKho";
             Text = "KiemKho";
+            Load += KiemKho_Load;
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             groupBox1.ResumeLayout(false);
@@ -370,6 +420,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
@@ -384,8 +435,8 @@
         private Label label1;
         private GroupBox groupBox2;
         private CheckBox checkBox3;
-        private CheckBox checkBox2;
-        private CheckBox checkBox1;
+        private CheckBox checkBoxDaCanBang;
+        private CheckBox checkBoxPhieuTam;
         private Panel panel3;
         private GroupBox groupBox3;
         private TextBox textBox1;
@@ -400,5 +451,8 @@
         private Panel panel5;
         private PictureBox pictureBox2;
         private TextBox textBoxTimPhieuKiem;
+        private Button buttonX;
+        private Label labelSoX;
+        private Button buttonGopPhieu;
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Microsoft.Data.SqlClient;
 using QL_Nha_thuoc.model;
+using QuestPDF.Fluent;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,6 +18,8 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
     {
         private string maPhieuKiem;
 
+        //khai bao su kien form dong 
+        public event Action FormDong;
         public FormChiTietKiemKho(string maPhieuKiem)
         {
             InitializeComponent();
@@ -25,7 +29,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
         private void LoadChiTietPhieuKiemKho()
         {
             // Load dữ liệu phiếu kiểm
-            var thongTinPhieu = PhieuKiemKho.LayPhieuKiemKho(maPhieuKiem);
+            var thongTinPhieu = ClassPhieuKiemKho.LayPhieuKiemKho(maPhieuKiem);
 
             if (thongTinPhieu != null)
             {
@@ -117,7 +121,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                 return;
             }
 
-            using (SqlConnection conn = DBHelperPK.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 try
                 {
@@ -171,19 +175,21 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                     MessageBox.Show("Không thể hủy bỏ phiếu kiểm kho.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 //xoa phieu kiem kho
-                bool xoaPhieuKiemKho = PhieuKiemKho.XoaPhieuKiemKho(maPhieuKiem);
+                bool xoaPhieuKiemKho = ClassPhieuKiemKho.XoaPhieuKiemKho(maPhieuKiem);
                 if (xoaPhieuKiemKho)
                 {
                     MessageBox.Show("Phiếu kiểm kho đã được xóa thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadChiTietPhieuKiemKho();
+                    // Gọi sự kiện FormDong 
+                    FormDong?.Invoke();
                     this.Close(); // Đóng form
                 }
                 else
                 {
                     MessageBox.Show("Không thể xóa phiếu kiểm kho.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
-                
+
+
             }
             else
             {
@@ -191,8 +197,52 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             }
         }
 
+        private void FormChiTietKiemKho_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // Gọi sự kiện FormDong 
+            FormDong?.Invoke();
+        }
 
+        private void buttonIn_Click(object sender, EventArgs e)
+        {
+            var phieu = ClassPhieuKiemKho.LayPhieuKiemKho(textBoxMaKiemKho.Text);
+            if (phieu == null)
+            {
+                MessageBox.Show("Không tìm thấy phiếu kiểm kho.");
+                return;
+            }
+
+            var chiTiet = ClassChiTietPhieuKiemKho.LayDanhSachChiTietPhieuKiemKho(phieu.MaPhieuKiemKho);
+            if (chiTiet == null || chiTiet.Count == 0)
+            {
+                MessageBox.Show("Phiếu không có chi tiết.");
+                return;
+            }
+
+            var doc = new PhieuKiemKhoDocument(phieu, chiTiet);
+
+            // 1. Mở xem trước (tùy chọn)
+            // doc.ShowInPreviewer();
+
+            // 2. Xuất PDF ra Desktop
+            string fileName = $"PhieuKiemKho_{phieu.MaPhieuKiemKho}.pdf";
+            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
+            try
+            {
+                doc.GeneratePdf(filePath);
+                Process.Start("explorer", filePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tạo PDF: " + ex.Message);
+            }
+
+
+            // 3. Mở file
+            Process.Start("explorer", filePath);
+        }
 
 
     }
 }
+

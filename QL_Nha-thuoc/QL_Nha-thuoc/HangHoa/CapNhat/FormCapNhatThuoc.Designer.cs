@@ -38,7 +38,6 @@
             label12 = new Label();
             textBoxHoatChat = new TextBox();
             label11 = new Label();
-            textBoxDuongDung = new TextBox();
             label10 = new Label();
             dateTimePickerNgayHetHan = new DateTimePicker();
             textBoxGhiChu = new TextBox();
@@ -73,12 +72,10 @@
             comboBoxDonViTinh = new ComboBox();
             label17 = new Label();
             buttonChonAnh = new Button();
-            textBoxTiLeLoiNhuan = new TextBox();
-            label18 = new Label();
-            label19 = new Label();
             buttonThemNhomHang = new Button();
             label20 = new Label();
             textBoxTonKho = new TextBox();
+            comboBoxDuongDung = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHangHoa).BeginInit();
             SuspendLayout();
             // 
@@ -100,7 +97,7 @@
             // 
             // textBoxTrongLuong
             // 
-            textBoxTrongLuong.Location = new Point(501, 562);
+            textBoxTrongLuong.Location = new Point(501, 515);
             textBoxTrongLuong.Name = "textBoxTrongLuong";
             textBoxTrongLuong.Size = new Size(200, 27);
             textBoxTrongLuong.TabIndex = 115;
@@ -108,7 +105,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(396, 565);
+            label14.Location = new Point(395, 522);
             label14.Name = "label14";
             label14.Size = new Size(92, 20);
             label14.TabIndex = 114;
@@ -163,17 +160,10 @@
             label11.TabIndex = 108;
             label11.Text = "Hoat chat:";
             // 
-            // textBoxDuongDung
-            // 
-            textBoxDuongDung.Location = new Point(501, 610);
-            textBoxDuongDung.Name = "textBoxDuongDung";
-            textBoxDuongDung.Size = new Size(200, 27);
-            textBoxDuongDung.TabIndex = 106;
-            // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(396, 613);
+            label10.Location = new Point(395, 572);
             label10.Name = "label10";
             label10.Size = new Size(99, 20);
             label10.TabIndex = 105;
@@ -265,7 +255,7 @@
             // 
             // textBoxGiaBan
             // 
-            textBoxGiaBan.Location = new Point(501, 515);
+            textBoxGiaBan.Location = new Point(501, 468);
             textBoxGiaBan.Name = "textBoxGiaBan";
             textBoxGiaBan.Size = new Size(200, 27);
             textBoxGiaBan.TabIndex = 90;
@@ -273,7 +263,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(395, 518);
+            label3.Location = new Point(399, 475);
             label3.Name = "label3";
             label3.Size = new Size(63, 20);
             label3.TabIndex = 89;
@@ -347,7 +337,7 @@
             // labelDonViTinh
             // 
             labelDonViTinh.AutoSize = true;
-            labelDonViTinh.Location = new Point(357, 665);
+            labelDonViTinh.Location = new Point(364, 621);
             labelDonViTinh.Name = "labelDonViTinh";
             labelDonViTinh.Size = new Size(123, 20);
             labelDonViTinh.TabIndex = 79;
@@ -355,7 +345,7 @@
             // 
             // textBoxSoDangKy
             // 
-            textBoxSoDangKy.Location = new Point(501, 658);
+            textBoxSoDangKy.Location = new Point(501, 614);
             textBoxSoDangKy.Name = "textBoxSoDangKy";
             textBoxSoDangKy.Size = new Size(200, 27);
             textBoxSoDangKy.TabIndex = 80;
@@ -462,32 +452,6 @@
             buttonChonAnh.Text = "Chon anh";
             buttonChonAnh.Click += buttonChonAnh_Click;
             // 
-            // textBoxTiLeLoiNhuan
-            // 
-            textBoxTiLeLoiNhuan.Location = new Point(501, 468);
-            textBoxTiLeLoiNhuan.Name = "textBoxTiLeLoiNhuan";
-            textBoxTiLeLoiNhuan.ReadOnly = true;
-            textBoxTiLeLoiNhuan.Size = new Size(200, 27);
-            textBoxTiLeLoiNhuan.TabIndex = 128;
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.Location = new Point(390, 475);
-            label18.Name = "label18";
-            label18.Size = new Size(105, 20);
-            label18.TabIndex = 129;
-            label18.Text = "Ti le loi nhuan:";
-            // 
-            // label19
-            // 
-            label19.AutoSize = true;
-            label19.Location = new Point(707, 475);
-            label19.Name = "label19";
-            label19.Size = new Size(21, 20);
-            label19.TabIndex = 130;
-            label19.Text = "%";
-            // 
             // buttonThemNhomHang
             // 
             buttonThemNhomHang.AutoSize = true;
@@ -515,17 +479,23 @@
             textBoxTonKho.Size = new Size(200, 27);
             textBoxTonKho.TabIndex = 132;
             // 
+            // comboBoxDuongDung
+            // 
+            comboBoxDuongDung.FormattingEnabled = true;
+            comboBoxDuongDung.Location = new Point(501, 564);
+            comboBoxDuongDung.Name = "comboBoxDuongDung";
+            comboBoxDuongDung.Size = new Size(200, 28);
+            comboBoxDuongDung.TabIndex = 134;
+            // 
             // FormCapNhatThuoc
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1373, 777);
+            Controls.Add(comboBoxDuongDung);
             Controls.Add(label20);
             Controls.Add(textBoxTonKho);
             Controls.Add(buttonThemNhomHang);
-            Controls.Add(label19);
-            Controls.Add(label18);
-            Controls.Add(textBoxTiLeLoiNhuan);
             Controls.Add(buttonChonAnh);
             Controls.Add(comboBoxDonViTinh);
             Controls.Add(label17);
@@ -545,7 +515,6 @@
             Controls.Add(label12);
             Controls.Add(textBoxHoatChat);
             Controls.Add(label11);
-            Controls.Add(textBoxDuongDung);
             Controls.Add(label10);
             Controls.Add(dateTimePickerNgayHetHan);
             Controls.Add(textBoxGhiChu);
@@ -591,7 +560,6 @@
         private Label label12;
         private TextBox textBoxHoatChat;
         private Label label11;
-        private TextBox textBoxDuongDung;
         private Label label10;
         private DateTimePicker dateTimePickerNgayHetHan;
         private TextBox textBoxGhiChu;
@@ -626,11 +594,9 @@
         private ComboBox comboBoxDonViTinh;
         private Label label17;
         private Button buttonChonAnh;
-        private TextBox textBoxTiLeLoiNhuan;
-        private Label label18;
-        private Label label19;
         private Button buttonThemNhomHang;
         private Label label20;
         private TextBox textBoxTonKho;
+        private ComboBox comboBoxDuongDung;
     }
 }

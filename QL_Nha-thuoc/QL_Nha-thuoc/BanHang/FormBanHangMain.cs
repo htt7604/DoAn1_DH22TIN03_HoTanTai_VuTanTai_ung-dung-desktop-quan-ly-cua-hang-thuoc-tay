@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using QL_Nha_thuoc.HangHoa;
+using QL_Nha_thuoc.HangHoa.Them;
 using QL_Nha_thuoc.model;
 using System;
 using System.Collections.Generic;
@@ -21,77 +22,55 @@ namespace QL_Nha_thuoc.BanHang
         {
             InitializeComponent();
         }
-        //tim thuoc
-        List<Thuoc> TimHangHoaTuCSDL(string keyword)
+
+        //load combobox bang gia 
+        private void LoadComBoBoxBangGia()
         {
-            var ketQua = new List<Thuoc>();
+            // Lấy danh sách bảng giá đang áp dụng
+            List<ClassBangGia> classBangGias = ClassBangGia.LayTatCaBangGiaDangApDUng();
 
-            CSDL cSDL = new CSDL();
-            string connectionString = cSDL.GetConnection().ConnectionString;
+            // Gán vào ComboBox
+            comboBoxBangGia.DataSource = classBangGias;
+            comboBoxBangGia.DisplayMember = "TEN_BANG_GIA";  // Tên hiển thị
+            comboBoxBangGia.ValueMember = "MA_BANG_GIA";      // Giá trị thực sự
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            // Nếu có ít nhất 1 bảng giá, chọn mặc định dòng đầu tiên
+            if (classBangGias.Count > 0)
             {
-                conn.Open();
-                string query = @"
-            SELECT 
-                HH.MA_HANG_HOA, 
-                HH.TEN_HANG_HOA, 
-                GBHH.GIA_BAN_HH, 
-                HH.HINH_ANH_HH,
-                HH.TON_KHO
-            FROM 
-                HANG_HOA HH
-            JOIN 
-                GIA_HANG_HOA GBHH 
-            ON 
-                HH.MA_HANG_HOA = GBHH.MA_HANG_HOA
-            WHERE 
-                TEN_HANG_HOA LIKE @keyword";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var t = new Thuoc
-                            {
-                                Ma = reader["MA_HANG_HOA"].ToString(),
-                                Ten = reader["TEN_HANG_HOA"].ToString(),
-                                Gia = Convert.ToUInt32(reader["GIA_BAN_HH"]),
-                                hinhanhhh = reader["HINH_ANH_HH"].ToString(),
-                                SoLuongTon = Convert.ToInt32(reader["TON_KHO"])
-                            };
-
-                            ketQua.Add(t);
-                        }
-                    }
-                }
+                comboBoxBangGia.SelectedIndex = 0;
             }
+            else
+            {
+                comboBoxBangGia.Text = "Không có bảng giá";
+            }
+        }
 
-            return ketQua;
+
+
+        private void FormBanHangMain_Load(object sender, EventArgs e)
+        {
+            //load labeltentaiKhoan
+            labelTenTaiKhoan.Text = Session.TaiKhoanDangNhap.TenTaiKhoan;
+
+            if (tabControlHoaDon.TabPages.Count == 0)
+                return;
+
+            TabPage currentTab = tabControlHoaDon.TabPages[0];
+            currentTab.Controls.Clear();
+
+            var userControlHoaDon = new UserControlFormHoaDon
+            {
+                Dock = DockStyle.Fill
+            };
+
+            userControlHoaDon.LoadTaiKhoan();
+            currentTab.Controls.Add(userControlHoaDon);
         }
 
 
 
 
-        private void ThemHangVaoTabHienTai(string ten, string mah, float giaBan)
-        {
-            if (tabControlHoaDon.TabPages.Count > 0)
-            {
-                var currentTab = tabControlHoaDon.SelectedTab;
-
-                // Tìm UserControlFormHoaDon trong TabPage hiện tại
-                var ucFormHoaDon = currentTab.Controls.OfType<UserControlFormHoaDon>().FirstOrDefault();
-
-                if (ucFormHoaDon != null)
-                {
-                    ucFormHoaDon.ThemHang(ten, mah, giaBan); // Gọi tới hàm đã định nghĩa trong UC
-                }
-            }
-        }
+        //them tab hoa don moi
         private void ThemTabHoaDonMoi()
         {
             var newTab = new TabPage("Hóa đơn " + (tabControlHoaDon.TabCount + 1));
@@ -102,67 +81,17 @@ namespace QL_Nha_thuoc.BanHang
             tabControlHoaDon.TabPages.Add(newTab);
             tabControlHoaDon.SelectedTab = newTab;
         }
-
-
-
-
-        private void textBoxTimHH_TextChanged_1(object sender, EventArgs e)
-        {
-            panelKetQuaTimKiem.BringToFront();
-            panelKetQuaTimKiem.Visible = true;
-
-            string keyword = textBoxTimHH.Text.Trim();
-            if (string.IsNullOrWhiteSpace(keyword))
-            {
-                panelKetQuaTimKiem.Visible = false;
-                return;
-            }
-
-            var danhSachThuoc = TimHangHoaTuCSDL(keyword);
-            panelKetQuaTimKiem.Controls.Clear();
-
-            foreach (var thuoc in danhSachThuoc)
-            {
-                UC_ItemThuoc item = new UC_ItemThuoc();
-                item.SetData(thuoc.Ten, thuoc.Ma, thuoc.Gia, thuoc.hinhanhhh, thuoc.SoLuongTon);
-                item.Dock = DockStyle.Top;
-
-                item.Click += (s, ev) =>
-                {
-                    ThemHangVaoTabHienTai(thuoc.Ten, thuoc.Ma, thuoc.Gia);
-                    panelKetQuaTimKiem.Visible = false;
-                    textBoxTimHH.Clear();
-                };
-
-                panelKetQuaTimKiem.Controls.Add(item);
-            }
-        }
-
-
-
-        private void FormBanHangMain_Load(object sender, EventArgs e)
-        {
-            if (tabControlHoaDon.TabPages.Count > 0)
-            {
-                //ham load tai khoan vao 
-
-                var currentTab = tabControlHoaDon.TabPages[0];
-
-                var userControlHoaDon = new UserControlFormHoaDon();
-                userControlHoaDon.LoadTaiKhoan();
-                userControlHoaDon.Dock = DockStyle.Fill;
-
-                currentTab.Controls.Clear();
-                currentTab.Controls.Add(userControlHoaDon);
-                userControlHoaDon.Dock = DockStyle.Fill; // Đảm bảo UserControl chiếm toàn bộ không gian của TabPage
-            }
-        }
-
         private void buttonThemHoaDon_Click(object sender, EventArgs e)
         {
             ThemTabHoaDonMoi();
         }
 
+
+
+
+
+
+        //xoa tab hoa don hien tai
         private void buttonXoaHoaDon_Click(object sender, EventArgs e)
         {
             // Kiểm tra xem có tab nào không
@@ -182,6 +111,81 @@ namespace QL_Nha_thuoc.BanHang
                 }
             }
         }
+
+
+
+
+
+        //su kien sau khi click vao item trong danh sach tinh kiem hang hoa thi them va flowplayourpanel cua userControlFormHoaDon
+        private void ThemHangVaoTabHienTai(ClassHangHoa hangHoa)
+        {
+            if (tabControlHoaDon.TabPages.Count > 0)
+            {
+                var currentTab = tabControlHoaDon.SelectedTab;
+
+                // Tìm UserControlFormHoaDon trong TabPage hiện tại
+                var ucFormHoaDon = currentTab.Controls.OfType<UserControlFormHoaDon>().FirstOrDefault();
+
+                if (ucFormHoaDon != null)
+                {
+                    ucFormHoaDon.ThemHang(hangHoa); // Gọi tới hàm them usecontrolHanghoa va flowplayourpanel đã định nghĩa trong UserControlFormHoaDon
+                }
+            }
+        }
+        //su kien tim kiem hang hoa 
+        private void textBoxTimHH_TextChanged(object sender, EventArgs e)
+        {
+            panelKetQuaTimKiem.BringToFront();
+            panelKetQuaTimKiem.Visible = true;
+
+            string keyword = textBoxTimHH.Text.Trim();
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                panelKetQuaTimKiem.Visible = false;
+                return;
+            }
+
+            var dsHangHoa = ClassHangHoa.TimKiemHangHoaTheoTuKhoa(keyword);
+            panelKetQuaTimKiem.Controls.Clear();
+
+            foreach (var hanghoa in dsHangHoa)
+            {
+                UC_ItemThuoc item = new UC_ItemThuoc();
+                item.SetData(hanghoa);
+                item.Dock = DockStyle.Top;
+
+                //khi người dùng click vào item thi them vao tabpage hiện tại cua tabControlHoaDon hien tai 
+                item.Click += (s, ev) =>
+                {
+                    ThemHangVaoTabHienTai(hanghoa);
+                    panelKetQuaTimKiem.Visible = false;
+                    textBoxTimHH.Clear();
+                };
+
+                panelKetQuaTimKiem.Controls.Add(item);
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void tabControlHoaDon_DrawItem(object sender, DrawItemEventArgs e)
         {
@@ -207,9 +211,28 @@ namespace QL_Nha_thuoc.BanHang
             }
         }
 
-
-
-
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

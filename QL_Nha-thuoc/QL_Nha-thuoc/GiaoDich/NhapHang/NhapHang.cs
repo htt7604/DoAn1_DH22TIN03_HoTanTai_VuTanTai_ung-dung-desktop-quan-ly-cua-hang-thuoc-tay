@@ -29,11 +29,11 @@ namespace QL_Nha_thuoc
 
         private void LoadDanhSachPhieuNhapHang()
         {
-            using (SqlConnection connection = DBHelperPN.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 try
                 {
-                    connection.Open();
+                    conn.Open();
                     string query = @"
                         SELECT PN.MA_PHIEU_NHAP, PN.NGAY_NHAP, 
                                NCC.TEN_NHA_CUNG_CAP, 
@@ -43,7 +43,7 @@ namespace QL_Nha_thuoc
                         JOIN NHA_CUNG_CAP NCC ON PN.MA_NHA_CUNG_CAP = NCC.MA_NHA_CUNG_CAP
                         ORDER BY PN.NGAY_NHAP DESC";
 
-                    SqlCommand cmd = new SqlCommand(query, connection);
+                    SqlCommand cmd = new SqlCommand(query, conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     List<PhieuNhapHang> danhSachPhieu = new List<PhieuNhapHang>();
@@ -105,11 +105,11 @@ namespace QL_Nha_thuoc
             if (string.IsNullOrWhiteSpace(cotTimKiem) || string.IsNullOrWhiteSpace(tuKhoa))
                 return;
 
-            using (SqlConnection connection = DBHelperPN.GetConnection())
+            using (SqlConnection conn = CSDL.GetConnection())
             {
                 try
                 {
-                    connection.Open();
+                    conn.Open();
                     string query = $@"
                         SELECT PN.MA_PHIEU_NHAP, PN.NGAY_NHAP, 
                                NCC.TEN_NHA_CUNG_CAP, 
@@ -120,7 +120,7 @@ namespace QL_Nha_thuoc
                         WHERE {cotTimKiem} LIKE @TuKhoa
                         ORDER BY PN.NGAY_NHAP DESC";
 
-                    SqlCommand cmd = new SqlCommand(query, connection);
+                    SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@TuKhoa", "%" + tuKhoa + "%");
 
                     SqlDataReader reader = cmd.ExecuteReader();

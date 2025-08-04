@@ -44,7 +44,6 @@
             toolStripMenuItem4 = new ToolStripMenuItem();
             kháchHàngToolStripMenuItem = new ToolStripMenuItem();
             nhàCungCấpToolStripMenuItem = new ToolStripMenuItem();
-            bácSĩToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem5 = new ToolStripMenuItem();
             danhSáchNhânViênToolStripMenuItem = new ToolStripMenuItem();
             thiếtLậpNhânViênToolStripMenuItem = new ToolStripMenuItem();
@@ -192,7 +191,7 @@
             // 
             // toolStripMenuItem4
             // 
-            toolStripMenuItem4.DropDownItems.AddRange(new ToolStripItem[] { kháchHàngToolStripMenuItem, nhàCungCấpToolStripMenuItem, bácSĩToolStripMenuItem });
+            toolStripMenuItem4.DropDownItems.AddRange(new ToolStripItem[] { kháchHàngToolStripMenuItem, nhàCungCấpToolStripMenuItem });
             toolStripMenuItem4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             toolStripMenuItem4.ForeColor = SystemColors.ButtonHighlight;
             toolStripMenuItem4.Image = Properties.Resources.user;
@@ -217,14 +216,6 @@
             nhàCungCấpToolStripMenuItem.Size = new Size(228, 32);
             nhàCungCấpToolStripMenuItem.Text = "Nhà cung cấp";
             nhàCungCấpToolStripMenuItem.Click += nhàCungCấpToolStripMenuItem_Click;
-            // 
-            // bácSĩToolStripMenuItem
-            // 
-            bácSĩToolStripMenuItem.BackColor = SystemColors.MenuHighlight;
-            bácSĩToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
-            bácSĩToolStripMenuItem.Name = "bácSĩToolStripMenuItem";
-            bácSĩToolStripMenuItem.Size = new Size(228, 32);
-            bácSĩToolStripMenuItem.Text = "Bác sĩ";
             // 
             // toolStripMenuItem5
             // 
@@ -394,7 +385,6 @@
         private ToolStripMenuItem trảNhậpHàngToolStripMenuItem;
         private ToolStripMenuItem kháchHàngToolStripMenuItem;
         private ToolStripMenuItem nhàCungCấpToolStripMenuItem;
-        private ToolStripMenuItem bácSĩToolStripMenuItem;
         private ToolStripMenuItem danhSáchNhânViênToolStripMenuItem;
         private ToolStripMenuItem thiếtLậpNhânViênToolStripMenuItem;
         private ToolStripMenuItem cuốiNgàyToolStripMenuItem;

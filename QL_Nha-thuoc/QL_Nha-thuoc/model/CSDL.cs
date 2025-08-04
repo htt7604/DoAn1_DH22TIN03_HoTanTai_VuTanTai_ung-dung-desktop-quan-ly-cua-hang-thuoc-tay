@@ -1,32 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
+
 namespace QL_Nha_thuoc.model
 {
-    internal class CSDL
+    public class CSDL
     {
-        public SqlConnection GetConnection() //
+        private static readonly string connectionString = "Data Source=WIN_BYTAI;Initial Catalog=QL_NhaThuoc;Integrated Security=True;Trust Server Certificate=True";
+
+        // Hàm trả về đối tượng SqlConnection
+        public static SqlConnection GetConnection()
         {
-            SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = "Data Source=WIN_BYTAI;Initial Catalog=QL_NhaThuoc;Integrated Security=True;Trust Server Certificate=True";
-            return conn;
+            return new SqlConnection(connectionString);
         }
 
-        internal SqlDataReader GetDataReader(string query) //
+        // Hàm thực thi SELECT và trả về SqlDataReader
+        public static SqlDataReader GetDataReader(string query)
         {
-            throw new NotImplementedException();
-        }
-
-        public SqlDataReader getForCombox(string query) //
-        {
-            // Kết nối SQL và thực thi query
-            SqlConnection conn = new SqlConnection("Chuỗi_kết_nối");
+            SqlConnection conn = GetConnection();
             SqlCommand cmd = new SqlCommand(query, conn);
             conn.Open();
-            return cmd.ExecuteReader(); // Trả về SqlDataReader
+            return cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+        }
+
+        // Hàm dùng cho combobox (SELECT)
+        public static SqlDataReader GetForComboBox(string query)
+        {
+            return GetDataReader(query);
         }
     }
 }
