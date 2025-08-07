@@ -75,6 +75,22 @@ namespace QL_Nha_thuoc.model
                 return null;
             }
         }
+        public static string LayTrangThaiPhieu(string maPhieuKiem)
+        {
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                conn.Open();
+                string sql = "SELECT TRANG_THAI_PHIEU_KIEM FROM PHIEU_KIEM_KHO WHERE MA_KIEM_KHO = @maPhieu";
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@maPhieu", maPhieuKiem);
+                    object result = cmd.ExecuteScalar();
+                    return result?.ToString();
+                }
+            }
+        }
+
 
         // 🔹 Sinh mã mới
         public static string SinhMaPhieuMoi()

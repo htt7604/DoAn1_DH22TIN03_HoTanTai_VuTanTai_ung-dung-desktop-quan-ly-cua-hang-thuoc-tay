@@ -28,10 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             splitContainer1 = new SplitContainer();
-            label1 = new Label();
             groupBox5 = new GroupBox();
             radioButton5 = new RadioButton();
             radioButton3 = new RadioButton();
@@ -45,12 +44,13 @@
             radioButton1 = new RadioButton();
             groupBox3 = new GroupBox();
             comboBox2 = new ComboBox();
+            label1 = new Label();
+            dataGridViewdsHoaDon = new DataGridView();
             panel2 = new Panel();
             panel4 = new Panel();
             pictureBox1 = new PictureBox();
             textBoxTimNV = new TextBox();
             buttonThemHoaDon = new Button();
-            dataGridViewdsHoaDon = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -59,10 +59,10 @@
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewdsHoaDon).BeginInit();
             panel2.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewdsHoaDon).BeginInit();
             SuspendLayout();
             // 
             // splitContainer1
@@ -86,16 +86,6 @@
             splitContainer1.Size = new Size(1262, 1017);
             splitContainer1.SplitterDistance = 249;
             splitContainer1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label1.Location = new Point(66, 25);
-            label1.Name = "label1";
-            label1.Size = new Size(90, 25);
-            label1.TabIndex = 16;
-            label1.Text = "Hóa đơn";
             // 
             // groupBox5
             // 
@@ -251,6 +241,50 @@
             comboBox2.Size = new Size(151, 28);
             comboBox2.TabIndex = 1;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label1.Location = new Point(66, 25);
+            label1.Name = "label1";
+            label1.Size = new Size(90, 25);
+            label1.TabIndex = 16;
+            label1.Text = "Hóa đơn";
+            // 
+            // dataGridViewdsHoaDon
+            // 
+            dataGridViewdsHoaDon.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewdsHoaDon.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewdsHoaDon.BackgroundColor = SystemColors.Window;
+            dataGridViewdsHoaDon.BorderStyle = BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewdsHoaDon.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewdsHoaDon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridViewdsHoaDon.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewdsHoaDon.Dock = DockStyle.Fill;
+            dataGridViewdsHoaDon.Location = new Point(0, 64);
+            dataGridViewdsHoaDon.MultiSelect = false;
+            dataGridViewdsHoaDon.Name = "dataGridViewdsHoaDon";
+            dataGridViewdsHoaDon.RowHeadersVisible = false;
+            dataGridViewdsHoaDon.RowHeadersWidth = 51;
+            dataGridViewdsHoaDon.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewdsHoaDon.Size = new Size(1009, 953);
+            dataGridViewdsHoaDon.TabIndex = 39;
+            dataGridViewdsHoaDon.CellDoubleClick += dataGridViewdsHoaDon_CellDoubleClick;
+            // 
             // panel2
             // 
             panel2.Controls.Add(panel4);
@@ -305,36 +339,6 @@
             buttonThemHoaDon.UseVisualStyleBackColor = false;
             buttonThemHoaDon.Click += buttonThemHoaDon_Click;
             // 
-            // dataGridViewdsHoaDon
-            // 
-            dataGridViewdsHoaDon.BackgroundColor = SystemColors.Window;
-            dataGridViewdsHoaDon.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridViewdsHoaDon.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridViewdsHoaDon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Window;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dataGridViewdsHoaDon.DefaultCellStyle = dataGridViewCellStyle4;
-            dataGridViewdsHoaDon.Dock = DockStyle.Fill;
-            dataGridViewdsHoaDon.Location = new Point(0, 64);
-            dataGridViewdsHoaDon.MultiSelect = false;
-            dataGridViewdsHoaDon.Name = "dataGridViewdsHoaDon";
-            dataGridViewdsHoaDon.RowHeadersWidth = 51;
-            dataGridViewdsHoaDon.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewdsHoaDon.Size = new Size(1009, 953);
-            dataGridViewdsHoaDon.TabIndex = 44;
-            // 
             // HoaDon
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -344,6 +348,7 @@
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "HoaDon";
             Text = "FormHoaDon";
+            Load += HoaDon_Load;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);
@@ -356,11 +361,11 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewdsHoaDon).EndInit();
             panel2.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewdsHoaDon).EndInit();
             ResumeLayout(false);
         }
 

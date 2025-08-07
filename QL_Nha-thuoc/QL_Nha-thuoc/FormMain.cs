@@ -96,16 +96,30 @@ namespace QL_Nha_thuoc
             danhMucThuoc.Show();
         }
 
+
+        private FormBanHangMain formBanHangMain;
+
         private void bánHàngToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //tat form main 
-            this.Hide();
-            //mở form bán hàng
-            FormBanHangMain formBanHangMain = new FormBanHangMain();
-            formBanHangMain.ShowDialog();
-            //hiện lại form main
-            this.Show();
+            if (formBanHangMain == null || formBanHangMain.IsDisposed)
+            {
+                formBanHangMain = new FormBanHangMain();
+
+                // Gán sự kiện FormHidden để hiện lại form main
+                formBanHangMain.FormHidden += (s, args) =>
+                {
+                    this.Show(); // Hiện lại FormMain khi bán hàng quay lại
+                };
+            }
+
+            this.Hide(); // Ẩn FormMain
+            formBanHangMain.Show(); // Hiện form bán hàng
+            formBanHangMain.BringToFront(); // Đưa lên trên cùng
         }
+
+
+
+
 
         private void kiemKhoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -155,7 +169,7 @@ namespace QL_Nha_thuoc
         private void hóaĐơnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //them form hoa don vao panel chính
-            HoaDon formHoaDon = new HoaDon();
+            HoaDon formHoaDon = new HoaDon(this);
             formHoaDon.TopLevel = false; // Đặt TopLevel là false để có thể nhúng vào panel
             formHoaDon.FormBorderStyle = FormBorderStyle.None; // Không có viền cửa sổ
             formHoaDon.Dock = DockStyle.Fill; // Đặt Dock để chiếm toàn bộ không gian panel

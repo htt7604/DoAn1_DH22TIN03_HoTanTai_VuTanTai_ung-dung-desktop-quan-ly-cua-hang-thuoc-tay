@@ -15,7 +15,7 @@ namespace QL_Nha_thuoc.BanHang
             InitializeComponent();
             _ = LoadDanhSachNganHangAsync(); // Gọi bất đồng bộ không cần chờ
         }
-
+        public event EventHandler FormDaDong;
         private async Task LoadDanhSachNganHangAsync()
         {
             string apiUrl = "https://api.vietqr.io/v2/banks";
@@ -88,8 +88,11 @@ namespace QL_Nha_thuoc.BanHang
             if (ketQua)
             {
                 MessageBox.Show("Thêm tài khoản ngân hàng thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close(); // hoặc ResetForm();
+
+                FormDaDong?.Invoke(this, EventArgs.Empty); // ← GỌI SỰ KIỆN
+                this.Close();
             }
+
             else
             {
                 MessageBox.Show("Thêm tài khoản thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);

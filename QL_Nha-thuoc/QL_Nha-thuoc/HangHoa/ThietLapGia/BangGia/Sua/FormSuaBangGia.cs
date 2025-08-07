@@ -206,7 +206,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
                 }
 
                 // Tạo mã tự động
-                classBangGia.MaBangGia = ClassBangGia.TaoMaBangGiaTuDong();
+                classBangGia.MaBangGia = maBangGia;
 
                 classBangGia.TuNgay = dateTimePickerTuNgay.Value;
                 classBangGia.DenNgay = dateTimePickerDenNgay.Value;

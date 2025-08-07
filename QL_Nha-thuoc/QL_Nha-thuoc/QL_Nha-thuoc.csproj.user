@@ -4,6 +4,12 @@
     <Compile Update="BanHang\FormBanHangMain.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="BanHang\FormChonTaiKhoanNganHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="BanHang\FormCongCu.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="BanHang\FormGiamGia.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -15,6 +21,9 @@
     </Compile>
     <Compile Update="BanHang\FormThemTaiKhoanNganHang.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="BanHang\UserControlitemtkNganHang.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="BanHang\UserControlThanhToanChuyenKhoan.cs">
       <SubType>UserControl</SubType>
@@ -65,6 +74,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GiaoDich\HoaDon\FormChiTietHoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GiaoDich\HoaDon\HoaDon.cs">

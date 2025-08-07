@@ -9,10 +9,24 @@ namespace QL_Nha_thuoc.model
 {
     public class ClassTaiKhoanNganHang
     {
+        public string MaTaiKhoanNH { get; set; }
         public string TenChuTK { get; set; }
         public string SoTaiKhoan { get; set; }
         public string TenNganHang { get; set; }
         public string GhiChu { get; set; }
+
+
+
+
+
+
+        public static ClassTaiKhoanNganHang LayTaiKhoanNganHang(string soTaiKhoan)
+        {
+            return LayDanhSachTaiKhoan().FirstOrDefault(tk => tk.SoTaiKhoan == soTaiKhoan);
+        }
+
+
+
         public static ClassTaiKhoanNganHang? LayTaiKhoan()
         {
             using (SqlConnection conn = CSDL.GetConnection())
@@ -26,6 +40,7 @@ namespace QL_Nha_thuoc.model
                 {
                     return new ClassTaiKhoanNganHang
                     {
+                        MaTaiKhoanNH = reader["MA_TAI_KHOAN_NGAN_HANG"].ToString(),
                         TenChuTK = reader["TEN_CHU_TAI_KHOAN"].ToString() ?? "",
                         SoTaiKhoan = reader["SO_TAI_KHOAN"].ToString() ?? "",
                         TenNganHang = reader["TEN_NGAN_HANG"].ToString() ?? "",
@@ -34,6 +49,36 @@ namespace QL_Nha_thuoc.model
                 }
             }
             return null;
+        }
+
+
+
+        //lay toan bo tai khoan 
+        public static List<ClassTaiKhoanNganHang> LayDanhSachTaiKhoan()
+        {
+            var danhSach = new List<ClassTaiKhoanNganHang>();
+
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                conn.Open();
+                string sql = "SELECT * FROM TAI_KHOAN_NGAN_HANG";
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        danhSach.Add(new ClassTaiKhoanNganHang
+                        {
+                            TenChuTK = reader["TEN_CHU_TAI_KHOAN"].ToString() ?? "",
+                            SoTaiKhoan = reader["SO_TAI_KHOAN"].ToString() ?? "",
+                            TenNganHang = reader["TEN_NGAN_HANG"].ToString() ?? "",
+                            GhiChu = reader["GHI_CHU"].ToString() ?? ""
+                        });
+                    }
+                }
+            }
+
+            return danhSach;
         }
 
 

@@ -26,6 +26,17 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
 
             labelDonViTinh.Text = $"ĐVT: {thongtin.TenDonViTinh}";
         }
+
+        public void SetdataChiTietKiemKho(ClassChiTietPhieuKiemKho classChiTietPhieuKiemKho)
+        {
+            MaHangHoa=classChiTietPhieuKiemKho.MaHangHoa;
+
+            labelMaHangHoa.Text = classChiTietPhieuKiemKho.MaHangHoa;
+            labelTenHangHoa.Text=classChiTietPhieuKiemKho.TenHangHoa ;
+            labelTonKho.Text = classChiTietPhieuKiemKho.SoLuongHeThong.ToString();
+
+            labelDonViTinh.Text = $"ĐVT:{classChiTietPhieuKiemKho.TenDonViTinh}";
+        }
         public void SetSTT(int stt)
         {
             labelSTT.Text = stt.ToString();

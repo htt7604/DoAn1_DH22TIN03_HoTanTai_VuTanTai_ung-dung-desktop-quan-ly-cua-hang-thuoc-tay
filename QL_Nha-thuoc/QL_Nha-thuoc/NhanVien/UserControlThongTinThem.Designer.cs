@@ -29,34 +29,27 @@
         private void InitializeComponent()
         {
             panel3 = new Panel();
-            button2 = new Button();
-            button1 = new Button();
-            comboBox2 = new ComboBox();
-            comboBox1 = new ComboBox();
-            textBox10 = new TextBox();
+            comboBoxVaiTro = new ComboBox();
             label13 = new Label();
-            textBox1 = new TextBox();
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
             panel1 = new Panel();
-            radioButton2 = new RadioButton();
-            radioButton1 = new RadioButton();
-            dateTimePicker1 = new DateTimePicker();
-            textBox6 = new TextBox();
+
             label1 = new Label();
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
             panel2 = new Panel();
-            textBox7 = new TextBox();
-            textBox8 = new TextBox();
-            textBox9 = new TextBox();
+
             label9 = new Label();
-            label10 = new Label();
             label11 = new Label();
             label12 = new Label();
+            textBoxTenTaiKhoan = new TextBox();
+            label14 = new Label();
+            textBoxMatKhau = new TextBox();
+            dateTimePickerNgayBatDauLamViec = new DateTimePicker();
             panel3.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -66,101 +59,64 @@
             // 
             panel3.BackColor = SystemColors.Window;
             panel3.BorderStyle = BorderStyle.Fixed3D;
-            panel3.Controls.Add(button2);
-            panel3.Controls.Add(button1);
-            panel3.Controls.Add(comboBox2);
-            panel3.Controls.Add(comboBox1);
-            panel3.Controls.Add(textBox10);
+            panel3.Controls.Add(dateTimePickerNgayBatDauLamViec);
+            panel3.Controls.Add(textBoxMatKhau);
+            panel3.Controls.Add(label14);
+            panel3.Controls.Add(textBoxTenTaiKhoan);
+            panel3.Controls.Add(comboBoxVaiTro);
             panel3.Controls.Add(label13);
-            panel3.Controls.Add(textBox1);
             panel3.Controls.Add(label5);
             panel3.Controls.Add(label4);
             panel3.Controls.Add(label3);
             panel3.Controls.Add(label2);
-            panel3.Location = new Point(221, 15);
+            panel3.Location = new Point(221, 62);
             panel3.Name = "panel3";
-            panel3.Size = new Size(957, 223);
+            panel3.Size = new Size(957, 180);
             panel3.TabIndex = 6;
             // 
-            // button2
+            // comboBoxVaiTro
             // 
-            button2.Location = new Point(433, 117);
-            button2.Name = "button2";
-            button2.Size = new Size(42, 29);
-            button2.TabIndex = 12;
-            button2.Text = "+";
-            button2.UseVisualStyleBackColor = true;
+            comboBoxVaiTro.FormattingEnabled = true;
+            comboBoxVaiTro.Location = new Point(199, 93);
+            comboBoxVaiTro.Name = "comboBoxVaiTro";
+            comboBoxVaiTro.Size = new Size(259, 28);
+            comboBoxVaiTro.TabIndex = 9;
             // 
-            // button1
+            // textBoxGhiChu
             // 
-            button1.Location = new Point(878, 57);
-            button1.Name = "button1";
-            button1.Size = new Size(54, 29);
-            button1.TabIndex = 11;
-            button1.Text = "+";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // comboBox2
-            // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(692, 57);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(181, 28);
-            comboBox2.TabIndex = 10;
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(199, 117);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(215, 28);
-            comboBox1.TabIndex = 9;
-            // 
-            // textBox10
-            // 
-            textBox10.Location = new Point(199, 178);
-            textBox10.Name = "textBox10";
-            textBox10.Size = new Size(674, 27);
-            textBox10.TabIndex = 8;
+
             // 
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(21, 181);
+            label13.Location = new Point(21, 140);
             label13.Name = "label13";
             label13.Size = new Size(58, 20);
             label13.TabIndex = 7;
             label13.Text = "Ghi chu";
             // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(199, 63);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(215, 27);
-            textBox1.TabIndex = 4;
-            // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(513, 66);
+            label5.Location = new Point(513, 48);
             label5.Name = "label5";
-            label5.Size = new Size(146, 20);
+            label5.Size = new Size(172, 20);
             label5.TabIndex = 3;
-            label5.Text = "Tai khoan dang nhap";
+            label5.Text = "Ten tai khoan dang nhap";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(21, 120);
+            label4.Location = new Point(21, 96);
             label4.Name = "label4";
-            label4.Size = new Size(78, 20);
+            label4.Size = new Size(52, 20);
             label4.TabIndex = 2;
-            label4.Text = "Chuc danh";
+            label4.Text = "Vai tro";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(21, 66);
+            label3.Location = new Point(21, 48);
             label3.Name = "label3";
             label3.Size = new Size(158, 20);
             label3.TabIndex = 1;
@@ -169,7 +125,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(21, 16);
+            label2.Location = new Point(21, 9);
             label2.Name = "label2";
             label2.Size = new Size(139, 20);
             label2.TabIndex = 0;
@@ -179,10 +135,6 @@
             // 
             panel1.BackColor = SystemColors.Window;
             panel1.BorderStyle = BorderStyle.Fixed3D;
-            panel1.Controls.Add(radioButton2);
-            panel1.Controls.Add(radioButton1);
-            panel1.Controls.Add(dateTimePicker1);
-            panel1.Controls.Add(textBox6);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(label6);
             panel1.Controls.Add(label7);
@@ -192,41 +144,8 @@
             panel1.Size = new Size(957, 184);
             panel1.TabIndex = 7;
             // 
-            // radioButton2
+
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(315, 116);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(49, 24);
-            radioButton2.TabIndex = 9;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Nu";
-            radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            radioButton1.AutoSize = true;
-            radioButton1.Location = new Point(199, 118);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(62, 24);
-            radioButton1.TabIndex = 8;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Nam";
-            radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // dateTimePicker1
-            // 
-            dateTimePicker1.Location = new Point(682, 68);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(250, 27);
-            dateTimePicker1.TabIndex = 7;
-            // 
-            // textBox6
-            // 
-            textBox6.Location = new Point(199, 63);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(215, 27);
-            textBox6.TabIndex = 4;
             // 
             // label1
             // 
@@ -268,39 +187,15 @@
             // 
             panel2.BackColor = SystemColors.Window;
             panel2.BorderStyle = BorderStyle.Fixed3D;
-            panel2.Controls.Add(textBox7);
-            panel2.Controls.Add(textBox8);
-            panel2.Controls.Add(textBox9);
             panel2.Controls.Add(label9);
-            panel2.Controls.Add(label10);
             panel2.Controls.Add(label11);
             panel2.Controls.Add(label12);
             panel2.Location = new Point(221, 466);
             panel2.Name = "panel2";
-            panel2.Size = new Size(957, 184);
+            panel2.Size = new Size(957, 122);
             panel2.TabIndex = 7;
             // 
-            // textBox7
-            // 
-            textBox7.Location = new Point(598, 63);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(244, 27);
-            textBox7.TabIndex = 6;
-            // 
-            // textBox8
-            // 
-            textBox8.Location = new Point(199, 117);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(181, 27);
-            textBox8.TabIndex = 5;
-            // 
-            // textBox9
-            // 
-            textBox9.Location = new Point(199, 63);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(181, 27);
-            textBox9.TabIndex = 4;
-            // 
+
             // label9
             // 
             label9.AutoSize = true;
@@ -309,15 +204,6 @@
             label9.Size = new Size(81, 20);
             label9.TabIndex = 3;
             label9.Text = "Faceboook";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Location = new Point(21, 120);
-            label10.Name = "label10";
-            label10.Size = new Size(46, 20);
-            label10.TabIndex = 2;
-            label10.Text = "Email";
             // 
             // label11
             // 
@@ -337,6 +223,36 @@
             label12.TabIndex = 0;
             label12.Text = "Thong tin lien he";
             // 
+            // textBoxTenTaiKhoan
+            // 
+            textBoxTenTaiKhoan.Location = new Point(691, 41);
+            textBoxTenTaiKhoan.Name = "textBoxTenTaiKhoan";
+            textBoxTenTaiKhoan.Size = new Size(215, 27);
+            textBoxTenTaiKhoan.TabIndex = 10;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(513, 101);
+            label14.Name = "label14";
+            label14.Size = new Size(70, 20);
+            label14.TabIndex = 11;
+            label14.Text = "Mat khau";
+            // 
+            // textBoxMatKhau
+            // 
+            textBoxMatKhau.Location = new Point(691, 93);
+            textBoxMatKhau.Name = "textBoxMatKhau";
+            textBoxMatKhau.Size = new Size(215, 27);
+            textBoxMatKhau.TabIndex = 12;
+            // 
+            // dateTimePickerNgayBatDauLamViec
+            // 
+            dateTimePickerNgayBatDauLamViec.Location = new Point(199, 39);
+            dateTimePickerNgayBatDauLamViec.Name = "dateTimePickerNgayBatDauLamViec";
+            dateTimePickerNgayBatDauLamViec.Size = new Size(259, 27);
+            dateTimePickerNgayBatDauLamViec.TabIndex = 13;
+            // 
             // UserControlThongTinThem
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -345,7 +261,7 @@
             Controls.Add(panel1);
             Controls.Add(panel3);
             Name = "UserControlThongTinThem";
-            Size = new Size(1194, 662);
+            Size = new Size(1194, 623);
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel1.ResumeLayout(false);
@@ -374,7 +290,6 @@
         private TextBox textBox8;
         private TextBox textBox9;
         private Label label9;
-        private Label label10;
         private Label label11;
         private Label label12;
         private TextBox textBox10;
@@ -382,9 +297,10 @@
         private RadioButton radioButton2;
         private RadioButton radioButton1;
         private DateTimePicker dateTimePicker1;
-        private ComboBox comboBox1;
-        private Button button1;
-        private ComboBox comboBox2;
-        private Button button2;
+        private ComboBox comboBoxVaiTro;
+        private TextBox textBoxMatKhau;
+        private Label label14;
+        private TextBox textBoxTenTaiKhoan;
+        private DateTimePicker dateTimePickerNgayBatDauLamViec;
     }
 }

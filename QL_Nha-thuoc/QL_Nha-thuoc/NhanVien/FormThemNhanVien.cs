@@ -19,9 +19,9 @@ namespace QL_Nha_thuoc.NhanVien
 
         private void FormThemNhanVien_Load(object sender, EventArgs e)
         {
-            UserControlThongTinKhoiTao userControl = new UserControlThongTinKhoiTao(tabPageThongTin, this);
+            UserControlThongTinKhoiTao userControl = new UserControlThongTinKhoiTao(tabPageThongtin, this);
             userControl.Dock = DockStyle.Top;
-            tabPageThongTin.Controls.Add(userControl);
+            tabPageThongtin.Controls.Add(userControl);
         }
 
 

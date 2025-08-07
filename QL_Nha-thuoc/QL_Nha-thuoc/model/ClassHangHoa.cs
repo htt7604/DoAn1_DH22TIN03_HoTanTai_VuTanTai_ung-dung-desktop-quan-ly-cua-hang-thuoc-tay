@@ -108,6 +108,130 @@ namespace QL_Nha_thuoc.model
         }
 
 
+        public static ClassHangHoa FromDataReader(SqlDataReader reader)
+        {
+            return new ClassHangHoa
+            {
+                MaHangHoa = reader["MA_HANG_HOA"].ToString(),
+                MaThuoc = reader["MA_THUOC"]?.ToString(),
+                TenHangHoa = reader["TEN_HANG_HOA"].ToString(),
+                TenDonViTinh = reader["TEN_DON_VI_TINH"]?.ToString(),
+                MaDonViTinh = reader["MA_DON_VI_TINH"]?.ToString(),
+                SoLuongTon = reader["TON_KHO"] != DBNull.Value ? Convert.ToInt32(reader["TON_KHO"]) : 0,
+                GiaVon = reader["GIA_VON_HH"] != DBNull.Value ? Convert.ToDecimal(reader["GIA_VON_HH"]) : 0,
+                GiaBan = reader["GIA_BAN_HH"] != DBNull.Value ? Convert.ToDecimal(reader["GIA_BAN_HH"]) : 0,
+                MaNhaCungCap = reader["MA_NHA_CUNG_CAP"]?.ToString(),
+                TenNhaCungCap = reader["TEN_NHA_CUNG_CAP"]?.ToString(),
+                HanSuDung = reader["NGAY_HET_HAN_HH"] != DBNull.Value ? Convert.ToDateTime(reader["NGAY_HET_HAN_HH"]) : (DateTime?)null,
+                MaLoaiHangHoa = reader["MA_LOAI_HH"]?.ToString(),
+                TenLoaiHangHoa = reader["TEN_LOAI_HH"]?.ToString(),
+                MaVach = reader["MA_VACH"]?.ToString(),
+                GhiChu = reader["GHI_CHU_HH"]?.ToString(),
+                HinhAnh = reader["HINH_ANH_HH"]?.ToString(),
+                HoatChatChinh = reader["HOAT_CHAT"]?.ToString(),
+                HamLuong = reader["HAM_LUONG"]?.ToString(),
+                SoDangKy = reader["SO_DANG_KY_THUOC"]?.ToString(),
+                QuyCachDongGoi = reader["QUY_CACH_DONG_GOI"]?.ToString(),
+                TinhTrang = reader["TINH_TRANG_HH"]?.ToString(),
+                MaHangSX = reader["MA_HANG_SX"]?.ToString(),
+                TenHangSanXuat = reader["TEN_HANG_SX"]?.ToString(),
+            };
+        }
+
+        public static List<ClassHangHoa> TimKiemHangHoaTheoBangGiaTheoTuKhoa(string tuKhoa, ClassBangGia bangGiaDangChon)
+        {
+            List<ClassHangHoa> ketQua = new List<ClassHangHoa>();
+
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                conn.Open();
+
+                string query = @"
+        SELECT 
+            HH.MA_HANG_HOA,
+            HH.MA_THUOC,
+            HH.TEN_HANG_HOA,
+            DVT.MA_DON_VI_TINH,
+            DVT.TEN_DON_VI_TINH,
+            HH.TON_KHO,
+            GBHH.GIA_VON_HH,
+            GBHH.GIA_BAN_HH,
+            NCC.MA_NHA_CUNG_CAP,
+            NCC.TEN_NHA_CUNG_CAP,
+            HH.NGAY_HET_HAN_HH,
+            LHH.MA_LOAI_HH,
+            LHH.TEN_LOAI_HH,
+            HH.MA_VACH,
+            HH.GHI_CHU_HH,
+            HH.HINH_ANH_HH,
+            HH.HOAT_CHAT,
+            HH.HAM_LUONG,
+            HH.SO_DANG_KY_THUOC,
+            HH.TINH_TRANG_HH,
+            HH.QUY_CACH_DONG_GOI,
+            HSX.TEN_HANG_SX,
+            HSX.MA_HANG_SX,
+            NH.TEN_NHOM,
+            HH.NGAY_HET_HAN_HH
+        FROM HANG_HOA HH
+        LEFT JOIN GIA_HANG_HOA GBHH ON HH.MA_HANG_HOA = GBHH.MA_HANG_HOA
+        LEFT JOIN DON_VI_TINH DVT ON GBHH.MA_DON_VI_TINH = DVT.MA_DON_VI_TINH
+        LEFT JOIN CHI_TIET_PHIEU_NHAP CTPN ON HH.MA_HANG_HOA = CTPN.MA_HANG_HOA
+        LEFT JOIN PHIEU_NHAP_HANG PNH ON PNH.MA_PHIEU_NHAP = CTPN.MA_PHIEU_NHAP
+        LEFT JOIN NHA_CUNG_CAP NCC ON PNH.MA_NHA_CUNG_CAP = NCC.MA_NHA_CUNG_CAP
+        LEFT JOIN NHOM_HANG NH ON HH.MA_NHOM_HH = NH.MA_NHOM_HH
+        LEFT JOIN LOAI_HANG LHH ON NH.MA_LOAI_HH = LHH.MA_LOAI_HH
+        LEFT JOIN HANG_SAN_XUAT HSX ON HH.MA_HANG_SX = HSX.MA_HANG_SX
+        JOIN BANG_GIA_HH BGHH ON BGHH.MA_BANG_GIA = GBHH.MA_BANG_GIA
+        WHERE 
+            ({0})
+            AND (HH.TEN_HANG_HOA LIKE @keyword OR HH.MA_HANG_HOA LIKE @keyword)
+        ";
+
+                string dieuKienBangGia = "";
+
+                // Trường hợp 1: Bảng giá chung
+                if (bangGiaDangChon == null || bangGiaDangChon.MaBangGia == "BG001")
+                {
+                    dieuKienBangGia = "GBHH.MA_BANG_GIA = 'BG001'";
+                }
+                // Trường hợp 2: Bảng giá khác, cho chọn ngoài bảng giá
+                else if (bangGiaDangChon.ChoChonNgoaiBangGia)
+                {
+                    dieuKienBangGia = "GBHH.MA_BANG_GIA IN (@maBangGia, 'BG001')";
+                }
+                // Trường hợp 3: Bảng giá khác, không cho chọn ngoài bảng giá
+                else
+                {
+                    dieuKienBangGia = "GBHH.MA_BANG_GIA = @maBangGia";
+                }
+
+                query = string.Format(query, dieuKienBangGia);
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@keyword", "%" + tuKhoa + "%");
+
+                    if (bangGiaDangChon != null && bangGiaDangChon.MaBangGia != "BG001")
+                    {
+                        cmd.Parameters.AddWithValue("@maBangGia", bangGiaDangChon.MaBangGia);
+                    }
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ketQua.Add(ClassHangHoa.FromDataReader(reader));
+                        }
+                    }
+                }
+            }
+
+            return ketQua;
+        }
+
+
+
         public static List<ClassHangHoa> TimKiemHangHoa(string keyword, string maDonViTinh)
         {
             List<ClassHangHoa> danhSach = new List<ClassHangHoa>();
@@ -749,8 +873,50 @@ namespace QL_Nha_thuoc.model
             }
             return daCapNhat;
         }
+        // Add this method inside the ClassHangHoa class
 
 
+        public static ClassHangHoa LayThongTinHangHoa(string maHangHoa)
+        {
+            ClassHangHoa hangHoa = null;
+
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT * FROM HANG_HOA WHERE MA_HANG_HOA = @MaHangHoa";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@MaHangHoa", maHangHoa);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        hangHoa = new ClassHangHoa
+                        {
+                            MaHangHoa = reader["MA_HANG_HOA"].ToString(),
+                            TenHangHoa = reader["TEN_HANG_HOA"].ToString(),
+                            SoLuongTon = Convert.ToInt32(reader["TON_KHO"]),
+                            // Nếu bạn cần các trường khác như GiaBan, NhomHang... thì thêm ở đây
+                        };
+                    }
+                }
+            }
+
+            return hangHoa;
+        }
+
+        public static void CapNhatSoLuongTon(string maHangHoa, int thayDoi)
+        {
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                conn.Open();
+                string query = "UPDATE HANG_HOA SET TON_KHO = TON_KHO + @ThayDoi WHERE MA_HANG_HOA = @MaHangHoa";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@ThayDoi", thayDoi);
+                cmd.Parameters.AddWithValue("@MaHangHoa", maHangHoa);
+                cmd.ExecuteNonQuery();
+            }
+        }
 
 
     }

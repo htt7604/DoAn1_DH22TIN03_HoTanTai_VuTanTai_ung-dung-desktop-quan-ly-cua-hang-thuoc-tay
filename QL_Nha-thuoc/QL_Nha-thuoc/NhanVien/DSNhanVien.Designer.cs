@@ -39,10 +39,6 @@
             groupBox1 = new GroupBox();
             radioButtonDaNghi = new RadioButton();
             radioButtonDangLV = new RadioButton();
-            groupBox2 = new GroupBox();
-            comboBoxChucVu = new ComboBox();
-            groupBox3 = new GroupBox();
-            comboBoxViTri = new ComboBox();
             tableLayoutPanel4 = new TableLayoutPanel();
             tableLayoutPanel5 = new TableLayoutPanel();
             textBoxTimNV = new TextBox();
@@ -53,8 +49,6 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsNV).BeginInit();
             tableLayoutPanel2.SuspendLayout();
             groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
-            groupBox3.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -131,8 +125,6 @@
             tableLayoutPanel2.ColumnCount = 1;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.Controls.Add(groupBox1, 0, 0);
-            tableLayoutPanel2.Controls.Add(groupBox2, 0, 1);
-            tableLayoutPanel2.Controls.Add(groupBox3, 0, 2);
             tableLayoutPanel2.Dock = DockStyle.Top;
             tableLayoutPanel2.Location = new Point(3, 59);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -179,47 +171,6 @@
             radioButtonDangLV.TabStop = true;
             radioButtonDangLV.Text = "Đang làm việc";
             radioButtonDangLV.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            groupBox2.BackColor = SystemColors.ButtonHighlight;
-            groupBox2.Controls.Add(comboBoxChucVu);
-            groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox2.Location = new Point(3, 180);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(199, 133);
-            groupBox2.TabIndex = 15;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Chức vụ";
-            // 
-            // comboBoxChucVu
-            // 
-            comboBoxChucVu.FormattingEnabled = true;
-            comboBoxChucVu.Location = new Point(6, 59);
-            comboBoxChucVu.Name = "comboBoxChucVu";
-            comboBoxChucVu.Size = new Size(166, 28);
-            comboBoxChucVu.TabIndex = 0;
-            comboBoxChucVu.SelectedIndexChanged += comboBoxChucVu_SelectedIndexChanged;
-            // 
-            // groupBox3
-            // 
-            groupBox3.BackColor = SystemColors.ButtonHighlight;
-            groupBox3.Controls.Add(comboBoxViTri);
-            groupBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox3.Location = new Point(3, 326);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(199, 141);
-            groupBox3.TabIndex = 16;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Vị trí ";
-            // 
-            // comboBoxViTri
-            // 
-            comboBoxViTri.FormattingEnabled = true;
-            comboBoxViTri.Location = new Point(6, 54);
-            comboBoxViTri.Name = "comboBoxViTri";
-            comboBoxViTri.Size = new Size(166, 28);
-            comboBoxViTri.TabIndex = 1;
             // 
             // tableLayoutPanel4
             // 
@@ -288,7 +239,7 @@
             buttonThemNV.TabIndex = 7;
             buttonThemNV.Text = "+ Nhân viên ";
             buttonThemNV.UseVisualStyleBackColor = false;
-            buttonThemNV.Click += buttonThemNV_Click_1;
+            buttonThemNV.Click += buttonThemNV_Click;
             // 
             // label1
             // 
@@ -311,14 +262,13 @@
             Controls.Add(tableLayoutPanel1);
             Name = "DSNhanVien";
             Text = "DSNhanVien";
+            Load += DSNhanVien_Load;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsNV).EndInit();
             tableLayoutPanel2.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox3.ResumeLayout(false);
             tableLayoutPanel4.ResumeLayout(false);
             tableLayoutPanel5.ResumeLayout(false);
             tableLayoutPanel5.PerformLayout();
@@ -340,10 +290,6 @@
         private GroupBox groupBox1;
         private RadioButton radioButtonDaNghi;
         private RadioButton radioButtonDangLV;
-        private GroupBox groupBox2;
-        private ComboBox comboBoxChucVu;
-        private GroupBox groupBox3;
-        private ComboBox comboBoxViTri;
         private DataGridView dataGridViewdsNV;
         private TableLayoutPanel tableLayoutPanel5;
         private TextBox textBoxTimNV;

@@ -23,25 +23,46 @@ namespace QL_Nha_thuoc.NhanVien
         }
 
 
+        private UserControlThongTinThem userControlThem;
+        private int originalFormHeight = -1; // lưu chiều cao gốc
+
         private void buttonHienThiThem_Click(object sender, EventArgs e)
         {
-            UserControlThongTinThem userControl = new UserControlThongTinThem();
-            userControl.Dock = DockStyle.Bottom;
-
-            if (!targetTabPage.Controls.Contains(userControl))
+            if (userControlThem == null)
             {
-                targetTabPage.Controls.Add(userControl);
+                // Lần đầu tiên tạo control
+                userControlThem = new UserControlThongTinThem();
+                userControlThem.Dock = DockStyle.Bottom;
+                targetTabPage.Controls.Add(userControlThem);
+                userControlThem.Visible = false; // ban đầu ẩn
+            }
+
+            // Lưu chiều cao gốc nếu chưa lưu
+            if (originalFormHeight == -1)
+            {
+                originalFormHeight = parentForm.Height;
+            }
+
+            // Toggle hiển thị
+            if (!userControlThem.Visible)
+            {
+                userControlThem.Visible = true;
+
+                // Giãn form theo chiều cao màn hình
+                Rectangle workingArea = Screen.PrimaryScreen.WorkingArea;
+                parentForm.Location = new Point(parentForm.Location.X, workingArea.Top);
+                parentForm.Height = workingArea.Height;
             }
             else
             {
-                userControl.BringToFront();
-            }
+                userControlThem.Visible = false;
 
-            // Kéo giãn form vừa khít chiều cao màn hình
-            Rectangle workingArea = Screen.PrimaryScreen.WorkingArea;
-            parentForm.Location = new Point(parentForm.Location.X, workingArea.Top);
-            parentForm.Height = workingArea.Height;
+                // Thu form lại về kích thước ban đầu
+                parentForm.Height = originalFormHeight;
+            }
         }
+
+
 
 
 

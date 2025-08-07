@@ -232,7 +232,7 @@ namespace QL_Nha_thuoc
                 DataGridViewRow row = dataGridViewdsPhieuKiemKho.Rows[e.RowIndex];
                 string maPhieuKiem = row.Cells["MaPhieuKiemKho"].Value.ToString();
 
-                FormChiTietKiemKho chiTietForm = new FormChiTietKiemKho(maPhieuKiem);
+                FormChiTietKiemKho chiTietForm = new FormChiTietKiemKho(maPhieuKiem,formMain);
                 // GÁN SỰ KIỆN TRƯỚC KHI SHOW
                 chiTietForm.FormDong += () =>
                 {
@@ -330,8 +330,6 @@ namespace QL_Nha_thuoc
             if (e.ColumnIndex == 0 && e.RowIndex >= 0) // Cột checkbox
             {
                 bool isChecked = Convert.ToBoolean(dataGridViewdsPhieuKiemKho.Rows[e.RowIndex].Cells[0].Value);
-                //string maHH = dataGridViewdsDMHH.Rows[e.RowIndex].Cells["Mã hàng hóa"].Value?.ToString();
-
                 CapNhatSoLuongDaChon();
             }
         }

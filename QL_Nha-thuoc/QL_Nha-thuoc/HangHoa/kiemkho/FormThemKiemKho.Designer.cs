@@ -19,13 +19,6 @@
         {
             tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new Panel();
-            panelKetQuaTimKiem = new Panel();
-            tabControlPhieuKiem = new TabControl();
-            tabPageTatCaPhieuKiem = new TabPage();
-            tabPageKhop = new TabPage();
-            flowLayoutPanelKhop = new FlowLayoutPanel();
-            tabPageLech = new TabPage();
-            flowLayoutPanelLech = new FlowLayoutPanel();
             panel3 = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
             panel = new Panel();
@@ -35,16 +28,16 @@
             textBoxTimHH = new TextBox();
             label1 = new Label();
             buttonTroLai = new Button();
+            panelKiemKho = new Panel();
+            panelKetQuaTimKiem = new Panel();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
-            tabControlPhieuKiem.SuspendLayout();
-            tabPageKhop.SuspendLayout();
-            tabPageLech.SuspendLayout();
             panel3.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             panel.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panelKiemKho.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -64,77 +57,12 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(panelKetQuaTimKiem);
-            panel1.Controls.Add(tabControlPhieuKiem);
+            panel1.Controls.Add(panelKiemKho);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(3, 57);
             panel1.Name = "panel1";
             panel1.Size = new Size(1376, 592);
             panel1.TabIndex = 3;
-            // 
-            // panelKetQuaTimKiem
-            // 
-            panelKetQuaTimKiem.AutoScroll = true;
-            panelKetQuaTimKiem.Location = new Point(178, 3);
-            panelKetQuaTimKiem.Name = "panelKetQuaTimKiem";
-            panelKetQuaTimKiem.Size = new Size(428, 355);
-            panelKetQuaTimKiem.TabIndex = 0;
-            panelKetQuaTimKiem.Visible = false;
-            // 
-            // tabControlPhieuKiem
-            // 
-            tabControlPhieuKiem.Controls.Add(tabPageTatCaPhieuKiem);
-            tabControlPhieuKiem.Controls.Add(tabPageKhop);
-            tabControlPhieuKiem.Controls.Add(tabPageLech);
-            tabControlPhieuKiem.Dock = DockStyle.Fill;
-            tabControlPhieuKiem.Location = new Point(0, 0);
-            tabControlPhieuKiem.Name = "tabControlPhieuKiem";
-            tabControlPhieuKiem.SelectedIndex = 0;
-            tabControlPhieuKiem.Size = new Size(1376, 592);
-            tabControlPhieuKiem.TabIndex = 1;
-            tabControlPhieuKiem.SizeChanged += tabControlPhieuKiem_SizeChanged;
-            // 
-            // tabPageTatCaPhieuKiem
-            // 
-            tabPageTatCaPhieuKiem.Location = new Point(4, 29);
-            tabPageTatCaPhieuKiem.Name = "tabPageTatCaPhieuKiem";
-            tabPageTatCaPhieuKiem.Size = new Size(1368, 559);
-            tabPageTatCaPhieuKiem.TabIndex = 0;
-            tabPageTatCaPhieuKiem.Text = "Tất cả";
-            // 
-            // tabPageKhop
-            // 
-            tabPageKhop.Controls.Add(flowLayoutPanelKhop);
-            tabPageKhop.Location = new Point(4, 29);
-            tabPageKhop.Name = "tabPageKhop";
-            tabPageKhop.Size = new Size(1368, 559);
-            tabPageKhop.TabIndex = 1;
-            tabPageKhop.Text = "Khớp";
-            // 
-            // flowLayoutPanelKhop
-            // 
-            flowLayoutPanelKhop.Dock = DockStyle.Fill;
-            flowLayoutPanelKhop.Location = new Point(0, 0);
-            flowLayoutPanelKhop.Name = "flowLayoutPanelKhop";
-            flowLayoutPanelKhop.Size = new Size(1368, 559);
-            flowLayoutPanelKhop.TabIndex = 0;
-            // 
-            // tabPageLech
-            // 
-            tabPageLech.Controls.Add(flowLayoutPanelLech);
-            tabPageLech.Location = new Point(4, 29);
-            tabPageLech.Name = "tabPageLech";
-            tabPageLech.Size = new Size(1368, 559);
-            tabPageLech.TabIndex = 2;
-            tabPageLech.Text = "Lệch";
-            // 
-            // flowLayoutPanelLech
-            // 
-            flowLayoutPanelLech.Dock = DockStyle.Fill;
-            flowLayoutPanelLech.Location = new Point(0, 0);
-            flowLayoutPanelLech.Name = "flowLayoutPanelLech";
-            flowLayoutPanelLech.Size = new Size(1368, 559);
-            flowLayoutPanelLech.TabIndex = 0;
             // 
             // panel3
             // 
@@ -240,6 +168,24 @@
             buttonTroLai.UseVisualStyleBackColor = false;
             buttonTroLai.Click += buttonTroLai_Click;
             // 
+            // panelKiemKho
+            // 
+            panelKiemKho.Controls.Add(panelKetQuaTimKiem);
+            panelKiemKho.Dock = DockStyle.Fill;
+            panelKiemKho.Location = new Point(0, 0);
+            panelKiemKho.Name = "panelKiemKho";
+            panelKiemKho.Size = new Size(1376, 592);
+            panelKiemKho.TabIndex = 4;
+            // 
+            // panelKetQuaTimKiem
+            // 
+            panelKetQuaTimKiem.AutoScroll = true;
+            panelKetQuaTimKiem.Location = new Point(197, 3);
+            panelKetQuaTimKiem.Name = "panelKetQuaTimKiem";
+            panelKetQuaTimKiem.Size = new Size(428, 355);
+            panelKetQuaTimKiem.TabIndex = 5;
+            panelKetQuaTimKiem.Visible = false;
+            // 
             // FormThemKiemKho
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -250,12 +196,8 @@
             Name = "FormThemKiemKho";
             Text = "Thêm kiểm kho";
             Load += FormThemKiemKho_Load;
-            SizeChanged += tabControlPhieuKiem_SizeChanged;
             tableLayoutPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
-            tabControlPhieuKiem.ResumeLayout(false);
-            tabPageKhop.ResumeLayout(false);
-            tabPageLech.ResumeLayout(false);
             panel3.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
@@ -263,6 +205,7 @@
             tableLayoutPanel5.ResumeLayout(false);
             tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panelKiemKho.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -271,13 +214,6 @@
         private TableLayoutPanel tableLayoutPanel1;
         private FlowLayoutPanel flowLayoutPanelTatCa;
         private Panel panel1;
-        private Panel panelKetQuaTimKiem;
-        private TabControl tabControlPhieuKiem;
-        private TabPage tabPageTatCaPhieuKiem;
-        private TabPage tabPageKhop;
-        private FlowLayoutPanel flowLayoutPanelKhop;
-        private TabPage tabPageLech;
-        private FlowLayoutPanel flowLayoutPanelLech;
         private TableLayoutPanel tableLayoutPanel2;
         private Label label1;
         private Panel panel;
@@ -287,5 +223,7 @@
         private TextBox textBoxTimHH;
         private Panel panel3;
         private Button buttonTroLai;
+        private Panel panelKiemKho;
+        private Panel panelKetQuaTimKiem;
     }
 }

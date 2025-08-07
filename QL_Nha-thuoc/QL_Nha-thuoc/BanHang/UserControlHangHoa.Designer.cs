@@ -188,6 +188,7 @@
             Controls.Add(tableLayoutPanel1);
             Name = "UserControlHangHoa";
             Size = new Size(1235, 42);
+            Load += UserControlHangHoa_Load;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownSoLuong).EndInit();

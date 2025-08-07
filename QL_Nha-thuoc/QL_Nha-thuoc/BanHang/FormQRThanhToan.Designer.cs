@@ -67,11 +67,12 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(518, 539);
+            ClientSize = new Size(494, 539);
             Controls.Add(buttonIn);
             Controls.Add(label1);
             Controls.Add(pictureBoxQR);
             Name = "FormQRThanhToan";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormQRThanhToan";
             ((System.ComponentModel.ISupportInitialize)pictureBoxQR).EndInit();
             ResumeLayout(false);
