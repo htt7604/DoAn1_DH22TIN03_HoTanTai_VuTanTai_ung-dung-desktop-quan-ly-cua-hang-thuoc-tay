@@ -27,12 +27,13 @@ namespace QL_Nha_thuoc.BanHang
         private void LoadComBoBoxBangGia()
         {
             // Lấy danh sách bảng giá đang áp dụng
-            List<ClassBangGia> classBangGias = ClassBangGia.LayTatCaBangGiaDangApDUng();
+            List<ClassBangGia> classBangGias = ClassBangGia.LayTatCaBangGiaDangApDung();
 
             // Gán vào ComboBox
             comboBoxBangGia.DataSource = classBangGias;
-            comboBoxBangGia.DisplayMember = "TEN_BANG_GIA";  // Tên hiển thị
-            comboBoxBangGia.ValueMember = "MA_BANG_GIA";      // Giá trị thực sự
+            comboBoxBangGia.DisplayMember = "TenBangGia";
+            comboBoxBangGia.ValueMember = "MaBangGia";
+
 
             // Nếu có ít nhất 1 bảng giá, chọn mặc định dòng đầu tiên
             if (classBangGias.Count > 0)
@@ -65,6 +66,7 @@ namespace QL_Nha_thuoc.BanHang
 
             userControlHoaDon.LoadTaiKhoan();
             currentTab.Controls.Add(userControlHoaDon);
+            LoadComBoBoxBangGia();
         }
 
 
@@ -132,9 +134,20 @@ namespace QL_Nha_thuoc.BanHang
                 }
             }
         }
+
+        bool LaBangGiaChung(ClassBangGia bangGia)
+        {
+            return bangGia != null && bangGia.MaBangGia.Equals("Bảng giá chung", StringComparison.OrdinalIgnoreCase);
+        }
+
+
+
+
         //su kien tim kiem hang hoa 
         private void textBoxTimHH_TextChanged(object sender, EventArgs e)
         {
+            var bangGiaChon = comboBoxBangGia.SelectedItem as ClassBangGia;
+
             panelKetQuaTimKiem.BringToFront();
             panelKetQuaTimKiem.Visible = true;
 
@@ -145,7 +158,7 @@ namespace QL_Nha_thuoc.BanHang
                 return;
             }
 
-            var dsHangHoa = ClassHangHoa.TimKiemHangHoaTheoTuKhoa(keyword);
+            var dsHangHoa = ClassHangHoa.TimKiemHangHoaTheoBangGiaTheoTuKhoa(keyword, bangGiaChon);
             panelKetQuaTimKiem.Controls.Clear();
 
             foreach (var hanghoa in dsHangHoa)
@@ -211,10 +224,51 @@ namespace QL_Nha_thuoc.BanHang
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public static ClassBangGia BangGiaDuocChon { get; set; }
+        private void comboBoxBangGia_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //load lai du lieu rong paneltimkiem 
+            textBoxTimHH_TextChanged(sender, e);
+            //luu ma bang gia duoc chon
+            // Gán bảng giá được chọn
+            BangGiaDuocChon = comboBoxBangGia.SelectedItem as ClassBangGia;
         }
+
+        public event EventHandler FormHidden;
+
+        private void buttonHienCongCu_Click(object sender, EventArgs e)
+        {
+            string vaiTro = Session.TaiKhoanDangNhap.VaiTro;
+
+            FormCongCu popup = new FormCongCu(vaiTro);
+            popup.QuayLai += (s, args) =>
+            {
+                FormHidden?.Invoke(this, EventArgs.Empty);
+            };
+
+            // Lấy vị trí button trên màn hình
+            Point buttonScreenLocation = buttonHienCongCu.PointToScreen(Point.Empty);
+
+            // Vị trí hiển thị form: Dưới – trái của button
+            popup.StartPosition = FormStartPosition.Manual;
+            popup.Location = new Point(
+                buttonScreenLocation.X - popup.Width + buttonHienCongCu.Width, // Canh trái
+                buttonScreenLocation.Y + buttonHienCongCu.Height               // Canh dưới
+            );
+
+            popup.Show();
+        }
+
+
+
+
+
     }
+
 }
 
 

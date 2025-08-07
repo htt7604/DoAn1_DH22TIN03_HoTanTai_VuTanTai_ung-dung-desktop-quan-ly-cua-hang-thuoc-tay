@@ -28,29 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            buttonThemHinhAnh = new Button();
             pictureBox1 = new PictureBox();
             buttonHienThiThem = new Button();
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
+            textBoxMaNhanVien = new TextBox();
+            textBoxSoDienThoai = new TextBox();
+            textBoxTenNhanVien = new TextBox();
             panel3 = new Panel();
+            textBoxEmail = new TextBox();
+            label10 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel3.SuspendLayout();
             SuspendLayout();
             // 
-            // button1
+            // buttonThemHinhAnh
             // 
-            button1.Location = new Point(50, 177);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 4;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            buttonThemHinhAnh.Location = new Point(50, 177);
+            buttonThemHinhAnh.Name = "buttonThemHinhAnh";
+            buttonThemHinhAnh.Size = new Size(94, 29);
+            buttonThemHinhAnh.TabIndex = 4;
+            buttonThemHinhAnh.Text = "button1";
+            buttonThemHinhAnh.UseVisualStyleBackColor = true;
             // 
             // pictureBox1
             // 
@@ -63,7 +65,7 @@
             // 
             // buttonHienThiThem
             // 
-            buttonHienThiThem.Location = new Point(222, 244);
+            buttonHienThiThem.Location = new Point(222, 233);
             buttonHienThiThem.Name = "buttonHienThiThem";
             buttonHienThiThem.Size = new Size(151, 29);
             buttonHienThiThem.TabIndex = 6;
@@ -107,33 +109,36 @@
             label5.TabIndex = 3;
             label5.Text = "Ten nhan vien";
             // 
-            // textBox1
+            // textBoxMaNhanVien
             // 
-            textBox1.Location = new Point(199, 63);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(181, 27);
-            textBox1.TabIndex = 4;
+            textBoxMaNhanVien.Location = new Point(199, 63);
+            textBoxMaNhanVien.Name = "textBoxMaNhanVien";
+            textBoxMaNhanVien.ReadOnly = true;
+            textBoxMaNhanVien.Size = new Size(181, 27);
+            textBoxMaNhanVien.TabIndex = 4;
             // 
-            // textBox2
+            // textBoxSoDienThoai
             // 
-            textBox2.Location = new Point(199, 117);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(181, 27);
-            textBox2.TabIndex = 5;
+            textBoxSoDienThoai.Location = new Point(199, 117);
+            textBoxSoDienThoai.Name = "textBoxSoDienThoai";
+            textBoxSoDienThoai.Size = new Size(181, 27);
+            textBoxSoDienThoai.TabIndex = 5;
             // 
-            // textBox3
+            // textBoxTenNhanVien
             // 
-            textBox3.Location = new Point(598, 63);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(244, 27);
-            textBox3.TabIndex = 6;
+            textBoxTenNhanVien.Location = new Point(598, 63);
+            textBoxTenNhanVien.Name = "textBoxTenNhanVien";
+            textBoxTenNhanVien.Size = new Size(244, 27);
+            textBoxTenNhanVien.TabIndex = 6;
             // 
             // panel3
             // 
             panel3.BackColor = SystemColors.Window;
-            panel3.Controls.Add(textBox3);
-            panel3.Controls.Add(textBox2);
-            panel3.Controls.Add(textBox1);
+            panel3.Controls.Add(textBoxEmail);
+            panel3.Controls.Add(label10);
+            panel3.Controls.Add(textBoxTenNhanVien);
+            panel3.Controls.Add(textBoxSoDienThoai);
+            panel3.Controls.Add(textBoxMaNhanVien);
             panel3.Controls.Add(label5);
             panel3.Controls.Add(label4);
             panel3.Controls.Add(label3);
@@ -143,16 +148,32 @@
             panel3.Size = new Size(957, 184);
             panel3.TabIndex = 5;
             // 
+            // textBoxEmail
+            // 
+            textBoxEmail.Location = new Point(598, 120);
+            textBoxEmail.Name = "textBoxEmail";
+            textBoxEmail.Size = new Size(244, 27);
+            textBoxEmail.TabIndex = 8;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(451, 123);
+            label10.Name = "label10";
+            label10.Size = new Size(46, 20);
+            label10.TabIndex = 7;
+            label10.Text = "Email";
+            // 
             // UserControlThongTinKhoiTao
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(buttonHienThiThem);
             Controls.Add(panel3);
-            Controls.Add(button1);
+            Controls.Add(buttonThemHinhAnh);
             Controls.Add(pictureBox1);
             Name = "UserControlThongTinKhoiTao";
-            Size = new Size(1194, 293);
+            Size = new Size(1194, 267);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
@@ -160,16 +181,18 @@
         }
 
         #endregion
-        private Button button1;
+        private Button buttonThemHinhAnh;
         private PictureBox pictureBox1;
         private Button buttonHienThiThem;
         private Label label2;
         private Label label3;
         private Label label4;
         private Label label5;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
+        private TextBox textBoxMaNhanVien;
+        private TextBox textBoxSoDienThoai;
+        private TextBox textBoxTenNhanVien;
         private Panel panel3;
+        private TextBox textBoxEmail;
+        private Label label10;
     }
 }

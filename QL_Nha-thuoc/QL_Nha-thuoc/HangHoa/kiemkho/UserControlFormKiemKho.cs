@@ -14,6 +14,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
 {
     public partial class UserControlFormKiemKho : UserControl
     {
+        public event Action DaXong;
         public string ghiChu { get; private set; }
         public string MaKiemKho { get; private set; }
         public UserControlFormKiemKho(string maKiemKho)
@@ -157,6 +158,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             }
 
             MessageBox.Show("Lưu tạm phiếu kiểm kho thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            DaXong?.Invoke();
         }
 
 
@@ -258,6 +260,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             }
 
             MessageBox.Show("Hoàn thành phiếu kiểm kho thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            DaXong?.Invoke();
         }
 
 

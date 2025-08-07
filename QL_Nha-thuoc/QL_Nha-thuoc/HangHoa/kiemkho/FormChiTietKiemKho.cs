@@ -20,10 +20,14 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
 
         //khai bao su kien form dong 
         public event Action FormDong;
-        public FormChiTietKiemKho(string maPhieuKiem)
+
+        private FormMain formMain;
+
+        public FormChiTietKiemKho(string maPhieuKiem, FormMain main)
         {
             InitializeComponent();
             this.maPhieuKiem = maPhieuKiem;
+            this.formMain = main;
         }
         //ham load du lieu
         private void LoadChiTietPhieuKiemKho()
@@ -37,7 +41,18 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                 textBoxMaKiemKho.Text = thongTinPhieu.MaPhieuKiemKho;
                 textBoxNguoiTao.Text = thongTinPhieu.TenNhanVien;
                 textBoxTrangThai.Text = thongTinPhieu.TrangThaiPhieuKiem;
-                textBoxGhiChu.Text = thongTinPhieu.GhiChu;
+
+                if(thongTinPhieu.TrangThaiPhieuKiem== "Phiếu tạm")
+                {
+                    buttonMoPhieu.Visible=true;
+                }
+                else if(thongTinPhieu.TrangThaiPhieuKiem== "Đã cân bằng kho")
+                {
+                    buttonMoPhieu.Visible = false;
+
+                }
+
+                    textBoxGhiChu.Text = thongTinPhieu.GhiChu;
                 if (thongTinPhieu.NgayKiemKho.HasValue)
                 {
                     textBoxThoiGianKiemKho.Text = thongTinPhieu.NgayKiemKho.Value.ToString("dd/MM/yyyy HH:mm:ss");
@@ -103,9 +118,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
 
         }
 
-
-
-        private void FormChiTietKiemKho_Load_1(object sender, EventArgs e)
+        private void FormChiTietKiemKho_Load(object sender, EventArgs e)
         {
             LoadChiTietPhieuKiemKho();
         }
@@ -241,6 +254,34 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             // 3. Mở file
             Process.Start("explorer", filePath);
         }
+
+        private void buttonMoPhieu_Click(object sender, EventArgs e)
+        {
+            string trangThai = ClassPhieuKiemKho.LayTrangThaiPhieu(maPhieuKiem);
+
+            if (trangThai == "Phiếu tạm")
+            {
+                FormThemKiemKho formThemKiemKho = new FormThemKiemKho(maPhieuKiem);
+
+                // Gán sự kiện callback
+                formThemKiemKho.FormDaDong += () =>
+                {
+                    // Quay lại form danh sách kiểm kho và load lại
+                    formMain.LoadFormVaoPanel(new KiemKho());
+                };
+
+                formMain.LoadFormVaoPanel(formThemKiemKho);
+
+                // Đóng form chi tiết hiện tại (this)
+                this.Dispose(); // hoặc this.Close() nếu không lỗi
+            }
+            else
+            {
+                MessageBox.Show("Phiếu này đã được xác nhận. Không thể chỉnh sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+
 
 
     }

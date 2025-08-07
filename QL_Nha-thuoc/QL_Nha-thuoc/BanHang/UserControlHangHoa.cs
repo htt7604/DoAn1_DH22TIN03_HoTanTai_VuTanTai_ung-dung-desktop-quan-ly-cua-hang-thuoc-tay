@@ -55,6 +55,17 @@ namespace QL_Nha_thuoc.BanHang
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string _TenHangHoa
+        {
+            get { return labelTenHang.Text; }  // hoặc tên Label chứa tên hàng hóa trong giao diện
+            set { labelTenHang.Text = value; }
+        }
+
+
+
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 
 
 
@@ -64,6 +75,7 @@ namespace QL_Nha_thuoc.BanHang
         public string maHangHoa;
 
         public decimal DonGiaGocHH;
+
 
 
         [Browsable(false)]
@@ -209,10 +221,25 @@ namespace QL_Nha_thuoc.BanHang
             popup.Show();
         }
 
+        private void UserControlHangHoa_Load(object sender, EventArgs e)
+        {
+            string maHH = labelMaHangHoa.Text;
+            ClassHangHoa hangHoa = ClassHangHoa.LayThongTinMotHangHoa(maHH);
+            int soluonghh = (int)numericUpDownSoLuong.Value;
+            if (soluonghh > hangHoa.SoLuongTon)
+            {
+                numericUpDownSoLuong.BackColor = Color.LightCoral; // hoặc Color.Red
+            }
+            else
+            {
+                numericUpDownSoLuong.BackColor = Color.White; // trở lại màu bình thường
+            }
 
+            // (tuỳ chọn) Gửi sự kiện thay đổi thành tiền nếu cần
+            ThanhTienThayDoi?.Invoke(this, EventArgs.Empty);
 
-
-
+            TinhThanhTien(); // Tính lại thành tiền khi số lượng thay đổi
+        }
     }
 }
 

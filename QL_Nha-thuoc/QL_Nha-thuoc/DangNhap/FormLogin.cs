@@ -106,12 +106,17 @@ namespace QL_Nha_thuoc.DangNhap
             Session.TaiKhoanDangNhap = taiKhoan;
 
             MessageBox.Show("Đăng nhập thành công!", "Thông báo");
-            this.Hide();
+            this.Hide(); // Ẩn login form, không đóng
+
+            Form frm;
             if (vaiTroYeuCau == "Quản lý")
-                new FormMain().ShowDialog();
+                frm = new FormMain();
             else
-                new FormBanHangMain().ShowDialog();
-            this.Show();
+                frm = new FormBanHangMain();
+
+            frm.FormClosed += (s, args) => this.Show(); // Khi form chính đóng, hiển thị lại login
+            frm.Show();
+
         }
 
 

@@ -1,11 +1,14 @@
 ﻿using QL_Nha_thuoc.DoiTac.khachhang;
 using QL_Nha_thuoc.model;
+using QuestPDF.Fluent;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Reflection;
 namespace QL_Nha_thuoc.BanHang
 {
     public partial class UserControlFormHoaDon : UserControl
     {
+        private string LoaiGiamGia = "VND"; // hoặc "%"
         public UserControlFormHoaDon()
         {
             InitializeComponent();
@@ -195,28 +198,23 @@ namespace QL_Nha_thuoc.BanHang
             formGiamGia.ShowIcon = false;
             formGiamGia.ShowInTaskbar = false;
 
-            // Gắn sự kiện khi thay đổi giảm giá thi hien thi ra trong textboxGiamGia
+        
             formGiamGia.CoSuThayDoiGiamGia += (s, args) =>
             {
-                // Gán giá trị giảm giá theo VND vào biến dùng chung
-                GiaTriGiamGia = formGiamGia.TinhSoTienGiamGia();  // luôn là VND
-                //neu la VND thi hien thi so tien giam
-                if (formGiamGia.LoaiGiamGia == "VND")
-                {
-                    textBoxGiamGia.Text = GiaTriGiamGia.ToString("N0") + " đ";
-                    labelPhanTramGiam.Text = "";
-                }
-                //neu la phan tram thi hien thi so tien giam theo VND va hien thi so % giam ra label
+                LoaiGiamGia = formGiamGia.LoaiGiamGia;
+                GiaTriGiamGia = formGiamGia.GiaTriNhapGiamGia;
+
+                decimal soTienGiam = formGiamGia.TinhSoTienGiamGia();
+                textBoxGiamGia.Text = soTienGiam.ToString("N0") + " đ";
+
+                if (LoaiGiamGia == "%")
+                    labelPhanTramGiam.Text = $"({GiaTriGiamGia.ToString("0.##")}%)";
                 else
-                {
-                    textBoxGiamGia.Text = GiaTriGiamGia.ToString("N0") + " đ";
-                    labelPhanTramGiam.Text = "(" + formGiamGia.GiaTriNhapGiamGia.ToString("0.##") + " %)";
-                }
+                    labelPhanTramGiam.Text = "";
 
-                // Cập nhật số tiền cần trả sau khi so su thay doi giam gia 
-                TinhSoTienCanTra();
-
+                TinhSoTienCanTra(); // cập nhật lại số tiền cần trả
             };
+
 
             // Tính tọa độ màn hình của TextBox
             Point viTriManHinh = textBoxGiamGia.PointToScreen(Point.Empty);
@@ -293,6 +291,7 @@ namespace QL_Nha_thuoc.BanHang
 
             // Lấy và xử lý giá trị giảm giá
             decimal giamGia = 0;
+
             if (!decimal.TryParse(textBoxGiamGia.Text.Replace(" đ", "").Replace(",", "").Replace("%", ""), out giamGia))
                 giamGia = 0;
 
@@ -321,8 +320,19 @@ namespace QL_Nha_thuoc.BanHang
         //moi lan cap nhat tong tien la phai tinh lai so tien khach can tra
         private void labelTongTienHang_TextChanged(object sender, EventArgs e)
         {
+            if (LoaiGiamGia == "%")
+            {
+                if (decimal.TryParse(labelTongTienHang.Text.Replace(" đ", "").Replace(",", ""), out decimal tongTienHang))
+                {
+                    decimal soTienGiam = tongTienHang * GiaTriGiamGia / 100;
+                    textBoxGiamGia.Text = soTienGiam.ToString("N0") + " đ";
+                    labelPhanTramGiam.Text = $"({GiaTriGiamGia.ToString("0.##")}%)";
+                }
+            }
+
             TinhSoTienCanTra();
         }
+
 
         private void radioButtonChuyenKhoan_CheckedChanged(object sender, EventArgs e)
         {
@@ -340,13 +350,32 @@ namespace QL_Nha_thuoc.BanHang
                 // Xóa các control cũ nếu có
                 panelThanhToanQR.Controls.Clear();
 
-                // Thêm UserControl chuyển khoản
-                var userControlThanhToanChuyenKhoan = new UserControlThanhToanChuyenKhoan();
+                // Tạo UserControl chuyển khoản
+                // Truyền panelChonTaiKhoan của form vào UserControl
+                var userControlThanhToanChuyenKhoan = new UserControlThanhToanChuyenKhoan(this.panelChonTaiKhoan);
                 panelThanhToanQR.Controls.Add(userControlThanhToanChuyenKhoan);
-                userControlThanhToanChuyenKhoan.Dock = DockStyle.Fill;
+
+                // Đặt vị trí và kích thước ban đầu
+                userControlThanhToanChuyenKhoan.Location = new Point(0, 0);
+                userControlThanhToanChuyenKhoan.Size = panelThanhToanQR.ClientSize;
+
+                // Gắn sự kiện Resize cho panel để điều chỉnh kích thước UserControl
+                panelThanhToanQR.Resize += (s, e2) =>
+                {
+                    int padding = 10;
+                    userControlThanhToanChuyenKhoan.Location = new Point(padding, padding);
+                    userControlThanhToanChuyenKhoan.Size = new Size(
+                        panelThanhToanQR.ClientSize.Width - 2 * padding,
+                        panelThanhToanQR.ClientSize.Height - 2 * padding
+                    );
+                };
+
+
+                // Gọi tính toán số tiền
                 TinhSoTienCanTra();
             }
         }
+
 
 
         private void radioButtonTienMat_CheckedChanged(object sender, EventArgs e)
@@ -429,5 +458,193 @@ namespace QL_Nha_thuoc.BanHang
             }
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //co bien luu khach hang r 
+        private void buttonThanhToan_Click(object sender, EventArgs e)
+        {
+
+            if (flowLayoutPanelTTHH.Controls.Count == 0)
+            {
+                MessageBox.Show("Chưa có sản phẩm nào trong hóa đơn!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            foreach (UserControlHangHoa item in flowLayoutPanelTTHH.Controls)
+            {
+                int soLuongBan = item.SoLuong;
+
+                // Lấy hàng hóa từ CSDL
+                ClassHangHoa hangHoa = ClassHangHoa.LayThongTinHangHoa(item.maHangHoa);
+
+                if (hangHoa == null)
+                {
+                    MessageBox.Show($"Không tìm thấy thông tin hàng hóa có mã: {item.maHangHoa}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (soLuongBan > hangHoa.SoLuongTon)
+                {
+                    MessageBox.Show($"Số lượng bán của hàng hóa \"{hangHoa.TenHangHoa}\" vượt quá số lượng tồn!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            // Tạo hóa đơn mới
+            ClassHoaDon classHoaDon = new ClassHoaDon();
+
+            // Gán mã hóa đơn tự động
+            classHoaDon.MaHoaDon = ClassHoaDon.TaoMaHoaDonTuDong();
+
+            // Gán hình thức thanh toán
+            if (radioButtonChuyenKhoan.Checked==true)
+            {
+                UserControlThanhToanChuyenKhoan _ucChuyenKhoan = new UserControlThanhToanChuyenKhoan(panelChonTaiKhoan);
+                classHoaDon.MaHinhThucThanhToan = "HTTT_CK";
+                classHoaDon.MaTaiKhoanNganHang = _ucChuyenKhoan.MaTaiKhoanNganHangDangChon;
+            }
+            else if (radioButtonTienMat.Checked==true)
+            {
+
+                classHoaDon.MaHinhThucThanhToan = "HTTT_TM";
+
+                decimal khachthanhtoan = 0;
+                string khachthanhtoanText = labelKhachThanhToan.Text.Replace("đ", "").Replace(",", "").Trim();
+                if (decimal.TryParse(khachthanhtoanText, out khachthanhtoan))
+                    classHoaDon.KhachThanhToan = khachthanhtoan;
+                else
+                    classHoaDon.KhachThanhToan = 0;
+
+
+                decimal Tralaikhach = 0;
+                string TralaikhachText = textBoxSoTienKhachThanhToan.Text.Replace("đ", "").Replace(",", "").Trim();
+                if (decimal.TryParse(TralaikhachText, out Tralaikhach))
+                    classHoaDon.TienTraKhach = Tralaikhach;
+                else
+                    classHoaDon.TienTraKhach = 0;
+            }
+
+            // Gán nhân viên đăng nhập hiện tại (đã lưu trong biến toàn cục)
+            classHoaDon.MaNV = TaiKhoanNVThucHien?.MaNhanVien;
+
+            // Gán mã khách hàng nếu có
+            // Gán mã khách hàng nếu có, ngược lại dùng mã mặc định "KH000"
+            classHoaDon.MaKH = KhachHangDuocChon?.MaKH ?? "KH000";
+
+            // Gán ngày lập hóa đơn
+            classHoaDon.NgayLapHD = DateTime.Now;
+
+            // Gán mã bảng giá
+            classHoaDon.MaBangGia =FormBanHangMain.BangGiaDuocChon?.MaBangGia;
+
+            // Gán loại hóa đơn (cố định "BanHang" hoặc truyền biến tùy tình huống)
+            classHoaDon.LoaiHoaDon = "BanHang";
+
+            // Gán giảm giá toàn hóa đơn (nếu có)
+            decimal giamGia = 0;
+            string giamGiaText = textBoxGiamGia.Text.Replace("đ", "").Replace(",", "").Trim();
+            if (decimal.TryParse(giamGiaText, out giamGia))
+                classHoaDon.GiamGia = giamGia;
+            else
+                classHoaDon.GiamGia = 0;
+
+            // Tính thành tiền tổng cộng (đã trừ giảm giá)
+            decimal thanhTien = 0;
+            string thanhTienText = textBoxKhachCanTra.Text.Replace("đ", "").Replace(",", "").Trim();
+            if (decimal.TryParse(thanhTienText, out thanhTien))
+                classHoaDon.ThanhTien = thanhTien;
+            else
+                classHoaDon.ThanhTien = 0;
+
+
+            classHoaDon.TrangThai = "Hoàn thành";
+
+
+            // Ghi chú (nếu có)
+            classHoaDon.GhiChuHoaDon = textBoxGhiChu.Text.Trim();
+
+            // Thêm vào CSDL
+            bool thanhCong = ClassHoaDon.ThemHoaDon(classHoaDon);
+
+            if (thanhCong) // Khi ThemHoaDon() trả về true
+            {
+                // Tạo danh sách chi tiết hóa đơn để in PDF
+                List<ClassChiTietHoaDon> chiTietList = new List<ClassChiTietHoaDon>();
+
+                foreach (UserControlHangHoa item in flowLayoutPanelTTHH.Controls)
+                {
+                    ClassChiTietHoaDon ct = new ClassChiTietHoaDon
+                    {
+                        MaHoaDon = classHoaDon.MaHoaDon,
+                        MaHangHoa = item.maHangHoa,
+                        TenHangHoa = item._TenHangHoa,
+                        SoLuong = item.SoLuong,
+                        DonGiaBan = item.DonGiaGocHH,
+                        GiamGia = item.GiaTriGiamGia,
+                        GiaBan = item.GiaSauGiam,
+                        ThanhTien = item.thanhTienHH
+                    };
+
+                    ct.ThemChiTiet(); // Thêm vào CSDL
+
+                    chiTietList.Add(ct); // ➤ Thêm vào danh sách để in
+
+                    ClassHangHoa.CapNhatSoLuongTon(item.maHangHoa, -item.SoLuong);
+                }
+
+                // Xóa giao diện sau khi xử lý xong
+                flowLayoutPanelTTHH.Controls.Clear();
+                 
+                textBoxGiamGia.Text = "0";
+                textBoxKhachCanTra.Text = "0";
+                textBoxGhiChu.Clear();
+
+
+                MessageBox.Show("Thanh toán và lưu chi tiết thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Sau khi thanh toán thành công -> In hóa đơn
+
+                // Tạo tài liệu hóa đơn và in
+                var doc = new HoaDonThanhToanDocument(classHoaDon, chiTietList);
+
+                // Xuất PDF ra Desktop
+                string fileName = $"HoaDon_{classHoaDon.MaHoaDon}.pdf";
+                string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
+                try
+                {
+                    doc.GeneratePdf(filePath);
+                    Process.Start("explorer", filePath); // Mở file PDF bằng Explorer
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi tạo PDF: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+
+
+            else
+            {
+                MessageBox.Show("Lỗi khi lưu hóa đơn!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private ClassTaiKhoan TaiKhoanNVThucHien;
+        private void comboBoxTaiKhoan_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Ép kiểu về ClassTaiKhoan nếu bạn gán dữ liệu trực tiếp là list<ClassTaiKhoan>
+            TaiKhoanNVThucHien = comboBoxTaiKhoan.SelectedItem as ClassTaiKhoan;
+        }
     }
 }

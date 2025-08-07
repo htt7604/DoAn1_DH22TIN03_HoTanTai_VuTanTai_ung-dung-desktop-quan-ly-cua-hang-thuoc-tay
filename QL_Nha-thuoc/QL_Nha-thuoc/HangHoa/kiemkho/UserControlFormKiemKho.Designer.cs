@@ -68,6 +68,7 @@
             // 
             // flowLayoutPanelKiemKho
             // 
+            flowLayoutPanelKiemKho.BackColor = SystemColors.Control;
             flowLayoutPanelKiemKho.Dock = DockStyle.Fill;
             flowLayoutPanelKiemKho.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanelKiemKho.Location = new Point(0, 0);
@@ -77,7 +78,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = SystemColors.Window;
+            panel2.BackColor = SystemColors.Control;
             panel2.Controls.Add(labelTongThucTe);
             panel2.Controls.Add(labelTrangThai);
             panel2.Controls.Add(textBoxMaKiemKho);

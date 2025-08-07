@@ -1,5 +1,6 @@
 ﻿using QL_Nha_thuoc.model;
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Net;
@@ -9,15 +10,31 @@ namespace QL_Nha_thuoc.BanHang
 {
     public partial class UserControlThanhToanChuyenKhoan : UserControl
     {
-        public UserControlThanhToanChuyenKhoan()
+        public UserControlThanhToanChuyenKhoan(Panel panelChonTaiKhoan)
         {
             InitializeComponent();
+            _panelChonTaiKhoan = panelChonTaiKhoan;
             LoadThongTinChuyenKhoan();
+
         }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string MaTaiKhoanNganHangDangChon
+        {
+            get
+            {
+                var taiKhoan = ClassTaiKhoanNganHang.LayTaiKhoanNganHang(labelSoTaiKhoan.Text);
+                return taiKhoan?.MaTaiKhoanNH;
+            }
+        }
+
+
+        //lấy panel 
+        private Panel _panelChonTaiKhoan;
+
 
         private void LoadThongTinChuyenKhoan()
         {
-            var taiKhoan = ClassTaiKhoanNganHang.LayTaiKhoan();
+            var taiKhoan = ClassTaiKhoanNganHang.LayTaiKhoan();//lay tai khoan dau tien 
             if (taiKhoan == null)
             {
                 MessageBox.Show("Không tìm thấy tài khoản ngân hàng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -29,6 +46,7 @@ namespace QL_Nha_thuoc.BanHang
             string tenNH = taiKhoan.TenNganHang;
             string noiDung = "Thanh toan don thuoc";
 
+            labelTenNganHang.Text = tenNH;
             labelTenChuTaiKhoan.Text = tenChuTK;
             labelSoTaiKhoan.Text = soTK;
             labelSoTien.Text = "0 VND";
@@ -37,8 +55,10 @@ namespace QL_Nha_thuoc.BanHang
             HienThiQRCode(url);
         }
 
+        public decimal _soTien;
         public void CapNhatQRCode(decimal soTien)
         {
+            _soTien = soTien;
             var taiKhoan = ClassTaiKhoanNganHang.LayTaiKhoan();
             if (taiKhoan == null)
             {
@@ -51,6 +71,7 @@ namespace QL_Nha_thuoc.BanHang
             string tenNH = taiKhoan.TenNganHang;
             string noiDung = $"Thanh toan hoa don {DateTime.Now:yyyyMMddHHmmss}";
 
+            labelTenNganHang.Text = tenNH;
             labelTenChuTaiKhoan.Text = tenChuTK;
             labelSoTaiKhoan.Text = soTK;
             labelSoTien.Text = $"{soTien:#,##0} VND";
@@ -116,10 +137,90 @@ namespace QL_Nha_thuoc.BanHang
             formQR.ShowDialog();
         }
 
-
-        private void buttonChonTaiKhoanNH_Click(object sender, EventArgs e)
+        private void buttonChonTK_Click(object sender, EventArgs e)
         {
-            // TODO: Hiển thị danh sách tài khoản hoặc mở form chọn tài khoản
+            var danhSach = ClassTaiKhoanNganHang.LayDanhSachTaiKhoan();
+            var formChon = new FormChonTaiKhoanNganHang(danhSach);
+
+            formChon.TaiKhoanDuocChon += (s, taiKhoan) =>
+            {
+                labelTenNganHang.Text = taiKhoan.TenNganHang;
+                labelTenChuTaiKhoan.Text = taiKhoan.TenChuTK;
+                labelSoTaiKhoan.Text = taiKhoan.SoTaiKhoan;
+                labelSoTien.Text = _soTien.ToString();
+
+                string noiDung = "Thanh toan don thuoc";
+                string url = TaoUrlQRCode(taiKhoan.TenNganHang, taiKhoan.SoTaiKhoan, taiKhoan.TenChuTK, _soTien, noiDung, compact: true);
+                HienThiQRCode(url);
+            };
+
+            formChon.ShowDialog(); // mở form chọn tài khoản
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //private void HienThiDanhSachTaiKhoan()
+        //{
+        //    panelTaiKhoanNganHang.Visible = true;
+        //    flowLayoutPanelDSTaiKhoangNganHang.Controls.Clear();
+        //    flowLayoutPanelDSTaiKhoangNganHang.FlowDirection = FlowDirection.TopDown;
+        //    flowLayoutPanelDSTaiKhoangNganHang.WrapContents = false;
+        //    flowLayoutPanelDSTaiKhoangNganHang.AutoScroll = true;
+
+        //    var danhSach = ClassTaiKhoanNganHang.LayDanhSachTaiKhoan();
+
+        //    foreach (var tk in danhSach)
+        //    {
+        //        var item = new UserControlitemtkNganHang();
+        //        item.Setdata(tk);
+
+        //        // Gắn sự kiện: khi chọn tài khoản → cập nhật thông tin & QR
+        //        item.TaiKhoanDuocChon += (s, taiKhoan) =>
+        //        {
+        //            labelTenChuTaiKhoan.Text = taiKhoan.TenChuTK;
+        //            labelSoTaiKhoan.Text = taiKhoan.SoTaiKhoan;
+        //            labelSoTien.Text = "0 VND";
+
+        //            string noiDung = "Thanh toan don thuoc";
+        //            string url = TaoUrlQRCode(taiKhoan.TenNganHang, taiKhoan.SoTaiKhoan, taiKhoan.TenChuTK, 0, noiDung, compact: true);
+        //            HienThiQRCode(url);
+
+        //            panelTaiKhoanNganHang.Visible = false;
+        //        };
+
+        //        // Kích thước phù hợp với flow layout
+        //        item.Margin = new Padding(5);
+        //        item.Width = flowLayoutPanelDSTaiKhoangNganHang.ClientSize.Width - 25; // trừ scroll bar nếu có
+
+        //        flowLayoutPanelDSTaiKhoangNganHang.Controls.Add(item);
+        //    }
+        //}
     }
 }

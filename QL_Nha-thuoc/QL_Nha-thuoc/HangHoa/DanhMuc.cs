@@ -250,7 +250,8 @@ namespace QL_Nha_thuoc
          JOIN NHOM_HANG NH  ON NH.MA_NHOM_HH = HH.MA_NHOM_HH 
          JOIN LOAI_HANG LH ON LH.MA_LOAI_HH = NH.MA_LOAI_HH 
          JOIN GIA_HANG_HOA GHH ON HH.MA_HANG_HOA = GHH.MA_HANG_HOA
-         WHERE  HH.MA_HANG_HOA NOT LIKE '%_DELETED'  ");
+        JOIN BANG_GIA_HH BGHH ON GHH.MA_BANG_GIA =BGHH.MA_BANG_GIA
+         WHERE  HH.MA_HANG_HOA NOT LIKE '%_DELETED' AND GHH.MA_BANG_GIA ='BG001' ");
 
             parameters = new Dictionary<string, object>();
 

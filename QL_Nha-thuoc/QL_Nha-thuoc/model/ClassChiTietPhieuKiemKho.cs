@@ -24,6 +24,7 @@ namespace QL_Nha_thuoc.model
         public string TenHangHoa { get; set; }
         public int SoLuongHeThong { get; set; }
         public int SoLuongThucTe { get; set; }
+        public string TenDonViTinh {  get; set; }
         public string GhiChu { get; set; }
 
         public int ChenhLech => SoLuongThucTe - SoLuongHeThong;

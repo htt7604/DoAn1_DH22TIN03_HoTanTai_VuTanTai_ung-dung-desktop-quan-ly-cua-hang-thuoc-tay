@@ -39,10 +39,10 @@
             buttonXoaHoaDon = new Button();
             buttonThemHoaDon = new Button();
             panel = new Panel();
+            comboBoxBangGia = new ComboBox();
             tableLayoutPanel5 = new TableLayoutPanel();
             pictureBox1 = new PictureBox();
             textBoxTimHH = new TextBox();
-            comboBoxBangGia = new ComboBox();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             tabControlHoaDon.SuspendLayout();
@@ -120,19 +120,19 @@
             // buttonHienCongCu
             // 
             buttonHienCongCu.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonHienCongCu.Location = new Point(1466, 17);
+            buttonHienCongCu.Location = new Point(1456, 21);
             buttonHienCongCu.Name = "buttonHienCongCu";
             buttonHienCongCu.Size = new Size(37, 29);
             buttonHienCongCu.TabIndex = 41;
             buttonHienCongCu.UseVisualStyleBackColor = true;
-            buttonHienCongCu.Click += button1_Click;
+            buttonHienCongCu.Click += buttonHienCongCu_Click;
             // 
             // labelTenTaiKhoan
             // 
             labelTenTaiKhoan.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             labelTenTaiKhoan.AutoSize = true;
             labelTenTaiKhoan.Font = new Font("Segoe UI", 11F);
-            labelTenTaiKhoan.Location = new Point(1397, 21);
+            labelTenTaiKhoan.Location = new Point(1360, 21);
             labelTenTaiKhoan.Name = "labelTenTaiKhoan";
             labelTenTaiKhoan.RightToLeft = RightToLeft.Yes;
             labelTenTaiKhoan.Size = new Size(63, 25);
@@ -141,7 +141,7 @@
             // 
             // buttonXoaHoaDon
             // 
-            buttonXoaHoaDon.Location = new Point(1017, 6);
+            buttonXoaHoaDon.Location = new Point(885, 6);
             buttonXoaHoaDon.Name = "buttonXoaHoaDon";
             buttonXoaHoaDon.Size = new Size(151, 45);
             buttonXoaHoaDon.TabIndex = 39;
@@ -151,7 +151,7 @@
             // 
             // buttonThemHoaDon
             // 
-            buttonThemHoaDon.Location = new Point(826, 9);
+            buttonThemHoaDon.Location = new Point(728, 6);
             buttonThemHoaDon.Name = "buttonThemHoaDon";
             buttonThemHoaDon.Size = new Size(151, 45);
             buttonThemHoaDon.TabIndex = 38;
@@ -167,6 +167,15 @@
             panel.Name = "panel";
             panel.Size = new Size(718, 55);
             panel.TabIndex = 37;
+            // 
+            // comboBoxBangGia
+            // 
+            comboBoxBangGia.FormattingEnabled = true;
+            comboBoxBangGia.Location = new Point(457, 14);
+            comboBoxBangGia.Name = "comboBoxBangGia";
+            comboBoxBangGia.Size = new Size(151, 28);
+            comboBoxBangGia.TabIndex = 9;
+            comboBoxBangGia.SelectedIndexChanged += comboBoxBangGia_SelectedIndexChanged;
             // 
             // tableLayoutPanel5
             // 
@@ -207,14 +216,6 @@
             textBoxTimHH.TabIndex = 5;
             textBoxTimHH.Tag = "";
             textBoxTimHH.TextChanged += textBoxTimHH_TextChanged;
-            // 
-            // comboBoxBangGia
-            // 
-            comboBoxBangGia.FormattingEnabled = true;
-            comboBoxBangGia.Location = new Point(489, 15);
-            comboBoxBangGia.Name = "comboBoxBangGia";
-            comboBoxBangGia.Size = new Size(151, 28);
-            comboBoxBangGia.TabIndex = 9;
             // 
             // FormBanHangMain
             // 

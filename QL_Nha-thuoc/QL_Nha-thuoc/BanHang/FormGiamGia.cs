@@ -14,7 +14,6 @@ namespace QL_Nha_thuoc.BanHang
     {
         //bien truyền ra 
         public string LoaiGiamGia => loaigiamgia;
-
         public FormGiamGia()
         {
             InitializeComponent();

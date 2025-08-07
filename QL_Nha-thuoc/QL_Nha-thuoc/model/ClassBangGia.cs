@@ -56,7 +56,7 @@ namespace QL_Nha_thuoc.model
         }
 
         //LayTatCaBangGiaDangApDUng
-        public static List <ClassBangGia> LayTatCaBangGiaDangApDUng()
+        public static List <ClassBangGia> LayTatCaBangGiaDangApDung()
         {
             List<ClassBangGia> list = new List<ClassBangGia>();
             using (SqlConnection conn = CSDL.GetConnection())
@@ -88,6 +88,9 @@ namespace QL_Nha_thuoc.model
             }
             return list;
         }
+
+
+
 
 
         public static string TaoMaBangGiaTuDong()
@@ -154,7 +157,7 @@ namespace QL_Nha_thuoc.model
                 SET TEN_BANG_GIA=@tenbanggia, TU_NGAY = @tu, DEN_NGAY = @den, TRANG_THAI = @trangthai, 
                     CHO_CHON_NGOAI_BANG_GIA = @chonngoai,
                     LA_PHAN_TRAM = @phantram, TANG_GIAM = @tanggiam, 
-                    GIA_TRI_TANG_GIAM = @giatri, DUNG_GIA_VON = @tudong
+                    GIA_TRI_TANG_GIAM = @giatri, DUNG_GIA_VON = @dunggiavon
                 WHERE MA_BANG_GIA = @ma";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))

@@ -30,6 +30,7 @@
         {
             tableLayoutPanel1 = new TableLayoutPanel();
             panel3 = new Panel();
+            buttonIn = new Button();
             tableLayoutPanel2 = new TableLayoutPanel();
             labelTongChenhLech = new Label();
             labelTongLechTang = new Label();
@@ -50,7 +51,7 @@
             textBoxMaKiemKho = new TextBox();
             label1 = new Label();
             dataGridViewdsTTPhieuKiemKho = new DataGridView();
-            buttonIn = new Button();
+            buttonMoPhieu = new Button();
             tableLayoutPanel1.SuspendLayout();
             panel3.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -77,6 +78,7 @@
             // 
             // panel3
             // 
+            panel3.Controls.Add(buttonMoPhieu);
             panel3.Controls.Add(buttonIn);
             panel3.Controls.Add(tableLayoutPanel2);
             panel3.Controls.Add(buttonHuyBo);
@@ -86,6 +88,16 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(1108, 225);
             panel3.TabIndex = 2;
+            // 
+            // buttonIn
+            // 
+            buttonIn.Location = new Point(710, 187);
+            buttonIn.Name = "buttonIn";
+            buttonIn.Size = new Size(94, 29);
+            buttonIn.TabIndex = 8;
+            buttonIn.Text = "In";
+            buttonIn.UseVisualStyleBackColor = true;
+            buttonIn.Click += buttonIn_Click;
             // 
             // tableLayoutPanel2
             // 
@@ -290,15 +302,15 @@
             dataGridViewdsTTPhieuKiemKho.Size = new Size(1108, 384);
             dataGridViewdsTTPhieuKiemKho.TabIndex = 3;
             // 
-            // buttonIn
+            // buttonMoPhieu
             // 
-            buttonIn.Location = new Point(689, 187);
-            buttonIn.Name = "buttonIn";
-            buttonIn.Size = new Size(94, 29);
-            buttonIn.TabIndex = 8;
-            buttonIn.Text = "In";
-            buttonIn.UseVisualStyleBackColor = true;
-            buttonIn.Click += buttonIn_Click;
+            buttonMoPhieu.Location = new Point(577, 187);
+            buttonMoPhieu.Name = "buttonMoPhieu";
+            buttonMoPhieu.Size = new Size(94, 29);
+            buttonMoPhieu.TabIndex = 9;
+            buttonMoPhieu.Text = "Mở phiếu";
+            buttonMoPhieu.UseVisualStyleBackColor = true;
+            buttonMoPhieu.Click += buttonMoPhieu_Click;
             // 
             // FormChiTietKiemKho
             // 
@@ -310,7 +322,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Chi tiết phiếu kiểm";
             FormClosed += FormChiTietKiemKho_FormClosed;
-            Load += FormChiTietKiemKho_Load_1;
+            Load += FormChiTietKiemKho_Load;
             tableLayoutPanel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
@@ -346,5 +358,6 @@
         private DataGridView dataGridViewdsTTPhieuKiemKho;
         private TableLayoutPanel tableLayoutPanel2;
         private Button buttonIn;
+        private Button buttonMoPhieu;
     }
 }
