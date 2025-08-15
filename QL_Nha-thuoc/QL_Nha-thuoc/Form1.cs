@@ -1,7 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace QL_Nha_thuoc
 {
@@ -10,46 +16,74 @@ namespace QL_Nha_thuoc
         public Form1()
         {
             InitializeComponent();
-        }
+            // Giả sử bạn có Chart tên chartTop10HangHoa trên Form
+            VeBieuDoTopSanPhamBanChayTheoTongTien(chart1);
 
-        private void button1_Click(object sender, EventArgs e)
+        }
+        public void VeBieuDoTopSanPhamBanChayTheoTongTien(Chart chartTop10HangHoa)
         {
-            var danhSach = new List<BangNoReport.NoItem>
-            {
-                new BangNoReport.NoItem { STT = 1, MaDoiTuong = "KH001", TenDoiTuong = "Nguyễn Văn A", SoTienNo = 2000000, GhiChu = "Chưa thanh toán" },
-                new BangNoReport.NoItem { STT = 2, MaDoiTuong = "KH002", TenDoiTuong = "Trần Thị B", SoTienNo = 1500000, GhiChu = "" }
-            };
+            var topSanPham = new List<(string TenHangHoa, double TongGiaTri)>
+    {
+        ("Kem dưỡng da tay y tế", 600000),
+        ("Sữa rửa mặt dịu nhẹ", 140000),
+        ("Son dưỡng môi", 350000)
+    };
 
-            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "BaoCaoBangNo.pdf");
+            chartTop10HangHoa.Series.Clear();
+            chartTop10HangHoa.ChartAreas.Clear();
+            chartTop10HangHoa.Legends.Clear();
 
-            try
+            // ChartArea
+            var chartArea = new ChartArea("ChartArea1");
+            chartArea.AxisX.Interval = 1;
+            chartArea.AxisX.LabelStyle.Angle = -20;
+            chartArea.AxisX.MajorGrid.Enabled = false;
+
+            chartArea.AxisY.Title = "Doanh thu (₫)";
+            chartArea.AxisY.LabelStyle.Format = "N0";
+            chartArea.AxisY.MajorGrid.LineColor = Color.LightGray;
+            chartArea.AxisY.Minimum = 0;
+
+            chartTop10HangHoa.ChartAreas.Add(chartArea);
+
+            // Legend
+            var legend = new Legend();
+            chartTop10HangHoa.Legends.Add(legend);
+
+            int index = 0;
+            foreach (var sp in topSanPham)
             {
-                BangNoReport.Generate(filePath, danhSach);
-                MessageBox.Show("Xuất báo cáo thành công:\n" + filePath);
-                System.Diagnostics.Process.Start("explorer", filePath); // Mở file
+                var series = new Series(sp.TenHangHoa);
+                series.ChartType = SeriesChartType.Column;
+                series.IsValueShownAsLabel = true;
+                series.LabelFormat = "N0";
+
+                // Nhỏ lại để tạo khoảng trống
+                series["PointWidth"] = "0.4";
+                series.IsXValueIndexed = true;
+
+                series.Color = GetRandomColor();
+
+                // Dùng X là index thay vì tên để có spacing
+                series.Points.AddXY(index, sp.TongGiaTri);
+                chartTop10HangHoa.Series.Add(series);
+
+                index += 2; // tăng 2 để tạo khoảng trống
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi xuất báo cáo:\n" + ex.Message);
-            }
+            chartTop10HangHoa.ChartAreas[0].AxisX.LabelStyle.Enabled = false; // tắt nhãn số
+
+
         }
-        List<string> allItems = new List<string> { "Paracetamol", "Aspirin", "Vitamin C", "Ibuprofen" };
 
-        private void comboBox1_TextChanged(object sender, EventArgs e)
+        // Hàm random màu
+        private Color GetRandomColor()
         {
-            string text = comboBox1.Text;
-
-            var filtered = allItems.Where(x => x.IndexOf(text, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
-
-            comboBox1.Items.Clear();
-            comboBox1.Items.AddRange(filtered.ToArray());
-
-            comboBox1.SelectionStart = comboBox1.Text.Length;
-            comboBox1.SelectionLength = 0;
-
-            comboBox1.DroppedDown = true;
-            Cursor.Current = Cursors.Default;
+            Random rnd = new Random();
+            return Color.FromArgb(rnd.Next(50, 256), rnd.Next(50, 256), rnd.Next(50, 256));
         }
+
+
+
 
     }
 }

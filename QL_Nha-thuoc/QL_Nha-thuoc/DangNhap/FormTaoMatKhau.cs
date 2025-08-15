@@ -48,5 +48,19 @@ namespace QL_Nha_thuoc.DangNhap
             this.Close();
 
         }
+
+        private void checkBoxHienThi_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxHienThi.Checked)
+            {
+                textBoxMatKhauMoi.UseSystemPasswordChar = false;
+                textBoxNhapLai.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                textBoxMatKhauMoi.UseSystemPasswordChar = true;
+                textBoxNhapLai.UseSystemPasswordChar = true;
+            }
+        }
     }
 }

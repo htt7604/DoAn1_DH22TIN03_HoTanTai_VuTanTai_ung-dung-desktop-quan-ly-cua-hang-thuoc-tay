@@ -41,6 +41,9 @@
             textBoxTimHangHoa = new TextBox();
             buttonThemHangHoa = new Button();
             panel4 = new Panel();
+            textBoxSoTienTraNCC = new TextBox();
+            label8 = new Label();
+            labelPhanTramGiam = new Label();
             labelSoLuongHH = new Label();
             textBoxCanTra = new TextBox();
             textBoxGiamGia = new TextBox();
@@ -48,7 +51,7 @@
             flowLayoutPanelDSNCC = new FlowLayoutPanel();
             buttonHoanThanh = new Button();
             buttonLuuTam = new Button();
-            textBox1 = new TextBox();
+            textBoxGhiChu = new TextBox();
             textBoxMaPhieuNhap = new TextBox();
             labelTrangThai = new Label();
             label6 = new Label();
@@ -231,6 +234,9 @@
             // panel4
             // 
             panel4.AutoScroll = true;
+            panel4.Controls.Add(textBoxSoTienTraNCC);
+            panel4.Controls.Add(label8);
+            panel4.Controls.Add(labelPhanTramGiam);
             panel4.Controls.Add(labelSoLuongHH);
             panel4.Controls.Add(textBoxCanTra);
             panel4.Controls.Add(textBoxGiamGia);
@@ -238,7 +244,7 @@
             panel4.Controls.Add(flowLayoutPanelDSNCC);
             panel4.Controls.Add(buttonHoanThanh);
             panel4.Controls.Add(buttonLuuTam);
-            panel4.Controls.Add(textBox1);
+            panel4.Controls.Add(textBoxGhiChu);
             panel4.Controls.Add(textBoxMaPhieuNhap);
             panel4.Controls.Add(labelTrangThai);
             panel4.Controls.Add(label6);
@@ -248,16 +254,46 @@
             panel4.Controls.Add(label3);
             panel4.Controls.Add(label4);
             panel4.Dock = DockStyle.Fill;
-            panel4.Location = new Point(0, 140);
+            panel4.Location = new Point(0, 121);
             panel4.Name = "panel4";
-            panel4.Size = new Size(383, 638);
+            panel4.Size = new Size(383, 657);
             panel4.TabIndex = 3;
+            // 
+            // textBoxSoTienTraNCC
+            // 
+            textBoxSoTienTraNCC.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBoxSoTienTraNCC.Location = new Point(206, 336);
+            textBoxSoTienTraNCC.Name = "textBoxSoTienTraNCC";
+            textBoxSoTienTraNCC.Size = new Size(169, 27);
+            textBoxSoTienTraNCC.TabIndex = 115;
+            // 
+            // label8
+            // 
+            label8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 10F);
+            label8.Location = new Point(6, 337);
+            label8.Name = "label8";
+            label8.Size = new Size(182, 23);
+            label8.TabIndex = 114;
+            label8.Text = "Tiền trả nhà cung cấp ";
+            label8.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // labelPhanTramGiam
+            // 
+            labelPhanTramGiam.AutoSize = true;
+            labelPhanTramGiam.ForeColor = Color.RoyalBlue;
+            labelPhanTramGiam.Location = new Point(90, 239);
+            labelPhanTramGiam.Name = "labelPhanTramGiam";
+            labelPhanTramGiam.Size = new Size(12, 20);
+            labelPhanTramGiam.TabIndex = 113;
+            labelPhanTramGiam.Text = ".";
             // 
             // labelSoLuongHH
             // 
             labelSoLuongHH.AutoSize = true;
             labelSoLuongHH.BorderStyle = BorderStyle.FixedSingle;
-            labelSoLuongHH.Location = new Point(137, 183);
+            labelSoLuongHH.Location = new Point(138, 166);
             labelSoLuongHH.Name = "labelSoLuongHH";
             labelSoLuongHH.Size = new Size(19, 22);
             labelSoLuongHH.TabIndex = 112;
@@ -268,7 +304,7 @@
             textBoxCanTra.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             textBoxCanTra.BackColor = SystemColors.Window;
             textBoxCanTra.Font = new Font("Segoe UI", 10F);
-            textBoxCanTra.Location = new Point(206, 293);
+            textBoxCanTra.Location = new Point(202, 281);
             textBoxCanTra.Name = "textBoxCanTra";
             textBoxCanTra.ReadOnly = true;
             textBoxCanTra.Size = new Size(169, 30);
@@ -280,24 +316,26 @@
             textBoxGiamGia.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             textBoxGiamGia.BackColor = SystemColors.Window;
             textBoxGiamGia.Font = new Font("Segoe UI", 10F);
-            textBoxGiamGia.Location = new Point(206, 234);
+            textBoxGiamGia.Location = new Point(202, 219);
             textBoxGiamGia.Name = "textBoxGiamGia";
             textBoxGiamGia.ReadOnly = true;
             textBoxGiamGia.Size = new Size(169, 30);
             textBoxGiamGia.TabIndex = 110;
             textBoxGiamGia.TextAlign = HorizontalAlignment.Right;
+            textBoxGiamGia.Click += textBoxGiamGia_Click;
             // 
             // textBoxTongTien
             // 
             textBoxTongTien.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             textBoxTongTien.BackColor = SystemColors.Window;
             textBoxTongTien.Font = new Font("Segoe UI", 10F);
-            textBoxTongTien.Location = new Point(206, 178);
+            textBoxTongTien.Location = new Point(202, 161);
             textBoxTongTien.Name = "textBoxTongTien";
             textBoxTongTien.ReadOnly = true;
             textBoxTongTien.Size = new Size(169, 30);
             textBoxTongTien.TabIndex = 109;
             textBoxTongTien.TextAlign = HorizontalAlignment.Right;
+            textBoxTongTien.TextChanged += textBoxTongTien_TextChanged;
             // 
             // flowLayoutPanelDSNCC
             // 
@@ -310,34 +348,36 @@
             // 
             // buttonHoanThanh
             // 
-            buttonHoanThanh.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonHoanThanh.Location = new Point(206, 495);
+            buttonHoanThanh.Anchor = AnchorStyles.Bottom;
+            buttonHoanThanh.Location = new Point(206, 537);
             buttonHoanThanh.Name = "buttonHoanThanh";
-            buttonHoanThanh.Size = new Size(138, 131);
+            buttonHoanThanh.Size = new Size(138, 108);
             buttonHoanThanh.TabIndex = 108;
             buttonHoanThanh.Text = "Hoàn thành ";
             buttonHoanThanh.UseVisualStyleBackColor = true;
+            buttonHoanThanh.Click += buttonHoanThanh_Click;
             // 
             // buttonLuuTam
             // 
-            buttonLuuTam.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            buttonLuuTam.Location = new Point(33, 495);
+            buttonLuuTam.Anchor = AnchorStyles.Bottom;
+            buttonLuuTam.Location = new Point(33, 537);
             buttonLuuTam.Name = "buttonLuuTam";
-            buttonLuuTam.Size = new Size(148, 131);
+            buttonLuuTam.Size = new Size(148, 108);
             buttonLuuTam.TabIndex = 107;
             buttonLuuTam.Text = "Lưu tạm";
             buttonLuuTam.UseVisualStyleBackColor = true;
+            buttonLuuTam.Click += buttonLuuTam_Click;
             // 
-            // textBox1
+            // textBoxGhiChu
             // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox1.Font = new Font("Segoe UI", 10F);
-            textBox1.Location = new Point(10, 382);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Ghi chú..";
-            textBox1.Size = new Size(365, 86);
-            textBox1.TabIndex = 105;
+            textBoxGhiChu.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxGhiChu.Font = new Font("Segoe UI", 10F);
+            textBoxGhiChu.Location = new Point(10, 386);
+            textBoxGhiChu.Multiline = true;
+            textBoxGhiChu.Name = "textBoxGhiChu";
+            textBoxGhiChu.PlaceholderText = "Ghi chú..";
+            textBoxGhiChu.Size = new Size(365, 145);
+            textBoxGhiChu.TabIndex = 105;
             // 
             // textBoxMaPhieuNhap
             // 
@@ -365,7 +405,7 @@
             label6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 10F);
-            label6.Location = new Point(6, 293);
+            label6.Location = new Point(6, 284);
             label6.Name = "label6";
             label6.Size = new Size(175, 23);
             label6.TabIndex = 92;
@@ -389,7 +429,7 @@
             label5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 10F);
-            label5.Location = new Point(6, 237);
+            label5.Location = new Point(13, 222);
             label5.Name = "label5";
             label5.Size = new Size(78, 23);
             label5.TabIndex = 91;
@@ -425,7 +465,7 @@
             label4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 10F);
-            label4.Location = new Point(6, 181);
+            label4.Location = new Point(5, 164);
             label4.Name = "label4";
             label4.Size = new Size(127, 23);
             label4.TabIndex = 90;
@@ -441,14 +481,14 @@
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(383, 140);
+            panel3.Size = new Size(383, 121);
             panel3.TabIndex = 1;
             // 
             // buttonThemNCC
             // 
             buttonThemNCC.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonThemNCC.BackColor = SystemColors.Control;
-            buttonThemNCC.Location = new Point(328, 88);
+            buttonThemNCC.Location = new Point(327, 70);
             buttonThemNCC.Name = "buttonThemNCC";
             buttonThemNCC.Size = new Size(48, 42);
             buttonThemNCC.TabIndex = 101;
@@ -465,7 +505,7 @@
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 77.63578F));
             tableLayoutPanel5.Controls.Add(textBoxTimNCC, 1, 0);
             tableLayoutPanel5.Controls.Add(pictureBox1, 0, 0);
-            tableLayoutPanel5.Location = new Point(10, 88);
+            tableLayoutPanel5.Location = new Point(10, 70);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 1;
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
@@ -573,7 +613,7 @@
         private Label label4;
         private TextBox textBoxMaPhieuNhap;
         private Label labelTrangThai;
-        private TextBox textBox1;
+        private TextBox textBoxGhiChu;
         private Button buttonHoanThanh;
         private Button buttonLuuTam;
         private Button buttonThemNCC;
@@ -588,5 +628,8 @@
         private TextBox textBoxTongTien;
         private Label labelSoLuongHH;
         private Panel panelKetQuaTimKiem;
+        private Label labelPhanTramGiam;
+        private Label label8;
+        private TextBox textBoxSoTienTraNCC;
     }
 }

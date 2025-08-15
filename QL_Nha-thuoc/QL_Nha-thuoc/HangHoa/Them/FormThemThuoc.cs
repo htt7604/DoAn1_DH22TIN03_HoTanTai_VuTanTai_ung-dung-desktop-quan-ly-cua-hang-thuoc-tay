@@ -221,6 +221,17 @@ namespace QL_Nha_thuoc.HangHoa
                 {
                     textBoxMaThuoc.Text = selectedThuoc.MaThuoc;
                     textBoxTenThuoc.Text = selectedThuoc.TenThuoc;
+
+                    if (string.IsNullOrEmpty(selectedThuoc.MaVach))
+                    {
+                        // Tạo mã vạch mới, ví dụ tạo mã ngẫu nhiên hoặc theo quy tắc của bạn
+                        textBoxMaVach.Text = ClassThuoc.TaoMaVachMoi();
+                    }
+                    else
+                    {
+                        textBoxMaVach.Text = selectedThuoc.MaVach;
+                    }
+
                     textBoxSoDangKy.Text = selectedThuoc.SoDangKy;
                     textBoxHoatChat.Text = selectedThuoc.HoatChatChinh;
                     textBoxHamLuong.Text = selectedThuoc.HamLuong;
@@ -261,7 +272,11 @@ namespace QL_Nha_thuoc.HangHoa
                 MessageBox.Show("Vui lòng nhập tên thuốc.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
+            if(textBoxGiaVon.Text.Trim() == "0")
+            {
+                MessageBox.Show("Vui lòng nhập  giá vốn.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             // 2. Kiểm tra và chuyển đổi số liệu giá bán - giá vốn
             decimal giaBan = 0, giaVon = 0;
             if (!decimal.TryParse(textBoxGiaBan.Text.Trim(), out giaBan) || giaBan < 0)
@@ -345,6 +360,7 @@ namespace QL_Nha_thuoc.HangHoa
         private void buttonXoaTT_Click(object sender, EventArgs e)
         {
             //xoa thông tin trong các TextBox và ComboBox
+            textBoxMaVach.Clear();
             textBoxMaThuoc.Clear();
             textBoxTenThuoc.Clear();
             textBoxSoDangKy.Clear();

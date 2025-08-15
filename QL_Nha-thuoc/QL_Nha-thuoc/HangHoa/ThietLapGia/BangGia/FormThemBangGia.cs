@@ -169,6 +169,7 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
                 {
                     MessageBox.Show("Thêm bảng giá thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     FormThemBangGiaClosed?.Invoke(this, EventArgs.Empty);
+
                     this.Close();
                 }
                 else

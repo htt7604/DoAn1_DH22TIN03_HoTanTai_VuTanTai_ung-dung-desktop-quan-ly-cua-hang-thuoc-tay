@@ -11,6 +11,7 @@ namespace QL_Nha_thuoc.model
         public string MaHoaDon { get; set; }
         public string MaNV { get; set; }
         public string TenNhanVien { get; set; }
+        public string TenKhachHang { get; set; } // Thêm thuộc tính này nếu cần
         public string MaKH { get; set; }
         public string MaBangGia { get; set; }
         public string MaHinhThucThanhToan { get; set; }
@@ -24,6 +25,10 @@ namespace QL_Nha_thuoc.model
         public decimal? TienTraKhach { get; set; }
         public string TrangThai {  get; set; }
 
+
+
+
+        public List<ClassChiTietHoaDon> ChiTietHoaDon { get; set; } = new List<ClassChiTietHoaDon>();
 
         // Constructor khởi tạo đầy đủ thông tin hóa đơn
         public ClassHoaDon(string maHoaDon, string maNV,string tenNV, string maKH, string maBangGia, string maHTTT,string maTKNG,
@@ -57,10 +62,14 @@ namespace QL_Nha_thuoc.model
             using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
-                string query = @"SELECT HD.*, NV.HO_TEN_NV
-                         FROM HOA_DON HD 
-                         JOIN NHAN_VIEN NV ON HD.MA_NV = NV.MA_NV
-                         ORDER BY NGAY_LAP_HD DESC";
+                string query = @"	   
+                SELECT HD.*, NV.HO_TEN_NV, KH.TEN_KH
+                 FROM HOA_DON HD 
+                 JOIN NHAN_VIEN NV ON HD.MA_NV = NV.MA_NV
+                JOIN KHACH_HANG KH ON HD.MA_KH = KH.MA_KH
+                 WHERE HD.TRANG_THAI <> N'Đã hủy'
+                 ORDER BY NGAY_LAP_HD DESC
+";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -73,6 +82,7 @@ namespace QL_Nha_thuoc.model
                             MaNV = reader["MA_NV"].ToString(),
                             TenNhanVien = reader["HO_TEN_NV"].ToString(),
                             MaKH = reader["MA_KH"] != DBNull.Value ? reader["MA_KH"].ToString() : null,
+                            TenKhachHang = reader["TEN_KH"] != DBNull.Value ? reader["TEN_KH"].ToString() : null,
                             MaBangGia = reader["MA_BANG_GIA"] != DBNull.Value ? reader["MA_BANG_GIA"].ToString() : null,
                             MaHinhThucThanhToan = reader["MA_HINH_THUC_THANH_TOAN"] != DBNull.Value ? reader["MA_HINH_THUC_THANH_TOAN"].ToString() : null,
                             MaTaiKhoanNganHang = reader["MA_TAI_KHOAN_NGAN_HANG"] != DBNull.Value ? reader["MA_TAI_KHOAN_NGAN_HANG"].ToString() : null,
@@ -91,8 +101,15 @@ namespace QL_Nha_thuoc.model
                 }
             }
 
+            // Lấy chi tiết hóa đơn cho từng hóa đơn
+            foreach (var hd in danhSach)
+            {
+                hd.ChiTietHoaDon = ClassChiTietHoaDon.LayChiTietTheoHoaDon(hd.MaHoaDon);
+            }
+
             return danhSach;
         }
+
 
 
         public static ClassHoaDon LayHoaDonTheoMa(string maHD)
@@ -100,9 +117,10 @@ namespace QL_Nha_thuoc.model
             using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
-                string query = @"SELECT HD.*, NV.HO_TEN_NV
+                string query = @"SELECT HD.*, NV.HO_TEN_NV,KH.TEN_KH
                          FROM HOA_DON HD  
-                         JOIN NHAN_VIEN NV ON HD.MA_NV = NV.MA_NV 
+                         JOIN NHAN_VIEN NV ON HD.MA_NV = NV.MA_NV
+						 Join KHACH_HANG KH ON HD.MA_KH=KH.MA_KH 
                          WHERE HD.MA_HOA_DON = @MA_HOA_DON";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@MA_HOA_DON", maHD);
@@ -117,6 +135,7 @@ namespace QL_Nha_thuoc.model
                             MaNV = reader["MA_NV"].ToString(),
                             TenNhanVien = reader["HO_TEN_NV"].ToString(),
                             MaKH = reader["MA_KH"] != DBNull.Value ? reader["MA_KH"].ToString() : null,
+                            TenKhachHang = reader["TEN_KH"] != DBNull.Value ? reader["TEN_KH"].ToString() : null,
                             MaBangGia = reader["MA_BANG_GIA"] != DBNull.Value ? reader["MA_BANG_GIA"].ToString() : null,
                             MaHinhThucThanhToan = reader["MA_HINH_THUC_THANH_TOAN"] != DBNull.Value ? reader["MA_HINH_THUC_THANH_TOAN"].ToString() : null,
                             MaTaiKhoanNganHang = reader["MA_TAI_KHOAN_NGAN_HANG"] != DBNull.Value ? reader["MA_TAI_KHOAN_NGAN_HANG"].ToString() : null,
@@ -140,22 +159,9 @@ namespace QL_Nha_thuoc.model
         /// </summary>
         public static string TaoMaHoaDonTuDong()
         {
-            string maMoi = "HD000001";
-            using (SqlConnection conn = CSDL.GetConnection())
-            {
-                conn.Open();
-                string query = "SELECT TOP 1 MA_HOA_DON FROM HOA_DON ORDER BY MA_HOA_DON DESC";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                var result = cmd.ExecuteScalar();
-                if (result != null)
-                {
-                    string maCu = result.ToString(); // VD: HD000123
-                    int so = int.Parse(maCu.Substring(2)); // 123
-                    maMoi = "HD" + (so + 1).ToString("D6"); // HD000124
-                }
-            }
-            return maMoi;
+            return "HD" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
         }
+
 
         /// <summary>
         /// Thêm hóa đơn mới
@@ -196,7 +202,7 @@ namespace QL_Nha_thuoc.model
 
         /// <summary>
         /// Sửa hóa đơn (theo MA_HOA_DON)
-        public bool CapNhatHoaDon(ClassHoaDon classHoaDon)
+        public static bool CapNhatHoaDon(ClassHoaDon classHoaDon)
         {
             using (SqlConnection conn = CSDL.GetConnection())
             {
@@ -231,21 +237,192 @@ namespace QL_Nha_thuoc.model
         }
 
 
-        /// <summary>
-        /// Xóa hóa đơn theo mã (MA_HOA_DON)
-        /// </summary>
-        public bool XoaHoaDon(ClassHoaDon classHoaDon)
+
+
+
+        public static void HuyHoaDon(string maHoaDon)
         {
             using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
-                string query = "DELETE FROM HOA_DON WHERE MA_HOA_DON = @MA_HOA_DON";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@MA_HOA_DON", classHoaDon.MaHoaDon);
+                SqlTransaction tran = conn.BeginTransaction();
 
-                return cmd.ExecuteNonQuery() > 0;
+                try
+                {
+                    // 1. Cập nhật trạng thái hóa đơn
+                    string sqlUpdateHD = "UPDATE HOA_DON SET TRANG_THAI = N'Đã hủy' WHERE MA_HOA_DON = @MaHD";
+                    using (SqlCommand cmd = new SqlCommand(sqlUpdateHD, conn, tran))
+                    {
+                        cmd.Parameters.AddWithValue("@MaHD", maHoaDon);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // 2. Lấy danh sách chi tiết hóa đơn
+                    string sqlCTHD = "SELECT MA_HANG_HOA, SO_LUONG_HH FROM CHI_TIET_HOA_DON WHERE MA_HOA_DON = @MaHD";
+                    List<(string MaHH, int SoLuong)> danhSachChiTiet = new List<(string, int)>();
+
+                    using (SqlCommand cmd = new SqlCommand(sqlCTHD, conn, tran))
+                    {
+                        cmd.Parameters.AddWithValue("@MaHD", maHoaDon);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string maHH = reader["MA_HANG_HOA"].ToString();
+                                int soLuong = Convert.ToInt32(reader["SO_LUONG_HH"]);
+                                danhSachChiTiet.Add((maHH, soLuong));
+                            }
+                        }
+                    }
+
+                    // 3. Cập nhật lại tồn kho
+                    foreach (var item in danhSachChiTiet)
+                    {
+                        ClassHangHoa.CapNhatSoLuongTon(item.MaHH,item.SoLuong);
+                    }
+
+                    // 4. Hủy phiếu thu/chi liên quan nếu có
+                    string sqlUpdatePTC = "UPDATE PHIEU_THU_CHI SET TRANG_THAI_THANH_TOAN = N'Đã hủy' WHERE MA_HOA_DON = @MaHD";
+                    using (SqlCommand cmd = new SqlCommand(sqlUpdatePTC, conn, tran))
+                    {
+                        cmd.Parameters.AddWithValue("@MaHD", maHoaDon);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // 5. Hoàn tất giao dịch
+                    tran.Commit();
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    throw new Exception("Hủy hóa đơn thất bại: " + ex.Message);
+                }
             }
         }
+
+
+
+        // Lấy top 10 hàng hóa bán theo tổng giá trị
+        public static List<(string MaHangHoa, string TenHangHoa, int TongSoLuong, decimal TongGiaTri)> LayTop10HangHoaTheoTongGiaTri(DateTime tuNgay, DateTime denNgay)
+        {
+            var ketQua = new List<(string, string, int, decimal)>();
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                conn.Open();
+                string query = @"
+            SELECT TOP 10 
+                CTHD.MA_HANG_HOA, 
+                HH.TEN_HANG_HOA, 
+                SUM(CTHD.SO_LUONG_HH) AS TongSoLuong, 
+                SUM(ISNULL(CTHD.THANH_TIEN, 0)) AS TongGiaTri
+            FROM CHI_TIET_HOA_DON CTHD
+            JOIN HOA_DON HD ON CTHD.MA_HOA_DON = HD.MA_HOA_DON
+            JOIN HANG_HOA HH ON CTHD.MA_HANG_HOA = HH.MA_HANG_HOA
+            WHERE HD.TRANG_THAI <> N'Đã hủy'
+                AND HD.NGAY_LAP_HD >= @TuNgay
+                AND HD.NGAY_LAP_HD <= @DenNgay
+            GROUP BY CTHD.MA_HANG_HOA, HH.TEN_HANG_HOA
+            ORDER BY TongGiaTri DESC"; // Sắp xếp theo tổng giá trị giảm dần
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@TuNgay", tuNgay);
+                    cmd.Parameters.AddWithValue("@DenNgay", denNgay);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string maHH = reader["MA_HANG_HOA"].ToString();
+                            string tenHH = reader["TEN_HANG_HOA"].ToString();
+                            int tongSoLuong = reader["TongSoLuong"] != DBNull.Value ? Convert.ToInt32(reader["TongSoLuong"]) : 0;
+                            decimal tongGiaTri = reader["TongGiaTri"] != DBNull.Value ? Convert.ToDecimal(reader["TongGiaTri"]) : 0m;
+                            ketQua.Add((maHH, tenHH, tongSoLuong, tongGiaTri));
+                        }
+                    }
+                }
+            }
+            return ketQua;
+        }
+
+
+        public static  DataTable LayDoanhThuTheoNgay(DateTime tuNgay, DateTime denNgay)
+        {
+            DataTable dt = new DataTable();
+            string query = @"
+        SELECT 
+            CONVERT(date, hd.NgayLap) AS Ngay,
+            SUM(ct.SoLuong * ct.DonGia) AS DoanhThu
+        FROM HOADON hd
+        INNER JOIN CHITIETHOADON ct ON hd.MaHoaDon = ct.MaHoaDon
+        WHERE hd.NgayLap BETWEEN @TuNgay AND @DenNgay
+        GROUP BY CONVERT(date, hd.NgayLap)
+        ORDER BY Ngay ASC";
+
+            using (SqlConnection conn = CSDL.GetConnection())
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@TuNgay", tuNgay);
+                cmd.Parameters.AddWithValue("@DenNgay", denNgay);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            return dt;
+        }
+        public class DoanhThuNgaySanPham
+        {
+            public DateTime Ngay { get; set; }
+            public string TenSanPham { get; set; }
+            public decimal DoanhThu { get; set; }
+        }
+
+        public static List<DoanhThuNgaySanPham> LayDoanhThuTheoNgayVaSanPham(DateTime tuNgay, DateTime denNgay)
+        {
+            var result = new List<DoanhThuNgaySanPham>();
+
+            string query = @"
+SELECT CAST(hd.NGAY_LAP_HD AS DATE) AS Ngay,
+               hh.TEN_HANG_HOA,
+               SUM(ct.SO_LUONG_HH * ct.DON_GIA_BAN) AS DoanhThu
+        FROM HOA_DON hd
+        JOIN CHI_TIET_HOA_DON ct ON hd.MA_HOA_DON = ct.MA_HOA_DON
+        JOIN HANG_HOA hh ON ct.MA_HANG_HOA = hh.MA_HANG_HOA
+        WHERE hd.NGAY_LAP_HD >= @tuNgay AND hd.NGAY_LAP_HD <= @denNgay
+        GROUP BY CAST(hd.NGAY_LAP_HD AS DATE), hh.TEN_HANG_HOA
+        ORDER BY Ngay
+    ";
+
+            using (SqlConnection conn = CSDL.GetConnection())
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@tuNgay", tuNgay);
+                cmd.Parameters.AddWithValue("@denNgay", denNgay);
+
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new DoanhThuNgaySanPham
+                        {
+                            Ngay = reader.GetDateTime(0),
+                            TenSanPham = reader.GetString(1),
+                            DoanhThu = reader.GetDecimal(2)
+                        });
+                    }
+                }
+            }
+
+            return result;
+        }
+
+
+
+
+
+
+
+
+
+
 
 
 

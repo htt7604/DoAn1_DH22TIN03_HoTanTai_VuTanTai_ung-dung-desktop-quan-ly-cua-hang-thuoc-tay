@@ -69,7 +69,7 @@
             buttonNgungHoatDong.Name = "buttonNgungHoatDong";
             buttonNgungHoatDong.Size = new Size(167, 32);
             buttonNgungHoatDong.TabIndex = 63;
-            buttonNgungHoatDong.Text = "Ngung hoat dong";
+            buttonNgungHoatDong.Text = "Ngừng hoạt động";
             buttonNgungHoatDong.Click += buttonNgungHoatDong_Click;
             // 
             // textBoxGhiChu
@@ -86,9 +86,9 @@
             label9.AutoSize = true;
             label9.Location = new Point(850, 262);
             label9.Name = "label9";
-            label9.Size = new Size(61, 20);
+            label9.Size = new Size(58, 20);
             label9.TabIndex = 60;
-            label9.Text = "Ghi chu:";
+            label9.Text = "Ghi chú";
             // 
             // textBoxNguoiTao
             // 
@@ -103,18 +103,18 @@
             label8.AutoSize = true;
             label8.Location = new Point(850, 379);
             label8.Name = "label8";
-            label8.Size = new Size(79, 20);
+            label8.Size = new Size(77, 20);
             label8.TabIndex = 58;
-            label8.Text = "Nguoi tao:";
+            label8.Text = "Người tạo";
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Location = new Point(850, 430);
             label7.Name = "label7";
-            label7.Size = new Size(71, 20);
+            label7.Size = new Size(70, 20);
             label7.TabIndex = 57;
-            label7.Text = "Ngay Tao";
+            label7.Text = "Ngày tạo";
             // 
             // textBoxDienThoai
             // 
@@ -129,9 +129,9 @@
             label6.AutoSize = true;
             label6.Location = new Point(850, 159);
             label6.Name = "label6";
-            label6.Size = new Size(81, 20);
+            label6.Size = new Size(78, 20);
             label6.TabIndex = 55;
-            label6.Text = "Dien Thoai";
+            label6.Text = "Điện thoại";
             // 
             // textBoxDiaChi
             // 
@@ -148,16 +148,16 @@
             label5.Name = "label5";
             label5.Size = new Size(55, 20);
             label5.TabIndex = 53;
-            label5.Text = "Dia chi";
+            label5.Text = "Địa chỉ";
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Location = new Point(353, 269);
             label4.Name = "label4";
-            label4.Size = new Size(131, 20);
+            label4.Size = new Size(129, 20);
             label4.TabIndex = 52;
-            label4.Text = "Nhom Khach hang";
+            label4.Text = "Nhóm khách hàng";
             // 
             // textBoxNhomKH
             // 
@@ -198,25 +198,25 @@
             label3.Name = "label3";
             label3.Size = new Size(118, 20);
             label3.TabIndex = 47;
-            label3.Text = "So CCCD/CMND";
+            label3.Text = "Số CCCD/CMND";
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Location = new Point(353, 207);
             label2.Name = "label2";
-            label2.Size = new Size(74, 20);
+            label2.Size = new Size(78, 20);
             label2.TabIndex = 46;
-            label2.Text = "Ngay sinh";
+            label2.Text = "Ngày sinh ";
             // 
             // label
             // 
             label.AutoSize = true;
             label.Location = new Point(353, 156);
             label.Name = "label";
-            label.Size = new Size(79, 20);
+            label.Size = new Size(111, 20);
             label.TabIndex = 45;
-            label.Text = "Ten Khach:";
+            label.Text = "Tên khách hàng";
             // 
             // pictureBoxKhachHang
             // 
@@ -233,7 +233,7 @@
             buttonXoa.Name = "buttonXoa";
             buttonXoa.Size = new Size(75, 32);
             buttonXoa.TabIndex = 43;
-            buttonXoa.Text = "Xoa";
+            buttonXoa.Text = "Xóa";
             buttonXoa.Click += buttonXoa_Click;
             // 
             // buttonCapNhat
@@ -242,7 +242,7 @@
             buttonCapNhat.Name = "buttonCapNhat";
             buttonCapNhat.Size = new Size(116, 32);
             buttonCapNhat.TabIndex = 42;
-            buttonCapNhat.Text = "Cap Nhat";
+            buttonCapNhat.Text = "cập nhật";
             buttonCapNhat.Click += buttonCapNhat_Click;
             // 
             // labelMaKH
@@ -250,9 +250,9 @@
             labelMaKH.AutoSize = true;
             labelMaKH.Location = new Point(353, 108);
             labelMaKH.Name = "labelMaKH";
-            labelMaKH.Size = new Size(111, 20);
+            labelMaKH.Size = new Size(109, 20);
             labelMaKH.TabIndex = 34;
-            labelMaKH.Text = "Ma Khach hang";
+            labelMaKH.Text = "Mã khách hàng";
             // 
             // textBoxMaKH
             // 
@@ -272,7 +272,7 @@
             textBoxCHinh.ReadOnly = true;
             textBoxCHinh.Size = new Size(321, 43);
             textBoxCHinh.TabIndex = 36;
-            textBoxCHinh.Text = "CHI TIET KHACH HANG";
+            textBoxCHinh.Text = "CHI TIẾT KHÁCH HÀNG ";
             // 
             // labelDonViTinh
             // 
@@ -296,9 +296,9 @@
             labelGia.AutoSize = true;
             labelGia.Location = new Point(353, 322);
             labelGia.Name = "labelGia";
-            labelGia.Size = new Size(85, 20);
+            labelGia.Size = new Size(82, 20);
             labelGia.TabIndex = 39;
-            labelGia.Text = "Ma so Thue";
+            labelGia.Text = "Mã số thuế";
             // 
             // textBoxMaSoThue
             // 
@@ -340,7 +340,7 @@
             label1.Name = "label1";
             label1.Size = new Size(65, 20);
             label1.TabIndex = 66;
-            label1.Text = "Gioi tinh";
+            label1.Text = "Giới tính";
             // 
             // FormChiTietKhachHang
             // 

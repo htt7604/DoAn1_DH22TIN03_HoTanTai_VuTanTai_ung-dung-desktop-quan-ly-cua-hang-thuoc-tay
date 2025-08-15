@@ -174,6 +174,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
 
             List<ClassChiTietPhieuKiemKho> danhSachChiTiet = new List<ClassChiTietPhieuKiemKho>();
 
+            // Khởi tạo tổng biến bên ngoài vòng lặp
             int tongChenhLech = 0;
             int soLuongLechTang = 0;
             int soLuongLechGiam = 0;
@@ -192,8 +193,8 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
 
                 danhSachChiTiet.Add(chiTiet);
 
+                // Cộng dồn số liệu chênh lệch
                 tongChenhLech += Math.Abs(chiTiet.ChenhLech);
-
                 if (chiTiet.ChenhLech > 0)
                     soLuongLechTang++;
                 else if (chiTiet.ChenhLech < 0)
@@ -231,7 +232,6 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
                 GhiChu = textBoxGhiChu.Text.Trim(),
                 TrangThaiPhieuKiem = "Đã cân bằng kho",
                 TongChechLech = tongChenhLech,
-                // Nếu class ClassPhieuKiemKho chưa có 2 dòng dưới, bạn có thể bỏ hoặc thêm vào class.
                 SoLuongLechTang = soLuongLechTang,
                 SoLuongLechGiam = soLuongLechGiam
             };
@@ -262,6 +262,7 @@ namespace QL_Nha_thuoc.HangHoa.kiemkho
             MessageBox.Show("Hoàn thành phiếu kiểm kho thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             DaXong?.Invoke();
         }
+
 
 
 

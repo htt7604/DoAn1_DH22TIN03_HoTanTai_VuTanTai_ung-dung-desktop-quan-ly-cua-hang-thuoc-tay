@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             label8 = new Label();
             tableLayoutPanel1 = new TableLayoutPanel();
             tabControl1 = new TabControl();
@@ -75,9 +75,9 @@
             label8.ForeColor = Color.Blue;
             label8.Location = new Point(3, 0);
             label8.Name = "label8";
-            label8.Size = new Size(207, 34);
+            label8.Size = new Size(182, 34);
             label8.TabIndex = 149;
-            label8.Text = "NHA CUNG CAP";
+            label8.Text = "Nhà cung cấp ";
             // 
             // tableLayoutPanel1
             // 
@@ -138,7 +138,7 @@
             tabPageThongTin.Padding = new Padding(3);
             tabPageThongTin.Size = new Size(1375, 546);
             tabPageThongTin.TabIndex = 0;
-            tabPageThongTin.Text = "Thong tin";
+            tabPageThongTin.Text = "Thông tin";
             // 
             // buttonNgungHoatDong
             // 
@@ -147,7 +147,7 @@
             buttonNgungHoatDong.Name = "buttonNgungHoatDong";
             buttonNgungHoatDong.Size = new Size(188, 46);
             buttonNgungHoatDong.TabIndex = 169;
-            buttonNgungHoatDong.Text = "Ngung Hoat Dong";
+            buttonNgungHoatDong.Text = "Ngừng hoạt động";
             // 
             // label7
             // 
@@ -157,7 +157,7 @@
             label7.Name = "label7";
             label7.Size = new Size(96, 23);
             label7.TabIndex = 167;
-            label7.Text = "Ma so thue";
+            label7.Text = "mã số thuế";
             // 
             // textBoxMaSoThue
             // 
@@ -174,9 +174,9 @@
             label6.Font = new Font("Segoe UI", 10F);
             label6.Location = new Point(614, 132);
             label6.Name = "label6";
-            label6.Size = new Size(72, 23);
+            label6.Size = new Size(75, 23);
             label6.TabIndex = 165;
-            label6.Text = "Cong Ty";
+            label6.Text = "Công ty ";
             // 
             // textBoxTenCongTy
             // 
@@ -194,7 +194,7 @@
             buttonCapNhat.Name = "buttonCapNhat";
             buttonCapNhat.Size = new Size(106, 46);
             buttonCapNhat.TabIndex = 164;
-            buttonCapNhat.Text = "Cap nhat";
+            buttonCapNhat.Text = "Cập nhật";
             // 
             // buttonXoa
             // 
@@ -203,7 +203,7 @@
             buttonXoa.Name = "buttonXoa";
             buttonXoa.Size = new Size(106, 46);
             buttonXoa.TabIndex = 163;
-            buttonXoa.Text = "Xoa";
+            buttonXoa.Text = "Xóa";
             // 
             // label5
             // 
@@ -213,7 +213,7 @@
             label5.Name = "label5";
             label5.Size = new Size(69, 23);
             label5.TabIndex = 161;
-            label5.Text = "Ghi chu";
+            label5.Text = "Ghi chú";
             // 
             // textBoxGhiChu
             // 
@@ -329,7 +329,7 @@
             tabPageLichSu.Padding = new Padding(3);
             tabPageLichSu.Size = new Size(1375, 546);
             tabPageLichSu.TabIndex = 1;
-            tabPageLichSu.Text = "Lich su Nhap/tra hang";
+            tabPageLichSu.Text = "Lịch sử nhập";
             tabPageLichSu.UseVisualStyleBackColor = true;
             // 
             // dataGridViewLichSu
@@ -340,36 +340,36 @@
             dataGridViewLichSu.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewLichSu.BackgroundColor = SystemColors.Window;
             dataGridViewLichSu.CausesValidation = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Control;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridViewLichSu.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Control;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dataGridViewLichSu.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewLichSu.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewLichSu.Columns.AddRange(new DataGridViewColumn[] { ColumnMaPhieuNhap, ColumnThoiGian, ColumnNguoiTao, ColumnTongCong, ColumnTrangThai });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridViewLichSu.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dataGridViewLichSu.DefaultCellStyle = dataGridViewCellStyle5;
             dataGridViewLichSu.Dock = DockStyle.Fill;
             dataGridViewLichSu.Location = new Point(3, 3);
             dataGridViewLichSu.MultiSelect = false;
             dataGridViewLichSu.Name = "dataGridViewLichSu";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Control;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridViewLichSu.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Control;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dataGridViewLichSu.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dataGridViewLichSu.RowHeadersVisible = false;
             dataGridViewLichSu.RowHeadersWidth = 51;
             dataGridViewLichSu.SelectionMode = DataGridViewSelectionMode.FullRowSelect;

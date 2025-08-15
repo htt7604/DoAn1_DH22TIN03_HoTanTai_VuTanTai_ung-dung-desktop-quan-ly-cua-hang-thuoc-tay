@@ -21,7 +21,7 @@ namespace QL_Nha_thuoc
             formMain = main;
 
             LoadThuocTinhKiemKhoComboBox();
-            LoadDanhSachPhieuKiemKho();
+
         }
         private void KiemKho_Load(object sender, EventArgs e)
         {
@@ -56,6 +56,8 @@ namespace QL_Nha_thuoc
 
 
             buttonGopPhieu.Visible = false; // Ẩn nút gộp phiếu ban đầu
+
+            LoadDanhSachPhieuKiemKho();
         }
 
 
@@ -65,6 +67,7 @@ namespace QL_Nha_thuoc
             InitializeComponent();
             LoadThuocTinhKiemKhoComboBox();
             LoadDanhSachPhieuKiemKho();
+
         }
 
         public void LoadDanhSachPhieuKiemKho()
@@ -232,7 +235,7 @@ namespace QL_Nha_thuoc
                 DataGridViewRow row = dataGridViewdsPhieuKiemKho.Rows[e.RowIndex];
                 string maPhieuKiem = row.Cells["MaPhieuKiemKho"].Value.ToString();
 
-                FormChiTietKiemKho chiTietForm = new FormChiTietKiemKho(maPhieuKiem,formMain);
+                FormChiTietKiemKho chiTietForm = new FormChiTietKiemKho(maPhieuKiem, formMain);
                 // GÁN SỰ KIỆN TRƯỚC KHI SHOW
                 chiTietForm.FormDong += () =>
                 {
@@ -432,10 +435,118 @@ namespace QL_Nha_thuoc
             }
         }
 
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void LocPhieuKiemKho()
         {
-            // Nếu checkbox được chọn, hiển thị phieu kiem kho 
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+
+                    // Xây dựng câu query cơ bản
+                    string query = @"SELECT PKK.MA_KIEM_KHO,PKK.NGAY_KIEM_KHO,PKK.NGAY_CAN_BANG_KHO,PKK.TONG_THUC_TE,
+                                    PKK.TONG_CHECH_LECH,PKK.SO_LUONG_LECH_TANG,PKK.SO_LUONG_LECH_GIAM,
+                                    PKK.GHI_CHU_KIEM_KHO,PKK.TRANG_THAI_PHIEU_KIEM,
+                                    NV.HO_TEN_NV,PKK.MA_NV
+                             FROM PHIEU_KIEM_KHO PKK
+                             JOIN NHAN_VIEN NV ON NV.MA_NV = PKK.MA_NV
+                             WHERE 1=1";
+
+                    // Thêm điều kiện lọc
+                    if (checkBoxDaCanBang.Checked)
+                    {
+                        query += " AND PKK.TRANG_THAI_PHIEU_KIEM = N'Đã cân bằng kho'";
+                    }
+                    if (checkBoxDahuy.Checked)
+                    {
+                        query += " AND PKK.TRANG_THAI_PHIEU_KIEM = N'Đã hủy'";
+                    }
+                    if (checkBoxPhieuTam.Checked)
+                    {
+                        query += " AND PKK.TRANG_THAI_PHIEU_KIEM = N'Phiếu tạm'";
+                    }
+
+                    // Lọc theo người tạo
+                    if (comboBoxNhanVien.SelectedItem != null)
+                    {
+                        dynamic selected = comboBoxNhanVien.SelectedItem;
+                        string maNV = selected.MaNV;
+                        query += " AND PKK.MA_NV = @MaNV";
+                    }
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+
+                    if (comboBoxNhanVien.SelectedItem != null)
+                    {
+                        dynamic selected = comboBoxNhanVien.SelectedItem;
+                        cmd.Parameters.AddWithValue("@MaNV", selected.MaNV);
+                    }
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    List<ClassPhieuKiemKho> danhSachPhieu = new List<ClassPhieuKiemKho>();
+
+                    while (reader.Read())
+                    {
+                        string maPhieu = reader["MA_KIEM_KHO"].ToString();
+                        string hoTenNV = reader["HO_TEN_NV"].ToString();
+                        DateTime ngayKiem = reader["NGAY_KIEM_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_KIEM_KHO"]);
+                        DateTime ngayCanBang = reader["NGAY_CAN_BANG_KHO"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["NGAY_CAN_BANG_KHO"]);
+                        int tongThucTe = reader["TONG_THUC_TE"] == DBNull.Value ? 0 : Convert.ToInt32(reader["TONG_THUC_TE"]);
+                        int tongChechLech = reader["TONG_CHECH_LECH"] == DBNull.Value ? 0 : Convert.ToInt32(reader["TONG_CHECH_LECH"]);
+                        int soLuongLechGiam = reader["SO_LUONG_LECH_GIAM"] == DBNull.Value ? 0 : Convert.ToInt32(reader["SO_LUONG_LECH_GIAM"]);
+                        int soLuongLechTang = reader["SO_LUONG_LECH_TANG"] == DBNull.Value ? 0 : Convert.ToInt32(reader["SO_LUONG_LECH_TANG"]);
+                        string trangThai = reader["TRANG_THAI_PHIEU_KIEM"].ToString();
+                        string ghiChu = reader["GHI_CHU_KIEM_KHO"] == DBNull.Value ? "" : reader["GHI_CHU_KIEM_KHO"].ToString();
+
+                        danhSachPhieu.Add(new ClassPhieuKiemKho(maPhieu, hoTenNV, ngayKiem, ngayCanBang, tongThucTe, tongChechLech, soLuongLechGiam, soLuongLechTang, ghiChu, trangThai));
+                    }
+
+                    dataGridViewdsPhieuKiemKho.DataSource = danhSachPhieu;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi lọc phiếu: " + ex.Message);
+                }
+            }
         }
+
+
+        private void checkBoxDaCanBang_CheckedChanged(object sender, EventArgs e)
+        {
+            LocPhieuKiemKho();
+        }
+
+
+        private void comboBoxNguoiTao_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LocPhieuKiemKho();
+        }
+
+        private void checkBoxDahuy_CheckedChanged(object sender, EventArgs e)
+        {
+            LocPhieuKiemKho();
+        }
+
+        private void checkBoxPhieuTam_CheckedChanged(object sender, EventArgs e)
+        {
+            LocPhieuKiemKho();
+        }
+        //ham load combobox nhan vien
+        public void LoadComboBoxNhanVien()
+        {
+            var dsnv = ClassTaiKhoan.LayDanhSachNhanVienCoTaiKhoan();
+            comboBoxNhanVien.DataSource = dsnv;
+            comboBoxNhanVien.DisplayMember = "TenNhanVien"; // Hiển thị tên
+            comboBoxNhanVien.ValueMember = "MaNhanVien";    // Giá trị là mã
+        }
+
+
+
+        private void comboBoxNhanVien_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LocPhieuKiemKho();
+        }
+
+
     }
 }

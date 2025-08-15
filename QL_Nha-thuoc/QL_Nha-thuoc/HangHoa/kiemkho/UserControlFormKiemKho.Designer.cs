@@ -130,7 +130,7 @@
             buttonHoanThanh.Name = "buttonHoanThanh";
             buttonHoanThanh.Size = new Size(128, 125);
             buttonHoanThanh.TabIndex = 7;
-            buttonHoanThanh.Text = "Hoan thanh";
+            buttonHoanThanh.Text = "Hoàn Thành";
             buttonHoanThanh.Click += buttonHoanThanh_Click;
             // 
             // buttonLuuTam
@@ -139,7 +139,7 @@
             buttonLuuTam.Name = "buttonLuuTam";
             buttonLuuTam.Size = new Size(125, 125);
             buttonLuuTam.TabIndex = 6;
-            buttonLuuTam.Text = "Luu tam";
+            buttonLuuTam.Text = "Lưu tạm";
             buttonLuuTam.Click += buttonLuuTam_Click;
             // 
             // labelTime

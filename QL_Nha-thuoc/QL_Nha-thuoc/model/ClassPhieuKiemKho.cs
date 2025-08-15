@@ -198,29 +198,35 @@ namespace QL_Nha_thuoc.model
             using (SqlConnection conn = CSDL.GetConnection())
             {
                 string query = @"
-            UPDATE PHIEU_KIEM_KHO
-            SET 
-                MA_NV = @MaNV,
-                NGAY_KIEM_KHO = @NgayKiemKho,
-                NGAY_CAN_BANG_KHO = @NgayCanBangKho,
-                TRANG_THAI_PHIEU_KIEM = @TrangThaiPhieuKiem,
-                GHI_CHU_KIEM_KHO = @GhiChu
-            WHERE MA_KIEM_KHO = @MaKiemKho";
+        UPDATE PHIEU_KIEM_KHO
+        SET 
+            MA_NV = @MaNV,
+            NGAY_KIEM_KHO = @NgayKiemKho,
+            NGAY_CAN_BANG_KHO = @NgayCanBangKho,
+            TRANG_THAI_PHIEU_KIEM = @TrangThaiPhieuKiem,
+            GHI_CHU_KIEM_KHO = @GhiChu,
+            TONG_CHECH_LECH = @TongChechLech,
+            SO_LUONG_LECH_TANG = @SoLuongLechTang,
+            SO_LUONG_LECH_GIAM = @SoLuongLechGiam
+        WHERE MA_KIEM_KHO = @MaKiemKho";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
 
-                // Thêm tham số
                 cmd.Parameters.AddWithValue("@MaKiemKho", phieu.MaPhieuKiemKho);
                 cmd.Parameters.AddWithValue("@MaNV", phieu.MaNhanVien);
                 cmd.Parameters.AddWithValue("@NgayKiemKho", phieu.NgayKiemKho ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@NgayCanBangKho", phieu.ThoiGianCanBangKho ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@TrangThaiPhieuKiem", phieu.TrangThaiPhieuKiem ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@GhiChu", phieu.GhiChu ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@TongChechLech", phieu.TongChechLech);
+                cmd.Parameters.AddWithValue("@SoLuongLechTang", phieu.SoLuongLechTang);
+                cmd.Parameters.AddWithValue("@SoLuongLechGiam", phieu.SoLuongLechGiam);
 
                 conn.Open();
                 return cmd.ExecuteNonQuery() > 0;
             }
         }
+
 
 
         //ham xoa phiếu kiểm kho

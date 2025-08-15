@@ -1,21 +1,29 @@
-﻿using QuestPDF.Fluent;
+﻿using QL_Nha_thuoc.model;
+using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using QL_Nha_thuoc.model;
 using System;
+using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using QuestPDF.Helpers;
+
+
 
 public class HoaDonThanhToanDocument : IDocument
 {
     private readonly ClassHoaDon hoaDon;
     private readonly List<ClassChiTietHoaDon> chiTietList;
+    private readonly string qrCodeUrl;
 
-    public HoaDonThanhToanDocument(ClassHoaDon hoaDon, List<ClassChiTietHoaDon> chiTietList)
+    public HoaDonThanhToanDocument(ClassHoaDon hoaDon, List<ClassChiTietHoaDon> chiTietList, string qrCodeUrl)
     {
         this.hoaDon = hoaDon;
         this.chiTietList = chiTietList;
+        this.qrCodeUrl = qrCodeUrl;
     }
+
 
     public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
 
@@ -34,6 +42,7 @@ public class HoaDonThanhToanDocument : IDocument
 
     void ComposeHeader(IContainer container)
     {
+        ClassTaiKhoan taikhoan = Session.TaiKhoanDangNhap;
         container.Column(col =>
         {
             // Logo + Tên cửa hàng
@@ -42,10 +51,10 @@ public class HoaDonThanhToanDocument : IDocument
                 row.RelativeItem().Height(50).AlignCenter().AlignMiddle().Text("🏥").FontSize(30); // Có thể thay bằng hình ảnh logo
                 row.RelativeItem(3).Column(c =>
                 {
-                    c.Item().Text("Nhà thuốc Vita").Bold().FontSize(16).FontColor(Colors.Blue.Medium);
-                    c.Item().Text("0798008780");
-                    c.Item().Text("Địa chỉ: ---");
-                    c.Item().Text("Điện thoại: 0798008780");
+                    c.Item().Text("Nhà thuốc").Bold().FontSize(16).FontColor(Colors.Blue.Medium);
+                    c.Item().Text(taikhoan.TenTaiKhoan);
+                    c.Item().Text("Địa chỉ: Cần Thơ");
+                    c.Item().Text("Điện thoại: 0866850269");
                 });
             });
 
@@ -110,6 +119,24 @@ public class HoaDonThanhToanDocument : IDocument
             });
 
             col.Item().AlignCenter().PaddingTop(10).Text("Quét mã thanh toán").Italic();
+            // Hiển thị QR thanh toán nếu có
+            if (!string.IsNullOrEmpty(qrCodeUrl))
+            {
+                try
+                {
+                    using (WebClient client = new WebClient())
+                    {
+                        byte[] data = client.DownloadData(qrCodeUrl);
+                        col.Item().AlignCenter().PaddingTop(10).Container().Width(250).Height(250).Image(data, ImageScaling.FitArea);
+                    }
+                }
+                catch
+                {
+                    col.Item().AlignCenter().PaddingTop(10).Text("Không thể tải mã QR").Italic();
+                }
+            }
+
+
             col.Item().AlignCenter().PaddingTop(5).Text("Cảm ơn và hẹn gặp lại!").Italic();
         });
     }
@@ -118,7 +145,7 @@ public class HoaDonThanhToanDocument : IDocument
     {
         container.AlignLeft().Text(txt =>
         {
-            txt.Span("https://vitai.kiotviet.vn/sale/#").FontSize(10);
+            txt.Span(qrCodeUrl).FontSize(10);
             txt.Span("     |     Trang ").FontSize(10);
             txt.CurrentPageNumber().FontSize(10);
             txt.Span(" / ");

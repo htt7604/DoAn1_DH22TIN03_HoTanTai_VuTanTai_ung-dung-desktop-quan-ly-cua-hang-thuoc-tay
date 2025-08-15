@@ -22,11 +22,29 @@
     <Compile Update="BanHang\FormThemTaiKhoanNganHang.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="BanHang\MaVach\FormQuetMaVach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="BanHang\TRA_HANG\FormChonHDTraHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="BanHang\TRA_HANG\UserControlFormTraHang.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="BanHang\TRA_HANG\UserControlHangHoaTraHang.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="BanHang\UserControlitemtkNganHang.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="BanHang\UserControlThanhToanChuyenKhoan.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="BaoCao\BaoCaoCuoiNgay\FormBCCuoiNgay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="BaoCao\FormBCBanHang.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Update="DangNhap\FormTaoMatKhau.cs">
       <SubType>Form</SubType>
@@ -76,6 +94,9 @@
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FormTuyChonMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="GiaoDich\HoaDon\FormChiTietHoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +120,9 @@
     </Compile>
     <Compile Update="GiaoDich\NhapHang\UserControlNhapHang.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="GiaoDich\TraHang\FormChiTietPhieuTra.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Update="HangHoa\CapNhat\FormCapNhatThuoc.cs">
       <SubType>Form</SubType>
@@ -151,14 +175,14 @@
     <Compile Update="HangHoa\ThietLapGia\UserControlitemHangHoaTimKiem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="NhanVien\FormThemNhanVien.cs">
+    <Compile Update="NhanVien\FormChiTietNhanVien.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="NhanVien\UserControlThongTinKhoiTao.cs">
-      <SubType>UserControl</SubType>
+    <Compile Update="NhanVien\FormSuaNV.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Update="NhanVien\UserControlThongTinThem.cs">
-      <SubType>UserControl</SubType>
+    <Compile Update="NhanVien\FormThemNhanVien.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Update="HangHoa\kiemkho\UserControlFormKiemKho.cs">
       <SubType>UserControl</SubType>
@@ -179,6 +203,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="HangHoa\kiemkho\KiemKho.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ThongKeTongquan\FormTongQuan.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Usercontrol\UserControlitemHangHoa.cs">
@@ -211,19 +238,10 @@
     <Compile Update="HangHoa\ThietLapGia.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="GiaoDich\TraHang.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="NhanVien\UserControlThemNV.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="ThongKeTongquan\FormTongQuan.cs">
+    <Compile Update="GiaoDich\TraHang\TraHang.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="TrangDangNhap.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="GiaoDich\TraNhapHang.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Usercontrol\Usercontrolthuoctinhitemthemthuoc.cs">

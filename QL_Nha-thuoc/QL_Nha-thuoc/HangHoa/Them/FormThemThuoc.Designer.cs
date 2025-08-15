@@ -140,6 +140,7 @@
             // 
             textBoxMaVach.Location = new Point(492, 124);
             textBoxMaVach.Name = "textBoxMaVach";
+            textBoxMaVach.ReadOnly = true;
             textBoxMaVach.Size = new Size(200, 27);
             textBoxMaVach.TabIndex = 82;
             // 

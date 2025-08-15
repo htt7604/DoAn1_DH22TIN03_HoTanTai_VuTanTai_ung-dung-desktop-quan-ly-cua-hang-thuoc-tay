@@ -15,6 +15,8 @@ using System.Windows.Forms;
 using QL_Nha_thuoc.model;
 using QL_Nha_thuoc.ThongKeTongquan;
 using QL_Nha_thuoc.DoiTac;
+using QL_Nha_thuoc.BaoCao;
+using QL_Nha_thuoc.BaoCao.BaoCaoCuoiNgay;
 
 
 
@@ -103,18 +105,18 @@ namespace QL_Nha_thuoc
         {
             if (formBanHangMain == null || formBanHangMain.IsDisposed)
             {
-                formBanHangMain = new FormBanHangMain();
+                formBanHangMain = new FormBanHangMain(this);
 
-                // Gán sự kiện FormHidden để hiện lại form main
                 formBanHangMain.FormHidden += (s, args) =>
                 {
-                    this.Show(); // Hiện lại FormMain khi bán hàng quay lại
+                    this.Show();
                 };
             }
 
-            this.Hide(); // Ẩn FormMain
-            formBanHangMain.Show(); // Hiện form bán hàng
-            formBanHangMain.BringToFront(); // Đưa lên trên cùng
+            this.Hide();
+            formBanHangMain.Show();
+            formBanHangMain.BringToFront();
+
         }
 
 
@@ -181,7 +183,7 @@ namespace QL_Nha_thuoc
 
         private void trảHàngToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TraHang traHang = new TraHang();
+            TraHang traHang = new TraHang(this);
             traHang.TopLevel = false;
             traHang.FormBorderStyle = FormBorderStyle.None;
             traHang.Dock = DockStyle.Fill;
@@ -200,17 +202,6 @@ namespace QL_Nha_thuoc
             panelMain.Controls.Clear();
             panelMain.Controls.Add(nhapHang);
             nhapHang.Show();
-        }
-
-        private void trảNhậpHàngToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TraNhapHang traNhapHang = new TraNhapHang();
-            traNhapHang.TopLevel = false;
-            traNhapHang.FormBorderStyle = FormBorderStyle.None;
-            traNhapHang.Dock = DockStyle.Fill;
-            panelMain.Controls.Clear();
-            panelMain.Controls.Add(traNhapHang);
-            traNhapHang.Show();
         }
 
         private void kháchHàngToolStripMenuItem_Click(object sender, EventArgs e)
@@ -247,6 +238,52 @@ namespace QL_Nha_thuoc
             panelMain.Controls.Clear();
             panelMain.Controls.Add(formNhaCungCap); // Thêm form vào panel
             formNhaCungCap.Show(); // Hiển thị form trong panel
+        }
+
+        private void toolStripTextBoxTaiKhoan_Click(object sender, EventArgs e)
+        {
+            string vaiTro = Session.TaiKhoanDangNhap.VaiTro;
+
+            FormTuyChonMain popup = new FormTuyChonMain();
+
+            // Lấy vị trí button trên màn hình
+            // Lấy tọa độ màn hình của ToolStripTextBox
+            Point buttonScreenLocation = toolStripTextBoxTaiKhoan.GetCurrentParent().PointToScreen(toolStripTextBoxTaiKhoan.Bounds.Location);
+
+            // Vị trí hiển thị form: Dưới – trái của button
+            popup.StartPosition = FormStartPosition.Manual;
+            popup.Location = new Point(
+                buttonScreenLocation.X - popup.Width + toolStripTextBoxTaiKhoan.Width, // Canh trái
+                buttonScreenLocation.Y + toolStripTextBoxTaiKhoan.Height               // Canh dưới
+            );
+
+            popup.Show();
+        }
+
+        private void bánHàngToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //them form bao cao ban hang vao panel chính
+            FormBCBanHang formBaoCaoBanHang = new FormBCBanHang();
+            formBaoCaoBanHang.TopLevel = false; // Đặt TopLevel là false để có thể nhúng vào panel
+            formBaoCaoBanHang.FormBorderStyle = FormBorderStyle.None; // Không có viền cửa sổ
+            formBaoCaoBanHang.Dock = DockStyle.Fill; // Đặt Dock để chiếm toàn bộ không gian panel
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(formBaoCaoBanHang); // Thêm form vào panel
+            formBaoCaoBanHang.Show(); // Hiển thị form trong panel
+
+        }
+
+        private void cuốiNgàyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Thêm form báo cáo cuối ngày vào panel chính
+            FormBCCuoiNgay formBaoCaoCuoiNgay = new FormBCCuoiNgay();
+            formBaoCaoCuoiNgay.TopLevel = false; // Đặt TopLevel là false để có thể nhúng vào panel
+            
+            formBaoCaoCuoiNgay.FormBorderStyle = FormBorderStyle.None; // Không có viền cửa sổ
+            formBaoCaoCuoiNgay.Dock = DockStyle.Fill; // Đặt Dock để chiếm toàn bộ không gian panel
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(formBaoCaoCuoiNgay); // Thêm form vào panel
+            formBaoCaoCuoiNgay.Show(); // Hiển thị form trong panel
         }
     }
 }

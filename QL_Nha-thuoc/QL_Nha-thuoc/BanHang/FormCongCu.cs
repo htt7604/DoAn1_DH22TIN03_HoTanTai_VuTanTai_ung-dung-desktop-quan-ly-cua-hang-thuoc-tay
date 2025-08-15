@@ -55,7 +55,6 @@ namespace QL_Nha_thuoc.BanHang
         }
 
         public event EventHandler QuayLai;
-
         private void btnQuayLaiQL_Click(object sender, EventArgs e)
         {
             QuayLai?.Invoke(this, EventArgs.Empty); // Gọi quay lại

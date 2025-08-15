@@ -103,7 +103,7 @@
             label8.Size = new Size(154, 40);
             label8.TabIndex = 17;
             label8.Text = "Thành tiền";
-            label8.TextAlign = ContentAlignment.MiddleCenter;
+            label8.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label7
             // 
@@ -114,7 +114,7 @@
             label7.Size = new Size(147, 40);
             label7.TabIndex = 16;
             label7.Text = "Giảm giá";
-            label7.TextAlign = ContentAlignment.MiddleCenter;
+            label7.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label6
             // 
@@ -125,7 +125,7 @@
             label6.Size = new Size(147, 40);
             label6.TabIndex = 15;
             label6.Text = "Đơn giá";
-            label6.TextAlign = ContentAlignment.MiddleCenter;
+            label6.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label5
             // 
@@ -136,7 +136,7 @@
             label5.Size = new Size(147, 40);
             label5.TabIndex = 14;
             label5.Text = "Số lượng";
-            label5.TextAlign = ContentAlignment.MiddleCenter;
+            label5.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
@@ -147,7 +147,7 @@
             label3.Size = new Size(147, 40);
             label3.TabIndex = 13;
             label3.Text = "ĐVT";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
+            label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label2
             // 

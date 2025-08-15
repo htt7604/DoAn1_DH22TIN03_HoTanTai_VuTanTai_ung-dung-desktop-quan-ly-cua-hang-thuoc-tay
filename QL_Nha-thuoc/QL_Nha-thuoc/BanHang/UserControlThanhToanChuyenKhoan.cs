@@ -10,11 +10,13 @@ namespace QL_Nha_thuoc.BanHang
 {
     public partial class UserControlThanhToanChuyenKhoan : UserControl
     {
-        public UserControlThanhToanChuyenKhoan(Panel panelChonTaiKhoan)
+        public string _maHoaDon;
+        public UserControlThanhToanChuyenKhoan(Panel panelChonTaiKhoan,string maHD)
         {
             InitializeComponent();
             _panelChonTaiKhoan = panelChonTaiKhoan;
             LoadThongTinChuyenKhoan();
+            _maHoaDon = maHD;
 
         }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -22,7 +24,7 @@ namespace QL_Nha_thuoc.BanHang
         {
             get
             {
-                var taiKhoan = ClassTaiKhoanNganHang.LayTaiKhoanNganHang(labelSoTaiKhoan.Text);
+                var taiKhoan = ClassTaiKhoanNganHang.LayTaiKhoanTheoSTK(labelSoTaiKhoan.Text);
                 return taiKhoan?.MaTaiKhoanNH;
             }
         }
@@ -69,7 +71,7 @@ namespace QL_Nha_thuoc.BanHang
             string tenChuTK = taiKhoan.TenChuTK;
             string soTK = taiKhoan.SoTaiKhoan;
             string tenNH = taiKhoan.TenNganHang;
-            string noiDung = $"Thanh toan hoa don {DateTime.Now:yyyyMMddHHmmss}";
+            string noiDung = $"Thanh toan hoa don " +_maHoaDon ;
 
             labelTenNganHang.Text = tenNH;
             labelTenChuTaiKhoan.Text = tenChuTK;
@@ -79,6 +81,10 @@ namespace QL_Nha_thuoc.BanHang
             string url = TaoUrlQRCode(tenNH, soTK, tenChuTK, soTien, noiDung, compact: false);
             HienThiQRCode(url);
         }
+
+
+
+        public event Action<string> QRCodeUrlChanged;
 
         private string TaoUrlQRCode(string tenNH, string soTK, string tenChuTK, decimal soTien, string noiDung, bool compact)
         {
@@ -93,6 +99,10 @@ namespace QL_Nha_thuoc.BanHang
             return url;
         }
 
+
+
+        public string QRCodeUrl { get; private set; }
+
         private void HienThiQRCode(string url)
         {
             try
@@ -103,6 +113,11 @@ namespace QL_Nha_thuoc.BanHang
                 {
                     pictureBoxQR.Image = Bitmap.FromStream(stream);
                     pictureBoxQR.SizeMode = PictureBoxSizeMode.Zoom;
+
+
+
+                    QRCodeUrl = url;
+                    QRCodeUrlChanged?.Invoke(url);
                 }
             }
             catch (Exception ex)

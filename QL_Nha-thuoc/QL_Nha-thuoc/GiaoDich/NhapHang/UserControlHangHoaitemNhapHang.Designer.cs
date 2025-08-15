@@ -109,8 +109,10 @@
             textBoxThanhTien.Dock = DockStyle.Fill;
             textBoxThanhTien.Location = new Point(1240, 3);
             textBoxThanhTien.Name = "textBoxThanhTien";
+            textBoxThanhTien.ReadOnly = true;
             textBoxThanhTien.Size = new Size(154, 27);
             textBoxThanhTien.TabIndex = 4;
+            textBoxThanhTien.TextChanged += textBoxThanhTien_TextChanged;
             // 
             // textBoxGiamGia
             // 
@@ -121,7 +123,6 @@
             textBoxGiamGia.Size = new Size(149, 27);
             textBoxGiamGia.TabIndex = 5;
             textBoxGiamGia.Click += textBoxGiamGia_Click;
-            textBoxGiamGia.TextChanged += textBoxGiamGia_TextChanged;
             // 
             // textBoxDonGia
             // 

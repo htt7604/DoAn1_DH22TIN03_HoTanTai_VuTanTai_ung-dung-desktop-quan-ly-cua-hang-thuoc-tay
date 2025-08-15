@@ -19,10 +19,33 @@ namespace QL_Nha_thuoc.model
 
 
 
-
-        public static ClassTaiKhoanNganHang LayTaiKhoanNganHang(string soTaiKhoan)
+        public static ClassTaiKhoanNganHang? LayTaiKhoanTheoSTK(string soTaiKhoan)
         {
-            return LayDanhSachTaiKhoan().FirstOrDefault(tk => tk.SoTaiKhoan == soTaiKhoan);
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                conn.Open();
+                string sql = "SELECT * FROM TAI_KHOAN_NGAN_HANG WHERE SO_TAI_KHOAN = @stk";
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@stk", soTaiKhoan);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new ClassTaiKhoanNganHang
+                            {
+                                MaTaiKhoanNH = reader["MA_TAI_KHOAN_NGAN_HANG"].ToString(),
+                                TenChuTK = reader["TEN_CHU_TAI_KHOAN"].ToString() ?? "",
+                                SoTaiKhoan = reader["SO_TAI_KHOAN"].ToString() ?? "",
+                                TenNganHang = reader["TEN_NGAN_HANG"].ToString() ?? "",
+                                GhiChu = reader["GHI_CHU"].ToString() ?? ""
+                            };
+                        }
+                    }
+                }
+            }
+
+            return null; // Nếu không tìm thấy
         }
 
 
@@ -116,6 +139,20 @@ namespace QL_Nha_thuoc.model
         }
 
 
+        public static bool KiemTraTrungTaiKhoan(string soTaiKhoan, string tenChuTK)
+        {
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM TAI_KHOAN_NGAN_HANG WHERE SO_TAI_KHOAN = @stk AND TEN_CHU_TK = @tentk";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@stk", soTaiKhoan);
+                cmd.Parameters.AddWithValue("@tentk", tenChuTK);
+
+                int count = (int)cmd.ExecuteScalar();
+                return count > 0;
+            }
+        }
 
 
 

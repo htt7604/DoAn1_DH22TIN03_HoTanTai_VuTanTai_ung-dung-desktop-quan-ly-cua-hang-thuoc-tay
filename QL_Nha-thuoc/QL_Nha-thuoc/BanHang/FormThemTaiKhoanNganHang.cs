@@ -83,25 +83,31 @@ namespace QL_Nha_thuoc.BanHang
                 GhiChu = textBoxGhiChu.Text.Trim()
             };
 
+            // Kiểm tra trùng
+            if (ClassTaiKhoanNganHang.KiemTraTrungTaiKhoan(taiKhoan.SoTaiKhoan, taiKhoan.TenChuTK))
+            {
+                MessageBox.Show("Tài khoản đã tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             bool ketQua = taiKhoan.ThemTaiKhoan();
 
             if (ketQua)
             {
                 MessageBox.Show("Thêm tài khoản ngân hàng thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                FormDaDong?.Invoke(this, EventArgs.Empty); // ← GỌI SỰ KIỆN
+                FormDaDong?.Invoke(this, EventArgs.Empty);
                 this.Close();
             }
-
             else
             {
                 MessageBox.Show("Thêm tài khoản thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
-
-
-
-
+        private void buttonBoQua_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

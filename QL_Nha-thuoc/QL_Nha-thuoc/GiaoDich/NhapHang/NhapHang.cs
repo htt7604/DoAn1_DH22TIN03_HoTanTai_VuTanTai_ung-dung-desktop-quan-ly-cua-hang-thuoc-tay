@@ -20,8 +20,7 @@ namespace QL_Nha_thuoc
             InitializeComponent();
             _formMain = formMain;
 
-            LoadDanhSachPhieuNhapHang();
-            LoadThuocTinhKiemKhoComboBox();
+
 
             textBoxTimHH.KeyDown += textBoxTimHH_KeyDown;
         }
@@ -29,45 +28,70 @@ namespace QL_Nha_thuoc
 
         private void LoadDanhSachPhieuNhapHang()
         {
-            using (SqlConnection conn = CSDL.GetConnection())
+            try
             {
-                try
+                dataGridViewdsNhapHang.AutoGenerateColumns = false;
+                dataGridViewdsNhapHang.Columns.Clear();
+
+                // Cột Mã phiếu nhập (ẩn nhưng vẫn truy cập được)
+                dataGridViewdsNhapHang.Columns.Add(new DataGridViewTextBoxColumn
                 {
-                    conn.Open();
-                    string query = @"
-                        SELECT PN.MA_PHIEU_NHAP, PN.NGAY_NHAP, 
-                               NCC.TEN_NHA_CUNG_CAP, 
-                               (ISNULL(PN.TONG_TIEN_NHAP_HANG, 0) - ISNULL(PN.SO_TIEN_DA_THANH_TOAN, 0)) AS SO_TIEN_CON_NO,
-                               PN.TRANG_THAI
-                        FROM PHIEU_NHAP_HANG PN
-                        JOIN NHA_CUNG_CAP NCC ON PN.MA_NHA_CUNG_CAP = NCC.MA_NHA_CUNG_CAP
-                        ORDER BY PN.NGAY_NHAP DESC";
+                    Name = "MaPhieuNhap", // Dùng để truy cập bằng row.Cells["MaPhieuNhap"]
+                    HeaderText = "Mã phiếu nhập",
+                    DataPropertyName = "MaPhieuNhap",
+                    Visible = false // Ẩn cột nếu không muốn hiển thị
+                });
 
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    List<PhieuNhapHang> danhSachPhieu = new List<PhieuNhapHang>();
-
-                    while (reader.Read())
-                    {
-                        danhSachPhieu.Add(new PhieuNhapHang
-                        {
-                            MaPhieuNhap = reader["MA_PHIEU_NHAP"].ToString(),
-                            NgayNhap = reader["NGAY_NHAP"] != DBNull.Value ? Convert.ToDateTime(reader["NGAY_NHAP"]) : (DateTime?)null,
-                            TenNhaCungCap = reader["TEN_NHA_CUNG_CAP"].ToString(),
-                            SoTienConNo = reader["SO_TIEN_CON_NO"] != DBNull.Value ? Convert.ToDecimal(reader["SO_TIEN_CON_NO"]) : 0,
-                            TrangThai = reader["TRANG_THAI"]?.ToString()
-                        });
-                    }
-
-                    dataGridViewdsNhapHang.DataSource = danhSachPhieu;
-                }
-                catch (Exception ex)
+                // Cột Ngày nhập
+                dataGridViewdsNhapHang.Columns.Add(new DataGridViewTextBoxColumn
                 {
-                    MessageBox.Show("Lỗi khi tải danh sách phiếu nhập: " + ex.Message);
-                }
+                    Name = "NgayNhap",
+                    HeaderText = "Ngày nhập",
+                    DataPropertyName = "NgayNhap",
+                    DefaultCellStyle = { Format = "dd/MM/yyyy" },
+                    FillWeight = 15
+                });
+
+                // Cột Tên nhà cung cấp
+                dataGridViewdsNhapHang.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "TenNhaCungCap",
+                    HeaderText = "Nhà cung cấp",
+                    DataPropertyName = "TenNhaCungCap",
+                    FillWeight = 30
+                });
+
+                // Cột Số tiền đã trả
+                dataGridViewdsNhapHang.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "SoTienDaTra",
+                    HeaderText = "Số tiền đã trả",
+                    DataPropertyName = "SoTienDaTra",
+                    DefaultCellStyle = { Format = "N0", Alignment = DataGridViewContentAlignment.MiddleRight },
+                    FillWeight = 20
+                });
+
+                // Cột Trạng thái
+                dataGridViewdsNhapHang.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "TrangThai",
+                    HeaderText = "Trạng thái",
+                    DataPropertyName = "TrangThai",
+                    FillWeight = 20
+                });
+
+                // Gán nguồn dữ liệu
+                dataGridViewdsNhapHang.DataSource = ClassPhieuNhapHang.GetDanhSachPhieuNhapHang();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải danh sách phiếu nhập: " + ex.Message);
             }
         }
+
+
+
+
 
         private void LoadThuocTinhKiemKhoComboBox()
         {
@@ -83,6 +107,13 @@ namespace QL_Nha_thuoc
                 comboBoxLoaiTimKiem.SelectedIndex = 0;
         }
 
+
+
+        private void NhapHang_Load(object sender, EventArgs e)
+        {
+            LoadDanhSachPhieuNhapHang();
+            LoadThuocTinhKiemKhoComboBox();
+        }
         private string LayCotTimKiem()
         {
             if (comboBoxLoaiTimKiem.SelectedItem is ThuocTinhHienThi thuocTinh)
@@ -113,7 +144,7 @@ namespace QL_Nha_thuoc
                     string query = $@"
                         SELECT PN.MA_PHIEU_NHAP, PN.NGAY_NHAP, 
                                NCC.TEN_NHA_CUNG_CAP, 
-                               (ISNULL(PN.TONG_TIEN_NHAP_HANG, 0) - ISNULL(PN.SO_TIEN_DA_THANH_TOAN, 0)) AS SO_TIEN_CON_NO,
+                               (ISNULL(PN.TONG_TIEN_NHAP_HANG, 0) - ISNULL(PN.SO_TIEN_DA_TRA, 0)) AS SO_TIEN_CON_NO,
                                PN.TRANG_THAI
                         FROM PHIEU_NHAP_HANG PN
                         JOIN NHA_CUNG_CAP NCC ON PN.MA_NHA_CUNG_CAP = NCC.MA_NHA_CUNG_CAP
@@ -125,16 +156,15 @@ namespace QL_Nha_thuoc
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    List<PhieuNhapHang> danhSachPhieu = new List<PhieuNhapHang>();
+                    List<ClassPhieuNhapHang> danhSachPhieu = new List<ClassPhieuNhapHang>();
 
                     while (reader.Read())
                     {
-                        danhSachPhieu.Add(new PhieuNhapHang
+                        danhSachPhieu.Add(new ClassPhieuNhapHang
                         {
                             MaPhieuNhap = reader["MA_PHIEU_NHAP"].ToString(),
                             NgayNhap = reader["NGAY_NHAP"] != DBNull.Value ? Convert.ToDateTime(reader["NGAY_NHAP"]) : (DateTime?)null,
                             TenNhaCungCap = reader["TEN_NHA_CUNG_CAP"].ToString(),
-                            SoTienConNo = reader["SO_TIEN_CON_NO"] != DBNull.Value ? Convert.ToDecimal(reader["SO_TIEN_CON_NO"]) : 0,
                             TrangThai = reader["TRANG_THAI"]?.ToString()
                         });
                     }
@@ -170,7 +200,14 @@ namespace QL_Nha_thuoc
 
         private void buttonThemNhapHang_Click(object sender, EventArgs e)
         {
-            FormThemNhapHang formThemNhapHang = new FormThemNhapHang();
+            string maPhieuNhap = ClassPhieuNhapHang.TaoMaPhieuNhap(); // Tạo mã phiếu nhập mới
+            FormThemNhapHang formThemNhapHang = new FormThemNhapHang(maPhieuNhap);
+            formThemNhapHang.setData();
+            formThemNhapHang.FormThemNhapDong += () =>
+            {
+                _formMain.LoadFormVaoPanel(this); // Gọi lại form thêm nhập hàng
+                NhapHang_Load(sender, e); // Tải lại danh sách phiếu nhập khi form thêm đóng
+            };
             _formMain.LoadFormVaoPanel(formThemNhapHang); // dùng biến đã truyền
         }
 
@@ -181,11 +218,16 @@ namespace QL_Nha_thuoc
             {
                 DataGridViewRow row = dataGridViewdsNhapHang.Rows[e.RowIndex];
                 string maPhieuNhap = row.Cells["MaPhieuNhap"].Value.ToString();
-                FormChiTietPhieuNhap formChiTietPhieuNhap = new FormChiTietPhieuNhap(); 
-                PhieuNhapHang phieuNhapHang = PhieuNhapHang.TimPhieuNhapTheoMa(maPhieuNhap);
+                FormChiTietPhieuNhap formChiTietPhieuNhap = new FormChiTietPhieuNhap(_formMain);
+                ClassPhieuNhapHang phieuNhapHang = ClassPhieuNhapHang.TimTheoMaPhieuNhap(maPhieuNhap);
                 if (phieuNhapHang != null)
                 {
                     formChiTietPhieuNhap.SetData(phieuNhapHang);
+                    formChiTietPhieuNhap.FormDong += () =>
+                    {
+                        _formMain.LoadFormVaoPanel(this); // Gọi lại form nhập hàng
+                        NhapHang_Load(sender, e); // Tải lại danh sách phiếu nhập khi form chi tiết đóng
+                    };
                     formChiTietPhieuNhap.ShowDialog(); // Hiển thị form chi tiết phiếu nhập
                 }
                 else
@@ -196,7 +238,48 @@ namespace QL_Nha_thuoc
         }
 
 
+        private void LoadPhieuNhapTheoTrangThai(string trangThai)
+        {
+            List<ClassPhieuNhapHang> danhSach;
 
+            if (trangThai == "Tất cả")
+            {
+                danhSach = ClassPhieuNhapHang.GetDanhSachPhieuNhapHang();
+            }
+            else
+            {
+                danhSach = ClassPhieuNhapHang.GetDanhSachPhieuNhapHang()
+                             .Where(p => p.TrangThai != null && p.TrangThai.Equals(trangThai, StringComparison.OrdinalIgnoreCase))
+                             .ToList();
+            }
+
+            dataGridViewdsNhapHang.DataSource = danhSach;
+        }
+
+
+        private void radioButtonTatCa_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonTatCa.Checked)
+            {
+                LoadPhieuNhapTheoTrangThai("Tất cả");
+            }
+        }
+
+        private void radioButtonDaNhap_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonDaNhap.Checked)
+            {
+                LoadPhieuNhapTheoTrangThai("Đã nhập hàng");
+            }
+        }
+
+        private void radioButtonDaHuy_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonDaHuy.Checked)
+            {
+                LoadPhieuNhapTheoTrangThai("Đã hủy");
+            }
+        }
 
     }
 }

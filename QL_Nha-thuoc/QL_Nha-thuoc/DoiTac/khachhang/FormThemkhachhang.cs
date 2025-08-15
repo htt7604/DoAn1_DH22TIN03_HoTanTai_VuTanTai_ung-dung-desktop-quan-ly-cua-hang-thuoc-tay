@@ -52,7 +52,7 @@ namespace QL_Nha_thuoc.DoiTac.khachhang
             khachhang.NgayTaoKH = DateTime.Now; // Ngày tạo mặc định là ngày hiện tại
             khachhang.nguoiTao = Session.TaiKhoanDangNhap.TenNhanVien; // Người tạo là người đăng nhập hiện tại
             khachhang.MaNV = Session.TaiKhoanDangNhap.MaNhanVien; // Mã nhân viên là mã của người đăng nhập hiện tại
-            khachhang.TrangThaiKH = "Đang hoạt động";
+            khachhang.TrangThaiKH = "Hoạt động";
             khachhang.HinhAnhKh = hinhAnhKhachHang; // Lưu đường dẫn ảnh nếu có
             khachhang.SoCCCD_CMND = textBoxCCCD.Text.Trim();
             khachhang.NgaySinh = dateTimePickerNgaySinh.Checked ? dateTimePickerNgaySinh.Value : (DateTime?)null;

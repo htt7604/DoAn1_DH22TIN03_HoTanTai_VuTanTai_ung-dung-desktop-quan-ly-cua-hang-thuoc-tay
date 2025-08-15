@@ -1,4 +1,6 @@
 ﻿using QL_Nha_thuoc.BanHang;
+using QL_Nha_thuoc.BanHang.TRA_HANG;
+using QL_Nha_thuoc.BaoCao;
 using QL_Nha_thuoc.DangNhap;
 using QL_Nha_thuoc.DoiTac;
 using QL_Nha_thuoc.GiaoDich.NhapHang;
@@ -21,7 +23,7 @@ namespace QL_Nha_thuoc
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new FormLogin());
+            Application.Run(new FormLogin  ());
         }
     }
 }

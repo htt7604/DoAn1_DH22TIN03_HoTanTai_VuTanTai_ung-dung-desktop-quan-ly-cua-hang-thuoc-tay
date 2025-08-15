@@ -91,9 +91,9 @@
             label15.AutoSize = true;
             label15.Location = new Point(396, 382);
             label15.Name = "label15";
-            label15.Size = new Size(85, 20);
+            label15.Size = new Size(82, 20);
             label15.TabIndex = 116;
-            label15.Text = "Ten viet tat:";
+            label15.Text = "Tên viết tắt";
             // 
             // textBoxTrongLuong
             // 
@@ -107,9 +107,9 @@
             label14.AutoSize = true;
             label14.Location = new Point(395, 522);
             label14.Name = "label14";
-            label14.Size = new Size(92, 20);
+            label14.Size = new Size(90, 20);
             label14.TabIndex = 114;
-            label14.Text = "Trong luong:";
+            label14.Text = "Trọng lượng";
             // 
             // textBoxMaThuoc
             // 
@@ -124,9 +124,9 @@
             label13.AutoSize = true;
             label13.Location = new Point(860, 111);
             label13.Name = "label13";
-            label13.Size = new Size(74, 20);
+            label13.Size = new Size(71, 20);
             label13.TabIndex = 112;
-            label13.Text = "Ma thuoc:";
+            label13.Text = "Mã thuốc";
             // 
             // textBoxHamLuong
             // 
@@ -140,9 +140,9 @@
             label12.AutoSize = true;
             label12.Location = new Point(860, 159);
             label12.Name = "label12";
-            label12.Size = new Size(86, 20);
+            label12.Size = new Size(84, 20);
             label12.TabIndex = 110;
-            label12.Text = "Ham luong:";
+            label12.Text = "Hàm lượng";
             // 
             // textBoxHoatChat
             // 
@@ -156,18 +156,18 @@
             label11.AutoSize = true;
             label11.Location = new Point(860, 210);
             label11.Name = "label11";
-            label11.Size = new Size(77, 20);
+            label11.Size = new Size(74, 20);
             label11.TabIndex = 108;
-            label11.Text = "Hoat chat:";
+            label11.Text = "Hoạt chất";
             // 
             // label10
             // 
             label10.AutoSize = true;
             label10.Location = new Point(395, 572);
             label10.Name = "label10";
-            label10.Size = new Size(99, 20);
+            label10.Size = new Size(97, 20);
             label10.TabIndex = 105;
-            label10.Text = "Duong dung :";
+            label10.Text = "Đường dùng ";
             // 
             // dateTimePickerNgayHetHan
             // 
@@ -190,36 +190,36 @@
             label9.AutoSize = true;
             label9.Location = new Point(873, 401);
             label9.Name = "label9";
-            label9.Size = new Size(61, 20);
+            label9.Size = new Size(58, 20);
             label9.TabIndex = 102;
-            label9.Text = "Ghi chu:";
+            label9.Text = "Ghi chú";
             // 
             // label8
             // 
             label8.AutoSize = true;
             label8.Location = new Point(860, 522);
             label8.Name = "label8";
-            label8.Size = new Size(103, 20);
+            label8.Size = new Size(100, 20);
             label8.TabIndex = 100;
-            label8.Text = "Nha cung cap:";
+            label8.Text = "Nhà cung cấp";
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Location = new Point(860, 569);
             label7.Name = "label7";
-            label7.Size = new Size(100, 20);
+            label7.Size = new Size(97, 20);
             label7.TabIndex = 99;
-            label7.Text = "Ngay het han:";
+            label7.Text = "Ngày hết hạn";
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Location = new Point(860, 268);
             label6.Name = "label6";
-            label6.Size = new Size(106, 20);
+            label6.Size = new Size(103, 20);
             label6.TabIndex = 97;
-            label6.Text = "Hang san xuat:";
+            label6.Text = "Hãng sản xuất";
             // 
             // textBoxQuyCachDongGoi
             // 
@@ -233,18 +233,18 @@
             label5.AutoSize = true;
             label5.Location = new Point(860, 328);
             label5.Name = "label5";
-            label5.Size = new Size(137, 20);
+            label5.Size = new Size(138, 20);
             label5.TabIndex = 95;
-            label5.Text = "Quy cach dong goi:";
+            label5.Text = "Quy cách đóng gói ";
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Location = new Point(396, 218);
             label4.Name = "label4";
-            label4.Size = new Size(77, 20);
+            label4.Size = new Size(74, 20);
             label4.TabIndex = 94;
-            label4.Text = "Loai hang:";
+            label4.Text = "Loại hàng";
             // 
             // textBoxMaVach
             // 
@@ -265,27 +265,27 @@
             label3.AutoSize = true;
             label3.Location = new Point(399, 475);
             label3.Name = "label3";
-            label3.Size = new Size(63, 20);
+            label3.Size = new Size(60, 20);
             label3.TabIndex = 89;
-            label3.Text = "Giá ban:";
+            label3.Text = "Giá bán";
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Location = new Point(395, 272);
             label2.Name = "label2";
-            label2.Size = new Size(90, 20);
+            label2.Size = new Size(87, 20);
             label2.TabIndex = 88;
-            label2.Text = "Nhom hang:";
+            label2.Text = "Nhóm hàng";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Location = new Point(395, 159);
             label1.Name = "label1";
-            label1.Size = new Size(67, 20);
+            label1.Size = new Size(64, 20);
             label1.TabIndex = 87;
-            label1.Text = "Mã vach:";
+            label1.Text = "Mã vạch";
             // 
             // pictureBoxHangHoa
             // 
@@ -302,7 +302,7 @@
             buttonLuu.Name = "buttonLuu";
             buttonLuu.Size = new Size(75, 32);
             buttonLuu.TabIndex = 85;
-            buttonLuu.Text = "Luu";
+            buttonLuu.Text = "Lưu";
             buttonLuu.Click += buttonLuu_Click;
             // 
             // labelMaHH
@@ -332,7 +332,7 @@
             textBox.ReadOnly = true;
             textBox.Size = new Size(321, 43);
             textBox.TabIndex = 78;
-            textBox.Text = "Cap nhat Thuoc";
+            textBox.Text = "Cập nhật thuốc";
             // 
             // labelDonViTinh
             // 
@@ -355,9 +355,9 @@
             labelGia.AutoSize = true;
             labelGia.Location = new Point(396, 429);
             labelGia.Name = "labelGia";
-            labelGia.Size = new Size(62, 20);
+            labelGia.Size = new Size(59, 20);
             labelGia.TabIndex = 81;
-            labelGia.Text = "Giá von:";
+            labelGia.Text = "Giá vốn";
             // 
             // textBoxGiaVon
             // 
@@ -387,9 +387,9 @@
             label16.AutoSize = true;
             label16.Location = new Point(395, 332);
             label16.Name = "label16";
-            label16.Size = new Size(76, 20);
+            label16.Size = new Size(73, 20);
             label16.TabIndex = 119;
-            label16.Text = "Ten thuoc:";
+            label16.Text = "Tên thuốc";
             // 
             // comboBoxNhomHang
             // 
@@ -447,9 +447,9 @@
             // 
             buttonChonAnh.Location = new Point(133, 463);
             buttonChonAnh.Name = "buttonChonAnh";
-            buttonChonAnh.Size = new Size(75, 32);
+            buttonChonAnh.Size = new Size(112, 32);
             buttonChonAnh.TabIndex = 127;
-            buttonChonAnh.Text = "Chon anh";
+            buttonChonAnh.Text = "Chọn ảnh";
             buttonChonAnh.Click += buttonChonAnh_Click;
             // 
             // buttonThemNhomHang
@@ -468,9 +468,9 @@
             label20.AutoSize = true;
             label20.Location = new Point(860, 661);
             label20.Name = "label20";
-            label20.Size = new Size(64, 20);
+            label20.Size = new Size(62, 20);
             label20.TabIndex = 133;
-            label20.Text = "Ton kho:";
+            label20.Text = "Tồn kho";
             // 
             // textBoxTonKho
             // 

@@ -1,4 +1,5 @@
-﻿using QL_Nha_thuoc.HangHoa;
+﻿using QL_Nha_thuoc.BanHang;
+using QL_Nha_thuoc.HangHoa;
 using QL_Nha_thuoc.model;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,58 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
 {
     public partial class UserControlHangHoaitemNhapHang : UserControl
     {
-        public decimal DonGia => (Decimal)textBoxDonGia.DataContext;
-        public int SoLuong => (int)numericUpDownSoLuong.Value;
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string MaDonViTinh { get; set; }
+        public decimal DonGia
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(textBoxDonGia?.Text))
+                    return 0m;
+
+                return Convert.ToDecimal(textBoxDonGia.Text.Replace(",", "").Replace(" đ", ""));
+            }
+        }
+
+        public decimal GiamGia
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(textBoxGiamGia?.Text))
+                    return 0m;
+
+                string giamGiaText = textBoxGiamGia.Text
+                    .Replace(" đ", "")
+                    .Replace("%", "")
+                    .Replace(",", "");
+
+                return Convert.ToDecimal(giamGiaText);
+            }
+        }
+
+        //luu ma hang hoa dang co 
+        public string MaHangHoa { get; private set; }
+        //public int SoLuong => (int)numericUpDownSoLuong.Value;
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public decimal SoLuong
+        {
+            get => numericUpDownSoLuong.Value;
+            set => numericUpDownSoLuong.Value = value;
+        }
+
+        public string TenHangHoa
+        {
+            get 
+            { 
+                return labelTenHang.Text ;
+            }
+        }
+
+
         public decimal giaBanHienTai = 0;
         public event EventHandler ThayDoiSoLuongHoacDonGia;
         ToolTip toolTip = new ToolTip();
@@ -33,7 +84,11 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
                 return 0; // Trả về 0 nếu không thể chuyển đổi
             }
         }
-        public UserControlHangHoaitemNhapHang()
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string _maPhieu { get; set; } // Biến lưu mã phiếu nhập
+        public UserControlHangHoaitemNhapHang(string maPhieu)
         {
             InitializeComponent();
             this.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -44,6 +99,7 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
 
             // Ngăn người dùng gõ vào ô giảm giá
             textBoxGiamGia.ReadOnly = true;
+            _maPhieu = maPhieu; // Lưu mã phiếu nhập vào biến
         }
 
 
@@ -64,9 +120,21 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
             }
         }
 
+        public void setDataChiTietPhieuNhap(ClassChiTietPhieuNhap hangHoa)
+        {
+            linkLabelMaHangHoa.Text = hangHoa.MaHangHoa;
+            labelTenHang.Text = hangHoa.TenHangHoa;
+            textBoxDonGia.Text = hangHoa.DonGia.ToString(); // Hiển thị giá bán với định dạng số nguyên
+            textBoxGiamGia.Text = hangHoa.GiamGia.ToString(); // Mặc định giảm giá là 0
+            textBoxThanhTien.Text = hangHoa.ThanhTien.ToString(); // Mặc định thành tiền là 0
 
+            comboBoxDonViTinh.SelectedValue = hangHoa.MaDonViTinh; // Chọn đơn vị tính tương ứng
+            //luu ma hang hoa hien tai 
+            this.MaHangHoa = hangHoa.MaHangHoa;
+        }
         public void setData(ClassHangHoa hangHoa)
         {
+            //ClassChiTietPhieuNhap ct = ClassChiTietPhieuNhap.LayChiTietPhieuNhaptheomaHH_DVT_maPhieu(_maPhieu,hangHoa.MaHangHoa,hangHoa.MaDonViTinh);
             linkLabelMaHangHoa.Text = hangHoa.MaHangHoa;
             labelTenHang.Text = hangHoa.TenHangHoa;
             textBoxDonGia.Text = "0"; // Hiển thị giá bán với định dạng số nguyên
@@ -84,6 +152,9 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
 
             if (comboBoxDonViTinh.Items.Count > 0)
                 comboBoxDonViTinh.SelectedIndex = 0;
+
+            //luu ma hang hoa hien tai 
+            this.MaHangHoa = hangHoa.MaHangHoa;
         }
 
         public void SetSTT(int stt)
@@ -102,55 +173,29 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
         }
 
         //ham tinh thanh tien
+
         public decimal TinhThanhTienCuaHangHoa()
         {
-            string maHangHoa = linkLabelMaHangHoa.Text;
-            string maDonViTinh = comboBoxDonViTinh.SelectedValue?.ToString() ?? string.Empty;
+            //string maHangHoa = linkLabelMaHangHoa.Text;
+            //string maDonViTinh = comboBoxDonViTinh.SelectedValue?.ToString() ?? string.Empty;
             int soLuong = ((int)numericUpDownSoLuong.Value);
 
-            if (!decimal.TryParse(textBoxDonGia.Text, out decimal donGia))
+            //lay don gia
+            decimal donGia = 0;
+            if (!decimal.TryParse(textBoxDonGia.Text.Replace(" đ", "").Replace(",", ""), out donGia))
                 donGia = 0;
 
-            if (!decimal.TryParse(textBoxGiamGia.Text, out decimal giamGia))
+
+            //lay giam gia
+            decimal giamGia = 0;
+            if (!decimal.TryParse(textBoxGiamGia.Text.Replace(" đ", "").Replace(",", "").Replace("%", ""), out giamGia))
                 giamGia = 0;
-            if(loaiGiam == "%")
-            {
-                // Chuyển đổi giảm giá từ phần trăm sang giá trị tiền
-                giamGia = donGia * giamGia / 100;
-            }else if (loaiGiam == "VND")
-            {
-                // Giảm giá đã là giá trị tiền
-                giamGia = giamGia;
-            }else
-            {
-                giamGia = 0; // Nếu không xác định loại giảm giá, đặt về 0
-            }
+
             decimal thanhTien = Math.Max(0, (donGia - giamGia) * soLuong);
             textBoxThanhTien.Text = thanhTien.ToString("N0");
             return thanhTien = ThanhTien;
         }
 
-
-
-        private void textBoxDonGia_TextChanged(object sender, EventArgs e)
-        {
-            //lay gia nhap hien tai cua textBoxDonGia
-            if (giaBanHienTai != 0 && decimal.TryParse(textBoxDonGia.Text, out decimal donGia))
-            {
-                if (donGia > giaBanHienTai)
-                {
-                    textBoxDonGia.BackColor = Color.Red; // Đổi màu nền thành đỏ nếu giá nhập nhỏ hơn giá bán
-                }
-                else
-                {
-                    textBoxDonGia.BackColor = Color.White; // Đổi màu nền về trắng nếu giá nhập hợp lệ
-                }
-            }
-
-            //tinh thanh tien
-            TinhThanhTienCuaHangHoa();
-            ThayDoiSoLuongHoacDonGia?.Invoke(this, EventArgs.Empty); // Gọi sự kiện
-        }
 
         private void numericUpDownSoLuong_ValueChanged(object sender, EventArgs e)
         {
@@ -201,85 +246,112 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
             {
                 textBoxDonGia.Text = "0"; // Nếu không tìm thấy, đặt giá bán về 0
             }
-            ThayDoiSoLuongHoacDonGia?.Invoke(this, EventArgs.Empty); // Gọi sự kiện
+            //ThayDoiSoLuongHoacDonGia?.Invoke(this, EventArgs.Empty); // Gọi sự kiện
+            MaDonViTinh= maDonViTinh; // Cập nhật mã đơn vị tính
         }
-
-
-
-
-
-        //xu ly khi an nut giam gia 
-        private void CapNhatGiamGiaVaTinhTien()
-        {
-            decimal donGia = 0, giaTriGiam = 0;
-            int soLuong = (int)numericUpDownSoLuong.Value;
-
-            decimal.TryParse(textBoxDonGia.Text, out donGia);
-
-            decimal giamTrenMotSp = 0;
-
-            if (loaiGiam == "%")
-            {
-                giamTrenMotSp = donGia * giaTriGiam / 100;
-            }
-            else
-            {
-                giamTrenMotSp = giaTriGiam;
-            }
-
-            // Không để giảm giá vượt quá đơn giá
-            if (giamTrenMotSp > donGia)
-                giamTrenMotSp = donGia;
-
-            decimal thanhTien = (donGia - giamTrenMotSp) * soLuong;
-
-            // Cập nhật các TextBox liên quan
-            textBoxGiamGia.Text = giamTrenMotSp.ToString("N0");
-            textBoxThanhTien.Text = thanhTien.ToString("N0");
-
-            ThayDoiSoLuongHoacDonGia?.Invoke(this, EventArgs.Empty);
-
-
-        }
-
-
-
-
-
-
-
 
 
 
         private string loaiGiam = "VND"; // hoặc "%"
-
+                                         //bien luu giam tri giam gia 
+        private decimal GiaTriGiamGia;
 
         private void textBoxGiamGia_Click(object sender, EventArgs e)
         {
-            decimal donGia = Convert.ToDecimal(textBoxDonGia.Text);
-            FormGiamGiaPopup popup = new FormGiamGiaPopup(donGia, "0"); // dùng txtGiaTriGiamGia thay vì textBoxGiamGia
+            FormGiamGia formGiamGia = new FormGiamGia();
 
-            // Gắn sự kiện để nhận dữ liệu khi người dùng thay đổi giảm giá
-            popup.GiamGiaDaChon += (s, args) =>
+            // Cấu hình form popup: chỉ hiện nút X
+            formGiamGia.FormBorderStyle = FormBorderStyle.FixedSingle;
+            formGiamGia.MaximizeBox = false;
+            formGiamGia.MinimizeBox = false;
+            formGiamGia.ControlBox = true;
+            formGiamGia.ShowIcon = false;
+            formGiamGia.ShowInTaskbar = false;
+
+
+            formGiamGia.CoSuThayDoiGiamGia += (s, args) =>
             {
-                // Cập nhật loại và giá trị giảm giá
-                loaiGiam = args.LoaiGiam;
-                textBoxGiamGia.Text = args.GiaTri.ToString(); // dùng để tính toán nội bo
-                ThayDoiSoLuongHoacDonGia?.Invoke(this, EventArgs.Empty);
+                loaiGiam = formGiamGia.LoaiGiamGia;
+                GiaTriGiamGia = formGiamGia.GiaTriNhapGiamGia;
+
+                decimal soTienGiam = formGiamGia.TinhSoTienGiamGia();
+                textBoxGiamGia.Text = soTienGiam.ToString("N0") + " đ";
+
+                TinhThanhTienCuaHangHoa(); // cập nhật lại số tiền cần trả
             };
 
-            // Hiển thị đúng vị trí phía dưới textbox giảm giá
-            Point viTriPopup = textBoxGiamGia.PointToScreen(Point.Empty);
-            popup.StartPosition = FormStartPosition.Manual;
-            popup.Location = new Point(viTriPopup.X, viTriPopup.Y + textBoxGiamGia.Height);
-            popup.Show();
-        }
 
+            // Tính tọa độ màn hình của TextBox
+            Point viTriManHinh = textBoxGiamGia.PointToScreen(Point.Empty);
+            int formX = viTriManHinh.X;
+            int formY = viTriManHinh.Y + textBoxGiamGia.Height;
+
+            // Kích thước popup
+            int popupWidth = formGiamGia.Width;
+            int popupHeight = formGiamGia.Height;
+
+            // Giới hạn hiển thị trong màn hình
+            Rectangle screenBounds = Screen.GetWorkingArea(this);
+
+            // Nếu tràn ngang, đẩy về bên trái
+            if (formX + popupWidth > screenBounds.Right)
+                formX = screenBounds.Right - popupWidth;
+
+            // Nếu tràn dọc, hiển thị lên trên textbox
+            if (formY + popupHeight > screenBounds.Bottom)
+                formY = viTriManHinh.Y - popupHeight;
+
+            // Gán vị trí và hiển thị form
+            formGiamGia.StartPosition = FormStartPosition.Manual;
+            formGiamGia.Location = new Point(formX, formY);
+            formGiamGia.Show();
+
+            //truyen gia tri cu truoc do 
+            if (decimal.TryParse(textBoxGiamGia.Text.Replace(" đ", "").Replace(",", ""), out decimal giamGia))
+            {
+                formGiamGia.GiaTriNhapGiamGia = giamGia; // Truyền giá trị giảm giá vào formGiamGia
+            }
+            else
+            {
+                formGiamGia.GiaTriNhapGiamGia = 0; // Nếu không parse được, đặt giá trị giảm giá là 0
+            }
+
+            //truyen tong tien hang vao formGiamGia
+            formGiamGia.tongTienHang = decimal.Parse(textBoxDonGia.Text.Replace(" đ", "").Replace(",", ""));
+        }
+        private void textBoxDonGia_TextChanged(object sender, EventArgs e)
+        {
+            //lay gia nhap hien tai cua textBoxDonGia
+            if (giaBanHienTai != 0 && decimal.TryParse(textBoxDonGia.Text, out decimal donGia))
+            {
+                if (donGia > giaBanHienTai)
+                {
+                    textBoxDonGia.BackColor = Color.Red; // Đổi màu nền thành đỏ nếu giá nhập nhỏ hơn giá bán
+                }
+                else
+                {
+                    textBoxDonGia.BackColor = Color.White; // Đổi màu nền về trắng nếu giá nhập hợp lệ
+                }
+            }
+
+            //tinh thanh tien
+            TinhThanhTienCuaHangHoa();
+            ThayDoiSoLuongHoacDonGia?.Invoke(this, EventArgs.Empty); // Gọi sự kiện
+        }
         private void textBoxGiamGia_TextChanged(object sender, EventArgs e)
         {
             TinhThanhTienCuaHangHoa();
+        }
+
+        private void textBoxThanhTien_TextChanged(object sender, EventArgs e)
+        {
             ThayDoiSoLuongHoacDonGia?.Invoke(this, EventArgs.Empty);
         }
+
+
+
+
+
     }
 
 

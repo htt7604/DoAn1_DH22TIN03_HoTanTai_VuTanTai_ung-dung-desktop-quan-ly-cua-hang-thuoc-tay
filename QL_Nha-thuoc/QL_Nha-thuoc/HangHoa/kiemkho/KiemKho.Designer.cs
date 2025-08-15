@@ -31,17 +31,12 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             groupBox2 = new GroupBox();
-            checkBox3 = new CheckBox();
+            checkBoxDahuy = new CheckBox();
             checkBoxDaCanBang = new CheckBox();
             checkBoxPhieuTam = new CheckBox();
-            groupBox1 = new GroupBox();
-            radioButton2 = new RadioButton();
-            radioButton1 = new RadioButton();
             buttonThemKiemKho = new Button();
             label1 = new Label();
             panel3 = new Panel();
-            groupBox3 = new GroupBox();
-            textBox1 = new TextBox();
             dataGridViewdsPhieuKiemKho = new DataGridView();
             panel4 = new Panel();
             pictureBox1 = new PictureBox();
@@ -56,10 +51,10 @@
             panel5 = new Panel();
             pictureBox2 = new PictureBox();
             textBoxTimPhieuKiem = new TextBox();
+            groupBox1 = new GroupBox();
+            comboBoxNhanVien = new ComboBox();
             groupBox2.SuspendLayout();
-            groupBox1.SuspendLayout();
             panel3.SuspendLayout();
-            groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsPhieuKiemKho).BeginInit();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -67,32 +62,34 @@
             panel2.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox2
             // 
             groupBox2.BackColor = SystemColors.ButtonHighlight;
-            groupBox2.Controls.Add(checkBox3);
+            groupBox2.Controls.Add(checkBoxDahuy);
             groupBox2.Controls.Add(checkBoxDaCanBang);
             groupBox2.Controls.Add(checkBoxPhieuTam);
             groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox2.Location = new Point(3, 271);
+            groupBox2.Location = new Point(3, 89);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(228, 120);
             groupBox2.TabIndex = 5;
             groupBox2.TabStop = false;
             groupBox2.Text = "Trạng thái";
             // 
-            // checkBox3
+            // checkBoxDahuy
             // 
-            checkBox3.AutoSize = true;
-            checkBox3.Font = new Font("Segoe UI", 9F);
-            checkBox3.Location = new Point(11, 86);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(77, 24);
-            checkBox3.TabIndex = 2;
-            checkBox3.Text = "Đã hủy";
-            checkBox3.UseVisualStyleBackColor = true;
+            checkBoxDahuy.AutoSize = true;
+            checkBoxDahuy.Font = new Font("Segoe UI", 9F);
+            checkBoxDahuy.Location = new Point(11, 86);
+            checkBoxDahuy.Name = "checkBoxDahuy";
+            checkBoxDahuy.Size = new Size(77, 24);
+            checkBoxDahuy.TabIndex = 2;
+            checkBoxDahuy.Text = "Đã hủy";
+            checkBoxDahuy.UseVisualStyleBackColor = true;
+            checkBoxDahuy.CheckedChanged += checkBoxDahuy_CheckedChanged;
             // 
             // checkBoxDaCanBang
             // 
@@ -104,6 +101,7 @@
             checkBoxDaCanBang.TabIndex = 1;
             checkBoxDaCanBang.Text = "Đã cân bằng kho";
             checkBoxDaCanBang.UseVisualStyleBackColor = true;
+            checkBoxDaCanBang.CheckedChanged += checkBoxDaCanBang_CheckedChanged;
             // 
             // checkBoxPhieuTam
             // 
@@ -115,44 +113,7 @@
             checkBoxPhieuTam.TabIndex = 0;
             checkBoxPhieuTam.Text = "Phiếu tạm";
             checkBoxPhieuTam.UseVisualStyleBackColor = true;
-            checkBoxPhieuTam.CheckedChanged += checkBox1_CheckedChanged;
-            // 
-            // groupBox1
-            // 
-            groupBox1.BackColor = SystemColors.ButtonHighlight;
-            groupBox1.Controls.Add(radioButton2);
-            groupBox1.Controls.Add(radioButton1);
-            groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox1.Location = new Point(3, 94);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(228, 123);
-            groupBox1.TabIndex = 1;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Thời gian";
-            // 
-            // radioButton2
-            // 
-            radioButton2.AutoSize = true;
-            radioButton2.Font = new Font("Segoe UI", 9F);
-            radioButton2.Location = new Point(23, 77);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(124, 24);
-            radioButton2.TabIndex = 1;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Lựa chọn khác";
-            radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            radioButton1.AutoSize = true;
-            radioButton1.Font = new Font("Segoe UI", 9F);
-            radioButton1.Location = new Point(23, 38);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(98, 24);
-            radioButton1.TabIndex = 0;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Tháng này";
-            radioButton1.UseVisualStyleBackColor = true;
+            checkBoxPhieuTam.CheckedChanged += checkBoxPhieuTam_CheckedChanged;
             // 
             // buttonThemKiemKho
             // 
@@ -178,34 +139,14 @@
             // 
             // panel3
             // 
-            panel3.Controls.Add(groupBox3);
+            panel3.Controls.Add(groupBox1);
             panel3.Controls.Add(groupBox2);
             panel3.Controls.Add(label1);
-            panel3.Controls.Add(groupBox1);
             panel3.Dock = DockStyle.Left;
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
             panel3.Size = new Size(251, 652);
             panel3.TabIndex = 5;
-            // 
-            // groupBox3
-            // 
-            groupBox3.BackColor = SystemColors.ButtonHighlight;
-            groupBox3.Controls.Add(textBox1);
-            groupBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox3.Location = new Point(14, 438);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(228, 102);
-            groupBox3.TabIndex = 7;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Người tạo";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(11, 49);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(196, 27);
-            textBox1.TabIndex = 0;
             // 
             // dataGridViewdsPhieuKiemKho
             // 
@@ -394,6 +335,25 @@
             textBoxTimPhieuKiem.TabIndex = 1;
             textBoxTimPhieuKiem.Tag = "";
             // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(comboBoxNhanVien);
+            groupBox1.Location = new Point(12, 241);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(219, 125);
+            groupBox1.TabIndex = 6;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "groupBox1";
+            // 
+            // comboBoxNhanVien
+            // 
+            comboBoxNhanVien.FormattingEnabled = true;
+            comboBoxNhanVien.Location = new Point(14, 52);
+            comboBoxNhanVien.Name = "comboBoxNhanVien";
+            comboBoxNhanVien.Size = new Size(151, 28);
+            comboBoxNhanVien.TabIndex = 0;
+            comboBoxNhanVien.SelectedIndexChanged += comboBoxNhanVien_SelectedIndexChanged;
+            // 
             // KiemKho
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -408,12 +368,8 @@
             Load += KiemKho_Load;
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
-            groupBox3.ResumeLayout(false);
-            groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsPhieuKiemKho).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
@@ -424,22 +380,18 @@
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            groupBox1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-        private GroupBox groupBox1;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
         private Button buttonThemKiemKho;
         private Label label1;
         private GroupBox groupBox2;
-        private CheckBox checkBox3;
+        private CheckBox checkBoxDahuy;
         private CheckBox checkBoxDaCanBang;
         private CheckBox checkBoxPhieuTam;
         private Panel panel3;
-        private GroupBox groupBox3;
-        private TextBox textBox1;
         private DataGridView dataGridViewdsPhieuKiemKho;
         private Panel panel4;
         private PictureBox pictureBox1;
@@ -454,5 +406,7 @@
         private Button buttonX;
         private Label labelSoX;
         private Button buttonGopPhieu;
+        private GroupBox groupBox1;
+        private ComboBox comboBoxNhanVien;
     }
 }

@@ -55,39 +55,50 @@ namespace QL_Nha_thuoc.model
             return list;
         }
 
-        //LayTatCaBangGiaDangApDUng
-        public static List <ClassBangGia> LayTatCaBangGiaDangApDung()
+        public static List<ClassBangGia> LayTatCaBangGiaDangApDung()
         {
             List<ClassBangGia> list = new List<ClassBangGia>();
             using (SqlConnection conn = CSDL.GetConnection())
             {
                 conn.Open();
-                string query = "SELECT * FROM BANG_GIA_HH WHERE TRANG_THAI != N'Đã xóa' AND TRANG_THAI=N'Đang áp dụng' ";
+                string query = @"
+            SELECT * 
+            FROM BANG_GIA_HH 
+            WHERE TRANG_THAI != N'Đã xóa' 
+              AND TRANG_THAI = N'Đang áp dụng'";
+
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
+                    DateTime now = DateTime.Now;
                     while (reader.Read())
                     {
-                        list.Add(new ClassBangGia
+                        DateTime tuNgay = reader["TU_NGAY"] != DBNull.Value ? Convert.ToDateTime(reader["TU_NGAY"]) : DateTime.MinValue;
+                        DateTime denNgay = reader["DEN_NGAY"] != DBNull.Value ? Convert.ToDateTime(reader["DEN_NGAY"]) : DateTime.MaxValue;
+
+                        // Chỉ thêm nếu thời gian hiện tại nằm trong khoảng TU_NGAY - DEN_NGAY
+                        if (now >= tuNgay && now <= denNgay)
                         {
-                            MaBangGia = reader["MA_BANG_GIA"].ToString(),
-                            TenBangGia = reader["TEN_BANG_GIA"].ToString(),
-
-                            TuNgay = reader["TU_NGAY"] != DBNull.Value ? Convert.ToDateTime(reader["TU_NGAY"]) : DateTime.MinValue,
-                            DenNgay = reader["DEN_NGAY"] != DBNull.Value ? Convert.ToDateTime(reader["DEN_NGAY"]) : DateTime.MaxValue,
-                            TrangThai = reader["TRANG_THAI"].ToString(),
-
-                            ChoChonNgoaiBangGia = reader["CHO_CHON_NGOAI_BANG_GIA"] != DBNull.Value && Convert.ToBoolean(reader["CHO_CHON_NGOAI_BANG_GIA"]),
-                            LaPhanTram = reader["LA_PHAN_TRAM"] != DBNull.Value && Convert.ToBoolean(reader["LA_PHAN_TRAM"]),
-                            TangGiam = reader["TANG_GIAM"] != DBNull.Value && Convert.ToBoolean(reader["TANG_GIAM"]),
-                            GiaTriTangGiam = reader["GIA_TRI_TANG_GIAM"] != DBNull.Value ? Convert.ToDecimal(reader["GIA_TRI_TANG_GIAM"]) : 0,
-                            DungGiaVon = reader["DUNG_GIA_VON"] != DBNull.Value && Convert.ToBoolean(reader["DUNG_GIA_VON"])
-                        });
+                            list.Add(new ClassBangGia
+                            {
+                                MaBangGia = reader["MA_BANG_GIA"].ToString(),
+                                TenBangGia = reader["TEN_BANG_GIA"].ToString(),
+                                TuNgay = tuNgay,
+                                DenNgay = denNgay,
+                                TrangThai = reader["TRANG_THAI"].ToString(),
+                                ChoChonNgoaiBangGia = reader["CHO_CHON_NGOAI_BANG_GIA"] != DBNull.Value && Convert.ToBoolean(reader["CHO_CHON_NGOAI_BANG_GIA"]),
+                                LaPhanTram = reader["LA_PHAN_TRAM"] != DBNull.Value && Convert.ToBoolean(reader["LA_PHAN_TRAM"]),
+                                TangGiam = reader["TANG_GIAM"] != DBNull.Value && Convert.ToBoolean(reader["TANG_GIAM"]),
+                                GiaTriTangGiam = reader["GIA_TRI_TANG_GIAM"] != DBNull.Value ? Convert.ToDecimal(reader["GIA_TRI_TANG_GIAM"]) : 0,
+                                DungGiaVon = reader["DUNG_GIA_VON"] != DBNull.Value && Convert.ToBoolean(reader["DUNG_GIA_VON"])
+                            });
+                        }
                     }
                 }
             }
             return list;
         }
+
 
 
 
@@ -178,6 +189,38 @@ namespace QL_Nha_thuoc.model
             }
         }
 
+
+        public static bool CapNhatGiaBanHangHoaTheoBangGia(string maBangGia)
+        {
+            try
+            {
+                // 1. Lấy danh sách tất cả chi tiết bảng giá (ClassGiaBanHH) theo mã bảng giá
+                var danhSachChiTiet = ClassGiaBanHH.LayDanhSachGiaBanTheoBangGia(maBangGia);
+
+                // 2. Lặp qua từng chi tiết, tính lại giá bán mới dựa trên bảng giá vừa sửa
+                foreach (var chiTiet in danhSachChiTiet)
+                {
+                    // Lấy thông tin hàng hóa (để lấy giá gốc)
+                    var hangHoa = ClassHangHoa.LayThongTinMotHangHoa(chiTiet.MaHangHoa);
+                    if (hangHoa == null) continue;
+
+                    // Tính lại giá bán theo bảng giá hiện tại (hàm bạn đã có)
+                    decimal giaBanMoi = ClassBangGia.TinhGiaBanTheoMaBangGia(maBangGia, hangHoa.GiaBan);
+
+                    // Cập nhật giá bán mới vào chi tiết bảng giá
+                    chiTiet.GiaBan = giaBanMoi;
+
+                    // Ghi lại vào database
+                    ClassGiaBanHH.CapNhatGiaBan(chiTiet);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static bool XoaBangGia(string maBangGia)
         {
             ClassGiaBanHH.XoaGiaBanHHTheoMaBangGia(maBangGia);
@@ -230,7 +273,51 @@ namespace QL_Nha_thuoc.model
 
 
 
+        /// <summary>
+        /// </summary>
+        /// <param name="maBangGia"></param>
+        /// <param name="giaBanGoc"></param>
+        /// <returns></returns>
+        public static decimal TinhGiaBanTheoMaBangGia(string maBangGia, decimal giaBanGoc)
+        {
+            // Lấy thông tin bảng giá theo mã
+            ClassBangGia bangGia = LayBangGiaTheoMa(maBangGia);
+            if (bangGia == null)
+            {
+                // Nếu không tìm thấy bảng giá thì trả về giá gốc luôn
+                return giaBanGoc;
+            }
 
+            decimal giaBanTinh = giaBanGoc;
+
+            // Tính giá bán theo thông tin bảng giá
+            if (bangGia.TangGiam)
+            {
+                if (bangGia.LaPhanTram)
+                {
+                    giaBanTinh = giaBanGoc + (giaBanGoc * bangGia.GiaTriTangGiam / 100m);
+                }
+                else
+                {
+                    giaBanTinh = giaBanGoc + bangGia.GiaTriTangGiam;
+                }
+            }
+            else
+            {
+                if (bangGia.LaPhanTram)
+                {
+                    giaBanTinh = giaBanGoc - (giaBanGoc * bangGia.GiaTriTangGiam / 100m);
+                }
+                else
+                {
+                    giaBanTinh = giaBanGoc - bangGia.GiaTriTangGiam;
+                }
+            }
+
+            if (giaBanTinh < 0) giaBanTinh = 0;
+
+            return giaBanTinh;
+        }
 
 
 

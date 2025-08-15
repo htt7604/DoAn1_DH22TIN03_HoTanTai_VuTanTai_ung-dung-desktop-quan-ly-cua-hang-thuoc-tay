@@ -34,11 +34,13 @@
             tabPageHoaDon1 = new TabPage();
             panelKetQuaTimKiem = new Panel();
             panel1 = new Panel();
+            buttonTraHang = new Button();
             buttonHienCongCu = new Button();
             labelTenTaiKhoan = new Label();
             buttonXoaHoaDon = new Button();
             buttonThemHoaDon = new Button();
             panel = new Panel();
+            buttonQuetMaVach = new Button();
             comboBoxBangGia = new ComboBox();
             tableLayoutPanel5 = new TableLayoutPanel();
             pictureBox1 = new PictureBox();
@@ -84,6 +86,7 @@
             tabControlHoaDon.Size = new Size(1515, 740);
             tabControlHoaDon.TabIndex = 41;
             tabControlHoaDon.DrawItem += tabControlHoaDon_DrawItem;
+            tabControlHoaDon.SelectedIndexChanged += tabControlHoaDon_SelectedIndexChanged;
             // 
             // tabPageHoaDon1
             // 
@@ -106,6 +109,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(buttonTraHang);
             panel1.Controls.Add(buttonHienCongCu);
             panel1.Controls.Add(labelTenTaiKhoan);
             panel1.Controls.Add(buttonXoaHoaDon);
@@ -117,6 +121,16 @@
             panel1.Size = new Size(1515, 68);
             panel1.TabIndex = 3;
             // 
+            // buttonTraHang
+            // 
+            buttonTraHang.Location = new Point(1042, 6);
+            buttonTraHang.Name = "buttonTraHang";
+            buttonTraHang.Size = new Size(151, 45);
+            buttonTraHang.TabIndex = 42;
+            buttonTraHang.Text = "Trả hàng ";
+            buttonTraHang.UseVisualStyleBackColor = true;
+            buttonTraHang.Click += buttonTraHang_Click;
+            // 
             // buttonHienCongCu
             // 
             buttonHienCongCu.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -124,6 +138,7 @@
             buttonHienCongCu.Name = "buttonHienCongCu";
             buttonHienCongCu.Size = new Size(37, 29);
             buttonHienCongCu.TabIndex = 41;
+            buttonHienCongCu.Text = "=";
             buttonHienCongCu.UseVisualStyleBackColor = true;
             buttonHienCongCu.Click += buttonHienCongCu_Click;
             // 
@@ -161,6 +176,7 @@
             // 
             // panel
             // 
+            panel.Controls.Add(buttonQuetMaVach);
             panel.Controls.Add(comboBoxBangGia);
             panel.Controls.Add(tableLayoutPanel5);
             panel.Location = new Point(4, 3);
@@ -168,10 +184,21 @@
             panel.Size = new Size(718, 55);
             panel.TabIndex = 37;
             // 
+            // buttonQuetMaVach
+            // 
+            buttonQuetMaVach.Location = new Point(609, 10);
+            buttonQuetMaVach.Name = "buttonQuetMaVach";
+            buttonQuetMaVach.Size = new Size(81, 31);
+            buttonQuetMaVach.TabIndex = 43;
+            buttonQuetMaVach.Text = "mã vạch";
+            buttonQuetMaVach.UseVisualStyleBackColor = true;
+            buttonQuetMaVach.Visible = false;
+            buttonQuetMaVach.Click += buttonQuetMaVach_Click;
+            // 
             // comboBoxBangGia
             // 
             comboBoxBangGia.FormattingEnabled = true;
-            comboBoxBangGia.Location = new Point(457, 14);
+            comboBoxBangGia.Location = new Point(426, 15);
             comboBoxBangGia.Name = "comboBoxBangGia";
             comboBoxBangGia.Size = new Size(151, 28);
             comboBoxBangGia.TabIndex = 9;
@@ -223,6 +250,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1515, 808);
             Controls.Add(panel2);
+            FormBorderStyle = FormBorderStyle.None;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FormBanHangMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormBanHangMain";
@@ -257,5 +287,7 @@
         private Label labelTenTaiKhoan;
         private Button buttonHienCongCu;
         private ComboBox comboBoxBangGia;
+        private Button buttonTraHang;
+        private Button buttonQuetMaVach;
     }
 }

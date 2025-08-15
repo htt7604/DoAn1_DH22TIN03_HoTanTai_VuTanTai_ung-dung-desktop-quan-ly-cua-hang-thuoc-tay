@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QL_Nha_thuoc.model;
+using QL_Nha_thuoc.GiaoDich.NhapHang;
 
 namespace QL_Nha_thuoc.DoiTac.nhacungcap
 {
@@ -33,7 +34,7 @@ namespace QL_Nha_thuoc.DoiTac.nhacungcap
             textBoxMaSoThue.Text = ncc.MaSoThue;
             //them vao data grid view lich su giao dich
             dataGridViewLichSu.Rows.Clear();
-            List<PhieuNhapHang> dsPhieuNhapHang = PhieuNhapHang.TimPhieuNhapTheoMaNhaCungCap(ncc.MaNhaCungCap);
+            List<ClassPhieuNhapHang> dsPhieuNhapHang = ClassPhieuNhapHang.TimTheoMaNhaCungCap(ncc.MaNhaCungCap);
             foreach (var phieuNhap in dsPhieuNhapHang)
             {
                 dataGridViewLichSu.Rows.Add(phieuNhap.MaPhieuNhap, phieuNhap.TenNhanVien, phieuNhap.NgayNhap.ToString(), phieuNhap.TongTienNhapHang, phieuNhap.TrangThai);
@@ -218,11 +219,10 @@ namespace QL_Nha_thuoc.DoiTac.nhacungcap
                 string maPhieu = dataGridViewLichSu.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
                 // Gọi hành động mong muốn (ví dụ mở form chi tiết)
-                MessageBox.Show("Bạn đã click vào phiếu: " + maPhieu);
-
-                // Hoặc: mở form mới
-                // FormChiTietPhieu frm = new FormChiTietPhieu(maPhieu);
-                // frm.ShowDialog();
+                ClassPhieuNhapHang phieuNhap = ClassPhieuNhapHang.TimTheoMaPhieuNhap(maPhieu);
+                FormChiTietPhieuNhap formChiTietPhieuNhap = new FormChiTietPhieuNhap(null);
+                formChiTietPhieuNhap.SetData(phieuNhap);
+                formChiTietPhieuNhap.ShowDialog();
             }
         }
     }

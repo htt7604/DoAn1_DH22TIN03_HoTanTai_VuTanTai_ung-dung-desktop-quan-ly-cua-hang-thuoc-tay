@@ -364,6 +364,7 @@
             buttonBoQua.TabIndex = 145;
             buttonBoQua.Text = "Bỏ qua";
             buttonBoQua.UseVisualStyleBackColor = true;
+            buttonBoQua.Click += buttonBoQua_Click;
             // 
             // buttonLuu
             // 

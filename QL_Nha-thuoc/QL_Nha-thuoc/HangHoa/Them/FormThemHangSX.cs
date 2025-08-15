@@ -31,24 +31,39 @@ namespace QL_Nha_thuoc.HangHoa
         {
             try
             {
-                // thêm dữ liệu như đã làm trước
-                using (var conn = CSDL.GetConnection())
+                //// thêm dữ liệu như đã làm trước
+                //using (var conn = CSDL.GetConnection())
+                //{
+                //    conn.Open();
+                //    string query = "INSERT INTO HANG_SAN_XUAT (TEN_HANG_SX) VALUES (@tenhangSX)";
+                //    using (var cmd = new SqlCommand(query, conn))
+                //    {
+                //        cmd.Parameters.AddWithValue("@tenhangSX", textBoxTenHangSX.Text);
+                //        cmd.ExecuteNonQuery();
+                //    }
+                //}
+
+                //// Gửi sự kiện và tên hãng mới
+                 
+                string maHangSXMoi = ClassHangSanXuat.TaoMaHangSXMoi();
+                ClassHangSanXuat hangSX = new ClassHangSanXuat
                 {
-                    conn.Open();
-                    string query = "INSERT INTO HANG_SAN_XUAT (TEN_HANG_SX) VALUES (@tenhangSX)";
-                    using (var cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@tenhangSX", textBoxTenHangSX.Text);
-                        cmd.ExecuteNonQuery();
-                    }
+                    MaHangSX = maHangSXMoi,
+                    TenHangSX = textBoxTenHangSX.Text
+                };
+                if (!ClassHangSanXuat.ThemHangSX(hangSX))
+                {
+                    MessageBox.Show("Thêm hãng sản xuất thất bại!");
+                    return;
+                }else
+                {
+                    TenHangSXMoi = textBoxTenHangSX.Text;
+                    DuLieuDaThayDoi?.Invoke(this, EventArgs.Empty);
+
+                    MessageBox.Show("Thêm hãng sản xuất thành công!");
+                    this.Close();
                 }
-
-                // Gửi sự kiện và tên hãng mới
-                TenHangSXMoi = textBoxTenHangSX.Text;
-                DuLieuDaThayDoi?.Invoke(this, EventArgs.Empty);
-
-                MessageBox.Show("Thêm hãng sản xuất thành công!");
-                this.Close();
+                
             }
             catch (Exception ex)
             {

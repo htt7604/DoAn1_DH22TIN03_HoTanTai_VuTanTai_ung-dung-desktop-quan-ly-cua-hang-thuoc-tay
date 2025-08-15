@@ -62,7 +62,7 @@ namespace QL_Nha_thuoc.model
 
             using (SqlConnection conn = CSDL.GetConnection())
             {
-                string query = "SELECT * FROM KHACH_HANG KH join NHOM_KH NKH on NKH.MA_NHOM_KH=KH.MA_NHOM_KH join NHAN_VIEN NV on NV.MA_NV=KH.MA_NV ";
+                string query = "SELECT * FROM KHACH_HANG KH join NHOM_KH NKH on NKH.MA_NHOM_KH=KH.MA_NHOM_KH join NHAN_VIEN NV on NV.MA_NV=KH.MA_NV WHERE KH.TRANG_THAI_KH='Hoạt động' AND  KH.MA_KH <>'KH000'";
                 SqlCommand cmd = new SqlCommand(query, conn);
 
                 conn.Open();
@@ -107,7 +107,7 @@ namespace QL_Nha_thuoc.model
 
             using (SqlConnection conn = CSDL.GetConnection())
             {
-                string query = "SELECT * FROM KHACH_HANG KH join NHOM_KH NKH on NKH.MA_NHOM_KH=KH.MA_NHOM_KH join NHAN_VIEN NV on KH.MA_NV=NV.MA_NV WHERE TEN_KH COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%' + @tenKH + '%'";
+                string query = "SELECT * FROM KHACH_HANG KH join NHOM_KH NKH on NKH.MA_NHOM_KH=KH.MA_NHOM_KH join NHAN_VIEN NV on KH.MA_NV=NV.MA_NV WHERE KH.TRANG_THAI_KH=N'Hoạt động' AND KH.MA_KH <>'KH000' AND TEN_KH COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%' + @tenKH + '%'";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@tenKH", tenKH);
 
@@ -163,13 +163,13 @@ namespace QL_Nha_thuoc.model
                 {
                     query = @"
                 SELECT * FROM KHACH_HANG KH join NHOM_KH NKH on NKH.MA_NHOM_KH=KH.MA_NHOM_KH join NHAN_VIEN NV on NV.MA_NV=KH.MA_NV
-                WHERE CONVERT(varchar, MA_KH) LIKE @tuKhoa COLLATE SQL_Latin1_General_CP1_CI_AS";
+                WHERE  KH.MA_KH <>'KH000' AND CONVERT(varchar, MA_KH) LIKE @tuKhoa COLLATE SQL_Latin1_General_CP1_CI_AS";
                 }
                 else if (loaiTimKiem == "Tên KH")
                 {
                     query = @"
                 SELECT * FROM KHACH_HANG KH join NHOM_KH NKH on NKH.MA_NHOM_KH=KH.MA_NHOM_KH join NHAN_VIEN NV on NV.MA_NV=KH.MA_NV
-                WHERE TEN_KH LIKE @tuKhoa COLLATE SQL_Latin1_General_CP1_CI_AS";
+                WHERE  KH.MA_KH <>'KH000' AND TEN_KH LIKE @tuKhoa COLLATE SQL_Latin1_General_CP1_CI_AS";
                 }
 
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -213,7 +213,7 @@ namespace QL_Nha_thuoc.model
             ClassKhachHang kh = null;
             using (SqlConnection conn = CSDL.GetConnection())
             {
-                string query = "SELECT * FROM KHACH_HANG KH join NHOM_KH NKH on NKH.MA_NHOM_KH=KH.MA_NHOM_KH join NHAN_VIEN NV on NV.MA_NV=KH.MA_NV WHERE KH.MA_KH = @maKH";
+                string query = "SELECT * FROM KHACH_HANG KH join NHOM_KH NKH on NKH.MA_NHOM_KH=KH.MA_NHOM_KH join NHAN_VIEN NV on NV.MA_NV=KH.MA_NV WHERE KH.TRANG_THAI_KH=N'Hoạt động' AND KH.MA_KH = @maKH";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@maKH", maKH);
                 conn.Open();

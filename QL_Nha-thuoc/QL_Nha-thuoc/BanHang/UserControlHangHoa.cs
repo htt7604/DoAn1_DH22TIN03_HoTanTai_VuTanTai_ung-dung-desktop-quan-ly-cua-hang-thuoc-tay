@@ -34,8 +34,8 @@ namespace QL_Nha_thuoc.BanHang
         {
             get
             {
-                decimal.TryParse(textBoxDonGiaHH.Text.Replace(",", ""), out decimal giaBan);
-                return giaBan;
+                decimal.TryParse(textBoxDonGiaHH.Text.Replace(",", ""), out decimal donGiaHH);
+                return donGiaHH;
             }
             set
             {
@@ -76,7 +76,7 @@ namespace QL_Nha_thuoc.BanHang
 
         public decimal DonGiaGocHH;
 
-
+        public ClassHangHoa hh;
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -93,7 +93,14 @@ namespace QL_Nha_thuoc.BanHang
                 textBoxThanhTien.Text = value.ToString("N0");
             }
         }
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 
+        public string maDonViTinh
+        {
+            get { return hh.MaDonViTinh; } // hoặc tên Label chứa đơn vị tính trong giao diện
+            set { }
+        }
 
 
         //set du lieu cho control
@@ -104,8 +111,12 @@ namespace QL_Nha_thuoc.BanHang
             labelDonViTinh.Text = hangHoa.TenDonViTinh;
             maHangHoa = hangHoa.MaHangHoa;//luu lai mahh
             textBoxDonGiaHH.Text = hangHoa.GiaBan.ToString("N0"); // Hiển thị có phân cách hàng nghìn
-            DonGiaGocHH = hangHoa.GiaBan; // Lưu giá gốc để tính giảm giá nếu cần
+            //set gia tri cho don gia sau giam gia 
+            //GiaSauGiam= hangHoa.GiaBan; // Lưu giá gốc để tính giảm giá nếu cần
 
+            DonGiaGocHH = hangHoa.GiaBan; // Lưu giá gốc để tính giảm giá nếu cần
+            maDonViTinh = hangHoa.MaDonViTinh;
+            hh = hangHoa; // Lưu lại đối tượng ClassHangHoa để sử dụng sau này
         }
         //ham setSTT
         public void SetSTT(int stt)

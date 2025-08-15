@@ -30,6 +30,7 @@
         {
             splitContainer1 = new SplitContainer();
             flowLayoutPanelTTHH = new FlowLayoutPanel();
+            flowLayoutPanelDanhSachKhachHang = new FlowLayoutPanel();
             panelChonTaiKhoan = new Panel();
             panelThanhToanQR = new Panel();
             textBoxGhiChu = new TextBox();
@@ -54,7 +55,6 @@
             textBoxTienTraLai = new TextBox();
             textBoxSoTienKhachThanhToan = new TextBox();
             textBoxGiamGia = new TextBox();
-            flowLayoutPanelDanhSachKhachHang = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -76,8 +76,8 @@
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(panelChonTaiKhoan);
             splitContainer1.Panel2.Controls.Add(flowLayoutPanelDanhSachKhachHang);
+            splitContainer1.Panel2.Controls.Add(panelChonTaiKhoan);
             splitContainer1.Panel2.Controls.Add(panelThanhToanQR);
             splitContainer1.Panel2.Controls.Add(textBoxGhiChu);
             splitContainer1.Panel2.Controls.Add(labelPhanTramGiam);
@@ -114,10 +114,21 @@
             flowLayoutPanelTTHH.TabIndex = 6;
             flowLayoutPanelTTHH.WrapContents = false;
             // 
+            // flowLayoutPanelDanhSachKhachHang
+            // 
+            flowLayoutPanelDanhSachKhachHang.AutoScroll = true;
+            flowLayoutPanelDanhSachKhachHang.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanelDanhSachKhachHang.Location = new Point(12, 122);
+            flowLayoutPanelDanhSachKhachHang.Name = "flowLayoutPanelDanhSachKhachHang";
+            flowLayoutPanelDanhSachKhachHang.Size = new Size(436, 231);
+            flowLayoutPanelDanhSachKhachHang.TabIndex = 66;
+            flowLayoutPanelDanhSachKhachHang.Visible = false;
+            flowLayoutPanelDanhSachKhachHang.WrapContents = false;
+            // 
             // panelChonTaiKhoan
             // 
             panelChonTaiKhoan.BackColor = SystemColors.ControlDarkDark;
-            panelChonTaiKhoan.Location = new Point(12, 380);
+            panelChonTaiKhoan.Location = new Point(18, 432);
             panelChonTaiKhoan.Name = "panelChonTaiKhoan";
             panelChonTaiKhoan.Size = new Size(425, 228);
             panelChonTaiKhoan.TabIndex = 69;
@@ -127,7 +138,7 @@
             // 
             panelThanhToanQR.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panelThanhToanQR.BackColor = SystemColors.ActiveCaption;
-            panelThanhToanQR.Location = new Point(27, 380);
+            panelThanhToanQR.Location = new Point(33, 432);
             panelThanhToanQR.Name = "panelThanhToanQR";
             panelThanhToanQR.Size = new Size(425, 218);
             panelThanhToanQR.TabIndex = 68;
@@ -183,6 +194,7 @@
             // 
             // comboBoxTaiKhoan
             // 
+            comboBoxTaiKhoan.Enabled = false;
             comboBoxTaiKhoan.FormattingEnabled = true;
             comboBoxTaiKhoan.Location = new Point(23, 22);
             comboBoxTaiKhoan.Name = "comboBoxTaiKhoan";
@@ -370,17 +382,6 @@
             textBoxGiamGia.Size = new Size(151, 27);
             textBoxGiamGia.TabIndex = 1;
             textBoxGiamGia.Click += textBoxGiamGia_Click;
-            // 
-            // flowLayoutPanelDanhSachKhachHang
-            // 
-            flowLayoutPanelDanhSachKhachHang.AutoScroll = true;
-            flowLayoutPanelDanhSachKhachHang.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanelDanhSachKhachHang.Location = new Point(12, 119);
-            flowLayoutPanelDanhSachKhachHang.Name = "flowLayoutPanelDanhSachKhachHang";
-            flowLayoutPanelDanhSachKhachHang.Size = new Size(436, 231);
-            flowLayoutPanelDanhSachKhachHang.TabIndex = 66;
-            flowLayoutPanelDanhSachKhachHang.Visible = false;
-            flowLayoutPanelDanhSachKhachHang.WrapContents = false;
             // 
             // UserControlFormHoaDon
             // 

@@ -233,7 +233,7 @@
             buttonHienQR.Name = "buttonHienQR";
             buttonHienQR.Size = new Size(94, 53);
             buttonHienQR.TabIndex = 15;
-            buttonHienQR.Text = "Hien QR";
+            buttonHienQR.Text = "Hiện QR";
             buttonHienQR.UseVisualStyleBackColor = true;
             buttonHienQR.Click += buttonHienQR_Click;
             // 

@@ -133,7 +133,7 @@
             buttonLuu.Name = "buttonLuu";
             buttonLuu.Size = new Size(94, 55);
             buttonLuu.TabIndex = 10;
-            buttonLuu.Text = "Luu";
+            buttonLuu.Text = "Lưu";
             buttonLuu.UseVisualStyleBackColor = true;
             buttonLuu.Click += buttonLuu_Click;
             // 
@@ -143,8 +143,9 @@
             buttonBoQua.Name = "buttonBoQua";
             buttonBoQua.Size = new Size(94, 55);
             buttonBoQua.TabIndex = 11;
-            buttonBoQua.Text = "Bo Qua";
+            buttonBoQua.Text = "Bỏ qua";
             buttonBoQua.UseVisualStyleBackColor = true;
+            buttonBoQua.Click += buttonBoQua_Click;
             // 
             // FormThemTaiKhoanNganHang
             // 

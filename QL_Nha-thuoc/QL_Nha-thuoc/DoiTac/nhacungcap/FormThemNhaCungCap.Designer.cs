@@ -112,7 +112,7 @@
             label4.Name = "label4";
             label4.Size = new Size(62, 23);
             label4.TabIndex = 79;
-            label4.Text = "Dia chi";
+            label4.Text = "Địa chỉ";
             // 
             // textBoxDiaChi
             // 
@@ -149,7 +149,7 @@
             label5.Name = "label5";
             label5.Size = new Size(69, 23);
             label5.TabIndex = 89;
-            label5.Text = "Ghi chu";
+            label5.Text = "Ghi chú";
             // 
             // textBoxGhiChu
             // 
@@ -166,7 +166,7 @@
             buttonLuu.Name = "buttonLuu";
             buttonLuu.Size = new Size(106, 46);
             buttonLuu.TabIndex = 106;
-            buttonLuu.Text = "Luu";
+            buttonLuu.Text = "Lưu";
             buttonLuu.Click += buttonLuu_Click;
             // 
             // buttonBoQua
@@ -175,7 +175,7 @@
             buttonBoQua.Name = "buttonBoQua";
             buttonBoQua.Size = new Size(106, 46);
             buttonBoQua.TabIndex = 105;
-            buttonBoQua.Text = "Bo qua";
+            buttonBoQua.Text = "Bỏ qua";
             buttonBoQua.Click += buttonBoQua_Click;
             // 
             // label6
@@ -184,9 +184,9 @@
             label6.Font = new Font("Segoe UI", 10F);
             label6.Location = new Point(645, 191);
             label6.Name = "label6";
-            label6.Size = new Size(72, 23);
+            label6.Size = new Size(70, 23);
             label6.TabIndex = 107;
-            label6.Text = "Cong Ty";
+            label6.Text = "Công ty";
             // 
             // textBoxTenCongTy
             // 
@@ -204,7 +204,7 @@
             label7.Name = "label7";
             label7.Size = new Size(96, 23);
             label7.TabIndex = 109;
-            label7.Text = "Ma so thue";
+            label7.Text = "Mã số thuế";
             // 
             // textBoxMaSoThue
             // 

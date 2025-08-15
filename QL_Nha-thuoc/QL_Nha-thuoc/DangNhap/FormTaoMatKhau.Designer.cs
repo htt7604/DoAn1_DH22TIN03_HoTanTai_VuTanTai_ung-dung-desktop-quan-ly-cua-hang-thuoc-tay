@@ -35,6 +35,7 @@
             label3 = new Label();
             buttonBoQua = new Button();
             buttonXacNhan = new Button();
+            checkBoxHienThi = new CheckBox();
             SuspendLayout();
             // 
             // label1
@@ -101,11 +102,23 @@
             buttonXacNhan.UseVisualStyleBackColor = false;
             buttonXacNhan.Click += buttonXacNhan_Click;
             // 
+            // checkBoxHienThi
+            // 
+            checkBoxHienThi.AutoSize = true;
+            checkBoxHienThi.Location = new Point(153, 238);
+            checkBoxHienThi.Name = "checkBoxHienThi";
+            checkBoxHienThi.Size = new Size(148, 24);
+            checkBoxHienThi.TabIndex = 10;
+            checkBoxHienThi.Text = "Hiển thị mật khẩu";
+            checkBoxHienThi.UseVisualStyleBackColor = true;
+            checkBoxHienThi.CheckedChanged += checkBoxHienThi_CheckedChanged;
+            // 
             // FormTaoMatKhau
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(682, 385);
+            Controls.Add(checkBoxHienThi);
             Controls.Add(buttonBoQua);
             Controls.Add(buttonXacNhan);
             Controls.Add(label3);
@@ -114,6 +127,7 @@
             Controls.Add(textBoxMatKhauMoi);
             Controls.Add(label1);
             Name = "FormTaoMatKhau";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormTaoMatKhau";
             ResumeLayout(false);
             PerformLayout();
@@ -128,5 +142,6 @@
         private Label label3;
         private Button buttonBoQua;
         private Button buttonXacNhan;
+        private CheckBox checkBoxHienThi;
     }
 }

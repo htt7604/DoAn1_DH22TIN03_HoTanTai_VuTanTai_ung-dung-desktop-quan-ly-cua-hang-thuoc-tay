@@ -147,46 +147,50 @@ namespace QL_Nha_thuoc.model
                 conn.Open();
 
                 string query = @"
-        SELECT 
-            HH.MA_HANG_HOA,
-            HH.MA_THUOC,
-            HH.TEN_HANG_HOA,
-            DVT.MA_DON_VI_TINH,
-            DVT.TEN_DON_VI_TINH,
-            HH.TON_KHO,
-            GBHH.GIA_VON_HH,
-            GBHH.GIA_BAN_HH,
-            NCC.MA_NHA_CUNG_CAP,
-            NCC.TEN_NHA_CUNG_CAP,
-            HH.NGAY_HET_HAN_HH,
-            LHH.MA_LOAI_HH,
-            LHH.TEN_LOAI_HH,
-            HH.MA_VACH,
-            HH.GHI_CHU_HH,
-            HH.HINH_ANH_HH,
-            HH.HOAT_CHAT,
-            HH.HAM_LUONG,
-            HH.SO_DANG_KY_THUOC,
-            HH.TINH_TRANG_HH,
-            HH.QUY_CACH_DONG_GOI,
-            HSX.TEN_HANG_SX,
-            HSX.MA_HANG_SX,
-            NH.TEN_NHOM,
-            HH.NGAY_HET_HAN_HH
-        FROM HANG_HOA HH
-        LEFT JOIN GIA_HANG_HOA GBHH ON HH.MA_HANG_HOA = GBHH.MA_HANG_HOA
-        LEFT JOIN DON_VI_TINH DVT ON GBHH.MA_DON_VI_TINH = DVT.MA_DON_VI_TINH
-        LEFT JOIN CHI_TIET_PHIEU_NHAP CTPN ON HH.MA_HANG_HOA = CTPN.MA_HANG_HOA
-        LEFT JOIN PHIEU_NHAP_HANG PNH ON PNH.MA_PHIEU_NHAP = CTPN.MA_PHIEU_NHAP
-        LEFT JOIN NHA_CUNG_CAP NCC ON PNH.MA_NHA_CUNG_CAP = NCC.MA_NHA_CUNG_CAP
-        LEFT JOIN NHOM_HANG NH ON HH.MA_NHOM_HH = NH.MA_NHOM_HH
-        LEFT JOIN LOAI_HANG LHH ON NH.MA_LOAI_HH = LHH.MA_LOAI_HH
-        LEFT JOIN HANG_SAN_XUAT HSX ON HH.MA_HANG_SX = HSX.MA_HANG_SX
-        JOIN BANG_GIA_HH BGHH ON BGHH.MA_BANG_GIA = GBHH.MA_BANG_GIA
-        WHERE 
-            ({0})
-            AND (HH.TEN_HANG_HOA LIKE @keyword OR HH.MA_HANG_HOA LIKE @keyword)
-        ";
+                                WITH CTE AS (
+                 SELECT 
+                     HH.MA_HANG_HOA,
+                     HH.MA_THUOC,
+                     HH.TEN_HANG_HOA,
+                     DVT.MA_DON_VI_TINH,
+                     DVT.TEN_DON_VI_TINH,
+                     HH.TON_KHO,
+                     GBHH.GIA_VON_HH,
+                     GBHH.GIA_BAN_HH,
+                     NCC.MA_NHA_CUNG_CAP,
+                     NCC.TEN_NHA_CUNG_CAP,
+                     HH.NGAY_HET_HAN_HH,   
+                     LHH.MA_LOAI_HH,
+                     LHH.TEN_LOAI_HH,
+                     HH.MA_VACH,
+                     HH.GHI_CHU_HH,
+                     HH.HINH_ANH_HH,
+                     HH.HOAT_CHAT,
+                     HH.HAM_LUONG,
+                     HH.SO_DANG_KY_THUOC,
+                     HH.TINH_TRANG_HH,
+                     HH.QUY_CACH_DONG_GOI,
+                     HSX.TEN_HANG_SX,
+                     HSX.MA_HANG_SX,
+                     NH.TEN_NHOM,
+                     ROW_NUMBER() OVER (PARTITION BY HH.MA_HANG_HOA, DVT.MA_DON_VI_TINH ORDER BY GBHH.GIA_BAN_HH DESC) AS rn
+                 FROM HANG_HOA HH
+                 LEFT JOIN GIA_HANG_HOA GBHH ON HH.MA_HANG_HOA = GBHH.MA_HANG_HOA
+                 LEFT JOIN DON_VI_TINH DVT ON GBHH.MA_DON_VI_TINH = DVT.MA_DON_VI_TINH
+                 LEFT JOIN CHI_TIET_PHIEU_NHAP CTPN ON HH.MA_HANG_HOA = CTPN.MA_HANG_HOA
+                 LEFT JOIN PHIEU_NHAP_HANG PNH ON PNH.MA_PHIEU_NHAP = CTPN.MA_PHIEU_NHAP
+                 LEFT JOIN NHA_CUNG_CAP NCC ON PNH.MA_NHA_CUNG_CAP = NCC.MA_NHA_CUNG_CAP
+                 LEFT JOIN NHOM_HANG NH ON HH.MA_NHOM_HH = NH.MA_NHOM_HH
+                 LEFT JOIN LOAI_HANG LHH ON NH.MA_LOAI_HH = LHH.MA_LOAI_HH
+                 LEFT JOIN HANG_SAN_XUAT HSX ON HH.MA_HANG_SX = HSX.MA_HANG_SX
+                 JOIN BANG_GIA_HH BGHH ON BGHH.MA_BANG_GIA = GBHH.MA_BANG_GIA
+                  WHERE 
+                      ({0})
+                      AND (HH.TEN_HANG_HOA LIKE @keyword OR HH.MA_HANG_HOA LIKE @keyword)
+                )
+                SELECT * FROM CTE WHERE rn = 1
+                ";
+
 
                 string dieuKienBangGia = "";
 
@@ -510,9 +514,14 @@ namespace QL_Nha_thuoc.model
             LEFT JOIN LOAI_HANG LHH ON NH.MA_LOAI_HH = LHH.MA_LOAI_HH
             LEFT JOIN HANG_SAN_XUAT HSX ON HH.MA_HANG_SX = HSX.MA_HANG_SX
             WHERE 
-    (HH.MA_HANG_HOA LIKE @tuKhoa OR HH.TEN_HANG_HOA LIKE @tuKhoa)
-    AND HH.MA_HANG_HOA NOT LIKE '%_DELETED'
-
+                (HH.MA_HANG_HOA LIKE @tuKhoa
+                OR HH.TEN_HANG_HOA LIKE @tuKhoa
+                OR HH.MA_VACH LIKE @tuKhoa
+                OR HH.HOAT_CHAT LIKE @tuKhoa
+                OR HH.HAM_LUONG LIKE @tuKhoa
+                OR NCC.TEN_NHA_CUNG_CAP LIKE @tuKhoa
+                OR HSX.TEN_HANG_SX LIKE @tuKhoa)
+                AND HH.MA_HANG_HOA NOT LIKE '%_DELETED'
         )
         SELECT * FROM HangHoaCTE WHERE RN = 1";
 
@@ -558,6 +567,7 @@ namespace QL_Nha_thuoc.model
 
             return danhSach;
         }
+
 
         public static ClassHangHoa LayThongTinTheoMaVaDonViTinh(string maHH, string maDVT)
         {
@@ -648,8 +658,68 @@ namespace QL_Nha_thuoc.model
         }
 
 
-      
-      
+        public static ClassHangHoa TimHangHoaTheoMaVach(string maVach)
+        {
+            ClassHangHoa hangHoa = null;
+
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                string query = @"
+        SELECT 
+            HH.MA_HANG_HOA,
+            HH.MA_THUOC,
+            HH.TEN_HANG_HOA,
+            DVT.MA_DON_VI_TINH,
+            DVT.TEN_DON_VI_TINH,
+            HH.TON_KHO,
+            GBHH.GIA_VON_HH,
+            GBHH.GIA_BAN_HH,
+            NCC.MA_NHA_CUNG_CAP,
+            NCC.TEN_NHA_CUNG_CAP,
+            HH.NGAY_HET_HAN_HH,
+            LHH.MA_LOAI_HH,
+            LHH.TEN_LOAI_HH,
+            HH.MA_VACH,
+            HH.GHI_CHU_HH,
+            HH.HINH_ANH_HH,
+            HH.HOAT_CHAT,
+            HH.HAM_LUONG,
+            HH.SO_DANG_KY_THUOC,
+            HH.QUY_CACH_DONG_GOI,
+            HH.TINH_TRANG_HH,
+            HSX.MA_HANG_SX,
+            HSX.TEN_HANG_SX
+        FROM HANG_HOA HH
+        LEFT JOIN GIA_HANG_HOA GBHH ON HH.MA_HANG_HOA = GBHH.MA_HANG_HOA
+        LEFT JOIN DON_VI_TINH DVT ON GBHH.MA_DON_VI_TINH = DVT.MA_DON_VI_TINH
+        LEFT JOIN CHI_TIET_PHIEU_NHAP CTPN ON HH.MA_HANG_HOA = CTPN.MA_HANG_HOA
+        LEFT JOIN PHIEU_NHAP_HANG PNH ON CTPN.MA_PHIEU_NHAP = PNH.MA_PHIEU_NHAP
+        LEFT JOIN NHA_CUNG_CAP NCC ON PNH.MA_NHA_CUNG_CAP = NCC.MA_NHA_CUNG_CAP
+        LEFT JOIN NHOM_HANG NH ON HH.MA_NHOM_HH = NH.MA_NHOM_HH
+        LEFT JOIN LOAI_HANG LHH ON NH.MA_LOAI_HH = LHH.MA_LOAI_HH
+        LEFT JOIN HANG_SAN_XUAT HSX ON HH.MA_HANG_SX = HSX.MA_HANG_SX
+        WHERE HH.MA_VACH = @maVach
+          AND HH.MA_HANG_HOA NOT LIKE '%_DELETED'";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@maVach", maVach);
+
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            hangHoa = FromDataReader(reader);
+                        }
+                    }
+                }
+            }
+
+            return hangHoa;
+        }
+
+
 
 
 

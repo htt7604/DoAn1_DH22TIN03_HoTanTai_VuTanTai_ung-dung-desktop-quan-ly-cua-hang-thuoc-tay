@@ -84,5 +84,47 @@ namespace QL_Nha_thuoc.model
 
             return null;
         }
+
+
+        public static string TaoMaDonViTinhMoi()
+        {
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                conn.Open();
+                string sql = @"
+            SELECT MAX(MA_DON_VI_TINH) 
+            FROM DON_VI_TINH 
+            WHERE MA_DON_VI_TINH LIKE 'DVT%'";
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    object result = cmd.ExecuteScalar();
+                    if (result == DBNull.Value || result == null)
+                    {
+                        return "DVT001"; // Mã đầu tiên nếu chưa có mã nào
+                    }
+
+                    string maxMa = result.ToString(); // Ví dụ "DVT015"
+
+                    // Lấy phần số cuối mã, bỏ phần "DVT"
+                    string soStr = maxMa.Substring(3); // "015"
+                    if (int.TryParse(soStr, out int so))
+                    {
+                        so++; // Tăng lên 1
+                        return "DVT" + so.ToString("D3"); // Định dạng 3 số, ví dụ "DVT016"
+                    }
+                    else
+                    {
+                        // Trường hợp không parse được thì trả mã mặc định
+                        return "DVT001";
+                    }
+                }
+            }
+        }
+
+
+
+
+
     }
 }

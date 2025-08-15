@@ -246,12 +246,21 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
                 }
 
 
-                //classBangGia.CoApDungTinhGiaTuDong = checkBoxTinhGiaTuDong.Checked;
-
                 bool result = ClassBangGia.SuaBangGia(classBangGia);
                 if (result)
                 {
-                    MessageBox.Show("Chỉnh sửa bảng giá thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Cập nhật giá bán hàng hóa trong chi tiết bảng giá
+                    bool capNhatGiaBan = ClassBangGia.CapNhatGiaBanHangHoaTheoBangGia(classBangGia.MaBangGia);
+
+                    if (capNhatGiaBan)
+                    {
+                        MessageBox.Show("Chỉnh sửa bảng giá và cập nhật giá bán thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Chỉnh sửa bảng giá thành công nhưng cập nhật giá bán gặp lỗi.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
                     FormSuaBangGiaClosed?.Invoke(this, EventArgs.Empty);
                     this.Close();
                 }
@@ -266,12 +275,10 @@ namespace QL_Nha_thuoc.HangHoa.ThietLapGia
             }
         }
 
-
-
-
-
-
-
-
+        private void buttonBoQua_Click(object sender, EventArgs e)
+        {
+            //dong form 
+            this.Close();
+        }
     }
 }

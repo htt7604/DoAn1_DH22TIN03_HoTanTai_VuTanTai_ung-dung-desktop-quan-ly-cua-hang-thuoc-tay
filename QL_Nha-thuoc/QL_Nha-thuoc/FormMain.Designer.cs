@@ -40,21 +40,13 @@
             hóaĐơnToolStripMenuItem = new ToolStripMenuItem();
             trảHàngToolStripMenuItem = new ToolStripMenuItem();
             nhậpHàngToolStripMenuItem = new ToolStripMenuItem();
-            trảNhậpHàngToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem4 = new ToolStripMenuItem();
             kháchHàngToolStripMenuItem = new ToolStripMenuItem();
             nhàCungCấpToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem5 = new ToolStripMenuItem();
             danhSáchNhânViênToolStripMenuItem = new ToolStripMenuItem();
-            thiếtLậpNhânViênToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem6 = new ToolStripMenuItem();
             cuốiNgàyToolStripMenuItem = new ToolStripMenuItem();
-            bánHàngToolStripMenuItem1 = new ToolStripMenuItem();
-            hàngHóaToolStripMenuItem = new ToolStripMenuItem();
-            kháchHàngToolStripMenuItem1 = new ToolStripMenuItem();
-            nhàCungToolStripMenuItem = new ToolStripMenuItem();
-            nhânViênToolStripMenuItem = new ToolStripMenuItem();
-            tàiChínhToolStripMenuItem = new ToolStripMenuItem();
             toolStripTextBoxTaiKhoan = new ToolStripTextBox();
             bánHàngToolStripMenuItem = new ToolStripMenuItem();
             panelMain = new Panel();
@@ -145,7 +137,7 @@
             // toolStripMenuItem3
             // 
             toolStripMenuItem3.BackColor = SystemColors.MenuHighlight;
-            toolStripMenuItem3.DropDownItems.AddRange(new ToolStripItem[] { hóaĐơnToolStripMenuItem, trảHàngToolStripMenuItem, nhậpHàngToolStripMenuItem, trảNhậpHàngToolStripMenuItem });
+            toolStripMenuItem3.DropDownItems.AddRange(new ToolStripItem[] { hóaĐơnToolStripMenuItem, trảHàngToolStripMenuItem, nhậpHàngToolStripMenuItem });
             toolStripMenuItem3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             toolStripMenuItem3.ForeColor = SystemColors.ButtonHighlight;
             toolStripMenuItem3.Image = Properties.Resources.loop;
@@ -158,7 +150,7 @@
             hóaĐơnToolStripMenuItem.BackColor = SystemColors.MenuHighlight;
             hóaĐơnToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
             hóaĐơnToolStripMenuItem.Name = "hóaĐơnToolStripMenuItem";
-            hóaĐơnToolStripMenuItem.Size = new Size(233, 32);
+            hóaĐơnToolStripMenuItem.Size = new Size(202, 32);
             hóaĐơnToolStripMenuItem.Text = "Hóa đơn";
             hóaĐơnToolStripMenuItem.Click += hóaĐơnToolStripMenuItem_Click;
             // 
@@ -167,7 +159,7 @@
             trảHàngToolStripMenuItem.BackColor = SystemColors.MenuHighlight;
             trảHàngToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
             trảHàngToolStripMenuItem.Name = "trảHàngToolStripMenuItem";
-            trảHàngToolStripMenuItem.Size = new Size(233, 32);
+            trảHàngToolStripMenuItem.Size = new Size(202, 32);
             trảHàngToolStripMenuItem.Text = "Trả hàng";
             trảHàngToolStripMenuItem.Click += trảHàngToolStripMenuItem_Click;
             // 
@@ -176,18 +168,9 @@
             nhậpHàngToolStripMenuItem.BackColor = SystemColors.MenuHighlight;
             nhậpHàngToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
             nhậpHàngToolStripMenuItem.Name = "nhậpHàngToolStripMenuItem";
-            nhậpHàngToolStripMenuItem.Size = new Size(233, 32);
+            nhậpHàngToolStripMenuItem.Size = new Size(202, 32);
             nhậpHàngToolStripMenuItem.Text = "Nhập hàng";
             nhậpHàngToolStripMenuItem.Click += nhậpHàngToolStripMenuItem_Click;
-            // 
-            // trảNhậpHàngToolStripMenuItem
-            // 
-            trảNhậpHàngToolStripMenuItem.BackColor = SystemColors.MenuHighlight;
-            trảNhậpHàngToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
-            trảNhậpHàngToolStripMenuItem.Name = "trảNhậpHàngToolStripMenuItem";
-            trảNhậpHàngToolStripMenuItem.Size = new Size(233, 32);
-            trảNhậpHàngToolStripMenuItem.Text = "Trả nhập hàng";
-            trảNhậpHàngToolStripMenuItem.Click += trảNhậpHàngToolStripMenuItem_Click;
             // 
             // toolStripMenuItem4
             // 
@@ -219,7 +202,7 @@
             // 
             // toolStripMenuItem5
             // 
-            toolStripMenuItem5.DropDownItems.AddRange(new ToolStripItem[] { danhSáchNhânViênToolStripMenuItem, thiếtLậpNhânViênToolStripMenuItem });
+            toolStripMenuItem5.DropDownItems.AddRange(new ToolStripItem[] { danhSáchNhânViênToolStripMenuItem });
             toolStripMenuItem5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             toolStripMenuItem5.ForeColor = SystemColors.ButtonHighlight;
             toolStripMenuItem5.Image = Properties.Resources.group;
@@ -236,18 +219,9 @@
             danhSáchNhânViênToolStripMenuItem.Text = "Danh sách nhân viên";
             danhSáchNhânViênToolStripMenuItem.Click += danhSáchNhânViênToolStripMenuItem_Click;
             // 
-            // thiếtLậpNhânViênToolStripMenuItem
-            // 
-            thiếtLậpNhânViênToolStripMenuItem.BackColor = SystemColors.MenuHighlight;
-            thiếtLậpNhânViênToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
-            thiếtLậpNhânViênToolStripMenuItem.Name = "thiếtLậpNhânViênToolStripMenuItem";
-            thiếtLậpNhânViênToolStripMenuItem.Size = new Size(295, 32);
-            thiếtLậpNhânViênToolStripMenuItem.Text = "Thiết Lập nhân viên";
-            thiếtLậpNhânViênToolStripMenuItem.Click += thiếtLậpNhânViênToolStripMenuItem_Click;
-            // 
             // toolStripMenuItem6
             // 
-            toolStripMenuItem6.DropDownItems.AddRange(new ToolStripItem[] { cuốiNgàyToolStripMenuItem, bánHàngToolStripMenuItem1, hàngHóaToolStripMenuItem, kháchHàngToolStripMenuItem1, nhàCungToolStripMenuItem, nhânViênToolStripMenuItem, tàiChínhToolStripMenuItem });
+            toolStripMenuItem6.DropDownItems.AddRange(new ToolStripItem[] { cuốiNgàyToolStripMenuItem });
             toolStripMenuItem6.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             toolStripMenuItem6.ForeColor = SystemColors.ButtonHighlight;
             toolStripMenuItem6.Image = Properties.Resources.bar_chart;
@@ -260,56 +234,9 @@
             cuốiNgàyToolStripMenuItem.BackColor = SystemColors.MenuHighlight;
             cuốiNgàyToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
             cuốiNgàyToolStripMenuItem.Name = "cuốiNgàyToolStripMenuItem";
-            cuốiNgàyToolStripMenuItem.Size = new Size(212, 32);
+            cuốiNgàyToolStripMenuItem.Size = new Size(224, 32);
             cuốiNgàyToolStripMenuItem.Text = "Cuối ngày";
-            // 
-            // bánHàngToolStripMenuItem1
-            // 
-            bánHàngToolStripMenuItem1.BackColor = SystemColors.MenuHighlight;
-            bánHàngToolStripMenuItem1.ForeColor = SystemColors.ButtonHighlight;
-            bánHàngToolStripMenuItem1.Name = "bánHàngToolStripMenuItem1";
-            bánHàngToolStripMenuItem1.Size = new Size(212, 32);
-            bánHàngToolStripMenuItem1.Text = "Bán hàng";
-            // 
-            // hàngHóaToolStripMenuItem
-            // 
-            hàngHóaToolStripMenuItem.BackColor = SystemColors.MenuHighlight;
-            hàngHóaToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
-            hàngHóaToolStripMenuItem.Name = "hàngHóaToolStripMenuItem";
-            hàngHóaToolStripMenuItem.Size = new Size(212, 32);
-            hàngHóaToolStripMenuItem.Text = "Hàng hóa";
-            // 
-            // kháchHàngToolStripMenuItem1
-            // 
-            kháchHàngToolStripMenuItem1.BackColor = SystemColors.MenuHighlight;
-            kháchHàngToolStripMenuItem1.ForeColor = SystemColors.ButtonHighlight;
-            kháchHàngToolStripMenuItem1.Name = "kháchHàngToolStripMenuItem1";
-            kháchHàngToolStripMenuItem1.Size = new Size(212, 32);
-            kháchHàngToolStripMenuItem1.Text = "Khách Hàng";
-            // 
-            // nhàCungToolStripMenuItem
-            // 
-            nhàCungToolStripMenuItem.BackColor = SystemColors.MenuHighlight;
-            nhàCungToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
-            nhàCungToolStripMenuItem.Name = "nhàCungToolStripMenuItem";
-            nhàCungToolStripMenuItem.Size = new Size(212, 32);
-            nhàCungToolStripMenuItem.Text = "Nhà cung ";
-            // 
-            // nhânViênToolStripMenuItem
-            // 
-            nhânViênToolStripMenuItem.BackColor = SystemColors.MenuHighlight;
-            nhânViênToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
-            nhânViênToolStripMenuItem.Name = "nhânViênToolStripMenuItem";
-            nhânViênToolStripMenuItem.Size = new Size(212, 32);
-            nhânViênToolStripMenuItem.Text = "Nhân viên";
-            // 
-            // tàiChínhToolStripMenuItem
-            // 
-            tàiChínhToolStripMenuItem.BackColor = SystemColors.MenuHighlight;
-            tàiChínhToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
-            tàiChínhToolStripMenuItem.Name = "tàiChínhToolStripMenuItem";
-            tàiChínhToolStripMenuItem.Size = new Size(212, 32);
-            tàiChínhToolStripMenuItem.Text = "Tài chính";
+            cuốiNgàyToolStripMenuItem.Click += cuốiNgàyToolStripMenuItem_Click;
             // 
             // toolStripTextBoxTaiKhoan
             // 
@@ -321,6 +248,7 @@
             toolStripTextBoxTaiKhoan.ReadOnly = true;
             toolStripTextBoxTaiKhoan.Size = new Size(100, 50);
             toolStripTextBoxTaiKhoan.TextBoxTextAlign = HorizontalAlignment.Center;
+            toolStripTextBoxTaiKhoan.Click += toolStripTextBoxTaiKhoan_Click;
             // 
             // bánHàngToolStripMenuItem
             // 
@@ -353,6 +281,7 @@
             ClientSize = new Size(1400, 749);
             Controls.Add(panelMain);
             Controls.Add(panelNoiDung);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "FormMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormMain";
@@ -382,18 +311,10 @@
         private ToolStripMenuItem hóaĐơnToolStripMenuItem;
         private ToolStripMenuItem trảHàngToolStripMenuItem;
         private ToolStripMenuItem nhậpHàngToolStripMenuItem;
-        private ToolStripMenuItem trảNhậpHàngToolStripMenuItem;
         private ToolStripMenuItem kháchHàngToolStripMenuItem;
         private ToolStripMenuItem nhàCungCấpToolStripMenuItem;
         private ToolStripMenuItem danhSáchNhânViênToolStripMenuItem;
-        private ToolStripMenuItem thiếtLậpNhânViênToolStripMenuItem;
         private ToolStripMenuItem cuốiNgàyToolStripMenuItem;
-        private ToolStripMenuItem bánHàngToolStripMenuItem1;
-        private ToolStripMenuItem hàngHóaToolStripMenuItem;
-        private ToolStripMenuItem kháchHàngToolStripMenuItem1;
-        private ToolStripMenuItem nhàCungToolStripMenuItem;
-        private ToolStripMenuItem nhânViênToolStripMenuItem;
-        private ToolStripMenuItem tàiChínhToolStripMenuItem;
         private Panel panelMain;
         private ToolStripTextBox toolStripTextBoxTaiKhoan;
     }

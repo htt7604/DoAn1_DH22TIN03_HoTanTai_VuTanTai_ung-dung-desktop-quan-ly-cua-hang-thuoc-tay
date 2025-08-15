@@ -178,6 +178,47 @@ namespace QL_Nha_thuoc.model
             return danhSach;
         }
 
+        public static bool MaVachDaTonTai(string maVach)
+        {
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM HANG_HOA WHERE MA_VACH = @maVach";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@maVach", maVach);
+                    int count = (int)cmd.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+        }
+        public static string TaoMaVachMoi()
+        {
+            Random rnd = new Random();
+            string maVach;
+            int maxThu = 1000; // Giới hạn số lần thử để tránh vòng lặp vô hạn
+
+            do
+            {
+                maVach = "";
+                for (int i = 0; i < 13; i++)
+                {
+                    maVach += rnd.Next(0, 10).ToString();
+                }
+                maxThu--;
+                if (maxThu <= 0)
+                    throw new Exception("Không thể tạo mã vạch không trùng sau nhiều lần thử.");
+            }
+            while (MaVachDaTonTai(maVach));
+
+            return maVach;
+        }
+
+
+
+
+
+
 
         //ham them thuoc Moi
         public static bool ThemThuocMoiVoiTenHangHoa(ClassThuoc thuoc)

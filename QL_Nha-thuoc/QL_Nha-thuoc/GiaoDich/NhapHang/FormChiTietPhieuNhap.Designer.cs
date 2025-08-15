@@ -30,7 +30,7 @@
         {
             tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new Panel();
-            textBox1 = new TextBox();
+            textBoxGhiChu = new TextBox();
             labelNguoiNhap = new Label();
             labelTrangThai = new Label();
             labelTenNguoiTao = new Label();
@@ -46,10 +46,9 @@
             label1 = new Label();
             dataGridViewChiTietPhieuNhap = new DataGridView();
             panel2 = new Panel();
-            buttonMoPhieu = new Button();
-            buttonLuu = new Button();
-            buttonTraNhapHang = new Button();
             buttonHuyBo = new Button();
+            buttonLuu = new Button();
+            buttonMoPhieu = new Button();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewChiTietPhieuNhap).BeginInit();
@@ -75,7 +74,7 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(textBoxGhiChu);
             panel1.Controls.Add(labelNguoiNhap);
             panel1.Controls.Add(labelTrangThai);
             panel1.Controls.Add(labelTenNguoiTao);
@@ -95,15 +94,15 @@
             panel1.Size = new Size(1310, 209);
             panel1.TabIndex = 0;
             // 
-            // textBox1
+            // textBoxGhiChu
             // 
-            textBox1.Font = new Font("Segoe UI", 10F);
-            textBox1.Location = new Point(893, 62);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Ghi chú..";
-            textBox1.Size = new Size(349, 123);
-            textBox1.TabIndex = 28;
+            textBoxGhiChu.Font = new Font("Segoe UI", 10F);
+            textBoxGhiChu.Location = new Point(893, 62);
+            textBoxGhiChu.Multiline = true;
+            textBoxGhiChu.Name = "textBoxGhiChu";
+            textBoxGhiChu.PlaceholderText = "Ghi chú..";
+            textBoxGhiChu.Size = new Size(349, 123);
+            textBoxGhiChu.TabIndex = 28;
             // 
             // labelNguoiNhap
             // 
@@ -253,7 +252,6 @@
             // panel2
             // 
             panel2.Controls.Add(buttonHuyBo);
-            panel2.Controls.Add(buttonTraNhapHang);
             panel2.Controls.Add(buttonLuu);
             panel2.Controls.Add(buttonMoPhieu);
             panel2.Dock = DockStyle.Fill;
@@ -261,33 +259,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1310, 48);
             panel2.TabIndex = 2;
-            // 
-            // buttonMoPhieu
-            // 
-            buttonMoPhieu.Location = new Point(575, 4);
-            buttonMoPhieu.Name = "buttonMoPhieu";
-            buttonMoPhieu.Size = new Size(119, 35);
-            buttonMoPhieu.TabIndex = 0;
-            buttonMoPhieu.Text = "Mo phieu";
-            buttonMoPhieu.UseVisualStyleBackColor = true;
-            // 
-            // buttonLuu
-            // 
-            buttonLuu.Location = new Point(715, 3);
-            buttonLuu.Name = "buttonLuu";
-            buttonLuu.Size = new Size(88, 35);
-            buttonLuu.TabIndex = 1;
-            buttonLuu.Text = "Luu";
-            buttonLuu.UseVisualStyleBackColor = true;
-            // 
-            // buttonTraNhapHang
-            // 
-            buttonTraNhapHang.Location = new Point(850, 4);
-            buttonTraNhapHang.Name = "buttonTraNhapHang";
-            buttonTraNhapHang.Size = new Size(119, 35);
-            buttonTraNhapHang.TabIndex = 2;
-            buttonTraNhapHang.Text = "Tra nhap hang";
-            buttonTraNhapHang.UseVisualStyleBackColor = true;
             // 
             // buttonHuyBo
             // 
@@ -297,6 +268,28 @@
             buttonHuyBo.TabIndex = 3;
             buttonHuyBo.Text = "Huy bo";
             buttonHuyBo.UseVisualStyleBackColor = true;
+            buttonHuyBo.Click += buttonHuyBo_Click;
+            // 
+            // buttonLuu
+            // 
+            buttonLuu.Location = new Point(835, 3);
+            buttonLuu.Name = "buttonLuu";
+            buttonLuu.Size = new Size(88, 35);
+            buttonLuu.TabIndex = 1;
+            buttonLuu.Text = "Luu";
+            buttonLuu.UseVisualStyleBackColor = true;
+            buttonLuu.Click += buttonLuu_Click;
+            // 
+            // buttonMoPhieu
+            // 
+            buttonMoPhieu.Location = new Point(695, 4);
+            buttonMoPhieu.Name = "buttonMoPhieu";
+            buttonMoPhieu.Size = new Size(119, 35);
+            buttonMoPhieu.TabIndex = 0;
+            buttonMoPhieu.Text = "Mo phieu";
+            buttonMoPhieu.UseVisualStyleBackColor = true;
+            buttonMoPhieu.Visible = false;
+            buttonMoPhieu.Click += buttonMoPhieu_Click;
             // 
             // FormChiTietPhieuNhap
             // 
@@ -332,10 +325,9 @@
         private Label label2;
         private Label label1;
         private DataGridView dataGridViewChiTietPhieuNhap;
-        private TextBox textBox1;
+        private TextBox textBoxGhiChu;
         private Panel panel2;
         private Button buttonHuyBo;
-        private Button buttonTraNhapHang;
         private Button buttonLuu;
         private Button buttonMoPhieu;
     }

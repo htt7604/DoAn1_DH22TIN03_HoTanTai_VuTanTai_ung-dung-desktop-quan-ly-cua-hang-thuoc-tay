@@ -104,7 +104,7 @@ namespace QL_Nha_thuoc.DangNhap
 
         private void BatDauDemNguoc()
         {
-            _thoiGianConLai = 10;
+            _thoiGianConLai = 180;
             labelHieuLuc.LinkBehavior = LinkBehavior.NeverUnderline;
             labelHieuLuc.LinkColor = Color.Black;
             labelHieuLuc.Text = $"Thời gian còn lại: 03:00";

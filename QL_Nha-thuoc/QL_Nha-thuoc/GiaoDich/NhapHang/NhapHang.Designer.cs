@@ -28,18 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             splitContainer1 = new SplitContainer();
-            groupBox3 = new GroupBox();
-            comboBox2 = new ComboBox();
             groupBox2 = new GroupBox();
-            checkBox2 = new CheckBox();
-            checkBox3 = new CheckBox();
-            checkBox1 = new CheckBox();
-            groupBox1 = new GroupBox();
-            radioButton2 = new RadioButton();
-            radioButton1 = new RadioButton();
             label1 = new Label();
             dataGridViewdsNhapHang = new DataGridView();
             panel6 = new Panel();
@@ -49,13 +41,14 @@
             pictureBox1 = new PictureBox();
             textBoxTimHH = new TextBox();
             buttonThemNhapHang = new Button();
+            radioButtonTatCa = new RadioButton();
+            radioButtonDaNhap = new RadioButton();
+            radioButtonDaHuy = new RadioButton();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
-            groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
-            groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsNhapHang).BeginInit();
             panel6.SuspendLayout();
             panel.SuspendLayout();
@@ -71,9 +64,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            splitContainer1.Panel1.Controls.Add(groupBox3);
             splitContainer1.Panel1.Controls.Add(groupBox2);
-            splitContainer1.Panel1.Controls.Add(groupBox1);
             splitContainer1.Panel1.Controls.Add(label1);
             // 
             // splitContainer1.Panel2
@@ -84,118 +75,20 @@
             splitContainer1.SplitterDistance = 234;
             splitContainer1.TabIndex = 0;
             // 
-            // groupBox3
-            // 
-            groupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox3.BackColor = SystemColors.ButtonHighlight;
-            groupBox3.Controls.Add(comboBox2);
-            groupBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox3.Location = new Point(8, 454);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(223, 101);
-            groupBox3.TabIndex = 14;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Người nhập";
-            // 
-            // comboBox2
-            // 
-            comboBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(19, 48);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(151, 28);
-            comboBox2.TabIndex = 1;
-            // 
             // groupBox2
             // 
             groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.BackColor = SystemColors.ButtonHighlight;
-            groupBox2.Controls.Add(checkBox2);
-            groupBox2.Controls.Add(checkBox3);
-            groupBox2.Controls.Add(checkBox1);
+            groupBox2.Controls.Add(radioButtonDaHuy);
+            groupBox2.Controls.Add(radioButtonDaNhap);
+            groupBox2.Controls.Add(radioButtonTatCa);
             groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox2.Location = new Point(6, 262);
+            groupBox2.Location = new Point(3, 87);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(223, 135);
+            groupBox2.Size = new Size(223, 183);
             groupBox2.TabIndex = 13;
             groupBox2.TabStop = false;
             groupBox2.Text = "Trạng thái";
-            // 
-            // checkBox2
-            // 
-            checkBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            checkBox2.AutoSize = true;
-            checkBox2.Font = new Font("Segoe UI", 9F);
-            checkBox2.Location = new Point(11, 105);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(77, 24);
-            checkBox2.TabIndex = 3;
-            checkBox2.Text = "Đã hủy";
-            checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            checkBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            checkBox3.AutoSize = true;
-            checkBox3.Font = new Font("Segoe UI", 9F);
-            checkBox3.Location = new Point(11, 66);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(124, 24);
-            checkBox3.TabIndex = 2;
-            checkBox3.Text = "Đã nhập hàng";
-            checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            checkBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            checkBox1.AutoSize = true;
-            checkBox1.Font = new Font("Segoe UI", 9F);
-            checkBox1.Location = new Point(11, 26);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(98, 24);
-            checkBox1.TabIndex = 0;
-            checkBox1.Text = "phiếu tạm";
-            checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.BackColor = SystemColors.ButtonHighlight;
-            groupBox1.Controls.Add(radioButton2);
-            groupBox1.Controls.Add(radioButton1);
-            groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox1.Location = new Point(3, 76);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(228, 143);
-            groupBox1.TabIndex = 12;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Thời gian";
-            // 
-            // radioButton2
-            // 
-            radioButton2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            radioButton2.AutoSize = true;
-            radioButton2.Font = new Font("Segoe UI", 9F);
-            radioButton2.Location = new Point(23, 77);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(124, 24);
-            radioButton2.TabIndex = 1;
-            radioButton2.Text = "Lựa chọn khác";
-            radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            radioButton1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            radioButton1.AutoSize = true;
-            radioButton1.Checked = true;
-            radioButton1.Font = new Font("Segoe UI", 9F);
-            radioButton1.Location = new Point(23, 38);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(98, 24);
-            radioButton1.TabIndex = 0;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Tháng này";
-            radioButton1.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -209,25 +102,26 @@
             // 
             // dataGridViewdsNhapHang
             // 
+            dataGridViewdsNhapHang.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewdsNhapHang.BackgroundColor = SystemColors.Window;
             dataGridViewdsNhapHang.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridViewdsNhapHang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Control;
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dataGridViewdsNhapHang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dataGridViewdsNhapHang.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridViewdsNhapHang.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = SystemColors.Window;
+            dataGridViewCellStyle10.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle10.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
+            dataGridViewdsNhapHang.DefaultCellStyle = dataGridViewCellStyle10;
             dataGridViewdsNhapHang.Dock = DockStyle.Fill;
             dataGridViewdsNhapHang.Location = new Point(0, 58);
             dataGridViewdsNhapHang.MultiSelect = false;
@@ -303,7 +197,7 @@
             textBoxTimHH.Location = new Point(70, 3);
             textBoxTimHH.Multiline = true;
             textBoxTimHH.Name = "textBoxTimHH";
-            textBoxTimHH.PlaceholderText = "Tìm theo mã phieu nhap";
+            textBoxTimHH.PlaceholderText = "Tìm theo mã phiếu nhập";
             textBoxTimHH.Size = new Size(418, 43);
             textBoxTimHH.TabIndex = 5;
             textBoxTimHH.Tag = "";
@@ -318,9 +212,45 @@
             buttonThemNhapHang.Name = "buttonThemNhapHang";
             buttonThemNhapHang.Size = new Size(108, 40);
             buttonThemNhapHang.TabIndex = 37;
-            buttonThemNhapHang.Text = "+ Them moi";
+            buttonThemNhapHang.Text = "+ Thêm mới";
             buttonThemNhapHang.UseVisualStyleBackColor = false;
             buttonThemNhapHang.Click += buttonThemNhapHang_Click;
+            // 
+            // radioButtonTatCa
+            // 
+            radioButtonTatCa.AutoSize = true;
+            radioButtonTatCa.Location = new Point(49, 37);
+            radioButtonTatCa.Name = "radioButtonTatCa";
+            radioButtonTatCa.Size = new Size(72, 24);
+            radioButtonTatCa.TabIndex = 14;
+            radioButtonTatCa.TabStop = true;
+            radioButtonTatCa.Text = "Tất cả";
+            radioButtonTatCa.UseVisualStyleBackColor = true;
+            radioButtonTatCa.CheckedChanged += radioButtonTatCa_CheckedChanged;
+            // 
+            // radioButtonDaNhap
+            // 
+            radioButtonDaNhap.AutoSize = true;
+            radioButtonDaNhap.Location = new Point(49, 79);
+            radioButtonDaNhap.Name = "radioButtonDaNhap";
+            radioButtonDaNhap.Size = new Size(88, 24);
+            radioButtonDaNhap.TabIndex = 15;
+            radioButtonDaNhap.TabStop = true;
+            radioButtonDaNhap.Text = "Đã nhập";
+            radioButtonDaNhap.UseVisualStyleBackColor = true;
+            radioButtonDaNhap.CheckedChanged += radioButtonDaNhap_CheckedChanged;
+            // 
+            // radioButtonDaHuy
+            // 
+            radioButtonDaHuy.AutoSize = true;
+            radioButtonDaHuy.Location = new Point(49, 126);
+            radioButtonDaHuy.Name = "radioButtonDaHuy";
+            radioButtonDaHuy.Size = new Size(124, 24);
+            radioButtonDaHuy.TabIndex = 16;
+            radioButtonDaHuy.TabStop = true;
+            radioButtonDaHuy.Text = "radioButton3";
+            radioButtonDaHuy.UseVisualStyleBackColor = true;
+            radioButtonDaHuy.CheckedChanged += radioButtonDaHuy_CheckedChanged;
             // 
             // NhapHang
             // 
@@ -331,16 +261,14 @@
             Name = "NhapHang";
             Text = "NhapHang";
             WindowState = FormWindowState.Maximized;
+            Load += NhapHang_Load;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
-            groupBox3.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewdsNhapHang).EndInit();
             panel6.ResumeLayout(false);
             panel.ResumeLayout(false);
@@ -354,15 +282,7 @@
 
         private SplitContainer splitContainer1;
         private Label label1;
-        private GroupBox groupBox1;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
         private GroupBox groupBox2;
-        private CheckBox checkBox2;
-        private CheckBox checkBox3;
-        private CheckBox checkBox1;
-        private GroupBox groupBox3;
-        private ComboBox comboBox2;
         private Panel panel6;
         private Panel panel;
         private TableLayoutPanel tableLayoutPanel5;
@@ -371,5 +291,8 @@
         private Button buttonThemNhapHang;
         private DataGridView dataGridViewdsNhapHang;
         private ComboBox comboBoxLoaiTimKiem;
+        private RadioButton radioButtonDaHuy;
+        private RadioButton radioButtonDaNhap;
+        private RadioButton radioButtonTatCa;
     }
 }

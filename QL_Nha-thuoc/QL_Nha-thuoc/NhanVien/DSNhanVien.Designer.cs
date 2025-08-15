@@ -115,10 +115,12 @@
             dataGridViewdsNV.Dock = DockStyle.Fill;
             dataGridViewdsNV.Location = new Point(225, 59);
             dataGridViewdsNV.Name = "dataGridViewdsNV";
+            dataGridViewdsNV.ReadOnly = true;
             dataGridViewdsNV.RowHeadersWidth = 51;
             dataGridViewdsNV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewdsNV.Size = new Size(1074, 554);
             dataGridViewdsNV.TabIndex = 22;
+            dataGridViewdsNV.CellDoubleClick += dataGridViewdsNV_CellDoubleClick;
             // 
             // tableLayoutPanel2
             // 
@@ -159,6 +161,7 @@
             radioButtonDaNghi.TabStop = true;
             radioButtonDaNghi.Text = "Đã nghỉ";
             radioButtonDaNghi.UseVisualStyleBackColor = true;
+            radioButtonDaNghi.CheckedChanged += radioButtonDaNghi_CheckedChanged;
             // 
             // radioButtonDangLV
             // 
@@ -171,6 +174,7 @@
             radioButtonDangLV.TabStop = true;
             radioButtonDangLV.Text = "Đang làm việc";
             radioButtonDangLV.UseVisualStyleBackColor = true;
+            radioButtonDangLV.CheckedChanged += radioButtonDangLV_CheckedChanged;
             // 
             // tableLayoutPanel4
             // 
@@ -181,12 +185,12 @@
             tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 51.6759758F));
             tableLayoutPanel4.Controls.Add(tableLayoutPanel5, 0, 0);
             tableLayoutPanel4.Controls.Add(buttonThemNV, 2, 0);
-            tableLayoutPanel4.Dock = DockStyle.Bottom;
-            tableLayoutPanel4.Location = new Point(225, 7);
+            tableLayoutPanel4.Dock = DockStyle.Top;
+            tableLayoutPanel4.Location = new Point(225, 3);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel4.Size = new Size(1074, 46);
+            tableLayoutPanel4.Size = new Size(1074, 50);
             tableLayoutPanel4.TabIndex = 20;
             // 
             // tableLayoutPanel5
@@ -202,7 +206,7 @@
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 1;
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel5.Size = new Size(386, 40);
+            tableLayoutPanel5.Size = new Size(386, 44);
             tableLayoutPanel5.TabIndex = 8;
             // 
             // textBoxTimNV
@@ -214,9 +218,10 @@
             textBoxTimNV.Multiline = true;
             textBoxTimNV.Name = "textBoxTimNV";
             textBoxTimNV.PlaceholderText = "Tìm theo mã, tên nhân viên";
-            textBoxTimNV.Size = new Size(328, 34);
+            textBoxTimNV.Size = new Size(328, 38);
             textBoxTimNV.TabIndex = 5;
             textBoxTimNV.Tag = "";
+            textBoxTimNV.TextChanged += textBoxTimNV_TextChanged;
             // 
             // pictureBox1
             // 
@@ -225,7 +230,7 @@
             pictureBox1.Image = Properties.Resources.search;
             pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(46, 34);
+            pictureBox1.Size = new Size(46, 38);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;

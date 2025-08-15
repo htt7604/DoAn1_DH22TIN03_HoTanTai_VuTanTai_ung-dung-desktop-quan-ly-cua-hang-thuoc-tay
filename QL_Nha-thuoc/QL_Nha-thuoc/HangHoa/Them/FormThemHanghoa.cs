@@ -320,6 +320,11 @@ namespace QL_Nha_thuoc.HangHoa
                 MessageBox.Show("Vui lòng chọn hãng sản xuất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            if (textBoxGiaVon.Text.Trim() == "0")
+            {
+                MessageBox.Show("Vui lòng nhập  giá vốn.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             //tao hang hoa moi 
             string maHH = ClassHangHoa.TaoMaHangHoaTuDong();
             ClassHangHoa hangHoa = new ClassHangHoa
@@ -386,7 +391,7 @@ namespace QL_Nha_thuoc.HangHoa
         private void buttonXoaHangSX_Click(object sender, EventArgs e)
         {
             //lay thuong tin hang sx dang chon
-            int maHangSX = Convert.ToInt32(comboBoxHangSX.SelectedValue);
+            string maHangSX = comboBoxHangSX.SelectedValue.ToString();
 
             if (ClassHangSanXuat.XoaHangSX(maHangSX))
             {

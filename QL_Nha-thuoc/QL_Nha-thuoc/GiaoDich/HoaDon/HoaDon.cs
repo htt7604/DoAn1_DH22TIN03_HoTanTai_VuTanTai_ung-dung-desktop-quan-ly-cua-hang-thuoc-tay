@@ -1,4 +1,5 @@
-﻿using QL_Nha_thuoc.BanHang;
+﻿using Microsoft.Data.SqlClient;
+using QL_Nha_thuoc.BanHang;
 using QL_Nha_thuoc.GiaoDich.HoaDon;
 using QL_Nha_thuoc.HangHoa.kiemkho;
 using QL_Nha_thuoc.model;
@@ -60,7 +61,7 @@ namespace QL_Nha_thuoc
             //tat form main 
             this.Hide();
             //mở form bán hàng
-            FormBanHangMain formBanHangMain = new FormBanHangMain();
+            FormBanHangMain formBanHangMain = new FormBanHangMain(formMain);
             formBanHangMain.ShowDialog();
             //hiện lại form main
             this.Show();
@@ -88,6 +89,96 @@ namespace QL_Nha_thuoc
 
                 chiTietForm.ShowDialog(); // Gọi sau khi gán sự kiện
             }
+        }
+
+
+
+
+
+
+
+
+
+
+
+        private void LocHoaDon()
+        {
+
+            string maHTTT = null;
+            if (radioButtonTienMat.Checked) maHTTT = "HTTT_TM";
+            else if (radioButtonChuyenKhoan.Checked) maHTTT = "HTTT_CK";
+
+            string maHD = textBoxTimHD.Text.Trim().ToLower();
+
+            using (SqlConnection conn = CSDL.GetConnection())
+            {
+                var sb = new StringBuilder(@"
+            SELECT 
+                HD.MA_HOA_DON                         AS [Mã hóa đơn],
+                HD.NGAY_LAP_HD                        AS [Ngày lập],
+                NV.HO_TEN_NV                          AS [Nhân viên],
+                ISNULL(HD.KHACH_THANH_TOAN, 0)        AS [Khách thanh toán],
+                ISNULL(HD.THANH_TIEN, 0)              AS [Thành tiền],
+                ISNULL(HD.GIAM_GIA, 0)                AS [Giảm giá],
+                ISNULL(HD.TRA_LAI_KHACH, 0)           AS [Trả lại khách],
+                HD.TRANG_THAI                         AS [Trạng thái]
+            FROM HOA_DON HD
+            JOIN NHAN_VIEN NV ON NV.MA_NV = HD.MA_NV
+            WHERE HD.TRANG_THAI <> N'Đã hủy'
+
+        ");
+
+                if (!string.IsNullOrEmpty(maHD))
+                    sb.Append(" AND LOWER(HD.MA_HOA_DON) LIKE @MaHD");
+
+                if (!string.IsNullOrEmpty(maHTTT))
+                    sb.Append(" AND HD.MA_HINH_THUC_THANH_TOAN = @MaHTTT");
+
+                sb.Append(" ORDER BY HD.NGAY_LAP_HD DESC");
+
+                using (SqlCommand cmd = new SqlCommand(sb.ToString(), conn))
+                {
+
+                    if (!string.IsNullOrEmpty(maHD))
+                        cmd.Parameters.AddWithValue("@MaHD", "%" + maHD + "%");
+
+                    if (!string.IsNullOrEmpty(maHTTT))
+                        cmd.Parameters.AddWithValue("@MaHTTT", maHTTT);
+
+                    var table = new DataTable();
+                    var da = new SqlDataAdapter(cmd);
+                    da.Fill(table);
+
+                    dataGridViewdsHoaDon.AutoGenerateColumns = true;
+                    dataGridViewdsHoaDon.DataSource = table;
+
+                    if (dataGridViewdsHoaDon.Columns.Contains("Ngày lập"))
+                        dataGridViewdsHoaDon.Columns["Ngày lập"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
+                }
+            }
+        }
+
+
+        private void buttonTim_Click(object sender, EventArgs e)
+        {
+            LocHoaDon();
+        }
+
+
+
+        private void radioButtonTienMat_CheckedChanged(object sender, EventArgs e)
+        {
+            LocHoaDon();
+        }
+
+        private void radioButtonChuyenKhoan_CheckedChanged(object sender, EventArgs e)
+        {
+            LocHoaDon();
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            LocHoaDon();
         }
     }
 }

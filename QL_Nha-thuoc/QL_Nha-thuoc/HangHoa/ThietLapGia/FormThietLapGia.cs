@@ -26,14 +26,13 @@ namespace QL_Nha_thuoc.HangHoa
         {
             InitializeComponent();
             loadComboBoxLocVaLoaiGia();
-
         }
         //load comboBoxBangGia
         private void LoadComboBoxBangGia()
         {
             // Xóa sạch dữ liệu cũ
             comboBoxBangGia.DataSource = null;
-            comboBoxBangGia.Items.Clear(); // (nên có thêm dòng này nếu bạn từng thêm item thủ công)
+            comboBoxBangGia.Items.Clear();
 
             // Lấy danh sách bảng giá mới
             var danhSachBangGia = ClassBangGia.LayTatCaBangGia();
@@ -162,20 +161,7 @@ namespace QL_Nha_thuoc.HangHoa
             comboBoxLoaiGia.SelectedItem = "---Giá so sánh---";
 
             loctheogia();
-            //danhSachGiaBan = ClassGiaBanHH.LayDanhSachToanboGiaBan();
-            //danhMucLoc = danhSachGiaBan; // ✅ GÁN VÀO ĐÂY
-
-            //flowLayoutPanelThietLapGia.Controls.Clear();
-            //flowLayoutPanelThietLapGia.Controls.Add(new UserControlTTGia());
-
-            //foreach (var giaBan in danhSachGiaBan)
-            //{
-            //    UserControlitemThietLapGia item = new UserControlitemThietLapGia();
-            //    item.Setdata(giaBan);
-            //    flowLayoutPanelThietLapGia.Controls.Add(item);
-            //}
-
-            //CapNhatKichThuocUserControl();
+         
         }
 
 
@@ -454,12 +440,15 @@ namespace QL_Nha_thuoc.HangHoa
                     var item = s as UserControlitemHangHoaTimKiem;
                     var data = item.LayDuLieu(); // ClassHangHoa
 
-                    // Tạo đối tượng giá bán
+                    // Tạo đối tượng giá bán dua vao ban gia hien tai
+                    //tinh gia du theo ban gia 
+                    decimal giaBanGoc = data.GiaBan;
+                    decimal giaBanTinh = ClassBangGia.TinhGiaBanTheoMaBangGia(maBangGia, giaBanGoc);                
                     var giaBan = new ClassGiaBanHH
                     {
                         MaBangGia = maBangGia,
                         MaHangHoa = data.MaHangHoa,
-                        GiaBan = data.GiaBan,
+                        GiaBan = giaBanTinh,
                         GiaVon = data.GiaVon,
                         MaDonViTinh = data.MaDonViTinh,
                         TenDonViTinh=data.TenDonViTinh,

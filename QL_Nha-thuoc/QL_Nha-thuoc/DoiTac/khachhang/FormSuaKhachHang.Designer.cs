@@ -84,7 +84,7 @@
             radioButtonCongTy.Size = new Size(81, 24);
             radioButtonCongTy.TabIndex = 102;
             radioButtonCongTy.TabStop = true;
-            radioButtonCongTy.Text = "Cong ty";
+            radioButtonCongTy.Text = "Công ty";
             radioButtonCongTy.UseVisualStyleBackColor = true;
             radioButtonCongTy.CheckedChanged += radioButtonCongTy_CheckedChanged;
             // 
@@ -93,10 +93,10 @@
             radioButtonCaNhan.AutoSize = true;
             radioButtonCaNhan.Location = new Point(101, 11);
             radioButtonCaNhan.Name = "radioButtonCaNhan";
-            radioButtonCaNhan.Size = new Size(86, 24);
+            radioButtonCaNhan.Size = new Size(85, 24);
             radioButtonCaNhan.TabIndex = 103;
             radioButtonCaNhan.TabStop = true;
-            radioButtonCaNhan.Text = "Ca Nhan";
+            radioButtonCaNhan.Text = "cá nhân ";
             radioButtonCaNhan.UseVisualStyleBackColor = true;
             // 
             // radioButtonNu
@@ -107,7 +107,7 @@
             radioButtonNu.Size = new Size(49, 24);
             radioButtonNu.TabIndex = 101;
             radioButtonNu.TabStop = true;
-            radioButtonNu.Text = "Nu";
+            radioButtonNu.Text = "Nũ";
             radioButtonNu.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -137,7 +137,7 @@
             buttonThemAnh.Name = "buttonThemAnh";
             buttonThemAnh.Size = new Size(103, 32);
             buttonThemAnh.TabIndex = 134;
-            buttonThemAnh.Text = "Them Anh";
+            buttonThemAnh.Text = "Thêm ảnh ";
             buttonThemAnh.Click += buttonThemAnh_Click;
             // 
             // buttonLuu
@@ -146,7 +146,7 @@
             buttonLuu.Name = "buttonLuu";
             buttonLuu.Size = new Size(75, 32);
             buttonLuu.TabIndex = 133;
-            buttonLuu.Text = "Luu";
+            buttonLuu.Text = "Lưu";
             buttonLuu.Click += buttonLuu_Click;
             // 
             // dateTimePicker1
@@ -167,7 +167,7 @@
             label1.Name = "label1";
             label1.Size = new Size(65, 20);
             label1.TabIndex = 131;
-            label1.Text = "Gioi tinh";
+            label1.Text = "Giới tính";
             // 
             // textBoxGhiChu
             // 
@@ -183,9 +183,9 @@
             label9.AutoSize = true;
             label9.Location = new Point(850, 262);
             label9.Name = "label9";
-            label9.Size = new Size(61, 20);
+            label9.Size = new Size(58, 20);
             label9.TabIndex = 129;
-            label9.Text = "Ghi chu:";
+            label9.Text = "Ghi chú";
             // 
             // textBoxTenCongTy
             // 
@@ -200,9 +200,9 @@
             label8.AutoSize = true;
             label8.Location = new Point(850, 379);
             label8.Name = "label8";
-            label8.Size = new Size(87, 20);
+            label8.Size = new Size(89, 20);
             label8.TabIndex = 127;
-            label8.Text = "Ten Cong ty";
+            label8.Text = "Tên công ty ";
             // 
             // textBoxDienThoai
             // 
@@ -216,9 +216,9 @@
             label6.AutoSize = true;
             label6.Location = new Point(353, 262);
             label6.Name = "label6";
-            label6.Size = new Size(81, 20);
+            label6.Size = new Size(82, 20);
             label6.TabIndex = 125;
-            label6.Text = "Dien Thoai";
+            label6.Text = "Điện thoại ";
             // 
             // textBoxDiaChi
             // 
@@ -236,16 +236,16 @@
             label5.Name = "label5";
             label5.Size = new Size(55, 20);
             label5.TabIndex = 123;
-            label5.Text = "Dia chi";
+            label5.Text = "Địa chỉ";
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Location = new Point(850, 159);
             label4.Name = "label4";
-            label4.Size = new Size(118, 20);
+            label4.Size = new Size(116, 20);
             label4.TabIndex = 122;
-            label4.Text = "Loai Khach hang";
+            label4.Text = "Loại khách hàng";
             // 
             // textBoxTenKH
             // 
@@ -266,27 +266,27 @@
             label3.AutoSize = true;
             label3.Location = new Point(353, 379);
             label3.Name = "label3";
-            label3.Size = new Size(118, 20);
+            label3.Size = new Size(116, 20);
             label3.TabIndex = 119;
-            label3.Text = "So CCCD/CMND";
+            label3.Text = "số CCCD/CMND";
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Location = new Point(353, 207);
             label2.Name = "label2";
-            label2.Size = new Size(74, 20);
+            label2.Size = new Size(78, 20);
             label2.TabIndex = 118;
-            label2.Text = "Ngay sinh";
+            label2.Text = "Ngày sinh ";
             // 
             // label
             // 
             label.AutoSize = true;
             label.Location = new Point(353, 156);
             label.Name = "label";
-            label.Size = new Size(79, 20);
+            label.Size = new Size(111, 20);
             label.TabIndex = 117;
-            label.Text = "Ten Khach:";
+            label.Text = "Tên khách hàng";
             // 
             // pictureBoxKhachHang
             // 
@@ -303,9 +303,9 @@
             labelMaKH.AutoSize = true;
             labelMaKH.Location = new Point(353, 108);
             labelMaKH.Name = "labelMaKH";
-            labelMaKH.Size = new Size(111, 20);
+            labelMaKH.Size = new Size(109, 20);
             labelMaKH.TabIndex = 108;
-            labelMaKH.Text = "Ma Khach hang";
+            labelMaKH.Text = "Mã khách hàng";
             // 
             // textBoxMaKH
             // 
@@ -325,7 +325,7 @@
             textBoxCHinh.ReadOnly = true;
             textBoxCHinh.Size = new Size(321, 43);
             textBoxCHinh.TabIndex = 110;
-            textBoxCHinh.Text = "THEM KHACH HANG";
+            textBoxCHinh.Text = "THÊM KHÁCH HÀNG";
             // 
             // labelDonViTinh
             // 
@@ -348,9 +348,9 @@
             labelGia.AutoSize = true;
             labelGia.Location = new Point(353, 322);
             labelGia.Name = "labelGia";
-            labelGia.Size = new Size(85, 20);
+            labelGia.Size = new Size(82, 20);
             labelGia.TabIndex = 113;
-            labelGia.Text = "Ma so Thue";
+            labelGia.Text = "Mã số thuế";
             // 
             // textBoxMaSoThue
             // 
@@ -365,7 +365,7 @@
             buttonBoQua.Name = "buttonBoQua";
             buttonBoQua.Size = new Size(75, 32);
             buttonBoQua.TabIndex = 115;
-            buttonBoQua.Text = "Bo qua";
+            buttonBoQua.Text = "Bỏ qua";
             buttonBoQua.Click += buttonBoQua_Click;
             // 
             // FormSuaKhachHang

@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QL_Nha_thuoc
+namespace QL_Nha_thuoc.NhanVien
 {
-    public partial class TraHang : Form
+    public partial class FormSuaNV : Form
     {
-        public TraHang()
+        public FormSuaNV()
         {
             InitializeComponent();
         }

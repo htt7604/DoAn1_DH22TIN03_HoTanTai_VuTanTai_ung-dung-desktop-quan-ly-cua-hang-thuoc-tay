@@ -197,6 +197,7 @@
             // 
             // pictureBoxKhachHang
             // 
+            pictureBoxKhachHang.BorderStyle = BorderStyle.FixedSingle;
             pictureBoxKhachHang.Location = new Point(12, 108);
             pictureBoxKhachHang.Name = "pictureBoxKhachHang";
             pictureBoxKhachHang.Size = new Size(235, 215);

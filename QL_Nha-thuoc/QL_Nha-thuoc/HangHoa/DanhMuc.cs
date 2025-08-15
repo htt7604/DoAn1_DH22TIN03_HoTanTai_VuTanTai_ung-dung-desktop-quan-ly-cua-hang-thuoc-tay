@@ -586,7 +586,7 @@ namespace QL_Nha_thuoc
                 return;
             }
 
-            var ds = TimThuocTuCSDL(keyword);
+            var ds = ClassHangHoa.TimKiemHangHoaTheoTuKhoa(keyword);
 
             panelKetQuaTimKiem.Controls.Clear();
             int y = 0;

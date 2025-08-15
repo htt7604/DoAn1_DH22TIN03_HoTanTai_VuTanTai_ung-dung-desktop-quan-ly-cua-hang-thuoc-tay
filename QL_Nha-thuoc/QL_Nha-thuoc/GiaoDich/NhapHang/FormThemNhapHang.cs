@@ -1,8 +1,10 @@
 ﻿using Microsoft.Data.SqlClient;
+using QL_Nha_thuoc.BanHang;
 using QL_Nha_thuoc.DoiTac;
 using QL_Nha_thuoc.DoiTac.nhacungcap;
 using QL_Nha_thuoc.GiaoDich.NhapHang;
 using QL_Nha_thuoc.HangHoa;
+using QL_Nha_thuoc.HangHoa.kiemkho;
 using QL_Nha_thuoc.HangHoa.Them;
 using QL_Nha_thuoc.model;
 using System;
@@ -13,22 +15,34 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QL_Nha_thuoc.model.ICoTheReload;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace QL_Nha_thuoc.GiaoDich.NhapHang
 {
     public partial class FormThemNhapHang : Form, ICoTheReload
     {
-        public FormThemNhapHang()
+        public event Action FormThemNhapDong;
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string _maPhieuNhap { get; set; } // Biến để lưu mã phiếu nhập
+        public FormThemNhapHang(string maPhieuNhap)
         {
             InitializeComponent();
-            setData();
+            this.FormClosed += (s, e) =>
+            {
+                // Khi form đóng thì gọi event nếu có người đăng ký
+                FormThemNhapDong?.Invoke();
+            };
+            _maPhieuNhap = maPhieuNhap; // Gán giá trị mã phiếu nhập
         }
         //ham setdata cho form them nhap hang
         public void LoadTaiKhoan()
         {
-          
+
             //chon tai khoan dang dang nhap
             ClassTaiKhoan taiKhoan = Session.TaiKhoanDangNhap;
             var taiKhoanDangNhap = ClassTaiKhoan.LayTaiKhoan(taiKhoan.TenTaiKhoan);
@@ -49,7 +63,8 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
             comboBoxTaiKhoan.ValueMember = "TenTaiKhoan";
             comboBoxTaiKhoan.SelectedIndex = 0; // Đặt không có lựa chọn nào được chọn
 
-            textBoxMaPhieuNhap.Text = PhieuNhapHang.TaoMaPhieuNhapTuDong(); // Tự động sinh mã phiếu nhập
+            textBoxMaPhieuNhap.Text = ClassPhieuNhapHang.TaoMaPhieuNhap(); // Tự động sinh mã phiếu nhập
+
             textBoxTongTien.Text = "0"; // Hiển thị số tiền cần trả ban đầu là 0
             textBoxGiamGia.Text = "0"; // Hiển thị tổng tiền ban đầu là 0
             textBoxCanTra.Text = "0"; // Hiển thị giảm giá ban đầu là 0
@@ -58,6 +73,48 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
             labelThoiGian.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
             LoadTaiKhoan(); // Gọi hàm để nạp danh sách tài khoản khi khởi tạo form
         }
+
+        public void LoadPhieuNhapHang(string maPhieu)
+        {
+            var phieunhap= ClassPhieuNhapHang.TimTheoMaPhieuNhap(maPhieu);
+            setData();
+            //comboBoxTaiKhoan.SelectedValue = phieunhap.MaNhanVien;
+
+
+            textBoxMaPhieuNhap.Text = phieunhap.MaPhieuNhap;
+            textBoxGhiChu.Text = phieunhap.GhiChuPhieuNhap;
+            textBoxTongTien.Text = phieunhap.TongTienNhapHang.HasValue? phieunhap.TongTienNhapHang.Value.ToString("N0") + " đ": "0 đ"; 
+            textBoxGiamGia.Text = phieunhap.GiamGia.HasValue ? phieunhap.GiamGia.Value.ToString("N0") + " đ" : "0 đ"; // Hiển thị giảm giá
+            textBoxCanTra.Text = phieunhap.SoTienPhaiTra.HasValue ? phieunhap.SoTienPhaiTra.Value.ToString("N0") + " đ" : "0 đ"; // Hiển thị số tiền cần trả
+            textBoxSoTienTraNCC.Text = phieunhap.SoTienDaTra.HasValue ? phieunhap.SoTienDaTra.Value.ToString("N0") + " đ" : "0 đ"; // Hiển thị số tiền đã trả cho nhà cung cấp
+            labelTrangThai.Text = phieunhap.TrangThai; // Hiển thị trạng thái phiếu nhập
+            textBoxTimNCC.Text = phieunhap.TenNhaCungCap; // Hiển thị tên nhà cung
+            maNCCdachon = phieunhap.MaNhaCungCap; // Lưu mã nhà cung cấp đã chọn
+
+            
+
+            var danhSachHang = ClassChiTietPhieuNhap.LayDanhSachChiTietPhieuNhap(maPhieu);
+            foreach (var hang in danhSachHang)
+            {
+                 //var chitiet= ClassChiTietPhieuNhap.LayChiTietPhieuNhaptheomaHH_DVT_maPhieu(hang.MaPhieuNhap, hang.MaHangHoa, hang.MaDonViTinh);
+                // Lấy đầy đủ thông tin hàng hóa để dùng SetData
+                var thongtin = ClassHangHoa.LayThongTinMotHangHoa(hang.MaHangHoa);
+                thongtin.SoLuongTon = hang.SoLuong;
+                thongtin.TenDonViTinh = hang.TenDonViTinh;
+
+                var item = new UserControlHangHoaitemNhapHang(_maPhieuNhap);
+                item.setDataChiTietPhieuNhap(hang);
+                flowLayoutPanelNhapHang.Controls.Add(item);
+ 
+
+
+            }
+        }
+
+
+
+
+
         public void ReloadSauKhiThayDoi()
         {
             // logic cập nhật lại sau khi thêm thành công
@@ -130,7 +187,7 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
 
 
         //stt
-        private  int CapNhatSTT()
+        private int CapNhatSTT()
         {
             int stt = 1;
             foreach (Control control in flowLayoutPanelNhapHang.Controls)
@@ -141,7 +198,7 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
                     stt++;
                 }
             }
-            return stt -1; // Trả về số lượng hàng hóa đã thêm
+            return stt - 1; // Trả về số lượng hàng hóa đã thêm
         }
 
 
@@ -163,14 +220,28 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
 
                 foreach (ClassHangHoa hh in danhSachHangHoa)
                 {
+
                     var userControlHangHoa = new UC_ItemThuoc();
                     userControlHangHoa.SetData(hh);
-                    userControlHangHoa.Dock=DockStyle.Top; // Đặt dock để tự động điều chỉnh chiều rộng
+                    userControlHangHoa.Dock = DockStyle.Top; // Đặt dock để tự động điều chỉnh chiều rộng
                     // Gắn sự kiện Click để thêm vào danh sách nhập hàng
                     userControlHangHoa.Click += (s, args) =>
                     {
+                        // Kiểm tra mã hàng hóa đã tồn tại chưa
+                        var hangHoaDaCo = flowLayoutPanelNhapHang.Controls
+                            .OfType<UserControlHangHoaitemNhapHang>()
+                            .FirstOrDefault(x => x.MaHangHoa == hh.MaHangHoa);
 
-                        var itemHangHoaNhapHang = new UserControlHangHoaitemNhapHang();
+                        if (hangHoaDaCo != null)
+                        {
+                            // Nếu đã có, tăng số lượng lên 1
+                            hangHoaDaCo.SoLuong += 1;
+                            TinhTongTien();
+                            textBoxTimHangHoa.Clear();
+                            panelKetQuaTimKiem.Visible = false;
+                            return;
+                        }
+                        var itemHangHoaNhapHang = new UserControlHangHoaitemNhapHang(_maPhieuNhap);
                         itemHangHoaNhapHang.setData(hh);
 
                         // Đặt chiều rộng chính xác khi thêm
@@ -179,7 +250,7 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
 
                         flowLayoutPanelNhapHang.Controls.Add(itemHangHoaNhapHang);
 
-                        labelSoLuongHH.Text= CapNhatSTT().ToString();
+                        labelSoLuongHH.Text = CapNhatSTT().ToString();
 
                         TinhTongTien();
 
@@ -262,7 +333,7 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
         {
             loaithem = "T"; // Đặt loại thêm thuốc
             // Mở form thêm thuốc
-            FormThemThuoc formThemThuoc = new FormThemThuoc(loaithem,this);
+            FormThemThuoc formThemThuoc = new FormThemThuoc(loaithem, this);
             formThemThuoc.ShowDialog();
             // Sau khi thêm thuốc, cập nhật lại danh sách thuốc
             textBoxTimHangHoa.Text = ""; // Xóa ô tìm kiếm thuốc
@@ -306,15 +377,279 @@ namespace QL_Nha_thuoc.GiaoDich.NhapHang
             }
 
             textBoxTongTien.Text = tongTien.ToString("N0");
+        }
 
-            // Tính tiền cần trả
+
+
+
+
+
+        private void TinhSoTienCanTra()
+        {
+            // Lấy và xử lý tổng tiền hàng
+            decimal tongTien = 0;
+            if (!decimal.TryParse(textBoxTongTien.Text.Replace(" đ", "").Replace(",", ""), out tongTien))
+                tongTien = 0;
+
+            // Lấy và xử lý giá trị giảm giá
             decimal giamGia = 0;
-            decimal.TryParse(textBoxGiamGia.Text, out giamGia);
 
-            decimal canTra = tongTien - giamGia;
-            if (canTra < 0) canTra = 0;
+            if (!decimal.TryParse(textBoxGiamGia.Text.Replace(" đ", "").Replace(",", "").Replace("%", ""), out giamGia))
+                giamGia = 0;
 
-            textBoxCanTra.Text = canTra.ToString("N0");
+            // Tính số tiền cần trả
+            decimal soTienCanTra = tongTien - giamGia;
+            if (soTienCanTra < 0) soTienCanTra = 0;
+
+            textBoxCanTra.Text = soTienCanTra.ToString("N0") + " đ";
+
+        }
+
+
+
+        //bien luu giam tri giam gia 
+        private decimal GiaTriGiamGia;
+        private string LoaiGiamGia = "VND"; // hoặc "%"
+        private void textBoxGiamGia_Click(object sender, EventArgs e)
+        {
+            FormGiamGia formGiamGia = new FormGiamGia();
+
+            // Cấu hình form popup: chỉ hiện nút X
+            formGiamGia.FormBorderStyle = FormBorderStyle.FixedSingle;
+            formGiamGia.MaximizeBox = false;
+            formGiamGia.MinimizeBox = false;
+            formGiamGia.ControlBox = true;
+            formGiamGia.ShowIcon = false;
+            formGiamGia.ShowInTaskbar = false;
+
+
+            formGiamGia.CoSuThayDoiGiamGia += (s, args) =>
+            {
+                LoaiGiamGia = formGiamGia.LoaiGiamGia;
+                GiaTriGiamGia = formGiamGia.GiaTriNhapGiamGia;
+
+                decimal soTienGiam = formGiamGia.TinhSoTienGiamGia();
+                textBoxGiamGia.Text = soTienGiam.ToString("N0") + " đ";
+
+                if (LoaiGiamGia == "%")
+                    labelPhanTramGiam.Text = $"({GiaTriGiamGia.ToString("0.##")}%)";
+                else
+                    labelPhanTramGiam.Text = "";
+
+                TinhSoTienCanTra(); // cập nhật lại số tiền cần trả
+            };
+
+
+            // Tính tọa độ màn hình của TextBox
+            Point viTriManHinh = textBoxGiamGia.PointToScreen(Point.Empty);
+            int formX = viTriManHinh.X;
+            int formY = viTriManHinh.Y + textBoxGiamGia.Height;
+
+            // Kích thước popup
+            int popupWidth = formGiamGia.Width;
+            int popupHeight = formGiamGia.Height;
+
+            // Giới hạn hiển thị trong màn hình
+            Rectangle screenBounds = Screen.GetWorkingArea(this);
+
+            // Nếu tràn ngang, đẩy về bên trái
+            if (formX + popupWidth > screenBounds.Right)
+                formX = screenBounds.Right - popupWidth;
+
+            // Nếu tràn dọc, hiển thị lên trên textbox
+            if (formY + popupHeight > screenBounds.Bottom)
+                formY = viTriManHinh.Y - popupHeight;
+
+            // Gán vị trí và hiển thị form
+            formGiamGia.StartPosition = FormStartPosition.Manual;
+            formGiamGia.Location = new Point(formX, formY);
+            formGiamGia.Show();
+
+            //truyen gia tri cu truoc do 
+            if (decimal.TryParse(textBoxGiamGia.Text.Replace(" đ", "").Replace(",", ""), out decimal giamGia))
+            {
+                formGiamGia.GiaTriNhapGiamGia = giamGia; // Truyền giá trị giảm giá vào formGiamGia
+            }
+            else
+            {
+                formGiamGia.GiaTriNhapGiamGia = 0; // Nếu không parse được, đặt giá trị giảm giá là 0
+            }
+
+            //truyen tong tien hang vao formGiamGia
+            formGiamGia.tongTienHang = decimal.Parse(textBoxTongTien.Text.Replace(" đ", "").Replace(",", ""));
+        }
+
+        private void textBoxTongTien_TextChanged(object sender, EventArgs e)
+        {
+            TinhSoTienCanTra();
+        }
+
+
+        private void LuuPhieuNhap(string trangThai, bool capNhatTonKho, bool taoPhieuChi)
+        {
+            var danhSachHangHoa = flowLayoutPanelNhapHang.Controls.OfType<UserControlHangHoaitemNhapHang>().ToList();
+            if (danhSachHangHoa.Count == 0)
+            {
+                MessageBox.Show("Vui lòng thêm ít nhất một hàng hóa vào phiếu nhập!",
+                    "Thiếu hàng hóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            //kiem tra chon tai khoan hay chua 
+
+            if (comboBoxTaiKhoan.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng chọn tài khoản trước khi lưu phiếu nhập!",
+                    "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            decimal tongTien = 0;
+            decimal.TryParse(textBoxTongTien.Text.Replace(" đ", "").Replace(",", "").Trim(), out tongTien);
+
+            decimal soTienTraNCC = 0;
+            decimal.TryParse(textBoxSoTienTraNCC.Text.Replace(" đ", "").Replace(",", "").Trim(), out soTienTraNCC);
+
+            string maPhieuNhap = textBoxMaPhieuNhap.Text.Trim();
+
+            string tentaikhoan = comboBoxTaiKhoan.SelectedValue?.ToString();
+            string maNhanVien = ClassTaiKhoan.LayTaiKhoan(tentaikhoan).MaNhanVien;
+
+            DateTime ngayTao = DateTime.Now;
+            DateTime ngayNhapHang = DateTime.Now;
+
+            decimal soTienGiam = LoaiGiamGia == "%" ? (tongTien * (GiaTriGiamGia / 100)) : GiaTriGiamGia;
+            decimal soTienCanTra = tongTien - soTienGiam;
+            if (soTienCanTra < 0) soTienCanTra = 0;
+
+            string ghiChu = textBoxGhiChu.Text.Trim();
+
+            var phieuNhap = new ClassPhieuNhapHang
+            {
+                MaPhieuNhap = maPhieuNhap,
+                NgayTaoPhieu = ngayTao,
+                MaNhaCungCap = maNCCdachon,
+                MaNhanVien = maNhanVien,
+                TongTienNhapHang = tongTien,
+                GiamGia = GiaTriGiamGia,
+                SoTienPhaiTra = soTienCanTra,
+                SoTienDaTra = soTienTraNCC,
+                GhiChuPhieuNhap = ghiChu,
+                NgayNhap = ngayNhapHang,
+                TrangThai = trangThai
+            };
+
+            bool phieuDaTonTai = ClassPhieuNhapHang.KiemTraTonTai(maPhieuNhap);
+            if (phieuDaTonTai)
+            {
+                ClassPhieuNhapHang.CapNhatPhieuNhap(phieuNhap);
+                ClassChiTietPhieuNhap.XoaChiTietPhieuNhap(maPhieuNhap);
+            }
+            else
+            {
+                if (!ClassPhieuNhapHang.ThemPhieuNhap(phieuNhap))
+                {
+                    MessageBox.Show("Lưu phiếu nhập thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            foreach (var item in danhSachHangHoa)
+            {
+                var chiTiet = new ClassChiTietPhieuNhap
+                {
+                    MaPhieuNhap = maPhieuNhap,
+                    MaHangHoa = item.MaHangHoa,
+                    MaDonViTinh = item.MaDonViTinh,
+                    GiamGia = item.GiamGia,
+                    TenHangHoa = item.TenHangHoa,
+                    SoLuong = (int)item.SoLuong,
+                    DonGia = item.DonGia,
+                    ThanhTien = item.ThanhTien
+                };
+                ClassChiTietPhieuNhap.ThemChiTietPhieuNhap(chiTiet);
+            }
+
+            if (capNhatTonKho)
+            {
+                foreach (var hh in danhSachHangHoa)
+                {
+                    ClassHangHoa.CapNhatSoLuongTon(hh.MaHangHoa, (int)hh.SoLuong);
+                }
+            }
+
+            if (taoPhieuChi)
+            {
+                ClassPhieuThuChi classPhieuThuChi = new ClassPhieuThuChi
+                {
+                    MaPhieuThuChi = ClassPhieuThuChi.TaoMaPhieuChi(),
+                    MaLoaiPhieu = "CHI",
+                    MaHinhThucThanhToan = "HTTT_TM",
+                    MaPhieuNhap = maPhieuNhap,
+                    MaNhaCungCap = maNCCdachon,
+                    MaNhanVien = maNhanVien,
+                    SoTien = soTienTraNCC,
+                    NgayLapPhieu = DateTime.Now,
+                    NoiDung = "Thanh toán phiếu nhập hàng " + maPhieuNhap,
+                    TrangThaiThanhToan = "Đã chi"
+                };
+                ClassPhieuThuChi.ThemPhieuChi(classPhieuThuChi);
+            }
+
+            labelTrangThai.Text = trangThai;
+            MessageBox.Show($"Phiếu nhập đã được {trangThai.ToLower()}!",
+                "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            this.Close();
+        }
+
+
+
+        private void buttonLuuTam_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(maNCCdachon))
+            {
+                MessageBox.Show("Vui lòng chọn nhà cung cấp trước khi hoàn tất phiếu nhập!",
+                    "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            decimal tongTien = 0;
+            decimal.TryParse(textBoxTongTien.Text.Replace(" đ", "").Replace(",", "").Trim(), out tongTien);
+
+            decimal soTienTraNCC = 0;
+            decimal.TryParse(textBoxSoTienTraNCC.Text.Replace(" đ", "").Replace(",", "").Trim(), out soTienTraNCC);
+            if (soTienTraNCC < tongTien)
+            {
+                MessageBox.Show("Vui lòng thanh toán phiếu nhập!");
+                return;
+            }
+
+            LuuPhieuNhap("Lưu tạm", capNhatTonKho: false, taoPhieuChi: false);
+        }
+
+
+
+        private void buttonHoanThanh_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(maNCCdachon))
+            {
+                MessageBox.Show("Vui lòng chọn nhà cung cấp trước khi hoàn tất phiếu nhập!",
+                    "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            decimal tongTien = 0;
+            decimal.TryParse(textBoxTongTien.Text.Replace(" đ", "").Replace(",", "").Trim(), out tongTien);
+
+            decimal soTienTraNCC = 0;
+            decimal.TryParse(textBoxSoTienTraNCC.Text.Replace(" đ", "").Replace(",", "").Trim(), out soTienTraNCC);
+
+            if (soTienTraNCC < tongTien)
+            {
+                MessageBox.Show("Vui lòng thanh toán phiếu nhập!");
+                return;
+            }
+
+            LuuPhieuNhap("Đã nhập hàng", capNhatTonKho: true, taoPhieuChi: true);
         }
 
 

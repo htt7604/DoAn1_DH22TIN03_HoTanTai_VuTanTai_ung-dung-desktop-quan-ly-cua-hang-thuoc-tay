@@ -82,6 +82,7 @@
             buttonMoPhieu.TabIndex = 9;
             buttonMoPhieu.Text = "Mở phiếu";
             buttonMoPhieu.UseVisualStyleBackColor = true;
+            buttonMoPhieu.Visible = false;
             // 
             // buttonIn
             // 
@@ -91,6 +92,7 @@
             buttonIn.TabIndex = 8;
             buttonIn.Text = "In";
             buttonIn.UseVisualStyleBackColor = true;
+            buttonIn.Click += buttonIn_Click;
             // 
             // tableLayoutPanel2
             // 
@@ -155,6 +157,7 @@
             buttonHuyBo.TabIndex = 1;
             buttonHuyBo.Text = "Hủy bỏ";
             buttonHuyBo.UseVisualStyleBackColor = true;
+            buttonHuyBo.Click += buttonHuyBo_Click;
             // 
             // buttonLuu
             // 
@@ -164,6 +167,7 @@
             buttonLuu.TabIndex = 0;
             buttonLuu.Text = "Lưu";
             buttonLuu.UseVisualStyleBackColor = true;
+            buttonLuu.Click += buttonLuu_Click;
             // 
             // panel1
             // 
@@ -337,6 +341,7 @@
             ClientSize = new Size(1114, 769);
             Controls.Add(tableLayoutPanel1);
             Name = "FormChiTietHoaDon";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormChiTietHoaDon";
             panel3.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);

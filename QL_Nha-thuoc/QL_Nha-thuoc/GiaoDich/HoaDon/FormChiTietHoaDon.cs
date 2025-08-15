@@ -1,4 +1,5 @@
 ﻿using QL_Nha_thuoc.model;
+using QuestPDF.Fluent;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -60,7 +61,7 @@ namespace QL_Nha_thuoc.GiaoDich.HoaDon
                 {
                     labelThoiGian.Text = "";
                 }
-             
+
             }
 
             List<ClassChiTietHoaDon> dschitiethoadon = ClassChiTietHoaDon.LayChiTietTheoMaHD(maHoaDon);
@@ -102,14 +103,77 @@ namespace QL_Nha_thuoc.GiaoDich.HoaDon
             // Gán vào các TextBox (bạn cần tạo trước các TextBox này trong Designer)
             labelTongSoLuong.Text = "Tổng số lượng: " + tongSoLuong.ToString();
             labelTongTienHang.Text = "Tổng tiền hàng: " + tongTienHang.ToString() + " VND";
-            labelGiamGiaHoaDon.Text = "Giảm giá hóa đơn: " + giamgiahoadon.ToString() + " VND" ;
+            labelGiamGiaHoaDon.Text = "Giảm giá hóa đơn: " + giamgiahoadon.ToString() + " VND";
             labelKhachTra.Text = "Khách đã trả: " + khachDaTra.ToString() + " VND";
 
-
-
-
-
-
         }
+
+        private void buttonIn_Click(object sender, EventArgs e)
+        {
+            // Lấy dữ liệu hóa đơn từ mã hóa đơn hiện tại
+            var hoaDon = ClassHoaDon.LayHoaDonTheoMa(maHoaDon);
+            var chiTietHoaDon = ClassChiTietHoaDon.LayChiTietTheoMaHD(maHoaDon);
+
+            if (hoaDon != null && chiTietHoaDon != null)
+            {
+                // Gọi class tạo PDF đã có
+                var document = new HoaDonThanhToanDocument(hoaDon, chiTietHoaDon, null);
+
+                // Xuất file PDF hoặc preview
+                string path = $"HoaDon_{hoaDon.MaHoaDon}.pdf";
+                document.GeneratePdf(path);
+
+                // Mở file sau khi tạo
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                {
+                    FileName = path,
+                    UseShellExecute = true // rất quan trọng để mở bằng ứng dụng mặc định
+                });
+
+            }
+        }
+
+        private void buttonLuu_Click(object sender, EventArgs e)
+        {
+            // Lấy thông tin hóa đơn hiện tại
+            var hoaDon = ClassHoaDon.LayHoaDonTheoMa(maHoaDon);
+            if (hoaDon != null)
+            {
+                // Cập nhật lại ghi chú
+                hoaDon.GhiChuHoaDon = textBoxGhiChu.Text;
+
+                // Gọi phương thức cập nhật vào CSDL
+                bool thanhCong = ClassHoaDon.CapNhatHoaDon(hoaDon);
+
+                if (thanhCong)
+                {
+                    MessageBox.Show("Đã lưu ghi chú thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Lưu ghi chú thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void buttonHuyBo_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Bạn có chắc chắn muốn hủy hóa đơn này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    ClassHoaDon.HuyHoaDon(maHoaDon);
+                    MessageBox.Show("Đã hủy hóa đơn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+
+
     }
 }
